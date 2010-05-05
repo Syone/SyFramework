@@ -1,4 +1,6 @@
 <?php
+namespace Sy;
+
 /**
  * Description of Component
  *
