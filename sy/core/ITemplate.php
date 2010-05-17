@@ -1,11 +1,15 @@
 <?php
 namespace Sy;
 
-/**
- *
- * @author Syone
- */
 interface ITemplate {
-    //put your code here
+
+	public function setRoot($path);
+
+	public function setTemplateFile($fileName);
+
+	public function setVar($var, $value, $append = false);
+
+	public function getRender();
+	
 }
 ?>
