@@ -21,6 +21,10 @@ class Component {
 		$this->template->setVar($var, $value, $append);
 	}
 
+	public function setFile($var, $fileName, $append = false) {
+		$this->template->setFile($var, $fileName, $append);
+	}
+
 	/**
 	 * Add a component
 	 *

@@ -17,6 +17,11 @@ class PhpLibTemplate implements ITemplate {
 		$this->template->set_file('main', $fileName);
 	}
 
+	public function setFile($var, $fileName, $append = false) {
+		$this->template->set_file($fileName, $fileName);
+		$this->template->parse($var, $fileName, $append);
+	}
+
 	public function setVar($var, $value, $append = false) {
 		$this->template->set_var($var, $value, $append);
 	}
