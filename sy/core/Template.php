@@ -1,12 +1,31 @@
 <?php
 namespace Sy;
 
-/**
- * Description of Template
- *
- * @author Syone
- */
 class Template implements ITemplate {
-    //put your code here
+
+	public function setRoot($path) {
+
+	}
+
+	public function setTemplateFile($fileName) {
+
+	}
+
+	public function setFile($var, $fileName, $append = false) {
+
+	}
+
+	public function setVar($var, $value, $append = false) {
+
+	}
+
+	public function setBlock($block) {
+
+	}
+
+	public function getRender() {
+		
+	}
+
 }
 ?>

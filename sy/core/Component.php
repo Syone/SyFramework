@@ -1,39 +1,43 @@
 <?php
 namespace Sy;
 
-/**
- * Description of Component
- *
- * @author Syone
- */
 class Component {
 
+	protected $template;
+
 	public function __construct() {
-		
+		$this->template = TemplateProvider::createTemplate();
 	}
 
-	public function setView() {
-		
+	public function setViewPath($path) {
+		$this->template->setRoot($path);
 	}
 
-	public function setFile() {
-		
+	public function setView($fileName) {
+		$this->template->setTemplateFile($fileName);
 	}
 
-	public function setVar() {
-		
+	public function setVar($var, $value, $append = false) {
+		$this->template->setVar($var, $value, $append);
 	}
 
-	public function setComponent() {
-		
-	}
-
-	public function getRender() {
-
+	/**
+	 * Add a component
+	 *
+	 * @param string $where
+	 * @param Component $component
+	 * @param bool $append
+	 */
+	public function setComponent($where, $component, $append = false) {
+		$this->template->setVar($where, $component->__toString(), $append);
 	}
 
 	public function render() {
-		
+		echo $this->__toString();
+	}
+
+	public function  __toString() {
+		return $this->template->getRender();
 	}
 
 	/**
@@ -96,12 +100,32 @@ class Component {
 		return (isset($_SESSION[$param]) and !empty($_SESSION[$param])) ? $_SESSION[$param] : $default;
 	}
 
+	/**
+	 * Redirect to location
+	 * if location is null, redirect to http referer
+	 * if http referer is not set, do nothing
+	 *
+	 * @param string $location
+	 */
 	protected function redirect($location = NULL) {
-
+		if (empty($location)) {
+			if (isset($_SERVER['HTTP_REFERER']))
+				header('location:' . $_SERVER['HTTP_REFERER']);
+		}
+		else {
+			header('location:' . $location);
+		}
 	}
 
+	/**
+	 * Dispatch an action to the appropriate method
+	 *
+	 * @param string $actionName
+	 * @param string $defaultMethod
+	 */
 	protected function actionDispatch($actionName, $defaultMethod = NULL) {
-		
+		$method = $this->request($actionName, $defaultMethod);
+		if (!empty($method) and method_exists($this, $method)) $this->$method();
 	}
 }
 ?>
