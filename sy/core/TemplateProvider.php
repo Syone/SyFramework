@@ -9,7 +9,6 @@ class TemplateProvider {
 	 * @return ITemplate
 	 */
 	public static function createTemplate() {
-		//return new PhpLibTemplate();
 		return new Template();
 	}
 	

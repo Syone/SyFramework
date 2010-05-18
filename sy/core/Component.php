@@ -25,6 +25,10 @@ class Component {
 		$this->template->setFile($var, $fileName, $append);
 	}
 
+	public function parseBlock($blockName) {
+		$this->template->parseBlock($blockName);
+	}
+
 	/**
 	 * Add a component
 	 *
