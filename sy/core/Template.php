@@ -35,7 +35,7 @@ class Template implements ITemplate {
 		$this->content = $this->getFileContent($fileName);
 	}
 
-	public function setFile($var, $fileName, $append = false) {
+	public function setFile($var, $fileName) {
 		$this->content = str_replace('{' . $var . '}', $this->getFileContent($fileName), $this->content);
 	}
 

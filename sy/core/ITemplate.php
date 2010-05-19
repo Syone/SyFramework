@@ -7,7 +7,7 @@ interface ITemplate {
 
 	public function setTemplateFile($fileName);
 
-	public function setFile($var, $fileName, $append = false);
+	public function setFile($var, $fileName);
 
 	public function setVar($var, $value, $append = false);
 
