@@ -8,8 +8,9 @@ class TemplateProvider {
 	 *
 	 * @return ITemplate
 	 */
-	public static function createTemplate() {
-		return new Template();
+	public static function createTemplate($type = '') {
+		$class = 'Sy\\' . $type . 'Template';
+		return new $class();
 	}
 	
 }

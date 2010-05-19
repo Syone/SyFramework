@@ -9,6 +9,10 @@ class Component {
 		$this->template = TemplateProvider::createTemplate();
 	}
 
+	public function usePhpTemplate() {
+		$this->template = TemplateProvider::createTemplate('php');
+	}
+
 	public function setViewPath($path) {
 		$this->template->setRoot($path);
 	}
