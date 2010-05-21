@@ -3,32 +3,68 @@ namespace Sy;
 
 class Component {
 
+	/**
+	 * Template engine
+	 *
+	 * @var ITemplate
+	 */
 	protected $template;
 
 	public function __construct() {
 		$this->template = TemplateProvider::createTemplate();
 	}
 
+	/**
+	 * Use the php template engine
+	 */
 	public function usePhpTemplate() {
 		$this->template = TemplateProvider::createTemplate('php');
 	}
 
+	/**
+	 * Choose template files directory
+	 *
+	 * @param string $path
+	 */
 	public function setTemplateRoot($path) {
 		$this->template->setRoot($path);
 	}
 
+	/**
+	 * Set the main template file
+	 *
+	 * @param string $file
+	 */
 	public function setTemplateFile($file) {
 		$this->template->setMainFile($file);
 	}
 
+	/**
+	 * Set a value of a variable
+	 *
+	 * @param string $var
+	 * @param string $value
+	 * @param bool $append
+	 */
 	public function setVar($var, $value, $append = false) {
 		$this->template->setVar($var, $value, $append);
 	}
 
+	/**
+	 * Set a file contenat as the value of a variable
+	 *
+	 * @param string $var
+	 * @param string $file
+	 */
 	public function setFile($var, $file) {
 		$this->template->setFile($var, $file);
 	}
 
+	/**
+	 * Parse a block
+	 *
+	 * @param string $block
+	 */
 	public function parseBlock($block) {
 		$this->template->parseBlock($block);
 	}
@@ -44,12 +80,20 @@ class Component {
 		$this->template->setVar($where, $component->__toString(), $append);
 	}
 
-	public function render() {
-		echo $this->__toString();
-	}
-
+	/**
+	 * Return the render of the component
+	 *
+	 * @return string
+	 */
 	public function  __toString() {
 		return $this->template->getRender();
+	}
+
+	/**
+	 * Render the component
+	 */
+	public function render() {
+		echo $this->__toString();
 	}
 
 	/**

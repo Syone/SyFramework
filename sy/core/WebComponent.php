@@ -3,49 +3,42 @@ namespace Sy;
 
 class WebComponent extends Component {
 
-	/**
-	 *
-	 * @var Component
-	 */
-	protected $cssComponent;
-
-	/**
-	 *
-	 * @var Component
-	 */
-	protected $jsComponent;
-
 	protected $cssLinks;
 	protected $jsLinks;
 
+	protected $cssCode;
+	protected $jsCode;
+
 	public function __construct() {
 		parent::__construct();
-		$this->cssComponent = new Component();
-		$this->jsComponent = new Component();
 		$this->cssLinks = array();
 		$this->jsLinks = array();
+		$this->cssCode = '';
+		$this->jsCode = '';
 	}
 
 	public function setComponent($where, $component, $append = false) {
 		parent::setComponent($where, $component, $append);
 		$this->cssLinks = array_merge($this->cssLinks, $component->getCssLinks());
 		$this->jsLinks = array_merge($this->jsLinks, $component->getJsLinks());
+		$this->cssCode .= $component->getCssCode();
+		$this->jsCode .= $component->getJsCode();
 	}
 
-	/**
-	 *
-	 * @return Component
-	 */
-	public function getCss() {
-		return $this->cssComponent;
+	public function getCssCode() {
+		return $this->cssCode;
 	}
 
-	/**
-	 *
-	 * @return Component
-	 */
-	public function getJs() {
-		return $this->jsComponent;
+	public function getJsCode() {
+		return $this->jsCode;
+	}
+
+	public function setCssCode($code) {
+		$this->cssCode = $code;
+	}
+
+	public function setJsCode($code) {
+		$this->jsCode = $code;
 	}
 
 	public function addCssLink($url) {
