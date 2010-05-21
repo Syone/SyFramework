@@ -13,24 +13,24 @@ class Component {
 		$this->template = TemplateProvider::createTemplate('php');
 	}
 
-	public function setViewPath($path) {
+	public function setTemplateRoot($path) {
 		$this->template->setRoot($path);
 	}
 
-	public function setView($fileName) {
-		$this->template->setTemplateFile($fileName);
+	public function setTemplateFile($file) {
+		$this->template->setMainFile($file);
 	}
 
 	public function setVar($var, $value, $append = false) {
 		$this->template->setVar($var, $value, $append);
 	}
 
-	public function setFile($var, $fileName) {
-		$this->template->setFile($var, $fileName);
+	public function setFile($var, $file) {
+		$this->template->setFile($var, $file);
 	}
 
-	public function parseBlock($blockName) {
-		$this->template->parseBlock($blockName);
+	public function parseBlock($block) {
+		$this->template->parseBlock($block);
 	}
 
 	/**

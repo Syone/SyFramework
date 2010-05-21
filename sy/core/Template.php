@@ -31,12 +31,12 @@ class Template implements ITemplate {
 		$this->root = rtrim($path, '/\\');
 	}
 
-	public function setTemplateFile($fileName) {
-		$this->content = $this->getFileContent($fileName);
+	public function setMainFile($file) {
+		$this->content = $this->getFileContent($file);
 	}
 
-	public function setFile($var, $fileName) {
-		$this->content = str_replace('{' . $var . '}', $this->getFileContent($fileName), $this->content);
+	public function setFile($var, $file) {
+		$this->content = str_replace('{' . $var . '}', $this->getFileContent($file), $this->content);
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -46,21 +46,21 @@ class Template implements ITemplate {
 			$this->vars['{' . $var . '}'] = $value;
 	}
 
-	public function parseBlock($blockName) {
-		$this->loadBlock($blockName);
+	public function parseBlock($block) {
+		$this->loadBlock($block);
 
 		$tab = array_merge($this->vars, $this->blockParsed);
 		$varkeys = array_keys($tab);
 		$varvals = array_values($tab);
 
-		$res = str_replace($varkeys, $varvals, $this->blockCached[$blockName]);
+		$res = str_replace($varkeys, $varvals, $this->blockCached[$block]);
 
-		if ($blockName != $this->lastBlock and $blockName != $this->actualBlock) {
-			$this->blockParsed['{' . $blockName . '}'] = '';
+		if ($block != $this->lastBlock and $block != $this->actualBlock) {
+			$this->blockParsed['{' . $block . '}'] = '';
 		}
 
-		$this->actualBlock = $blockName;
-		$this->blockParsed['{' . $blockName . '}'] .= $res;
+		$this->actualBlock = $block;
+		$this->blockParsed['{' . $block . '}'] .= $res;
 	}
 
 	public function getRender() {
@@ -73,19 +73,19 @@ class Template implements ITemplate {
 		return $res;
 	}
 
-	private function getFileContent($fileName) {
-		$file = empty($this->root) ? $fileName : $this->root . '/' . $fileName;
+	private function getFileContent($file) {
+		$file = empty($this->root) ? $file : $this->root . '/' . $file;
 		return file_get_contents($file);
 	}
 
-	private function loadBlock($blockName) {
-		if (!array_key_exists($blockName, $this->blockCached)) {
-			$reg = "/[ \t]*<!--\s+BEGIN $blockName\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END $blockName\s+-->\s*?\n?/sm";
+	private function loadBlock($block) {
+		if (!array_key_exists($block, $this->blockCached)) {
+			$reg = "/[ \t]*<!--\s+BEGIN $block\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END $block\s+-->\s*?\n?/sm";
 			preg_match_all($reg, $this->content, $m);
-			$this->content = preg_replace($reg, "{" . $blockName . "}", $this->content);
-			$this->blockCached[$blockName] = $m[1][0];
-			$this->blockParsed['{' . $blockName . '}'] = '';
-			$this->lastBlock = $blockName;
+			$this->content = preg_replace($reg, "{" . $block . "}", $this->content);
+			$this->blockCached[$block] = $m[1][0];
+			$this->blockParsed['{' . $block . '}'] = '';
+			$this->lastBlock = $block;
 		}
 	}
 }
