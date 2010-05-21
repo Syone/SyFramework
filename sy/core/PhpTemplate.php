@@ -22,12 +22,12 @@ class PhpTemplate implements ITemplate {
 		$this->root = rtrim($path, '/\\');
 	}
 
-	public function setTemplateFile($fileName) {
-		$this->mainFile = empty($this->root) ? $fileName : $this->root . '/' . $fileName;
+	public function setMainFile($file) {
+		$this->mainFile = empty($this->root) ? $file : $this->root . '/' . $file;
 	}
 
-	public function setFile($var, $fileName) {
-		$this->files[$var] = empty($this->root) ? $fileName : $this->root . '/' . $fileName;
+	public function setFile($var, $file) {
+		$this->files[$var] = empty($this->root) ? $file : $this->root . '/' . $file;
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -37,7 +37,7 @@ class PhpTemplate implements ITemplate {
 			$this->vars[$var] = $value;
 	}
 
-	public function parseBlock($blockName) {
+	public function parseBlock($block) {
 
 	}
 
