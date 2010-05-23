@@ -58,23 +58,5 @@ class WebComponent extends Component {
 		$this->jsLinks = array_unique($this->jsLinks);
 		return $this->jsLinks;
 	}
-
-	public function getCssLinksHtml() {
-		$res = array_map(array($this, 'cssLinkToHtml'), $this->getCssLinks());
-		return implode($res);
-	}
-
-	public function getJsLinksHtml() {
-		$res = array_map(array($this, 'jsLinkToHtml'), $this->getJsLinks());
-		return implode($res);
-	}
-
-	private function cssLinkToHtml($url) {
-		return '<link rel="stylesheet" href="'.$url.'" type="text/css" />';
-	}
-
-	private function jsLinkToHtml($url) {
-		return '<script type="text/javascript" src="'.$url.'"></script>';
-	}
 }
 ?>
