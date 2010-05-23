@@ -45,7 +45,7 @@ class WebPage extends WebComponent {
 		);
 
 		// Default doctype
-		if (!array_key_exists($type, $doctype)) $type = 'html5';
+		if (!array_key_exists($type, $doctype)) return;
 
 		$this->setVar('DOCTYPE', $doctype[$type]);
 
