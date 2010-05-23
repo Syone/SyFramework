@@ -1,7 +1,9 @@
 <?php
-use Sy\WebComponent;
+namespace Sy;
 
 class WebPage extends WebComponent {
+
+	private $bodyAttributes;
 
 	public function  __construct() {
 		parent::__construct();
@@ -9,11 +11,16 @@ class WebPage extends WebComponent {
 		$this->setTemplateRoot(__DIR__);
 		$this->setTemplateFile('WebPage.tpl');
 		$this->setDoctype();
-		$this->setVar('CSS_LINKS', '');
-		$this->setVar('JS_LINKS', '');
+		$this->setCharset();
+		$this->bodyAttributes = array();
 		$this->setVar('BODY', '');
 	}
 
+	/**
+	 * Sets the doctype declaration
+	 *
+	 * @param string $type
+	 */
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
 			'html4.01-strict' =>
@@ -35,16 +42,30 @@ class WebPage extends WebComponent {
 			'html5' => '<!DOCTYPE html>',
 		);
 
-		// DOCTYPE par défaut si le DOCTYPE souhaité n'existe pas
+		// Default doctype
 		if (!array_key_exists($type, $doctype)) $type = 'html5';
 
 		$this->setVar('DOCTYPE', $doctype[$type] . "\n");
 
-		// La plupart des documents basé sur XML nécessite l'attribut xmlns=""
+		// xmlns attribute required for xhtml document
 		if (strpos($type, 'xhtml') === 0 )
-			$this->setVar('XMLNS', ' xmlns="http://www.w3.org/1999/xhtml"');
+			$this->setVar('XMLNS', 'http://www.w3.org/1999/xhtml');
 	}
 
+	/**
+	 * Sets the document charset
+	 *
+	 * @param string $charset Charset encoding string
+	 */
+	public function setCharset($charset = 'utf-8') {
+		$this->setVar('CHARSET', $charset);
+	}
+
+	/**
+	 * Sets the page title
+	 *
+	 * @param string $title
+	 */
 	public function setTitle($title) {
 		$this->setVar('TITLE', $title);
 	}
@@ -53,17 +74,37 @@ class WebPage extends WebComponent {
 		$this->setVar('DESCRIPTION', $text);
 	}
 
-	public function setFavicon($icon) {
-		$this->setVar('FAVICON', $icon);
+	public function setFavicon($href, $type = 'image/x-icon', $rel = 'shortcut icon') {
+		$this->setVar('FAVICON_HREF', $href);
+		$this->setVar('FAVICON_TYPE', $type);
+		$this->setVar('FAVICON_REL', $rel);
+	}
+
+	/**
+	 * Sets the body tag attributes
+	 *
+	 * @param array $attributes
+	 */
+	public function setBodyAttributes($attributes) {
+		$this->bodyAttributes = $attributes;
+	}
+
+	public function setBody($content) {
+		$this->setVar('BODY', $content);
+	}
+
+	public function addBody($content) {
+		$this->setVar('BODY', $content, true);
 	}
 
 	public function  __toString() {
-		$this->setVar('CSS_LINKS', $this->getCssLinksHtml());
-		$this->setVar('JS_LINKS', $this->getJsLinksHtml());
+		$this->setVar('CSS_LINKS', $this->getCssLinks());
+		$this->setVar('JS_LINKS', $this->getJsLinks());
 		$css_code = $this->getCssCode();
 		if (!empty($css_code)) $this->setVar('CSS_CODE', $css_code);
 		$js_code = $this->getJsCode();
 		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
+		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		return parent::__toString();
 	}
 }
