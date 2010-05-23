@@ -70,7 +70,7 @@ class WebPage extends WebComponent {
 	 * @param string $content
 	 * @param bool $http_equiv
 	 */
-	function addMeta($name, $content, $http_equiv = false) {
+	public function addMeta($name, $content, $http_equiv = false) {
 		if ($http_equiv)
 			$this->meta['http-equiv'][$name] = $content;
 		else
