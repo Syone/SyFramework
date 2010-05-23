@@ -11,7 +11,6 @@ class WebPage extends WebComponent {
 		$this->usePhpTemplate();
 		$this->setTemplateRoot(__DIR__);
 		$this->setTemplateFile('WebPage.tpl');
-		$this->setDoctype();
 		$this->setCharset();
 		$this->meta['standard'] = array();
 		$this->meta['http-equiv'] = array();
@@ -27,28 +26,28 @@ class WebPage extends WebComponent {
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
 			'html4.01-strict' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/strict.dtd">',
+			'PUBLIC "-//W3C//DTD HTML 4.01//EN"'."\n\t".
+				'"http://www.w3.org/TR/html4/strict.dtd"',
 
 			'html4.01-transitional' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/loose.dtd">',
+			'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n\t".
+				'"http://www.w3.org/TR/html4/loose.dtd"',
 
 			'xhtml1.0-strict' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+			'PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'."\n\t".
+				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
 
 			'xhtml1.0-transitional' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
+			'PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n\t".
+				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
 
-			'html5' => '<!DOCTYPE html>',
+			'html5' => '',
 		);
 
 		// Default doctype
 		if (!array_key_exists($type, $doctype)) $type = 'html5';
 
-		$this->setVar('DOCTYPE', $doctype[$type] . "\n");
+		$this->setVar('DOCTYPE', $doctype[$type]);
 
 		// xmlns attribute required for xhtml document
 		if (strpos($type, 'xhtml') === 0 )

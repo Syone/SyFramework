@@ -1,4 +1,4 @@
-<?php echo $DOCTYPE ?>
+<!DOCTYPE html<?php if (isset($DOCTYPE)) : ?> <?php echo $DOCTYPE?><?php endif ?>>
 <html<?php if (isset($XMLNS)) : ?> xmlns="<?php echo $XMLNS ?>"<?php endif ?>>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?php echo $CHARSET ?>" />
