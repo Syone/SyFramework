@@ -75,7 +75,7 @@ class WebPage extends WebComponent {
 		if ($http_equiv)
 			$this->meta['http-equiv'][$name] = $content;
 		else
-			$this->meta['http-equiv'][$name] = $content;
+			$this->meta['standard'][$name] = $content;
 	}
 
 	/**
