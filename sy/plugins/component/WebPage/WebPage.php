@@ -3,6 +3,7 @@ namespace Sy;
 
 class WebPage extends WebComponent {
 
+	private $meta;
 	private $bodyAttributes;
 
 	public function  __construct() {
@@ -12,8 +13,10 @@ class WebPage extends WebComponent {
 		$this->setTemplateFile('WebPage.tpl');
 		$this->setDoctype();
 		$this->setCharset();
+		$this->meta['standard'] = array();
+		$this->meta['http-equiv'] = array();
 		$this->bodyAttributes = array();
-		$this->setVar('BODY', '');
+		$this->setBody('');
 	}
 
 	/**
@@ -62,6 +65,20 @@ class WebPage extends WebComponent {
 	}
 
 	/**
+	 * Add a meta tag
+	 *
+	 * @param string $name
+	 * @param string $content
+	 * @param bool $http_equiv
+	 */
+	function addMeta($name, $content, $http_equiv = false) {
+		if ($http_equiv)
+			$this->meta['http-equiv'][$name] = $content;
+		else
+			$this->meta['http-equiv'][$name] = $content;
+	}
+
+	/**
 	 * Sets the page title
 	 *
 	 * @param string $title
@@ -70,10 +87,22 @@ class WebPage extends WebComponent {
 		$this->setVar('TITLE', $title);
 	}
 
-	public function setDescription($text) {
-		$this->setVar('DESCRIPTION', $text);
+	/**
+	 * Sets the page description
+	 *
+	 * @param string $description
+	 */
+	public function setDescription($description) {
+		$this->setVar('DESCRIPTION', $description);
 	}
 
+	/**
+	 * Sets the page favicon
+	 *
+	 * @param string $href
+	 * @param string $type
+	 * @param string $rel
+	 */
 	public function setFavicon($href, $type = 'image/x-icon', $rel = 'shortcut icon') {
 		$this->setVar('FAVICON_HREF', $href);
 		$this->setVar('FAVICON_TYPE', $type);
@@ -89,15 +118,32 @@ class WebPage extends WebComponent {
 		$this->bodyAttributes = $attributes;
 	}
 
+	/**
+	 * Sets the body content
+	 *
+	 * @param mixed $content
+	 */
 	public function setBody($content) {
-		$this->setVar('BODY', $content);
+		if ($content instanceof Component)
+			$this->setComponent('BODY', $content);
+		else
+			$this->setVar('BODY', $content);
 	}
 
+	/**
+	 * Add a body content
+	 *
+	 * @param mixed $content
+	 */
 	public function addBody($content) {
-		$this->setVar('BODY', $content, true);
+		if ($content instanceof Component)
+			$this->setComponent('BODY', $content);
+		else
+			$this->setVar('BODY', $content, true);
 	}
 
 	public function  __toString() {
+		$this->setVar('META', $this->meta);
 		$this->setVar('CSS_LINKS', $this->getCssLinks());
 		$this->setVar('JS_LINKS', $this->getJsLinks());
 		$css_code = $this->getCssCode();

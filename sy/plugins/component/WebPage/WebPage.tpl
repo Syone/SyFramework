@@ -2,9 +2,15 @@
 <html<?php if (isset($XMLNS)) : ?> xmlns="<?php echo $XMLNS ?>"<?php endif ?>>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $CHARSET ?>" />
+<?php foreach ($META['http-equiv'] as $name => $content) : ?>
+	<meta http-equiv="<?php echo $name ?>" content="<?php echo $content ?>" />
+<?php endforeach ?>
 <?php if (isset($DESCRIPTION)) : ?>
 	<meta name="description" content="<?php echo $DESCRIPTION ?>" />
 <?php endif ?>
+<?php foreach ($META['standard'] as $name => $content) : ?>
+	<meta name="<?php echo $name ?>" content="<?php echo $content ?>" />
+<?php endforeach ?>
 <?php if (isset($TITLE)) : ?>
 	<title><?php echo $TITLE ?></title>
 <?php endif ?>
