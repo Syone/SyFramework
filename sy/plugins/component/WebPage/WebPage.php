@@ -64,13 +64,13 @@ class WebPage extends WebComponent {
 	}
 
 	/**
-	 * Add a meta tag
+	 * Set a meta tag
 	 *
 	 * @param string $name
 	 * @param string $content
 	 * @param bool $http_equiv
 	 */
-	public function addMeta($name, $content, $http_equiv = false) {
+	public function setMeta($name, $content, $http_equiv = false) {
 		if ($http_equiv)
 			$this->meta['http-equiv'][$name] = $content;
 		else
