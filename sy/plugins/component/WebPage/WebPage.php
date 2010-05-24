@@ -92,7 +92,7 @@ class WebPage extends WebComponent {
 	 * @param string $description
 	 */
 	public function setDescription($description) {
-		$this->setVar('DESCRIPTION', $description);
+		$this->setMeta('Description', $description);
 	}
 
 	/**

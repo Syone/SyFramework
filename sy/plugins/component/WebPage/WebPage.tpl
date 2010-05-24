@@ -5,9 +5,6 @@
 <?php foreach ($META['http-equiv'] as $name => $content) : ?>
 <meta http-equiv="<?php echo $name ?>" content="<?php echo $content ?>" />
 <?php endforeach ?>
-<?php if (isset($DESCRIPTION)) : ?>
-<meta name="description" content="<?php echo $DESCRIPTION ?>" />
-<?php endif ?>
 <?php foreach ($META['standard'] as $name => $content) : ?>
 <meta name="<?php echo $name ?>" content="<?php echo $content ?>" />
 <?php endforeach ?>
