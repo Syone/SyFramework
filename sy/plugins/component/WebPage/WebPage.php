@@ -64,7 +64,7 @@ class WebPage extends WebComponent {
 	}
 
 	/**
-	 * Set a meta tag
+	 * Sets a meta tag
 	 *
 	 * @param string $name
 	 * @param string $content
@@ -136,7 +136,7 @@ class WebPage extends WebComponent {
 	 */
 	public function addBody($content) {
 		if ($content instanceof Component)
-			$this->setComponent('BODY', $content);
+			$this->setComponent('BODY', $content, true);
 		else
 			$this->setVar('BODY', $content, true);
 	}
