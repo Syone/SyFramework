@@ -11,7 +11,7 @@ function autoload($class) {
 spl_autoload_register("Sy\Form\autoload");
 
 
-abstract class Form extends Element {
+abstract class Form extends Container {
 
 	public function __construct() {
 		parent::__construct();
@@ -33,16 +33,7 @@ abstract class Form extends Element {
 	}
 
 	public function addFieldset($legend = NULL) {
-		$fieldset = new Fieldset($legend);
-		$this->addElement($fieldset);
-		return $fieldset;
-	}
-
-	public function addInput($attributes, $options = array()) {
-		$input = new Input();
-		$input->setAttributes($attributes);
-		$input->setOptions($options);
-		$this->addElement($input);
+		return $this->addElement(new Fieldset($legend));
 	}
 
 	abstract public function init();
