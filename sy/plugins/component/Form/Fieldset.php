@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Fieldset extends Element {
+class Fieldset extends Container {
 
 	private $legend;
 
@@ -15,13 +15,6 @@ class Fieldset extends Element {
 
 	public function setLegend($legend) {
 		$this->legend = $legend;
-	}
-
-	public function addInput($attributes, $options = array()) {
-		$input = new Input();
-		$input->setAttributes($attributes);
-		$input->setOptions($options);
-		$this->addElement($input);
 	}
 
 	public function __toString() {
