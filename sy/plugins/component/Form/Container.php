@@ -2,23 +2,18 @@
 namespace Sy\Form;
 
 class Container extends Element {
-
+	
 	protected $elements;
 
-	public function __construct() {
-		parent::__construct();
+	public function __construct($name = '') {
+		parent::__construct($name);
+		$this->setTemplateFile('Container.tpl');
 		$this->elements = array();
 	}
 
 	public function addElement($element) {
 		$this->elements[] = $element;
-	}
-
-	public function addInput($attributes, $options = array()) {
-		$input = new Input();
-		$input->setAttributes($attributes);
-		$input->setOptions($options);
-		$this->addElement($input);
+		return $element;
 	}
 
 	public function __toString() {

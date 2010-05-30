@@ -11,12 +11,10 @@ function autoload($class) {
 spl_autoload_register("Sy\Form\autoload");
 
 
-abstract class Form extends Container {
+abstract class Form extends FieldContainer {
 
 	public function __construct() {
 		parent::__construct();
-		$this->usePhpTemplate();
-		$this->setTemplateRoot(__DIR__ . '/templates');
 		$this->setTemplateFile('Form.tpl');
 		$this->attributes = array(
 			'action'  => '',

@@ -1,14 +1,12 @@
 <?php
 namespace Sy\Form;
 
-class Fieldset extends Container {
+class Fieldset extends FieldContainer {
 
 	private $legend;
 
 	public function __construct($legend = NULL) {
 		parent::__construct();
-		$this->usePhpTemplate();
-		$this->setTemplateRoot(__DIR__ . '/templates');
 		$this->setTemplateFile('Fieldset.tpl');
 		$this->legend = $legend;
 	}
