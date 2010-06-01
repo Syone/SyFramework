@@ -42,6 +42,8 @@ class PhpTemplate implements ITemplate {
 	}
 
 	public function getRender() {
+		if (empty($this->mainFile)) return '';
+
 		$this->renderFiles();
 
 		foreach ($this->vars as $name => $value) {
