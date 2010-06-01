@@ -3,18 +3,38 @@ namespace Sy;
 
 class Query {
 	private $DBConnection;
-	private $affected_rows;
+	private $affectedRows;
+	private $PDOStatement;
 	
 	public function __construct($databaseID) {
 		$this->DBConnection = ConnectionManager::getConnection($databaseID);
 		
-		// TODO: maybe check whether connection is retrieved.
+		// FIXME maybe check whether connection is retrieved.
 		
-		$this->affected_rows = 0;
+		$this->affectedRows = 0;
 	}
 	
-	public function query($query) {
+	public function execute($query, $params) {
+		$ret = true;
 		
+		try {
+			$this->PDOStatement = $this->DBConnection->prepare($query);
+			$this->PDOStatement->execute($params);
+			
+			$this->affectedRows = $this->PDOStatement->rowCount();
+		} catch (PDOException $e) {
+			$ret = false;
+		}
+		
+		return $ret;
+	}
+	
+	public function fetch() {
+		return $this->PDOStatement->fetch();
+	}
+	
+	public function getStatement() {
+		return $this->PDOStatement;
 	}
 }
 ?>
