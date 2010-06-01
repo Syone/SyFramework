@@ -3,6 +3,6 @@ namespace Sy;
 
 const ROOT = '';
 
-const PLUGIN = 'sy/plugins';
+const COMPONENT_ROOT = 'sy/components';
 
 ?>
