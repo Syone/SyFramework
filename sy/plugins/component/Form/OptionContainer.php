@@ -3,7 +3,7 @@ namespace Sy\Form;
 
 class OptionContainer extends Container {
 
-	public function addOptGroup($label, $options = array()) {
+	public function addOptGroup($label) {
 		$optgroup = new OptionContainer('optgroup');
 		$optgroup->setAttribute('label', $label);
 		foreach ($options as $value => $label) {
