@@ -11,7 +11,6 @@ class WebPage extends WebComponent {
 		$this->usePhpTemplate();
 		$this->setTemplateRoot(__DIR__);
 		$this->setTemplateFile('WebPage.tpl');
-		$this->setDoctype();
 		$this->setCharset();
 		$this->meta['standard'] = array();
 		$this->meta['http-equiv'] = array();
@@ -27,28 +26,28 @@ class WebPage extends WebComponent {
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
 			'html4.01-strict' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/strict.dtd">',
+			'PUBLIC "-//W3C//DTD HTML 4.01//EN"'."\n\t".
+				'"http://www.w3.org/TR/html4/strict.dtd"',
 
 			'html4.01-transitional' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/loose.dtd">',
+			'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n\t".
+				'"http://www.w3.org/TR/html4/loose.dtd"',
 
 			'xhtml1.0-strict' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+			'PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'."\n\t".
+				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
 
 			'xhtml1.0-transitional' =>
-			'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">',
+			'PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n\t".
+				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
 
-			'html5' => '<!DOCTYPE html>',
+			'html5' => '',
 		);
 
 		// Default doctype
-		if (!array_key_exists($type, $doctype)) $type = 'html5';
+		if (!array_key_exists($type, $doctype)) return;
 
-		$this->setVar('DOCTYPE', $doctype[$type] . "\n");
+		$this->setVar('DOCTYPE', $doctype[$type]);
 
 		// xmlns attribute required for xhtml document
 		if (strpos($type, 'xhtml') === 0 )
@@ -65,17 +64,17 @@ class WebPage extends WebComponent {
 	}
 
 	/**
-	 * Add a meta tag
+	 * Sets a meta tag
 	 *
 	 * @param string $name
 	 * @param string $content
 	 * @param bool $http_equiv
 	 */
-	function addMeta($name, $content, $http_equiv = false) {
+	public function setMeta($name, $content, $http_equiv = false) {
 		if ($http_equiv)
 			$this->meta['http-equiv'][$name] = $content;
 		else
-			$this->meta['http-equiv'][$name] = $content;
+			$this->meta['standard'][$name] = $content;
 	}
 
 	/**
@@ -93,7 +92,7 @@ class WebPage extends WebComponent {
 	 * @param string $description
 	 */
 	public function setDescription($description) {
-		$this->setVar('DESCRIPTION', $description);
+		$this->setMeta('Description', $description);
 	}
 
 	/**
@@ -137,7 +136,7 @@ class WebPage extends WebComponent {
 	 */
 	public function addBody($content) {
 		if ($content instanceof Component)
-			$this->setComponent('BODY', $content);
+			$this->setComponent('BODY', $content, true);
 		else
 			$this->setVar('BODY', $content, true);
 	}
