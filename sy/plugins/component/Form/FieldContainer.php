@@ -10,9 +10,10 @@ class FieldContainer extends Container {
 		return $this->addElement($input);
 	}
 
-	public function addSelect($attributes = array()) {
+	public function addSelect($attributes = array(), $options= array()) {
 		$select = new OptionContainer('select');
 		$select->setAttributes($attributes);
+		$select->setOptions($options);
 		return $this->addElement($select);
 	}
 
