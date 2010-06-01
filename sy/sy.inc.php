@@ -9,7 +9,7 @@ function autoload($class) {
 	if (file_exists($file = __DIR__ . "/core/$class.php")) {
 		require_once $file;
 	}
-	else if (file_exists($file = __DIR__ . "/../" . PLUGIN . "/component/$class/$class.php")) {
+	else if (file_exists($file = __DIR__ . "/../" . COMPONENT_ROOT . "/$class/$class.php")) {
 		require_once $file;
 	}
 }
