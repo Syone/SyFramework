@@ -6,9 +6,6 @@ class OptionContainer extends Container {
 	public function addOptGroup($label) {
 		$optgroup = new OptionContainer('optgroup');
 		$optgroup->setAttribute('label', $label);
-		foreach ($options as $value => $label) {
-			$optgroup->addOption($label, $value);
-		}
 		return $this->addElement($optgroup);
 	}
 
