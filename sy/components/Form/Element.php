@@ -41,6 +41,10 @@ class Element extends WebComponent {
 		$this->options = $options;
 	}
 
+	public function setOption($name, $value) {
+		$this->options[$name] = $value;
+	}
+
 	public function __toString() {
 		$this->setVar('NAME', $this->name);
 		$this->setVar('CONTENT', $this->content);
