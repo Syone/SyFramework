@@ -8,9 +8,7 @@ class WebPage extends WebComponent {
 
 	public function  __construct() {
 		parent::__construct();
-		$this->usePhpTemplate();
-		$this->setTemplateRoot(__DIR__);
-		$this->setTemplateFile('WebPage.tpl');
+		$this->setTemplateFile(__DIR__ . '/WebPage.tpl', 'php');
 		$this->setCharset();
 		$this->meta['standard'] = array();
 		$this->meta['http-equiv'] = array();

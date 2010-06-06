@@ -7,7 +7,7 @@ class Fieldset extends FieldContainer {
 
 	public function __construct($legend = NULL) {
 		parent::__construct();
-		$this->setTemplateFile('Fieldset.tpl');
+		$this->setTemplateFile(__DIR__ . '/templates/Fieldset.tpl', 'php');
 		$this->legend = $legend;
 	}
 
