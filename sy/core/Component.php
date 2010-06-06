@@ -10,15 +10,11 @@ class Component {
 	 */
 	protected $template;
 
-	public function __construct() {
-		$this->template = TemplateProvider::createTemplate();
-	}
+	protected $templateType;
 
-	/**
-	 * Use the php template engine
-	 */
-	public function usePhpTemplate() {
-		$this->template = TemplateProvider::createTemplate('php');
+	public function __construct() {
+		$this->templateType = '';
+		$this->template = TemplateProvider::createTemplate();
 	}
 
 	/**
@@ -35,7 +31,13 @@ class Component {
 	 *
 	 * @param string $file
 	 */
-	public function setTemplateFile($file) {
+	public function setTemplateFile($file, $type = '') {
+		if ($type != $this->templateType) {
+			$this->templateType = $type;
+			$root = $this->template->getRoot();
+			$this->template = TemplateProvider::createTemplate($type);
+			$this->template->setRoot($root);
+		}
 		$this->template->setMainFile($file);
 	}
 
