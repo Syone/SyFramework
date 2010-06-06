@@ -13,8 +13,8 @@ abstract class Form extends FieldContainer {
 			'method'  => 'post',
 		);
 		$this->elements = array();
-		$this->actionDispatch('formAction');
 		$this->init();
+		$this->actionDispatch('formAction');
 	}
 
 	public function setAttributes($attributes) {
