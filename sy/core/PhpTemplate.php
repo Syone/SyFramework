@@ -18,6 +18,10 @@ class PhpTemplate implements ITemplate {
 		$this->files = array();
 	}
 
+	public function getRoot() {
+		return $this->root;
+	}
+
 	public function setRoot($path) {
 		$this->root = rtrim($path, '/\\');
 	}

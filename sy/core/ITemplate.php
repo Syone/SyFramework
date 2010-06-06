@@ -3,6 +3,8 @@ namespace Sy;
 
 interface ITemplate {
 
+	public function getRoot();
+
 	public function setRoot($path);
 
 	public function setMainFile($file);

@@ -27,6 +27,10 @@ class Template implements ITemplate {
 		$this->lastBlock = '';
 	}
 
+	public function getRoot() {
+		return $this->root;
+	}
+
 	public function setRoot($path) {
 		$this->root = rtrim($path, '/\\');
 	}
