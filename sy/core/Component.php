@@ -18,12 +18,23 @@ class Component {
 	}
 
 	/**
-	 * Choose template files directory
+	 * Return template type
 	 *
-	 * @param string $path
+	 * @return string
 	 */
-	public function setTemplateRoot($path) {
-		$this->template->setRoot($path);
+	public function getTemplateType() {
+		return $this->templateType;
+	}
+
+	/**
+	 * Set the template type
+	 *
+	 * @param string $type
+	 */
+	public function setTemplateType($type = '') {
+		if ($this->templateType == $type) return;
+		$this->templateType = $type;
+		$this->template = TemplateProvider::createTemplate($type);
 	}
 
 	/**
@@ -32,12 +43,7 @@ class Component {
 	 * @param string $file
 	 */
 	public function setTemplateFile($file, $type = '') {
-		if ($type != $this->templateType) {
-			$this->templateType = $type;
-			$root = $this->template->getRoot();
-			$this->template = TemplateProvider::createTemplate($type);
-			$this->template->setRoot($root);
-		}
+		$this->setTemplateType($type);
 		$this->template->setMainFile($file);
 	}
 

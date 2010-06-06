@@ -3,8 +3,6 @@ namespace Sy;
 
 class PhpTemplate implements ITemplate {
 
-	private $root;
-
 	private $mainFile;
 
 	private $files;
@@ -12,26 +10,17 @@ class PhpTemplate implements ITemplate {
 	private $vars;
 
 	public function  __construct() {
-		$this->root = '';
 		$this->mainFile = '';
 		$this->vars = array();
 		$this->files = array();
 	}
 
-	public function getRoot() {
-		return $this->root;
-	}
-
-	public function setRoot($path) {
-		$this->root = rtrim($path, '/\\');
-	}
-
 	public function setMainFile($file) {
-		$this->mainFile = empty($this->root) ? $file : $this->root . '/' . $file;
+		$this->mainFile = $file;
 	}
 
 	public function setFile($var, $file) {
-		$this->files[$var] = empty($this->root) ? $file : $this->root . '/' . $file;
+		$this->files[$var] = $file;
 	}
 
 	public function setVar($var, $value, $append = false) {
