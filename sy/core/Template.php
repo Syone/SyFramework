@@ -3,8 +3,6 @@ namespace Sy;
 
 class Template implements ITemplate {
 
-	private $root;
-
 	private $content;
 
 	private $vars;
@@ -18,7 +16,6 @@ class Template implements ITemplate {
 	private $lastBlock;
 
 	public function  __construct() {
-		$this->root = '';
 		$this->content = '';
 		$this->vars = array();
 		$this->blockCached = array();
@@ -27,20 +24,12 @@ class Template implements ITemplate {
 		$this->lastBlock = '';
 	}
 
-	public function getRoot() {
-		return $this->root;
-	}
-
-	public function setRoot($path) {
-		$this->root = rtrim($path, '/\\');
-	}
-
 	public function setMainFile($file) {
-		$this->content = $this->getFileContent($file);
+		$this->content = file_get_contents($file);
 	}
 
 	public function setFile($var, $file) {
-		$this->content = str_replace('{' . $var . '}', $this->getFileContent($file), $this->content);
+		$this->content = str_replace('{' . $var . '}', file_get_contents($file), $this->content);
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -75,11 +64,6 @@ class Template implements ITemplate {
 		$res = preg_replace("/[ \t]*<!--\s+BEGIN .+\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END .+\s+-->\s*?\n?/sm", "", $res);
 		$res = preg_replace('/{[^ \t\r\n}]+}/', "", $res);
 		return $res;
-	}
-
-	private function getFileContent($file) {
-		$file = empty($this->root) ? $file : $this->root . '/' . $file;
-		return file_get_contents($file);
 	}
 
 	private function loadBlock($block) {
