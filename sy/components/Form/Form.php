@@ -1,22 +1,13 @@
 <?php
 namespace Sy\Form;
 
-function autoload($class) {
-	$class = str_replace('\\', '/', $class);
-	$class = basename($class);
-	if (file_exists($file = __DIR__ . "/$class.php")) {
-		require_once $file;
-	}
-}
-
-spl_autoload_register("Sy\Form\autoload");
-
+require __DIR__ . '/autoload.php';
 
 abstract class Form extends FieldContainer {
 
 	public function __construct() {
 		parent::__construct();
-		$this->setTemplateFile('Form.tpl');
+		$this->setTemplateFile(__DIR__ . '/templates/Form.tpl', 'php');
 		$this->attributes = array(
 			'action'  => '',
 			'method'  => 'post',

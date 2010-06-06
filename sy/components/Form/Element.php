@@ -12,9 +12,7 @@ class Element extends WebComponent {
 
 	public function __construct($name = '') {
 		parent::__construct();
-		$this->usePhpTemplate();
-		$this->setTemplateRoot(__DIR__ . '/templates');
-		$this->setTemplateFile('Element.tpl');
+		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->name = $name;
 		$this->content = '';
 		$this->attributes = array();
@@ -48,8 +46,10 @@ class Element extends WebComponent {
 	public function __toString() {
 		$this->setVar('NAME', $this->name);
 		$this->setVar('CONTENT', $this->content);
-		$this->setVar('ATTRIBUTES', $this->attributes);
-		$this->setVar('OPTIONS', $this->options);
+		if ($this->getTemplateType() == 'php') {
+			$this->setVar('ATTRIBUTES', $this->attributes);
+			$this->setVar('OPTIONS', $this->options);
+		}
 		return parent::__toString();
 	}
 }

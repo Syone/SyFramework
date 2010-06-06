@@ -7,7 +7,7 @@ class Container extends Element {
 
 	public function __construct($name = '') {
 		parent::__construct($name);
-		$this->setTemplateFile('Container.tpl');
+		$this->setTemplateFile(__DIR__ . '/templates/Container.tpl', 'php');
 		$this->elements = array();
 	}
 
@@ -17,7 +17,8 @@ class Container extends Element {
 	}
 
 	public function __toString() {
-		$this->setVar('ELEMENTS', $this->elements);
+		if ($this->getTemplateType() == 'php')
+			$this->setVar('ELEMENTS', $this->elements);
 		return parent::__toString();
 	}
 }
