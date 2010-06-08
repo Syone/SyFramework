@@ -188,7 +188,7 @@ class Component {
 	 * @param string $defaultMethod
 	 */
 	protected function actionDispatch($actionName, $defaultMethod = NULL) {
-		$method = $this->request($actionName, $defaultMethod);
+		$method = 'action' . $this->request($actionName, $defaultMethod);
 		if (!empty($method) and method_exists($this, $method)) $this->$method();
 	}
 }
