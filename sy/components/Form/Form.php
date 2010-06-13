@@ -7,7 +7,7 @@ abstract class Form extends FieldContainer {
 
 	private static $instances = 0;
 
-	private $formId = 0;
+	protected $formId = 0;
 
 	public function __construct() {
 		parent::__construct();
@@ -27,13 +27,22 @@ abstract class Form extends FieldContainer {
 		$this->attributes = $attributes;
 	}
 
+	/**
+	 *
+	 * @param string $legend
+	 * @return Fieldset
+	 */
 	public function addFieldset($legend = NULL) {
 		return $this->addElement(new Fieldset($legend));
 	}
 
+	public function isValid() {
+		
+	}
+
 	public function __toString() {
-		$actionElement = new Element('input');
-		$actionElement->setAttributes(array('type' => 'hidden', 'name' => 'formAction' . $this->formId, 'value' => 'Perform' ));
+		$actionElement = new Hidden();
+		$actionElement->setAttributes(array('name' => 'formAction' . $this->formId, 'value' => 'Perform' ));
 		$this->setComponent('ACTION_ELEMENT', $actionElement);
 		return parent::__toString();
 	}
