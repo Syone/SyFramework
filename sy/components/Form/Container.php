@@ -16,6 +16,19 @@ class Container extends Element {
 		return $element;
 	}
 
+	public function fill($values) {
+		foreach ($this->elements as $e) {
+			if ($e instanceof Container) {
+				$e->fill($values);
+			} else {
+				if (!isset($e->attributes['name'])) continue;
+				$name = $e->attributes['name'];
+				if (!isset($values[$name])) continue;
+				$e->fill($values[$name]);
+			}
+		}
+	}
+
 	public function __toString() {
 		if ($this->getTemplateType() == 'php')
 			$this->setVar('ELEMENTS', $this->elements);

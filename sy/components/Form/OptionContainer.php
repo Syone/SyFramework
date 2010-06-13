@@ -10,10 +10,22 @@ class OptionContainer extends Container {
 	}
 
 	public function addOption($label, $value = '') {
-		$option = new Element('option');
+		$option = new Option();
 		$option->setContent($label);
 		if (!empty($value)) $option->setAttribute('value', $value);
 		return $this->addElement($option);
+	}
+
+	public function fill($values) {
+		foreach ($this->elements as $e) {
+			if (isset($this->attributes['name'])) {
+				$name = rtrim($this->attributes['name'], '[]');
+				if (isset($values[$name])) $e->fill($values[$name]);
+			}
+			else {
+				$e->fill($values);
+			}
+		}
 	}
 }
 ?>
