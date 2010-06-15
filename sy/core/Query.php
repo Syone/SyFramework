@@ -2,51 +2,51 @@
 namespace Sy;
 
 class Query {
-  private $DBConnection;
-  private $PDOStatement;
+	private $DBConnection;
+	private $PDOStatement;
 
-  public function __construct($databaseID) {
-    $this->DBConnection = ConnectionManager::getConnection($databaseID);
+	public function __construct($databaseID = 0) {
+		$this->DBConnection = ConnectionManager::instance()->getConnection($databaseID);
 
-    // FIXME maybe check whether connection is retrieved.
+		// FIXME maybe check whether connection is retrieved.
 
-    $this->affectedRows = 0;
-  }
+		$this->affectedRows = 0;
+	}
 
-  public function errorInfo() {
-    $infos = $this->PDOStatement->errorInfo();
+	public function errorInfo() {
+		$infos = $this->PDOStatement->errorInfo();
 
-    if (!isset($infos[0]))
-      return null;
+		if (!isset($infos[0]))
+			return null;
 
 
-    return $infos[2];
-  }
+		return $infos[2];
+	}
 
-  public function execute($query, $params) {
-    $ret = true;
+	public function execute($query, $params = array()) {
+		$ret = true;
 
-    try {
-      $this->PDOStatement = $this->DBConnection->prepare($query);
-      $this->PDOStatement->execute($params);
-    } catch (PDOException $e) {
-      $ret = false;
-    }
+		try {
+			$this->PDOStatement = $this->DBConnection->prepare($query);
+			$this->PDOStatement->execute($params);
+		} catch (PDOException $e) {
+			$ret = false;
+		}
 
-    return $ret;
-  }
+		return $ret;
+	}
 
-  public function fetch() {
-    return $this->PDOStatement->fetch();
-  }
+	public function fetch() {
+		return $this->PDOStatement->fetch();
+	}
 
-  public function getStatement() {
-    return $this->PDOStatement;
-  }
+	public function getStatement() {
+		return $this->PDOStatement;
+	}
 
-  public function rowCount() {
-    return $this->PDOStatement->rowCount();
-  }
+	public function rowCount() {
+		return $this->PDOStatement->rowCount();
+	}
 }
 
 ?>
