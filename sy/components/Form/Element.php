@@ -44,7 +44,9 @@ abstract class Element extends WebComponent {
 	}
 
 	public function setOptions($options) {
-		$this->options = $options;
+		foreach ($options as $name => $value) {
+			$this->setOption($name, $value);
+		}
 	}
 
 	public function setOption($name, $value) {

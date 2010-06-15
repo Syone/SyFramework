@@ -6,14 +6,16 @@ class FieldContainer extends Container {
 	protected function addInput($class, $attributes = array(), $options = array()) {
 		$class = __NAMESPACE__ . '\\' . $class;
 		$input = new $class();
-		foreach ($attributes as $name => $value) {
-			$input->setAttribute($name, $value);
-		}
+		$input->setAttributes($attributes);
 		$input->setOptions($options);
 		return $this->addElement($input);
 	}
 
 	public function addText($attributes = array(), $options = array()) {
+		$this->addInput('Text', $attributes, $options);
+	}
+
+	public function addPassword($attributes = array(), $options = array()) {
 		$this->addInput('Text', $attributes, $options);
 	}
 
@@ -35,12 +37,14 @@ class FieldContainer extends Container {
 	public function addButton($label, $attributes = array()) {
 		$button = new Button();
 		$button->setContent($label);
+		$button->setAttributes($attributes);
 		return $this->addElement($button);
 	}
 
-	public function addTextarea($content = '') {
+	public function addTextarea($attributes = array(), $options= array()) {
 		$textarea = new Textarea();
-		$textarea->setContent($content);
+		$textarea->setAttributes($attributes);
+		$textarea->setOptions($options);
 		return $this->addElement($textarea);
 	}
 	
