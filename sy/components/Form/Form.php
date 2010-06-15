@@ -28,8 +28,9 @@ abstract class Form extends FieldContainer {
 	}
 
 	/**
+	 * Add a fieldset element in the form
 	 *
-	 * @param string $legend
+	 * @param string $legend the fieldset legend
 	 * @return Fieldset
 	 */
 	public function addFieldset($legend = NULL) {

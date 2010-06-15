@@ -11,31 +11,31 @@ class FieldContainer extends Container {
 	}
 
 	public function addCheckbox($attributes = array(), $options = array()) {
-		$this->addInput('Checkbox', $attributes, $options);
+		return $this->addInput('Checkbox', $attributes, $options);
 	}
 
 	public function addFile($attributes = array(), $options = array()) {
-		$this->addInput('File', $attributes, $options);
+		return $this->addInput('File', $attributes, $options);
 	}
 
 	public function addHidden($attributes = array(), $options = array()) {
-		$this->addInput('Hidden', $attributes, $options);
+		return $this->addInput('Hidden', $attributes, $options);
 	}
 
 	public function addImage($attributes = array(), $options = array()) {
-		$this->addInput('Image', $attributes, $options);
+		return $this->addInput('Image', $attributes, $options);
 	}
 
 	public function addPassword($attributes = array(), $options = array()) {
-		$this->addInput('Text', $attributes, $options);
+		return $this->addInput('Text', $attributes, $options);
 	}
 
 	public function addRadio($attributes = array(), $options = array()) {
-		$this->addInput('Radio', $attributes, $options);
+		return $this->addInput('Radio', $attributes, $options);
 	}
 
 	public function addReset($attributes = array(), $options = array()) {
-		$this->addInput('Reset', $attributes, $options);
+		return $this->addInput('Reset', $attributes, $options);
 	}
 
 	public function addSelect($attributes = array(), $options= array()) {
@@ -46,11 +46,11 @@ class FieldContainer extends Container {
 	}
 
 	public function addSubmit($attributes = array(), $options = array()) {
-		$this->addInput('Submit', $attributes, $options);
+		return $this->addInput('Submit', $attributes, $options);
 	}
 
 	public function addText($attributes = array(), $options = array()) {
-		$this->addInput('Text', $attributes, $options);
+		return $this->addInput('Text', $attributes, $options);
 	}
 
 	public function addTextarea($attributes = array(), $options= array()) {
