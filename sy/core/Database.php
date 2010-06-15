@@ -2,45 +2,54 @@
 namespace Sy;
 
 class Database {
-  private $driver;
-  private $host;
-  private $database;
-  private $username;
-  private $password;
-  private $dbh;
+	private $driver;
+	private $host;
+	private $database;
+	private $username;
+	private $password;
 
-  public function __construct($driver, $host, $database, $username, $password) {
-    $this->driver = $driver;
-    $this->host = $host;
-    $this->database = $database;
-    $this->username = $username;
-    $this->password = $password;
-  }
+	/**
+	 *
+	 * @var DatabaseHandler
+	 */
+	private $dbh;
 
-  public function beginTransaction() {
-    $this->dbh->beginTransaction();
-  }
+	public function __construct($driver, $host, $database, $username, $password) {
+		$this->driver = $driver;
+		$this->host = $host;
+		$this->database = $database;
+		$this->username = $username;
+		$this->password = $password;
+	}
 
-  public function commit() {
-    $this->dbh->commit();
-  }
+	public function beginTransaction() {
+		$this->dbh->beginTransaction();
+	}
 
-  public function open() {
-    $connected = false;
+	public function commit() {
+		$this->dbh->commit();
+	}
 
-    try {
-      $this->dbh = new PDO($this->driver.':dbname='.$this->database.';host='.$this->host, $this->username, $this->password);
-      $connected = true;
-    } catch (DOException $e) {
-      // ERROR: failed to create connection to database.
-    }
+	public function open() {
+		$connected = false;
 
-    return $connected;
-  }
+		try {
+			$this->dbh = new \PDO($this->driver.':dbname='.$this->database.';host='.$this->host, $this->username, $this->password);
+			$connected = true;
+		} catch (DOException $e) {
+			// ERROR: failed to create connection to database.
+		}
 
-  public function rollBack() {
-    $this->dbh->rollBack();
-  }
+		return $connected;
+	}
+
+	public function prepare($statement) {
+		return $this->dbh->prepare($statement);
+	}
+
+	public function rollBack() {
+		$this->dbh->rollBack();
+	}
 }
 
 ?>
