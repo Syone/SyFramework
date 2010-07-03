@@ -9,7 +9,11 @@ class Reset extends Element {
 	}
 
 	public function fill($value) {
+		return;
+	}
 
+	public function isValid() {
+		return true;
 	}
 }
 ?>

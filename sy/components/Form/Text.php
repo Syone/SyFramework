@@ -11,5 +11,18 @@ class Text extends Element {
 	public function fill($value) {
 		$this->setAttribute('value', $value);
 	}
+
+	public function isValid($value) {
+		foreach ($this->options['validator'] as $v) {
+			$filter = filter_id($v);
+			$options = array();
+			if (empty($filter) and function_exists($v)) {
+				$filter = FILTER_CALLBACK;
+				$options['options'] = $v;
+			}
+			if (!filter_var($value, $filter, $options)) return false;
+		}
+		return true;
+	}
 }
 ?>

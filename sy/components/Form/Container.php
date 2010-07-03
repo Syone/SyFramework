@@ -29,6 +29,20 @@ class Container extends Element {
 		}
 	}
 
+	public function isValid($values) {
+		foreach ($this->elements as $e) {
+			if ($e instanceof Container) {
+				if (!$e->isValid($values)) return false;
+			} else {
+				if (!isset($e->attributes['name'])) continue;
+				$name = $e->attributes['name'];
+				if (!isset($values[$name])) continue;
+				if (!$e->isValid($values[$name])) return false;
+			}
+		}
+		return true;
+	}
+
 	public function __toString() {
 		if ($this->getTemplateType() == 'php')
 			$this->setVar('ELEMENTS', $this->elements);

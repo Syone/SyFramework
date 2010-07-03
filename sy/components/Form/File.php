@@ -11,5 +11,9 @@ class File extends Element {
 	public function fill($value) {
 
 	}
+
+	public function isValid($value) {
+		return true;
+	}
 }
 ?>

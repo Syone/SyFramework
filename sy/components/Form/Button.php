@@ -8,7 +8,11 @@ class Button extends Element {
 	}
 
 	public function fill($value) {
-		
+		return;
+	}
+
+	public function isValid($value) {
+		return true;
 	}
 }
 ?>
