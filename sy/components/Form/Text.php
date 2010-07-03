@@ -13,6 +13,7 @@ class Text extends Element {
 	}
 
 	public function isValid($value) {
+		if ($this->isRequired() and $value === '') return false;
 		foreach ($this->options['validator'] as $v) {
 			$filter = filter_id($v);
 			$options = array();
