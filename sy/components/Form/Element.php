@@ -51,6 +51,13 @@ abstract class Element extends WebComponent {
 		$this->options[$name] = $value;
 	}
 
+	public function isRequired() {
+		if (isset($this->options['required']))
+			return $this->options['required'];
+		else
+			return false;
+	}
+
 	public function addValidator($name) {
 		$this->options['validator'][] = $name;
 	}
