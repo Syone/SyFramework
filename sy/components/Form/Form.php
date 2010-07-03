@@ -24,7 +24,7 @@ abstract class Form extends FieldContainer {
 
 	public function setAttributes($attributes) {
 		if (!isset($attributes['action'])) $attributes['action'] = '';
-		$this->attributes = $attributes;
+		parent::setAttributes($attributes);
 	}
 
 	/**
@@ -37,20 +37,16 @@ abstract class Form extends FieldContainer {
 		return $this->addElement(new Fieldset($legend));
 	}
 
-	public function isValid() {
-		
-	}
-
 	public function __toString() {
 		$actionElement = new Hidden();
-		$actionElement->setAttributes(array('name' => 'formAction' . $this->formId, 'value' => 'Perform' ));
+		$actionElement->setAttributes(array('name' => 'formAction' . $this->formId, 'value' => 'submit' ));
 		$this->setComponent('ACTION_ELEMENT', $actionElement);
 		return parent::__toString();
 	}
 
 	abstract public function init();
 
-	abstract public function actionPerform();
+	abstract public function submitAction();
 
 }
 ?>
