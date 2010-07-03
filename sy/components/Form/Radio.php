@@ -12,5 +12,9 @@ class Radio extends Element {
 		if ($this->getAttribute('value') == $value)
 			$this->setAttribute('checked', 'checked');
 	}
+
+	public function isValid($value) {
+		return true;
+	}
 }
 ?>

@@ -15,5 +15,9 @@ class Option extends Element {
 			if ($value == $v) $this->setAttribute('selected', 'selected');
 		}
 	}
+
+	public function isValid($value) {
+		return true;
+	}
 }
 ?>

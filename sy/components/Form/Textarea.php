@@ -10,5 +10,9 @@ class Textarea extends Element {
 	public function fill($value) {
 		$this->setContent($value);
 	}
+
+	public function isValid($value) {
+		return true;
+	}
 }
 ?>
