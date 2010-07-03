@@ -9,7 +9,11 @@ class Submit extends Element {
 	}
 
 	public function fill($value) {
+		return;
+	}
 
+	public function isValid($value) {
+		return true;
 	}
 }
 ?>

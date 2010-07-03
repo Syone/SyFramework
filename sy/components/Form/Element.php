@@ -9,7 +9,6 @@ abstract class Element extends WebComponent {
 	protected $content;
 	protected $attributes;
 	protected $options;
-	protected $validators;
 
 	public function __construct($tagName = '') {
 		parent::__construct();
@@ -18,7 +17,6 @@ abstract class Element extends WebComponent {
 		$this->content = '';
 		$this->attributes = array();
 		$this->options = array();
-		$this->validators = array();
 	}
 
 	public function setTagName($tagName) {
@@ -53,16 +51,8 @@ abstract class Element extends WebComponent {
 		$this->options[$name] = $value;
 	}
 
-	public function addValidator() {
-
-	}
-
-	public function setValidators() {
-		
-	}
-
-	public function isValid() {
-
+	public function addValidator($name) {
+		$this->options['validator'][] = $name;
 	}
 
 	public function __toString() {
@@ -75,6 +65,8 @@ abstract class Element extends WebComponent {
 		return parent::__toString();
 	}
 
-	abstract function fill($value);
+	abstract public function isValid($value);
+
+	abstract public function fill($value);
 }
 ?>
