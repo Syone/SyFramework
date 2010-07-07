@@ -18,12 +18,13 @@ class OptionContainer extends Container {
 
 	public function fill($values) {
 		foreach ($this->elements as $e) {
-			if (isset($this->attributes['name'])) {
-				$name = rtrim($this->attributes['name'], '[]');
-				if (isset($values[$name])) $e->fill($values[$name]);
+			$name = $this->getAttribute('name');
+			if (is_null($name)) {
+				$e->fill($values);
 			}
 			else {
-				$e->fill($values);
+				$name = rtrim($name, '[]');
+				if (isset($values[$name])) $e->fill($values[$name]);
 			}
 		}
 	}
