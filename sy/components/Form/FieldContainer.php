@@ -27,7 +27,7 @@ class FieldContainer extends Container {
 	}
 
 	public function addPassword($attributes = array(), $options = array()) {
-		return $this->addInput('Text', $attributes, $options);
+		return $this->addInput('Password', $attributes, $options);
 	}
 
 	public function addRadio($attributes = array(), $options = array()) {

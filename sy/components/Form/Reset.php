@@ -12,7 +12,7 @@ class Reset extends Element {
 		return;
 	}
 
-	public function isValid() {
+	public function isValid($value) {
 		return true;
 	}
 }
