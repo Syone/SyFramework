@@ -21,8 +21,8 @@ class Container extends Element {
 			if ($e instanceof Container) {
 				$e->fill($values);
 			} else {
-				if (!isset($e->attributes['name'])) continue;
-				$name = $e->attributes['name'];
+				$name = $e->getAttribute('name');
+				if (is_null($name)) continue;
 				if (!isset($values[$name])) continue;
 				$e->fill($values[$name]);
 			}
@@ -34,9 +34,9 @@ class Container extends Element {
 			if ($e instanceof Container) {
 				if (!$e->isValid($values)) return false;
 			} else {
-				if (!isset($e->attributes['name'])) continue;
-				$name = $e->attributes['name'];
-				if (!isset($values[$name])) continue;
+				$name = $e->getAttribute('name');
+				if (is_null($name)) continue;
+				if (!isset($values[$name]))$values[$name] = '';
 				if (!$e->isValid($values[$name])) return false;
 			}
 		}

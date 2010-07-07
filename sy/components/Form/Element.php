@@ -37,6 +37,10 @@ abstract class Element extends WebComponent {
 		$this->attributes[$name] = $value;
 	}
 
+	public function getAttributes() {
+		return $this->attributes;
+	}
+
 	public function getAttribute($name) {
 		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
 	}
