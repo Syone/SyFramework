@@ -9,10 +9,10 @@ class OptionContainer extends Container {
 		return $this->addElement($optgroup);
 	}
 
-	public function addOption($label, $value = '') {
+	public function addOption($label, $value = NULL) {
 		$option = new Option();
 		$option->setContent($label);
-		if (!empty($value)) $option->setAttribute('value', $value);
+		if (!is_null($value)) $option->setAttribute('value', $value);
 		return $this->addElement($option);
 	}
 
@@ -26,6 +26,17 @@ class OptionContainer extends Container {
 				$e->fill($values);
 			}
 		}
+	}
+
+	public function isValid($values) {
+		if (!$this->isRequired()) return true;
+		$name = $this->getAttribute('name');
+		if (is_null($name)) return false;
+		$name = rtrim($name, '[]');
+		if (!isset($values[$name])) return false;
+		if (is_array($values[$name]) and empty($values[$name])) return false;
+		if ($values[$name] === '') return false;
+		return true;
 	}
 }
 ?>

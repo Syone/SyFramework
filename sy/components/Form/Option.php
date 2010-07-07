@@ -12,7 +12,7 @@ class Option extends Element {
 		if (is_array($values)) {
 			if (in_array($v, $values)) $this->setAttribute('selected', 'selected');
 		} else {
-			if ($value == $v) $this->setAttribute('selected', 'selected');
+			if ($values == $v) $this->setAttribute('selected', 'selected');
 		}
 	}
 
