@@ -22,11 +22,6 @@ abstract class Form extends FieldContainer {
 		$this->actionDispatch('formAction' . $this->formId);
 	}
 
-	public function setAttributes($attributes) {
-		if (!isset($attributes['action'])) $attributes['action'] = '';
-		parent::setAttributes($attributes);
-	}
-
 	/**
 	 * Add a fieldset element in the form
 	 *
