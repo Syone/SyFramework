@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-require __DIR__ . '/Validator.php';
+require_once __DIR__ . '/Validator.php';
 
 class TextElement extends Element {
 
