@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Textarea extends Element {
+class Textarea extends TextElement {
 	
 	public function __construct() {
 		parent::__construct('textarea');
@@ -11,8 +11,5 @@ class Textarea extends Element {
 		$this->setContent($value);
 	}
 
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>
