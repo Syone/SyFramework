@@ -9,6 +9,8 @@ class TemplateProvider {
 	 * @return ITemplate
 	 */
 	public static function createTemplate($type = '') {
+		$type = strtolower($type);
+		$type = ucfirst($type);
 		$class = 'Sy\\' . $type . 'Template';
 		return new $class();
 	}
