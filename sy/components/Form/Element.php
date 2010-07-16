@@ -3,7 +3,7 @@ namespace Sy\Form;
 
 use Sy\WebComponent;
 
-abstract class Element extends WebComponent {
+class Element extends WebComponent {
 
 	protected $tagName;
 	protected $content;
@@ -75,9 +75,5 @@ abstract class Element extends WebComponent {
 		}
 		return parent::__toString();
 	}
-
-	abstract public function isValid($value);
-
-	abstract public function fill($value);
 }
 ?>

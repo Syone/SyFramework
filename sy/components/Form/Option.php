@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Option extends Element {
+class Option extends Element implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('option');
@@ -16,8 +16,5 @@ class Option extends Element {
 		}
 	}
 
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

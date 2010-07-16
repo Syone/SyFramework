@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Text extends TextElement {
+class Text extends TextElement implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('input');

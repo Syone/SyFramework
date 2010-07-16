@@ -8,12 +8,5 @@ class File extends Element {
 		$this->setAttribute('type', 'file');
 	}
 
-	public function fill($value) {
-
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

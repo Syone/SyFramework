@@ -8,12 +8,5 @@ class Submit extends Element {
 		$this->setAttribute('type', 'submit');
 	}
 
-	public function fill($value) {
-		return;
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

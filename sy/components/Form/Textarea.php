@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Textarea extends TextElement {
+class Textarea extends TextElement implements FillableElement {
 	
 	public function __construct() {
 		parent::__construct('textarea');

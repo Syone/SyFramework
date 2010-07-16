@@ -3,11 +3,7 @@ namespace Sy\Form;
 
 require_once __DIR__ . '/Validator.php';
 
-class TextElement extends Element {
-
-	public function fill($value) {
-		
-	}
+class TextElement extends Element implements ValidableElement {
 
 	public function isValid($value) {
 		if ($this->isRequired()) {
