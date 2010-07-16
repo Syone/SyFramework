@@ -7,12 +7,5 @@ class Button extends Element {
 		parent::__construct('button');
 	}
 
-	public function fill($value) {
-		return;
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Radio extends Element {
+class Radio extends Element implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('input');
@@ -13,8 +13,5 @@ class Radio extends Element {
 			$this->setAttribute('checked', 'checked');
 	}
 
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

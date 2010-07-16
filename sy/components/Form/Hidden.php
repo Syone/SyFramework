@@ -8,12 +8,5 @@ class Hidden extends Element {
 		$this->setAttribute('type', 'hidden');
 	}
 
-	public function fill($value) {
-		
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

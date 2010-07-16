@@ -8,12 +8,5 @@ class Reset extends Element {
 		$this->setAttribute('type', 'reset');
 	}
 
-	public function fill($value) {
-		return;
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

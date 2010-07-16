@@ -8,12 +8,5 @@ class Image extends Element {
 		$this->setAttribute('type', 'image');
 	}
 
-	public function fill($value) {
-
-	}
-
-	public function isValid($value) {
-		return true;
-	}
 }
 ?>

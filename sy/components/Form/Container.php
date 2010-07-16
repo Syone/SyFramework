@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Form;
 
-class Container extends Element {
+class Container extends Element implements FillableElement, ValidableElement {
 	
 	protected $elements;
 
@@ -18,6 +18,7 @@ class Container extends Element {
 
 	public function fill($values) {
 		foreach ($this->elements as $e) {
+			if (!$e instanceof FillableElement) continue;
 			if ($e instanceof Container) {
 				$e->fill($values);
 			} else {
@@ -31,6 +32,7 @@ class Container extends Element {
 
 	public function isValid($values) {
 		foreach ($this->elements as $e) {
+			if (!$e instanceof ValidableElement) continue;
 			if ($e instanceof Container) {
 				if (!$e->isValid($values)) return false;
 			} else {
