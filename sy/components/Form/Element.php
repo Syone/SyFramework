@@ -14,7 +14,7 @@ class Element extends WebComponent {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->tagName = $tagName;
-		$this->content = '';
+		$this->content = NULL;
 		$this->attributes = array();
 		$this->options = array();
 	}
