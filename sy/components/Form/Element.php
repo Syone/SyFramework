@@ -9,6 +9,7 @@ class Element extends WebComponent {
 	protected $content;
 	protected $attributes;
 	protected $options;
+	protected $error;
 
 	public function __construct($tagName = '') {
 		parent::__construct();
@@ -17,6 +18,7 @@ class Element extends WebComponent {
 		$this->content = NULL;
 		$this->attributes = array();
 		$this->options = array();
+		$this->error = false;
 	}
 
 	public function setTagName($tagName) {
@@ -69,6 +71,7 @@ class Element extends WebComponent {
 	public function __toString() {
 		$this->setVar('TAG_NAME', $this->tagName);
 		$this->setVar('CONTENT', $this->content);
+		$this->setVar('ERROR', $this->error);
 		if ($this->getTemplateType() == 'php') {
 			$this->setVar('ATTRIBUTES', $this->attributes);
 			$this->setVar('OPTIONS', $this->options);

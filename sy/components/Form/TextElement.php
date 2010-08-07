@@ -6,6 +6,14 @@ require_once __DIR__ . '/Validator.php';
 class TextElement extends Element implements ValidableElement {
 
 	public function isValid($value) {
+		$valid = $this->validate($value);
+		if (!$valid) {
+			$this->error = true;
+		}
+		return $valid;
+	}
+
+	private function validate($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') return false;
 		} else {

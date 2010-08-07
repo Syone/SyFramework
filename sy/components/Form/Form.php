@@ -9,33 +9,33 @@ abstract class Form extends FieldContainer {
 
 	protected $formId = 0;
 
+	protected $info;
+
 	public function __construct() {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Form.tpl', 'php');
+		$this->formId = ++self::$instances;
 		$this->attributes = array(
 			'action'  => '',
 			'method'  => 'post',
 		);
 		$this->elements = array();
-		$this->formId = ++self::$instances;
+		$this->info = false;
 		$this->init();
 		$this->actionDispatch('formAction' . $this->formId);
 	}
 
-	/**
-	 * Add a fieldset element in the form
-	 *
-	 * @param string $legend the fieldset legend
-	 * @return Fieldset
-	 */
-	public function addFieldset($legend = NULL) {
-		return $this->addElement(new Fieldset($legend));
+	public function isValid($values) {
+		if (parent::isValid($values)) {
+			$this->info = true;
+		} else {
+			$this->error = true;
+		}
 	}
 
 	public function __toString() {
-		$actionElement = new Hidden();
-		$actionElement->setAttributes(array('name' => 'formAction' . $this->formId, 'value' => 'submit' ));
-		$this->setComponent('ACTION_ELEMENT', $actionElement);
+		$this->setVar('INFO', $this->info);
+		$this->setVar('ACTION', 'formAction' . $this->formId);
 		return parent::__toString();
 	}
 
