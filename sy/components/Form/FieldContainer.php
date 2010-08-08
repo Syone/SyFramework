@@ -10,7 +10,9 @@ class FieldContainer extends Container {
 	 * @return FieldContainer
 	 */
 	public function addDiv($attributes = array()) {
-		return $this->addElement(new FieldContainer('div'));
+		$div = $this->addElement(new FieldContainer('div'));
+		$div->setAttributes($attributes);
+		return $div;
 	}
 
 	/**
