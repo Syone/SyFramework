@@ -11,6 +11,12 @@ class Container extends Element implements FillableElement, ValidableElement {
 		$this->elements = array();
 	}
 
+	/**
+	 * Add an element
+	 *
+	 * @param Element $element
+	 * @return Element
+	 */
 	public function addElement($element) {
 		$this->elements[] = $element;
 		return $element;
@@ -31,18 +37,19 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function isValid($values) {
+		$valid = true;
 		foreach ($this->elements as $e) {
 			if (!$e instanceof ValidableElement) continue;
 			if ($e instanceof Container) {
-				if (!$e->isValid($values)) return false;
+				if (!$e->isValid($values)) $valid = false;
 			} else {
 				$name = $e->getAttribute('name');
 				if (is_null($name)) continue;
 				if (!isset($values[$name]))$values[$name] = '';
-				if (!$e->isValid($values[$name])) return false;
+				if (!$e->isValid($values[$name])) $valid = false;
 			}
 		}
-		return true;
+		return $valid;
 	}
 
 	public function __toString() {
