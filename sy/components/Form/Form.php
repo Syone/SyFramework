@@ -9,7 +9,7 @@ abstract class Form extends FieldContainer {
 
 	protected $formId = 0;
 
-	protected $info;
+	protected $success;
 
 	public function __construct() {
 		parent::__construct();
@@ -20,7 +20,7 @@ abstract class Form extends FieldContainer {
 			'method'  => 'post',
 		);
 		$this->elements = array();
-		$this->info = false;
+		$this->success = false;
 		$this->init();
 		$this->actionDispatch('formAction' . $this->formId);
 	}
@@ -28,7 +28,7 @@ abstract class Form extends FieldContainer {
 	public function isValid($values) {
 		$valid = parent::isValid($values);
 		if ($valid) {
-			$this->info = true;
+			$this->success = true;
 		} else {
 			$this->error = true;
 		}
@@ -36,7 +36,7 @@ abstract class Form extends FieldContainer {
 	}
 
 	public function __toString() {
-		$this->setVar('INFO', $this->info);
+		$this->setVar('SUCCESS', $this->success);
 		$this->setVar('ACTION', 'formAction' . $this->formId);
 		return parent::__toString();
 	}
