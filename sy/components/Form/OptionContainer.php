@@ -3,6 +3,11 @@ namespace Sy\Form;
 
 class OptionContainer extends Container {
 
+	public function __construct($name = '') {
+		parent::__construct($name);
+		$this->setTemplateFile(__DIR__ . '/templates/OptionContainer.tpl', 'php');
+	}
+
 	public function addOptGroup($label) {
 		$optgroup = new OptionContainer('optgroup');
 		$optgroup->setAttribute('label', $label);

@@ -4,6 +4,16 @@ namespace Sy\Form;
 class FieldContainer extends Container {
 
 	/**
+	 * Add a div container
+	 *
+	 * @param array $attributes div attributes
+	 * @return FieldContainer
+	 */
+	public function addDiv($attributes = array()) {
+		return $this->addElement(new FieldContainer('div'));
+	}
+
+	/**
 	 * Add a fieldset element
 	 *
 	 * @param string $legend the fieldset legend
@@ -109,7 +119,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes select attributes
 	 * @param array $options select options
-	 * @return Select
+	 * @return OptionContainer
 	 */
 	public function addSelect($attributes = array(), $options= array()) {
 		$select = new OptionContainer('select');
