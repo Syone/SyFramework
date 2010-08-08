@@ -26,11 +26,13 @@ abstract class Form extends FieldContainer {
 	}
 
 	public function isValid($values) {
-		if (parent::isValid($values)) {
+		$valid = parent::isValid($values);
+		if ($valid) {
 			$this->info = true;
 		} else {
 			$this->error = true;
 		}
+		return $valid;
 	}
 
 	public function __toString() {
