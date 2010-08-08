@@ -7,9 +7,7 @@ class TextElement extends Element implements ValidableElement {
 
 	public function isValid($value) {
 		$valid = $this->validate($value);
-		if (!$valid) {
-			$this->error = true;
-		}
+		if (!$valid) $this->error = true;
 		return $valid;
 	}
 
