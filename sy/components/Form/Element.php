@@ -58,6 +58,7 @@ class Element extends WebComponent {
 	}
 
 	public function isRequired() {
+		if (isset($this->attributes['required'])) return true;
 		if (isset($this->options['required']))
 			return $this->options['required'];
 		else
