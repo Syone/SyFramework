@@ -11,7 +11,7 @@ class TextElement extends Element implements ValidableElement {
 		return $valid;
 	}
 
-	private function validate($value) {
+	protected function validate($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') return false;
 		} else {
