@@ -29,6 +29,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 				$e->fill($values);
 			} else {
 				$name = $e->getAttribute('name');
+				$name = rtrim($name, '[]');
 				if (is_null($name)) continue;
 				if (!isset($values[$name])) continue;
 				$e->fill($values[$name]);
@@ -44,6 +45,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 				if (!$e->isValid($values)) $valid = false;
 			} else {
 				$name = $e->getAttribute('name');
+				$name = rtrim($name, '[]');
 				if (is_null($name)) continue;
 				if (!isset($values[$name]))$values[$name] = '';
 				if (!$e->isValid($values[$name])) $valid = false;
