@@ -18,16 +18,14 @@ class Checkbox extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function isValid($value) {
-		$valid = $this->validate($value);
-		if (!$valid) $this->error = true;
-		return $valid;
-	}
-
-	private function validate($value) {
 		if ($this->isRequired()) {
-			if (!isset($value) or $value === '') return false;
+			if (!isset($value) or $value === '') {
+				$this->error = true;
+				return false;
+			}
 		}
 		return true;
 	}
+	
 }
 ?>

@@ -10,7 +10,7 @@ class File extends Element implements ValidableElement {
 
 	public function isValid($value) {
 		if ($this->isRequired()) {
-			if (!isset($_FILES[$this->getAttribute('name')])) {
+			if (!isset($value) or $value === '') {
 				$this->error = true;
 				return false;
 			}
