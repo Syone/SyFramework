@@ -36,7 +36,10 @@ class Element extends WebComponent {
 	}
 
 	public function setAttribute($name, $value) {
-		$this->attributes[$name] = $value;
+		if ($name == 'name') 
+			$this->setName($value);
+		else
+			$this->attributes[$name] = $value;
 	}
 
 	public function getAttributes() {
@@ -55,6 +58,21 @@ class Element extends WebComponent {
 
 	public function setOption($name, $value) {
 		$this->options[$name] = $value;
+	}
+
+	public function setName($name) {
+		$begin = strstr($name, '[', true);
+		if (!$begin) {
+			$this->attributes['name'] = str_replace(array('.', ' '), '_', $name);
+			return;
+		}
+		$new_begin = str_replace(array('.', ' '), '_', $begin);
+		$end = strstr($name, '[');
+		$new_end = str_replace('[]', '', $end);
+		if (substr_compare($end, '[]', -2) == 0) {
+			$new_end .= '[]';
+		}
+		$this->attributes['name'] = $new_begin.$new_end;
 	}
 
 	public function isRequired() {

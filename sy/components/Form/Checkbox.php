@@ -9,6 +9,7 @@ class Checkbox extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function fill($value) {
+		if (is_null($value)) return;
 		if (is_array($value)) {
 			if (in_array($this->getAttribute('value'), $value))
 				$this->setAttribute('checked', 'checked');

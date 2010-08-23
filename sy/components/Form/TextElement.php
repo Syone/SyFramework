@@ -14,7 +14,12 @@ class TextElement extends Element implements ValidableElement {
 	protected function validate($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') return false;
+			if (is_array($value)) {
+				$value = array_filter($value);
+				if (empty($value)) return false;
+			}
 		} else {
+			if (is_array($value)) $value = array_filter($value);
 			if (empty($value)) return true;
 		}
 		if (!isset($this->options['validator'])) return true;
