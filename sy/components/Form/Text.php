@@ -9,6 +9,7 @@ class Text extends TextElement implements FillableElement {
 	}
 
 	public function fill($value) {
+		if (is_array($value)) return;
 		$this->setAttribute('value', $value);
 	}
 

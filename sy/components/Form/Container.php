@@ -29,10 +29,8 @@ class Container extends Element implements FillableElement, ValidableElement {
 				$e->fill($values);
 			} else {
 				$name = $e->getAttribute('name');
-				$name = rtrim($name, '[]');
 				if (is_null($name)) continue;
-				if (!isset($values[$name])) continue;
-				$e->fill($values[$name]);
+				$e->fill($this->dissolveArrayValue($values, $name));
 			}
 		}
 	}
@@ -45,13 +43,47 @@ class Container extends Element implements FillableElement, ValidableElement {
 				if (!$e->isValid($values)) $valid = false;
 			} else {
 				$name = $e->getAttribute('name');
-				$name = rtrim($name, '[]');
 				if (is_null($name)) continue;
-				if (!isset($values[$name]))$values[$name] = '';
-				if (!$e->isValid($values[$name])) $valid = false;
+				if (!$e->isValid($this->dissolveArrayValue($values, $name))) $valid = false;
 			}
 		}
 		return $valid;
+	}
+
+	/**
+	 * Extract the value by walking the array using given array path.
+	 *
+	 * Given an array path such as foo[bar][baz], returns the value of the last
+	 * element (in this case, 'baz').
+	 *
+	 * @param  array $value Array to walk
+	 * @param  string $arrayPath Array notation path of the part to extract
+	 * @return mixed
+	 */
+	protected function dissolveArrayValue($value, $arrayPath) {
+		$realValue = $value;
+
+		// As long as we have more levels
+		while ($arrayPos = strpos($arrayPath, '[')) {
+			// Get the next key in the path
+			$arrayKey = trim(substr($arrayPath, 0, $arrayPos), ']');
+
+			// Set the potentially final value or the next search point in the array
+			if (isset($value[$arrayKey])) {
+				$value = $value[$arrayKey];
+			}
+
+			// Set the next search point in the path
+			$arrayPath = trim(substr($arrayPath, $arrayPos + 1), ']');
+		}
+
+		if (isset($value[$arrayPath])) {
+			$value = $value[$arrayPath];
+		}
+
+		if ($value == $realValue) return NULL;
+		
+		return $value;
 	}
 
 	public function __toString() {

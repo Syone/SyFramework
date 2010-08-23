@@ -37,11 +37,19 @@ class OptionContainer extends Container {
 	public function isValid($values) {
 		if (!$this->isRequired()) return true;
 		$name = $this->getAttribute('name');
-		if (is_null($name)) return false;
-		$name = rtrim($name, '[]');
-		if (!isset($values[$name])) return false;
-		if (is_array($values[$name]) and empty($values[$name])) return false;
-		if ($values[$name] === '') return false;
+		if (is_null($name)) {
+			$this->error = true;
+			return false;
+		}
+		$value = $this->dissolveArrayValue($values, $name);
+		if (is_array($value) and empty($value)) {
+			$this->error = true;
+			return false;
+		}
+		if ($value === '' or is_null($value)) {
+			$this->error = true;
+			return false;
+		}
 		return true;
 	}
 }

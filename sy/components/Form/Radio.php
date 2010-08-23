@@ -9,6 +9,7 @@ class Radio extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function fill($value) {
+		if (is_null($value)) return;
 		if ($this->getAttribute('value') == $value)
 			$this->setAttribute('checked', 'checked');
 	}
