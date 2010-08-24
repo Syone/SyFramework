@@ -24,12 +24,13 @@ class OptionContainer extends Container {
 	public function fill($values) {
 		foreach ($this->elements as $e) {
 			$name = $this->getAttribute('name');
+			
+			// if optgroup
 			if (is_null($name)) {
 				$e->fill($values);
 			}
 			else {
-				$name = rtrim($name, '[]');
-				if (isset($values[$name])) $e->fill($values[$name]);
+				$e->fill($this->dissolveArrayValue($values, $name));
 			}
 		}
 	}
