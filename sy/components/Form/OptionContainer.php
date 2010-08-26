@@ -21,6 +21,19 @@ class OptionContainer extends Container {
 		return $this->addElement($option);
 	}
 
+	public function addOptions($options) {
+		if (is_array($options)) {
+			foreach ($options as $value => $label) {
+				$this->addOption($label, $value);
+			}
+		} else {
+			$values = func_get_args();
+			foreach ($values as $value) {
+				$this->addOption($value);
+			}
+		}
+	}
+
 	public function fill($values) {
 		foreach ($this->elements as $e) {
 			$name = $this->getAttribute('name');

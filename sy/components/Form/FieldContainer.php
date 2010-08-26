@@ -26,17 +26,31 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a label element
+	 *
+	 * @param string $label the label content
+	 * @param array $attributes label attributes
+	 * @return Element
+	 */
+	public function addLabel($label, $attributes = array()) {
+		$element = new Element('label');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		return $this->addElement($element);
+	}
+
+	/**
 	 * Add a button element
 	 *
 	 * @param string $label button label
 	 * @param array $attributes button attributes
-	 * @return Button
+	 * @return Element
 	 */
 	public function addButton($label, $attributes = array()) {
-		$button = new Button();
-		$button->setContent($label);
-		$button->setAttributes($attributes);
-		return $this->addElement($button);
+		$element = new Element('button');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -80,7 +94,11 @@ class FieldContainer extends Container {
 	 * @return Image
 	 */
 	public function addImage($attributes = array(), $options = array()) {
-		return $this->addInput('Image', $attributes, $options);
+		$element = new Element('input');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		$element->setAttribute('type', 'image');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -91,7 +109,11 @@ class FieldContainer extends Container {
 	 * @return Password
 	 */
 	public function addPassword($attributes = array(), $options = array()) {
-		return $this->addInput('Password', $attributes, $options);
+		$element = new TextElement('input');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		$element->setAttribute('type', 'password');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -113,7 +135,11 @@ class FieldContainer extends Container {
 	 * @return Reset
 	 */
 	public function addReset($attributes = array(), $options = array()) {
-		return $this->addInput('Reset', $attributes, $options);
+		$element = new Element('input');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		$element->setAttribute('type', 'reset');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -138,7 +164,11 @@ class FieldContainer extends Container {
 	 * @return Submit
 	 */
 	public function addSubmit($attributes = array(), $options = array()) {
-		return $this->addInput('Submit', $attributes, $options);
+		$element = new Element('input');
+		$element->setContent($label);
+		$element->setAttributes($attributes);
+		$element->setAttribute('type', 'submit');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -160,10 +190,7 @@ class FieldContainer extends Container {
 	 * @return Textarea
 	 */
 	public function addTextarea($attributes = array(), $options= array()) {
-		$textarea = new Textarea();
-		$textarea->setAttributes($attributes);
-		$textarea->setOptions($options);
-		return $this->addElement($textarea);
+		return $this->addInput('Textarea', $attributes, $options);
 	}
 
 	/**
