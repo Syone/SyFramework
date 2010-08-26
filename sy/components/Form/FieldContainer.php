@@ -95,8 +95,8 @@ class FieldContainer extends Container {
 	 */
 	public function addImage($attributes = array(), $options = array()) {
 		$element = new Element('input');
-		$element->setContent($label);
 		$element->setAttributes($attributes);
+		$element->setOptions($options);
 		$element->setAttribute('type', 'image');
 		return $this->addElement($element);
 	}
@@ -110,8 +110,8 @@ class FieldContainer extends Container {
 	 */
 	public function addPassword($attributes = array(), $options = array()) {
 		$element = new TextElement('input');
-		$element->setContent($label);
 		$element->setAttributes($attributes);
+		$element->setOptions($options);
 		$element->setAttribute('type', 'password');
 		return $this->addElement($element);
 	}
@@ -136,8 +136,8 @@ class FieldContainer extends Container {
 	 */
 	public function addReset($attributes = array(), $options = array()) {
 		$element = new Element('input');
-		$element->setContent($label);
 		$element->setAttributes($attributes);
+		$element->setOptions($options);
 		$element->setAttribute('type', 'reset');
 		return $this->addElement($element);
 	}
@@ -165,8 +165,8 @@ class FieldContainer extends Container {
 	 */
 	public function addSubmit($attributes = array(), $options = array()) {
 		$element = new Element('input');
-		$element->setContent($label);
 		$element->setAttributes($attributes);
+		$element->setOptions($options);
 		$element->setAttribute('type', 'submit');
 		return $this->addElement($element);
 	}
