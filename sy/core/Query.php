@@ -48,5 +48,3 @@ class Query {
 		return $this->PDOStatement->rowCount();
 	}
 }
-
-?>

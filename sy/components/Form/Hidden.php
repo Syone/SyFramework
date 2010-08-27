@@ -13,4 +13,3 @@ class Hidden extends TextElement {
 	}
 	
 }
-?>

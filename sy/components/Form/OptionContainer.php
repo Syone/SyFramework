@@ -67,4 +67,3 @@ class OptionContainer extends Container {
 		return true;
 	}
 }
-?>
