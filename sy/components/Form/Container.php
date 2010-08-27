@@ -61,29 +61,27 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 * @return mixed
 	 */
 	protected function dissolveArrayValue($value, $arrayPath) {
-		$realValue = $value;
 
-		// As long as we have more levels
-		while ($arrayPos = strpos($arrayPath, '[')) {
-			// Get the next key in the path
-			$arrayKey = trim(substr($arrayPath, 0, $arrayPos), ']');
+		if ($arrayPath === '') return NULL;
 
-			// Set the potentially final value or the next search point in the array
-			if (isset($value[$arrayKey])) {
-				$value = $value[$arrayKey];
-			}
+		$keys = explode('[', $arrayPath);
 
-			// Set the next search point in the path
-			$arrayPath = trim(substr($arrayPath, $arrayPos + 1), ']');
-		}
+		if (empty($keys)) return NULL;
 
-		if (isset($value[$arrayPath])) {
-			$value = $value[$arrayPath];
-		}
-
-		if ($value == $realValue) return NULL;
+		$func = function($val) {
+			return rtrim($val, ']');
+		};
 		
-		return $value;
+		$keys = array_map($func, $keys);
+		$keys = array_filter($keys);
+
+		$path = '';
+		foreach ($keys as $key) {
+			$path .= "['$key']";
+		}
+		$res = '$value' . $path;
+		$ret = eval("if (isset($res)) return $res; else return NULL;");
+		return $ret;
 	}
 
 	public function __toString() {
@@ -92,3 +90,4 @@ class Container extends Element implements FillableElement, ValidableElement {
 		return parent::__toString();
 	}
 }
+?>
