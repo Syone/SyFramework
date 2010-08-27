@@ -14,4 +14,3 @@ class Textarea extends TextElement implements FillableElement {
 	}
 
 }
-?>

@@ -192,4 +192,3 @@ class Component {
 		if (!empty($method) and method_exists($this, $method)) $this->$method();
 	}
 }
-?>

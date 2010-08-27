@@ -14,4 +14,3 @@ class Text extends TextElement implements FillableElement {
 	}
 
 }
-?>

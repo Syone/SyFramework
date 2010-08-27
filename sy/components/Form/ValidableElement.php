@@ -6,4 +6,3 @@ interface ValidableElement {
 	public function isValid($value);
 	
 }
-?>

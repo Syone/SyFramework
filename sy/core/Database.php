@@ -51,5 +51,3 @@ class Database {
 		$this->dbh->rollBack();
 	}
 }
-
-?>

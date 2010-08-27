@@ -67,4 +67,3 @@ class PhpTemplate implements ITemplate {
 		}
 	}
 }
-?>

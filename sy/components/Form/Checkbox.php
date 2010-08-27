@@ -29,4 +29,3 @@ class Checkbox extends Element implements FillableElement, ValidableElement {
 	}
 	
 }
-?>
