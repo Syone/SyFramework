@@ -12,4 +12,4 @@ function autoload($class) {
 	}
 }
 
-spl_autoload_register("Sy\autoload");
+spl_autoload_register('Sy\autoload');

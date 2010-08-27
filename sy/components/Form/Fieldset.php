@@ -11,6 +11,11 @@ class Fieldset extends FieldContainer {
 		$this->legend = $legend;
 	}
 
+	/**
+	 * Set the fieldset legend
+	 *
+	 * @param string $legend
+	 */
 	public function setLegend($legend) {
 		$this->legend = $legend;
 	}

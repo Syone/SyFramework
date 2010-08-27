@@ -8,12 +8,25 @@ class OptionContainer extends Container {
 		$this->setTemplateFile(__DIR__ . '/templates/OptionContainer.tpl', 'php');
 	}
 
+	/**
+	 * Add an optgroup element
+	 *
+	 * @param string $label optgroup label attribute
+	 * @return Element
+	 */
 	public function addOptGroup($label) {
 		$optgroup = new OptionContainer('optgroup');
 		$optgroup->setAttribute('label', $label);
 		return $this->addElement($optgroup);
 	}
 
+	/**
+	 * Add an option element
+	 *
+	 * @param string $label option content
+	 * @param string $value option value
+	 * @return Element
+	 */
 	public function addOption($label, $value = NULL) {
 		$option = new Option();
 		$option->setContent($label);
@@ -21,6 +34,11 @@ class OptionContainer extends Container {
 		return $this->addElement($option);
 	}
 
+	/**
+	 * Add multiple options
+	 *
+	 * @param array $options
+	 */
 	public function addOptions($options) {
 		if (is_array($options)) {
 			foreach ($options as $value => $label) {
@@ -34,6 +52,11 @@ class OptionContainer extends Container {
 		}
 	}
 
+	/**
+	 * Fill the select
+	 *
+	 * @param array $values
+	 */
 	public function fill($values) {
 		foreach ($this->elements as $e) {
 			$name = $this->getAttribute('name');
@@ -48,6 +71,12 @@ class OptionContainer extends Container {
 		}
 	}
 
+	/**
+	 * Return if the element is valid
+	 *
+	 * @param array $values
+	 * @return bool
+	 */
 	public function isValid($values) {
 		if (!$this->isRequired()) return true;
 		$name = $this->getAttribute('name');
