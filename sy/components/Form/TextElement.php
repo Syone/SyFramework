@@ -28,13 +28,10 @@ class TextElement extends Element implements ValidableElement {
 		foreach ($validators as $v) {
 			$options = array();
 			$filter = FILTER_CALLBACK;
-			$validator = new Validator();
-			if (method_exists($validator, $v)) $options['options'] = array($validator, $v);
-			if (function_exists($v)) $options['options'] = $v;
+			if (is_callable($v)) $options['options'] = $v;
 			if (empty($options)) continue;
 			if (!filter_var($value, $filter, $options)) return false;
 		}
 		return true;
 	}
 }
-?>

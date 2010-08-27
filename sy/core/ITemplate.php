@@ -14,4 +14,3 @@ interface ITemplate {
 	public function getRender();
 	
 }
-?>

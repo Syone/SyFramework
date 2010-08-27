@@ -98,4 +98,3 @@ class Element extends WebComponent {
 		return parent::__toString();
 	}
 }
-?>

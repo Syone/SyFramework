@@ -19,4 +19,3 @@ class File extends Element implements ValidableElement {
 	}
 
 }
-?>

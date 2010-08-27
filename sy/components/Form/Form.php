@@ -46,4 +46,3 @@ abstract class Form extends FieldContainer {
 	abstract public function submitAction();
 
 }
-?>
