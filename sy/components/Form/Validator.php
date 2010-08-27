@@ -1,32 +1,28 @@
 <?php
 namespace Sy\Form;
 
-class Validator {
+function boolean($value) {
+	return filter_var($value, FILTER_VALIDATE_BOOLEAN);
+}
 
-	public function boolean($value) {
-		return filter_var($value, FILTER_VALIDATE_BOOLEAN);
-	}
+function email($value) {
+	return filter_var($value, FILTER_VALIDATE_EMAIL);
+}
 
-	public function email($value) {
-		return filter_var($value, FILTER_VALIDATE_EMAIL);
-	}
+function float($value) {
+	return filter_var($value, FILTER_VALIDATE_FLOAT);
+}
 
-	public function float($value) {
-		return filter_var($value, FILTER_VALIDATE_FLOAT);
-	}
+function int($value) {
+	return filter_var($value, FILTER_VALIDATE_INT);
+}
 
-	public function int($value) {
-		return filter_var($value, FILTER_VALIDATE_INT);
-	}
+function ip($value) {
+	return filter_var($value, FILTER_VALIDATE_IP);
+}
 
-	public function ip($value) {
-		return filter_var($value, FILTER_VALIDATE_IP);
-	}
-
-	public function url($value) {
-		return filter_var($value, FILTER_VALIDATE_URL);
-	}
-	
+function url($value) {
+	return filter_var($value, FILTER_VALIDATE_URL);
 }
 
 ?>

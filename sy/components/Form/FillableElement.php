@@ -6,4 +6,3 @@ interface FillableElement {
     public function fill($value);
 
 }
-?>

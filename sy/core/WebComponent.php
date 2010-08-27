@@ -59,4 +59,3 @@ class WebComponent extends Component {
 		return $this->jsLinks;
 	}
 }
-?>
