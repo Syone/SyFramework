@@ -25,6 +25,12 @@ abstract class Form extends FieldContainer {
 		$this->actionDispatch('formAction' . $this->formId);
 	}
 
+	/**
+	 * Validate the form
+	 *
+	 * @param array $values
+	 * @return boolean
+	 */
 	public function isValid($values) {
 		$valid = parent::isValid($values);
 		if ($valid) {

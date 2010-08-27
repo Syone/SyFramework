@@ -22,6 +22,11 @@ class Container extends Element implements FillableElement, ValidableElement {
 		return $element;
 	}
 
+	/**
+	 * Fill all the elements contained
+	 *
+	 * @param array $values
+	 */
 	public function fill($values) {
 		foreach ($this->elements as $e) {
 			if (!$e instanceof FillableElement) continue;
@@ -35,6 +40,12 @@ class Container extends Element implements FillableElement, ValidableElement {
 		}
 	}
 
+	/**
+	 * Validate the container
+	 *
+	 * @param array $values
+	 * @return boolean
+	 */
 	public function isValid($values) {
 		$valid = true;
 		foreach ($this->elements as $e) {
@@ -90,4 +101,3 @@ class Container extends Element implements FillableElement, ValidableElement {
 		return parent::__toString();
 	}
 }
-?>
