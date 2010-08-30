@@ -12,9 +12,9 @@ class WebComponent extends Component {
 	public function __construct() {
 		parent::__construct();
 		$this->cssLinks = array();
-		$this->jsLinks = array();
-		$this->cssCode = '';
-		$this->jsCode = '';
+		$this->jsLinks  = array();
+		$this->cssCode  = array();
+		$this->jsCode   = array();
 	}
 
 	/**
@@ -27,9 +27,27 @@ class WebComponent extends Component {
 	public function setComponent($where, $component, $append = false) {
 		parent::setComponent($where, $component, $append);
 		$this->cssLinks = array_merge($this->cssLinks, $component->getCssLinks());
-		$this->jsLinks = array_merge($this->jsLinks, $component->getJsLinks());
-		$this->cssCode .= $component->getCssCode();
-		$this->jsCode .= $component->getJsCode();
+		$this->jsLinks  = array_merge($this->jsLinks , $component->getJsLinks());
+		$this->cssCode  = array_merge($this->cssCode , $component->getCssCodeArray());
+		$this->jsCode   = array_merge($this->jsCode  , $component->getJsCodeArray());
+	}
+
+	/**
+	 * Return the css code array
+	 *
+	 * @return string
+	 */
+	public function getCssCodeArray() {
+		return $this->cssCode;
+	}
+
+	/**
+	 * Return the js code array
+	 *
+	 * @return string
+	 */
+	public function getJsCodeArray() {
+		return $this->jsCode;
 	}
 
 	/**
@@ -38,7 +56,8 @@ class WebComponent extends Component {
 	 * @return string
 	 */
 	public function getCssCode() {
-		return $this->cssCode;
+		$res = array_unique($this->cssCode);
+		return implode("\n", $res);
 	}
 
 	/**
@@ -47,25 +66,26 @@ class WebComponent extends Component {
 	 * @return string
 	 */
 	public function getJsCode() {
-		return $this->jsCode;
+		$res = array_unique($this->jsCode);
+		return implode("\n", $res);
 	}
 
 	/**
-	 * Set the css code
+	 * Add the css code
 	 *
 	 * @param string $code
 	 */
-	public function setCssCode($code) {
-		$this->cssCode = $code;
+	public function addCssCode($code) {
+		$this->cssCode[] = $code;
 	}
 
 	/**
-	 * Set the js code
+	 * Add the js code
 	 *
 	 * @param string $code
 	 */
-	public function setJsCode($code) {
-		$this->jsCode = $code;
+	public function addJsCode($code) {
+		$this->jsCode[] = $code;
 	}
 
 	/**
