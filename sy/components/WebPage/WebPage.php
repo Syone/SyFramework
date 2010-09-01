@@ -23,23 +23,11 @@ class WebPage extends WebComponent {
 	 */
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
-			'html4.01-strict' =>
-			'PUBLIC "-//W3C//DTD HTML 4.01//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/strict.dtd"',
-
-			'html4.01-transitional' =>
-			'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/html4/loose.dtd"',
-
-			'xhtml1.0-strict' =>
-			'PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
-
-			'xhtml1.0-transitional' =>
-			'PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'."\n\t".
-				'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
-
-			'html5' => '',
+			'html4.01-strict'       => 'PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"',
+			'html4.01-transitional' => 'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"',
+			'xhtml1.0-strict'       => 'PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
+			'xhtml1.0-transitional' => 'PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
+			'html5'                 => '',
 		);
 
 		// Default doctype

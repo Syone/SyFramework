@@ -61,7 +61,7 @@ class Template implements ITemplate {
 		$varkeys = array_keys($tab);
 		$varvals = array_values($tab);
 		$res =  str_replace($varkeys, $varvals, $this->content);
-		$res = preg_replace("/[ \t]*<!--\s+BEGIN .+\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END .+\s+-->\s*?\n?/sm", "", $res);
+		$res = preg_replace("/[ \t]*<!--\s+BEGIN ([a-zA-Z0-9\._]*)\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END \\1\s+-->\s*?\n?/sm", "", $res);
 		$res = preg_replace('/{[^ \t\r\n}]+}/', "", $res);
 		return $res;
 	}
