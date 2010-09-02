@@ -26,6 +26,7 @@ class WebComponent extends Component {
 	 */
 	public function setComponent($where, $component, $append = false) {
 		parent::setComponent($where, $component, $append);
+		if (!$component instanceof WebComponent) return; 
 		$this->cssLinks = array_merge($this->cssLinks, $component->getCssLinks());
 		$this->jsLinks  = array_merge($this->jsLinks , $component->getJsLinks());
 		$this->cssCode  = array_merge($this->cssCode , $component->getCssCodeArray());
