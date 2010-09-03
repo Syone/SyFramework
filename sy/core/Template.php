@@ -61,17 +61,23 @@ class Template implements ITemplate {
 		$varkeys = array_keys($tab);
 		$varvals = array_values($tab);
 		$res =  str_replace($varkeys, $varvals, $this->content);
-		$res = preg_replace("/[ \t]*<!--\s+BEGIN ([a-zA-Z0-9\._]*)\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END \\1\s+-->\s*?\n?/sm", "", $res);
+		$res = preg_replace("/[ \t]*<!-- BEGIN ([a-zA-Z0-9\._]*)\ -->\s*?\n?(\s*.*?\n?)\s*<!-- ELSE \\1 -->\s*?\n?(\s*.*?\n?)\s*<!-- END \\1 -->\s*?\n?/sm", "$3", $res);
+		$res = preg_replace("/[ \t]*<!-- BEGIN ([a-zA-Z0-9\._]*)\ -->\s*?\n?(\s*.*?\n?)\s*<!-- END \\1 -->\s*?\n?/sm", "", $res);
 		$res = preg_replace('/{[^ \t\r\n}]+}/', "", $res);
 		return $res;
 	}
 
 	private function loadBlock($block) {
 		if (!array_key_exists($block, $this->blockCached)) {
-			$reg = "/[ \t]*<!--\s+BEGIN $block\s+-->\s*?\n?(\s*.*?\n?)\s*<!--\s+END $block\s+-->\s*?\n?/sm";
+			$reg = "/[ \t]*<!-- BEGIN $block -->\s*?\n?(\s*.*?\n?)\s*<!-- END $block -->\s*?\n?/sm";
 			preg_match_all($reg, $this->content, $m);
+
+			$blockContent = $m[1][0];
+			$t = explode('<!-- ELSE ' . $block . ' -->', $blockContent);
+			$blockContent = $t[0];
+
 			$this->content = preg_replace($reg, "{" . $block . "}", $this->content);
-			$this->blockCached[$block] = $m[1][0];
+			$this->blockCached[$block] = $blockContent;
 			$this->blockParsed['{' . $block . '}'] = '';
 			$this->lastBlock = $block;
 		}
