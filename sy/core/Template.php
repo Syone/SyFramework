@@ -40,7 +40,7 @@ class Template implements ITemplate {
 	}
 
 	public function parseBlock($block) {
-		$this->loadBlock($block);
+		if (!$this->loadBlock($block)) return;
 
 		$tab = array_merge($this->vars, $this->blockParsed);
 		$varkeys = array_keys($tab);
@@ -68,18 +68,19 @@ class Template implements ITemplate {
 	}
 
 	private function loadBlock($block) {
-		if (!array_key_exists($block, $this->blockCached)) {
-			$reg = "/[ \t]*<!-- BEGIN $block -->\s*?\n?(\s*.*?\n?)\s*<!-- END $block -->\s*?\n?/sm";
-			preg_match_all($reg, $this->content, $m);
+		if (array_key_exists($block, $this->blockCached)) return true;
+		$reg = "/[ \t]*<!-- BEGIN $block -->\s*?\n?(\s*.*?\n?)\s*<!-- END $block -->\s*?\n?/sm";
+		preg_match_all($reg, $this->content, $m);
 
-			$blockContent = $m[1][0];
-			$t = explode('<!-- ELSE ' . $block . ' -->', $blockContent);
-			$blockContent = $t[0];
+		if (!isset($m[1][0])) return false;
+		$blockContent = $m[1][0];
+		$t = explode('<!-- ELSE ' . $block . ' -->', $blockContent);
+		$blockContent = $t[0];
 
-			$this->content = preg_replace($reg, "{" . $block . "}", $this->content);
-			$this->blockCached[$block] = $blockContent;
-			$this->blockParsed['{' . $block . '}'] = '';
-			$this->lastBlock = $block;
-		}
+		$this->content = preg_replace($reg, "{" . $block . "}", $this->content);
+		$this->blockCached[$block] = $blockContent;
+		$this->blockParsed['{' . $block . '}'] = '';
+		$this->lastBlock = $block;
+		return true;
 	}
 }
