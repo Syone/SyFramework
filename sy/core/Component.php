@@ -59,7 +59,18 @@ class Component {
 	}
 
 	/**
-	 * Set a file contenat as the value of a variable
+	 * Set an array of values
+	 *
+	 * @param array $values associative array var => value
+	 */
+	public function setVars($values) {
+		foreach ($values as $var => $value) {
+			$this->setVar($var, $value);
+		}
+	}
+
+	/**
+	 * Set a file content as the value of a variable
 	 *
 	 * @param string $var
 	 * @param string $file
