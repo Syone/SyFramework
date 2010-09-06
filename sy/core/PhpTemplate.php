@@ -5,8 +5,6 @@ class PhpTemplate implements ITemplate {
 
 	private $mainFile;
 
-	private $files;
-
 	private $vars;
 
 	public function  __construct() {
@@ -17,10 +15,6 @@ class PhpTemplate implements ITemplate {
 
 	public function setMainFile($file) {
 		$this->mainFile = $file;
-	}
-
-	public function setFile($var, $file) {
-		$this->files[$var] = $file;
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -37,8 +31,6 @@ class PhpTemplate implements ITemplate {
 	public function getRender() {
 		if (empty($this->mainFile)) return '';
 
-		$this->renderFiles();
-
 		foreach ($this->vars as $name => $value) {
 			$$name = $value;
 		}
@@ -48,22 +40,5 @@ class PhpTemplate implements ITemplate {
 		$content = ob_get_contents();
 		ob_end_clean();
 		return $content;
-	}
-
-	private function renderFiles() {
-
-		if (empty($this->files)) return;
-
-		foreach ($this->vars as $name => $value) {
-			$$name = $value;
-		}
-
-		foreach ($this->files as $name => $file) {
-			ob_start();
-			include $file;
-			$content = ob_get_contents();
-			ob_end_clean();
-			$this->setVar($name, $content);
-		}
 	}
 }
