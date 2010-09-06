@@ -70,16 +70,6 @@ class Component {
 	}
 
 	/**
-	 * Set a file content as the value of a variable
-	 *
-	 * @param string $var
-	 * @param string $file
-	 */
-	public function setFile($var, $file) {
-		$this->template->setFile($var, $file);
-	}
-
-	/**
 	 * Parse a block
 	 *
 	 * @param string $block

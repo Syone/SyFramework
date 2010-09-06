@@ -28,10 +28,6 @@ class Template implements ITemplate {
 		$this->content = file_get_contents($file);
 	}
 
-	public function setFile($var, $file) {
-		$this->content = str_replace('{' . $var . '}', file_get_contents($file), $this->content);
-	}
-
 	public function setVar($var, $value, $append = false) {
 		if ($append)
 			$this->vars['{' . $var . '}'] .= $value;
