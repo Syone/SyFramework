@@ -1,12 +1,8 @@
 <!DOCTYPE html<?php if (isset($DOCTYPE)) : ?> <?php echo $DOCTYPE?><?php endif ?>>
-<html<?php if (isset($XMLNS)) : ?> xmlns="<?php echo $XMLNS ?>"<?php endif ?>>
+<html<?php foreach ($HTML_ATTR as $name => $value) : ?> <?php echo $name . '="' . $value .'"' ?><?php endforeach ?>>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=<?php echo $CHARSET ?>" />
-<?php foreach ($META['http-equiv'] as $name => $content) : ?>
-<meta http-equiv="<?php echo $name ?>" content="<?php echo $content ?>" />
-<?php endforeach ?>
-<?php foreach ($META['standard'] as $name => $content) : ?>
-<meta name="<?php echo $name ?>" content="<?php echo $content ?>" />
+<?php foreach ($META as $metaAttributes) : ?>
+<meta<?php foreach ($metaAttributes as $name => $value) : ?> <?php echo $name ?>="<?php echo $value ?>"<?php endforeach ?> />
 <?php endforeach ?>
 <?php if (isset($TITLE)) : ?>
 <title><?php echo $TITLE ?></title>
@@ -15,7 +11,7 @@
 <link rel="<?php echo $FAVICON_REL ?>" type="<?php echo $FAVICON_TYPE ?>" href="<?php echo $FAVICON_HREF ?>" />
 <?php endif ?>
 <?php foreach ($CSS_LINKS as $link) : ?>
-<link rel="stylesheet" href="<?php echo $link ?>" type="text/css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $link ?>" />
 <?php endforeach ?>
 <?php foreach ($JS_LINKS as $link) : ?>
 <script type="text/javascript" src="<?php echo $link ?>"></script>

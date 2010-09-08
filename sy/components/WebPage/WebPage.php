@@ -4,22 +4,44 @@ namespace Sy;
 class WebPage extends WebComponent {
 
 	private $meta;
+	private $htmlAttributes;
 	private $bodyAttributes;
 
 	public function  __construct() {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/WebPage.tpl', 'php');
-		$this->setCharset();
-		$this->meta['standard'] = array();
-		$this->meta['http-equiv'] = array();
+		$this->meta = array();
+		$this->htmlAttributes = array();
 		$this->bodyAttributes = array();
+		$this->setCharset();
 		$this->setBody('');
 	}
 
 	/**
-	 * Sets the doctype declaration
+	 * Set html tag attribute
 	 *
-	 * @param string $type
+	 * @param string $name attribute name
+	 * @param string $value attribute value
+	 */
+	public function setHtmlAttribute($name, $value) {
+		$this->htmlAttributes[$name] = $value;
+	}
+
+	/**
+	 * Set html tag attributes
+	 *
+	 * @param array $attributes
+	 */
+	public function setHtmlAttributes($attributes) {
+		foreach ($attributes as $name => $value) {
+			$this->setHtmlAttribute($name, $value);
+		}
+	}
+
+	/**
+	 * Set the doctype declaration
+	 *
+	 * @param string $type [html4.01|xhtml1.0]-[strict|transitional]
 	 */
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
@@ -37,20 +59,21 @@ class WebPage extends WebComponent {
 
 		// xmlns attribute required for xhtml document
 		if (strpos($type, 'xhtml') === 0 )
-			$this->setVar('XMLNS', 'http://www.w3.org/1999/xhtml');
+			$this->setHtmlAttribute ('xmlns', 'http://www.w3.org/1999/xhtml');
 	}
 
 	/**
-	 * Sets the document charset
+	 * Add a meta tag
 	 *
-	 * @param string $charset Charset encoding string
+	 * @param array $meta
 	 */
-	public function setCharset($charset = 'utf-8') {
-		$this->setVar('CHARSET', $charset);
+	private function addMeta($meta) {
+		$key = isset($meta['http-equiv']) ? $meta['http-equiv'] : $meta['name'];
+		$this->meta[$key] = $meta;
 	}
 
 	/**
-	 * Sets a meta tag
+	 * Set a meta tag
 	 *
 	 * @param string $name
 	 * @param string $content
@@ -58,22 +81,22 @@ class WebPage extends WebComponent {
 	 */
 	public function setMeta($name, $content, $http_equiv = false) {
 		if ($http_equiv)
-			$this->meta['http-equiv'][$name] = $content;
+			$this->addMeta(array('http-equiv' => $name, 'content' => $content));
 		else
-			$this->meta['standard'][$name] = $content;
+			$this->addMeta(array('name' => $name, 'content' => $content));
 	}
 
 	/**
-	 * Sets the page title
+	 * Set the document charset
 	 *
-	 * @param string $title
+	 * @param string $charset Charset encoding string
 	 */
-	public function setTitle($title) {
-		$this->setVar('TITLE', $title);
+	public function setCharset($charset = 'utf-8') {
+		$this->setMeta('Content-Type', 'text/html; charset=' . $charset, true);
 	}
 
 	/**
-	 * Sets the page description
+	 * Set the page description
 	 *
 	 * @param string $description
 	 */
@@ -82,7 +105,16 @@ class WebPage extends WebComponent {
 	}
 
 	/**
-	 * Sets the page favicon
+	 * Set the page title
+	 *
+	 * @param string $title
+	 */
+	public function setTitle($title) {
+		$this->setVar('TITLE', $title);
+	}
+
+	/**
+	 * Set the page favicon
 	 *
 	 * @param string $href
 	 * @param string $type
@@ -95,16 +127,28 @@ class WebPage extends WebComponent {
 	}
 
 	/**
-	 * Sets the body tag attributes
+	 * Set body tag attribute
+	 *
+	 * @param string $name attribute name
+	 * @param string $value attribute value
+	 */
+	public function setBodyAttribute($name, $value) {
+		$this->bodyAttributes[$name] = $value;
+	}
+
+	/**
+	 * Set the body tag attributes
 	 *
 	 * @param array $attributes
 	 */
 	public function setBodyAttributes($attributes) {
-		$this->bodyAttributes = $attributes;
+		foreach ($attributes as $name => $value) {
+			$this->setBodyAttribute($name, $value);
+		}
 	}
 
 	/**
-	 * Sets the body content
+	 * Set the body content
 	 *
 	 * @param mixed $content
 	 */
@@ -128,6 +172,7 @@ class WebPage extends WebComponent {
 	}
 
 	public function  __toString() {
+		$this->setVar('HTML_ATTR', $this->htmlAttributes);
 		$this->setVar('META', $this->meta);
 		$this->setVar('CSS_LINKS', $this->getCssLinks());
 		$this->setVar('JS_LINKS', $this->getJsLinks());
