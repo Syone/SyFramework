@@ -34,8 +34,8 @@ class Template implements ITemplate {
 
 		$data = $this->blockCached[$block];
 		if (strpos($data, '<!-- BEGIN') !== false) {
-            $reg = "/[ \t]*<!-- BEGIN ([a-zA-Z0-9\._]*) -->(\s*?\n?\s*.*?\n?\s*)<!-- END \\1 -->\s*?\n?/sm";
-            $data = preg_replace_callback($reg, array($this, 'getBlockContent'), $data);
+			$reg = "/[ \t]*<!-- BEGIN ([a-zA-Z0-9\._]*) -->(\s*?\n?\s*.*?\n?\s*)<!-- END \\1 -->\s*?\n?/sm";
+			$data = preg_replace_callback($reg, array($this, 'getBlockContent'), $data);
         }
 
 		$varkeys = array_keys($this->vars);
