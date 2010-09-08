@@ -41,14 +41,17 @@ class WebPage extends WebComponent {
 	/**
 	 * Set the doctype declaration
 	 *
-	 * @param string $type [html4.01|xhtml1.0]-[strict|transitional]
+	 * @param string $type [html4.01|xhtml1.0|xhtml1.1]-[strict|transitional|frameset]
 	 */
 	public function setDoctype($type = 'html5') {
 		$doctype = Array(
 			'html4.01-strict'       => 'PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"',
 			'html4.01-transitional' => 'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"',
+			'html4.01-frameset'     => 'PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"',
 			'xhtml1.0-strict'       => 'PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"',
 			'xhtml1.0-transitional' => 'PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"',
+			'xhtml1.0-frameset'     => 'PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"',
+			'xhtml1.1'              => 'PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"',
 			'html5'                 => '',
 		);
 
