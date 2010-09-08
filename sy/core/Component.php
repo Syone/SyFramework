@@ -74,8 +74,8 @@ class Component {
 	 *
 	 * @param string $block
 	 */
-	public function parseBlock($block) {
-		$this->template->parseBlock($block);
+	public function setBlock($block) {
+		$this->template->setBlock($block);
 	}
 
 	/**
