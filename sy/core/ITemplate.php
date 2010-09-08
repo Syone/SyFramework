@@ -7,7 +7,7 @@ interface ITemplate {
 
 	public function setVar($var, $value, $append = false);
 
-	public function parseBlock($block);
+	public function setBlock($block);
 
 	public function getRender();
 	

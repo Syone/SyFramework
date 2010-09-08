@@ -24,7 +24,7 @@ class PhpTemplate implements ITemplate {
 			$this->vars[$var] = $value;
 	}
 
-	public function parseBlock($block) {
+	public function setBlock($block) {
 
 	}
 
