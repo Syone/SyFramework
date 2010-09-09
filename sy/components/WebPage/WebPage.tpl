@@ -18,12 +18,12 @@
 <?php endforeach ?>
 <?php if (isset($CSS_CODE)) : ?>
 <style type="text/css">
-<?php echo $CSS_CODE ?>
+<?php echo $CSS_CODE ?> 
 </style>
 <?php endif ?>
 <?php if (isset($JS_CODE)) : ?>
 <script type="text/javascript">
-<?php echo $JS_CODE ?>
+<?php echo $JS_CODE ?>	
 </script>
 <?php endif ?>
 </head>
