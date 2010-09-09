@@ -72,6 +72,7 @@ class WebPage extends WebComponent {
 	 */
 	private function addMeta($meta) {
 		$key = isset($meta['http-equiv']) ? $meta['http-equiv'] : $meta['name'];
+		$key = strtolower($key);
 		$this->meta[$key] = $meta;
 	}
 
