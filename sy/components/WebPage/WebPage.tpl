@@ -10,8 +10,10 @@
 <?php if (isset($FAVICON_HREF)) : ?>
 <link rel="<?php echo $FAVICON_REL ?>" type="<?php echo $FAVICON_TYPE ?>" href="<?php echo $FAVICON_HREF ?>" />
 <?php endif ?>
-<?php foreach ($CSS_LINKS as $link) : ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $link ?>" />
+<?php foreach ($CSS_LINKS as $media => $links) : ?>
+<?php foreach ($links as $link) : ?>
+<link rel="stylesheet" type="text/css"<?php if (!empty($media)) : ?> media="<?php echo $media ?>"<?php endif; ?> href="<?php echo $link ?>" />
+<?php endforeach ?>
 <?php endforeach ?>
 <?php foreach ($JS_LINKS as $link) : ?>
 <script type="text/javascript" src="<?php echo $link ?>"></script>
