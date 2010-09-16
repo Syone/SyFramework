@@ -7,9 +7,9 @@ abstract class Form extends FieldContainer {
 
 	private static $instances = 0;
 
-	protected $formId = 0;
+	private $formId = 0;
 
-	protected $success;
+	private $success;
 
 	public function __construct() {
 		parent::__construct();

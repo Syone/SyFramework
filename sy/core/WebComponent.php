@@ -3,11 +3,11 @@ namespace Sy;
 
 class WebComponent extends Component {
 
-	protected $cssLinks;
-	protected $jsLinks;
+	private $cssLinks;
+	private $jsLinks;
 
-	protected $cssCode;
-	protected $jsCode;
+	private $cssCode;
+	private $jsCode;
 
 	public function __construct() {
 		parent::__construct();
@@ -27,7 +27,7 @@ class WebComponent extends Component {
 	public function setComponent($where, $component, $append = false) {
 		parent::setComponent($where, $component, $append);
 		if (!$component instanceof WebComponent) return; 
-		$this->cssLinks = array_merge($this->cssLinks, $component->getCssLinks());
+		$this->cssLinks = array_merge_recursive($this->cssLinks, $component->getCssLinks());
 		$this->jsLinks  = array_merge($this->jsLinks , $component->getJsLinks());
 		$this->cssCode  = array_merge($this->cssCode , $component->getCssCodeArray());
 		$this->jsCode   = array_merge($this->jsCode  , $component->getJsCodeArray());
@@ -93,9 +93,10 @@ class WebComponent extends Component {
 	 * Add a css link
 	 *
 	 * @param string $url
+	 * @param string $media
 	 */
-	public function addCssLink($url) {
-		$this->cssLinks[] = $url;
+	public function addCssLink($url, $media = '') {
+		$this->cssLinks[$media][] = $url;
 	}
 
 	/**
@@ -113,7 +114,9 @@ class WebComponent extends Component {
 	 * @return array
 	 */
 	public function getCssLinks() {
-		$this->cssLinks = array_unique($this->cssLinks);
+		foreach ($this->cssLinks as $media => $links) {
+			$this->cssLinks[$media] = array_unique($links);
+		}
 		return $this->cssLinks;
 	}
 
@@ -126,4 +129,5 @@ class WebComponent extends Component {
 		$this->jsLinks = array_unique($this->jsLinks);
 		return $this->jsLinks;
 	}
+
 }

@@ -187,4 +187,5 @@ class WebPage extends WebComponent {
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		return parent::__toString();
 	}
+	
 }

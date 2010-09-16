@@ -8,9 +8,14 @@ class Component {
 	 *
 	 * @var ITemplate
 	 */
-	protected $template;
+	private $template;
 
-	protected $templateType;
+	/**
+	 * Template type
+	 *
+	 * @var string
+	 */
+	private $templateType;
 
 	public function __construct() {
 		$this->templateType = '';
@@ -209,4 +214,5 @@ class Component {
 		if (!method_exists($this, $method)) $method = $defaultMethod . 'Action';
 		if (method_exists($this, $method)) $this->$method();
 	}
+	
 }
