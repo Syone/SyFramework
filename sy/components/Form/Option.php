@@ -8,7 +8,7 @@ class Option extends Element implements FillableElement {
 	}
 
 	public function fill($values) {
-		$v = is_null($this->getAttribute('value')) ? $this->content : $this->getAttribute('value');
+		$v = is_null($this->getAttribute('value')) ? $this->getContent() : $this->getAttribute('value');
 		if (is_array($values)) {
 			if (in_array($v, $values)) $this->setAttribute('selected', 'selected');
 		} else {

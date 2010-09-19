@@ -7,7 +7,7 @@ class TextElement extends Element implements ValidableElement {
 
 	public function isValid($value) {
 		$valid = $this->validate($value);
-		if (!$valid) $this->error = true;
+		if (!$valid) $this->setError(true);
 		return $valid;
 	}
 
@@ -22,8 +22,8 @@ class TextElement extends Element implements ValidableElement {
 			if (is_array($value)) $value = array_filter($value);
 			if (empty($value)) return true;
 		}
-		if (!isset($this->options['validator'])) return true;
-		$validators = $this->options['validator'];
+		$validators = $this->getOption('validator');
+		if (is_null($validators)) return true;
 		if (!is_array($validators)) $validators = array($validators);
 		foreach ($validators as $v) {
 			$options = array();
@@ -34,4 +34,5 @@ class TextElement extends Element implements ValidableElement {
 		}
 		return true;
 	}
+
 }

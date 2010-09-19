@@ -15,11 +15,10 @@ abstract class Form extends FieldContainer {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
-		$this->attributes = array(
+		$this->setAttributes(array(
 			'action'  => '',
 			'method'  => 'post',
-		);
-		$this->elements = array();
+		));
 		$this->success = false;
 		$this->init();
 		$this->actionDispatch('formAction' . $this->formId);

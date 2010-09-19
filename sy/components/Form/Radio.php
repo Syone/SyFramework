@@ -1,11 +1,10 @@
 <?php
 namespace Sy\Form;
 
-class Radio extends Element implements FillableElement, ValidableElement {
+class Radio extends Input implements FillableElement, ValidableElement {
 
 	public function __construct() {
-		parent::__construct('input');
-		$this->setAttribute('type', 'radio');
+		parent::__construct('radio');
 	}
 
 	public function fill($value) {
@@ -16,7 +15,7 @@ class Radio extends Element implements FillableElement, ValidableElement {
 
 	public function isValid($value) {
 		$valid = $this->validate($value);
-		if (!$valid) $this->error = true;
+		if (!$valid) $this->setError(true);
 		return $valid;
 	}
 
@@ -26,4 +25,5 @@ class Radio extends Element implements FillableElement, ValidableElement {
 		}
 		return true;
 	}
+	
 }

@@ -24,5 +24,3 @@ function ip($value) {
 function url($value) {
 	return filter_var($value, FILTER_VALIDATE_URL);
 }
-
-?>

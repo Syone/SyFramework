@@ -3,7 +3,7 @@ namespace Sy\Form;
 
 class Container extends Element implements FillableElement, ValidableElement {
 	
-	protected $elements;
+	private $elements;
 
 	public function __construct($name = '') {
 		parent::__construct($name);
@@ -20,6 +20,15 @@ class Container extends Element implements FillableElement, ValidableElement {
 	public function addElement($element) {
 		$this->elements[] = $element;
 		return $element;
+	}
+
+	/**
+	 * Get contained elements
+	 *
+	 * @return array Element array
+	 */
+	public function getElements() {
+		return $this->elements;
 	}
 
 	/**
@@ -100,4 +109,5 @@ class Container extends Element implements FillableElement, ValidableElement {
 			$this->setVar('ELEMENTS', $this->elements);
 		return parent::__toString();
 	}
+
 }

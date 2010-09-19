@@ -41,4 +41,5 @@ class PhpTemplate implements ITemplate {
 		ob_end_clean();
 		return $content;
 	}
+
 }
