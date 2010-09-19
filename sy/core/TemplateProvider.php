@@ -14,5 +14,5 @@ class TemplateProvider {
 		if (!class_exists($class)) $class = 'Sy\Template';
 		return new $class();
 	}
-	
+
 }

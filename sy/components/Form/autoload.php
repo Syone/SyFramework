@@ -1,5 +1,4 @@
 <?php
-
 namespace Sy\Form;
 
 function autoload($class) {

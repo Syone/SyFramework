@@ -1,11 +1,10 @@
 <?php
 namespace Sy\Form;
 
-class Checkbox extends Element implements FillableElement, ValidableElement {
+class Checkbox extends Input implements FillableElement, ValidableElement {
 	
 	public function __construct() {
-		parent::__construct('input');
-		$this->setAttribute('type', 'checkbox');
+		parent::__construct('checkbox');
 	}
 
 	public function fill($value) {
@@ -21,7 +20,7 @@ class Checkbox extends Element implements FillableElement, ValidableElement {
 	public function isValid($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') {
-				$this->error = true;
+				$this->setError(true);
 				return false;
 			}
 		}

@@ -28,9 +28,9 @@ class WebComponent extends Component {
 		parent::setComponent($where, $component, $append);
 		if (!$component instanceof WebComponent) return; 
 		$this->cssLinks = array_merge_recursive($this->cssLinks, $component->getCssLinks());
-		$this->jsLinks  = array_merge($this->jsLinks , $component->getJsLinks());
-		$this->cssCode  = array_merge($this->cssCode , $component->getCssCodeArray());
-		$this->jsCode   = array_merge($this->jsCode  , $component->getJsCodeArray());
+		$this->jsLinks  = array_merge($this->jsLinks, $component->getJsLinks());
+		$this->cssCode  = array_merge($this->cssCode, $component->getCssCodeArray());
+		$this->jsCode   = array_merge($this->jsCode, $component->getJsCodeArray());
 	}
 
 	/**

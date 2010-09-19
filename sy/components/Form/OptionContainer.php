@@ -58,7 +58,7 @@ class OptionContainer extends Container {
 	 * @param array $values
 	 */
 	public function fill($values) {
-		foreach ($this->elements as $e) {
+		foreach ($this->getElements() as $e) {
 			$name = $this->getAttribute('name');
 			
 			// if optgroup
@@ -81,18 +81,19 @@ class OptionContainer extends Container {
 		if (!$this->isRequired()) return true;
 		$name = $this->getAttribute('name');
 		if (is_null($name)) {
-			$this->error = true;
+			$this->setError(true);
 			return false;
 		}
 		$value = $this->dissolveArrayValue($values, $name);
 		if (is_array($value) and empty($value)) {
-			$this->error = true;
+			$this->setError(true);
 			return false;
 		}
 		if ($value === '' or is_null($value)) {
-			$this->error = true;
+			$this->setError(true);
 			return false;
 		}
 		return true;
 	}
+
 }

@@ -5,11 +5,11 @@ use Sy\WebComponent;
 
 class Element extends WebComponent {
 
-	protected $tagName;
-	protected $content;
-	protected $attributes;
-	protected $options;
-	protected $error;
+	private $tagName;
+	private $content;
+	private $attributes;
+	private $options;
+	private $error;
 
 	public function __construct($tagName = '') {
 		parent::__construct();
@@ -19,6 +19,15 @@ class Element extends WebComponent {
 		$this->attributes = array();
 		$this->options = array();
 		$this->error = false;
+	}
+	
+	/**
+	 * Set error
+	 *
+	 * @param boolean $error 
+	 */
+	public function setError($error) {
+		$this->error = $error;
 	}
 
 	/**
@@ -37,6 +46,15 @@ class Element extends WebComponent {
 	 */
 	public function setContent($content) {
 		$this->content = $content;
+	}
+
+	/**
+	 * Get the element content
+	 *
+	 * @return string
+	 */
+	public function getContent() {
+		return $this->content;
 	}
 
 	/**
@@ -104,6 +122,16 @@ class Element extends WebComponent {
 	}
 
 	/**
+	 * Get the element option
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function getOption($name) {
+		return isset($this->options[$name]) ? $this->options[$name] : NULL;
+	}
+
+	/**
 	 * Set the element name attribute
 	 *
 	 * @param string $name
@@ -155,4 +183,5 @@ class Element extends WebComponent {
 		}
 		return parent::__toString();
 	}
+
 }

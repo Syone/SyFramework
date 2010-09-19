@@ -1,17 +1,16 @@
 <?php
 namespace Sy\Form;
 
-class File extends Element implements ValidableElement {
+class File extends Input implements ValidableElement {
 	
 	public function __construct() {
-		parent::__construct('input');
-		$this->setAttribute('type', 'file');
+		parent::__construct('file');
 	}
 
 	public function isValid($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') {
-				$this->error = true;
+				$this->setError(true);
 				return false;
 			}
 		}

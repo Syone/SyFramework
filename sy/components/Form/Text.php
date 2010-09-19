@@ -5,12 +5,16 @@ class Text extends TextElement implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('input');
-		$this->setAttribute('type', 'text');
 	}
 
 	public function fill($value) {
 		if (is_array($value)) return;
 		$this->setAttribute('value', $value);
+	}
+
+	public function __toString() {
+		$this->setAttribute('type', 'text');
+		return parent::__toString();
 	}
 
 }
