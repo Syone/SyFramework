@@ -35,7 +35,7 @@ abstract class Form extends FieldContainer {
 		if ($valid) {
 			$this->success = true;
 		} else {
-			$this->error = true;
+			$this->setError(true);
 		}
 		return $valid;
 	}
