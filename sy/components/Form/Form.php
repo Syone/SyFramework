@@ -3,7 +3,7 @@ namespace Sy\Form;
 
 require __DIR__ . '/autoload.php';
 
-abstract class Form extends FieldContainer {
+class Form extends FieldContainer {
 
 	private static $instances = 0;
 
@@ -46,8 +46,12 @@ abstract class Form extends FieldContainer {
 		return parent::__toString();
 	}
 
-	abstract public function init();
+	public function init() {
 
-	abstract public function submitAction();
+	}
+
+	public function submitAction() {
+
+	}
 
 }
