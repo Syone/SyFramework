@@ -135,7 +135,7 @@ class Component {
 	 */
 	protected function post($param, $default = NULL) {
 		if (is_null($default))
-			return isset($_GET[$param]) ? $_GET[$param] : $default;
+			return isset($_POST[$param]) ? $_POST[$param] : $default;
 		else
 			return (isset($_POST[$param]) and !empty($_POST[$param])) ? $_POST[$param] : $default;
 	}
