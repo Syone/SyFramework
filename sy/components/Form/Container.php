@@ -19,6 +19,14 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 */
 	public function addElement($element) {
 		$this->elements[] = $element;
+		foreach ($element->getCssLinks() as $url) {
+			$this->addCssLink($url);
+		}
+		foreach ($element->getJsLinks() as $url) {
+			$this->addJsLink($url);
+		}
+		$this->addCssCode($element->getCssCode());
+		$this->addJsCode($element->getJsCode());
 		return $element;
 	}
 
@@ -105,8 +113,17 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function __toString() {
-		if ($this->getTemplateType() == 'php')
-			$this->setVar('ELEMENTS', $this->elements);
+		$this->setVar('ELEMENTS', $this->elements);
+		foreach ($this->elements as $element) {
+			foreach ($element->getCssLinks() as $url) {
+				$this->addCssLink($url);
+			}
+			foreach ($element->getJsLinks() as $url) {
+				$this->addJsLink($url);
+			}
+			$this->addCssCode($element->getCssCode());
+			$this->addJsCode($element->getJsCode());
+		}
 		return parent::__toString();
 	}
 
