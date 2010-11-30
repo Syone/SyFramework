@@ -113,7 +113,8 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function __toString() {
-		$this->setVar('ELEMENTS', $this->elements);
+		if ($this->getTemplateType() == 'php')
+			$this->setVar('ELEMENTS', $this->elements);
 		foreach ($this->elements as $element) {
 			foreach ($element->getCssLinks() as $url) {
 				$this->addCssLink($url);
