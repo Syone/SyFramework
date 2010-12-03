@@ -18,7 +18,7 @@ class PhpTemplate implements ITemplate {
 	}
 
 	public function setVar($var, $value, $append = false) {
-		if ($append)
+		if ($append and isset($this->vars[$var]))
 			$this->vars[$var] .= $value;
 		else
 			$this->vars[$var] = $value;
