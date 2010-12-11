@@ -96,4 +96,23 @@ class OptionContainer extends Container {
 		return true;
 	}
 
+	public function __toString() {
+		// Add option elements
+		if (!is_null($this->getOption('options')))
+			$this->addOptions($this->getOption('options'));
+		
+		// Check selected option elements
+		if (!is_null($this->getOption('selected')))
+			$this->checkSelectedOption();
+		
+		return parent::__toString();
+	}
+
+	private function checkSelectedOption() {
+		$values = $this->getOption('selected');
+		foreach ($this->getElements() as $e) {
+			$e->fill($values);
+		}
+	}
+
 }
