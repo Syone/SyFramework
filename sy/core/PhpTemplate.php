@@ -1,7 +1,7 @@
 <?php
 namespace Sy;
 
-class PhpTemplate implements ITemplate {
+class PhpTemplate extends Object implements ITemplate {
 
 	private $mainFile;
 
