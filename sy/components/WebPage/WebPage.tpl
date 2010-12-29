@@ -32,6 +32,6 @@
 
 <body<?php foreach ($BODY_ATTR as $name => $value) : ?> <?php echo $name . '="' . $value .'"' ?><?php endforeach ?>>
 <?php echo $BODY ?>
-
+<?php if (isset($DEBUG_BAR)) echo $DEBUG_BAR ?>
 </body>
 </html>
