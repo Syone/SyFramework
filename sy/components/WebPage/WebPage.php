@@ -3,6 +3,7 @@ namespace Sy;
 
 class WebPage extends WebComponent {
 
+	private $debug;
 	private $meta;
 	private $htmlAttributes;
 	private $bodyAttributes;
@@ -10,11 +11,16 @@ class WebPage extends WebComponent {
 	public function  __construct() {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/WebPage.tpl', 'php');
+		$this->debug = false;
 		$this->meta = array();
 		$this->htmlAttributes = array();
 		$this->bodyAttributes = array();
 		$this->setCharset();
 		$this->setBody('');
+	}
+
+	public function setDebug($debug) {
+		$this->debug = true;
 	}
 
 	/**
@@ -184,6 +190,10 @@ class WebPage extends WebComponent {
 		if (!empty($css_code)) $this->setVar('CSS_CODE', $css_code);
 		$js_code = $this->getJsCode();
 		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
+		if ($this->debug) {
+			require __DIR__ . '/DebugBar/DebugBar.php';
+			$this->setComponent('DEBUG_BAR', new DebugBar);
+		}
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		return parent::__toString();
 	}
