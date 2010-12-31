@@ -35,10 +35,6 @@
 	}
 </script>
 
-<!--<div style="position: fixed; bottom: 0; right: 0; border: 1px solid #CCC; padding: 0px 5px; background-color: #DDE4EB; cursor: pointer;" onclick="show_console()">
-	<img style="vertical-align: middle;" alt="SyFramework" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAACbElEQVR42mNgGNSgvv4/U8uCr3XprY/LgVxGMg2pZ6qa/rkwvfPz//imj/9DS25Wk2VQ9YyPdQlN7/6HVryB4PJX/w3cp0WB5Ar63wswONSzIKsv7PsolJZ2hgsuEF75RC2/79XksMrnv30Knv33BmKv3Af/bYI3HQFKSxVPfqqR3Pzqul/hg4d2sbs1QXpyJ73lS2p5dSew6OE1Hb8J4mCDnNLuXTOOvvPfMv7Of+e0e/+d0+/+N/HdADJEMbLqnnhUzeNbrhkg8Xv/3dKvXQ8tPu+a0Pjks1vW/f8uQHGPrNtfdX3WaDDIOuyZouxz4b+Kz8X/qr6X/lvEXvtv4LexEmSJiHoSr2X0xT/W8df+w7B90g042wqIzUKO/RdTSwxkEFTq4Je03rhAwfX4fwW3E2Cs5n3qn5rnnlaQYRou6x30A0/8NQo9898oBIqhbG2PHW+EFELDgcrYYUHFqOq+/4qs44H/MCxjt+cfu1igK0hS3WN7jBySnKzD/v9S5uvecEvHJgClmcEmhBZe0g0tvTpD1X3vfymb7WAsYbn1v4Baz26gtIBb7EVuu7iTf2ByUtbb/4sZr/nPzmvhCzGknglskGHQnsuKTkBJi41AvOG/mNn6//wqrSsZGLikbKIOCxoH738kYbUJIm++8b+w3vxn7HzWnkCtrCjpR0h37iwR41X/QVjYYNlfPpW2HSBDwIFtPFNSxGj5K5i8kPacZ2wCbgFAKSYsSdGBRUBj8hpBvUX/eZWatgEFBJFl2SSzNAV1F/0T1J7/n5nPwhOHIQjDuGWqgKlYWBqbLLdivR4Lv40LhndGBgAASCodpSZe6KIAAAAASUVORK5CYII=" />
-</div>-->
-
 <div style="height: 30px"></div>
 <div id="sy_debug_resize_bar_wrapper" style="height: 4px; display: none;"></div>
 <div id="sy_debug_console" style="height: 270px; display: none;"></div>
@@ -66,40 +62,65 @@
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
+
 		<div id="sy_debug_var_content" style="padding: 0px 10px; height: 100%; overflow: auto;">
-		<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
-			<?php if (!empty($vars)) : ?>
-				<h2 style="font-size: 16px"><?php echo $title ?></h2>
-				<table style="border-collapse: collapse;" cellpadding="3">
-					<tr style="background-color: #99C;">
-						<th style="border: 1px solid #000">Name</th>
-						<th style="border: 1px solid #000">Value</th>
-					</tr>
-					<?php foreach ($vars as $k => $v) : ?>
-					<tr>
-						<td style="border: 1px solid #000; background-color: #CCF; font-weight: bold;"><?php echo $k ?></td>
-						<td style="border: 1px solid #000; background-color: #CCC"><?php echo $v ?></td>
-					</tr>
-					<?php endforeach ?>
-				</table>
-			<?php endif ?>
-		<?php endforeach ?>
-		
-		<h2 style="font-size: 16px">Included Files</h2>
-		<table style="border-collapse: collapse; margin-bottom: 10px" cellpadding="3">
-			<tr style="background-color: #99C;">
-				<th style="border: 1px solid #000">Filename</th>
-			</tr>
-			<?php foreach ($FILES as $file) : ?>
-			<tr>
-				<td style="border: 1px solid #000; background-color: #CCC"><?php echo $file ?></td>
-			</tr>
+			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
+				<?php if (!empty($vars)) : ?>
+					<h2 style="font-size: 16px"><?php echo $title ?></h2>
+					<table style="border-collapse: collapse;" cellpadding="3">
+						<tr style="background-color: #99C;">
+							<th style="border: 1px solid #000">Name</th>
+							<th style="border: 1px solid #000">Value</th>
+						</tr>
+						<?php foreach ($vars as $k => $v) : ?>
+						<tr>
+							<td style="border: 1px solid #000; background-color: #CCF; font-weight: bold;"><?php echo $k ?></td>
+							<td style="border: 1px solid #000; background-color: #CCC"><?php echo $v ?></td>
+						</tr>
+						<?php endforeach ?>
+					</table>
+				<?php endif ?>
 			<?php endforeach ?>
-		</table>
+
+			<h2 style="font-size: 16px">Included Files</h2>
+			<table style="border-collapse: collapse;" cellpadding="3">
+				<tr style="background-color: #99C;">
+					<th style="border: 1px solid #000">Filename</th>
+				</tr>
+				<?php foreach ($FILES as $file) : ?>
+				<tr>
+					<td style="border: 1px solid #000; background-color: #CCC"><?php echo $file ?></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
+			<br />
 		</div>
-		<div id="sy_debug_log_content" style="padding: 5px; height: 100%; overflow: auto;">
-			logs
+
+		<div id="sy_debug_log_content" style="height: 100%; overflow: auto; font-size: 11px;">
+			<table style="border-collapse: collapse;" cellpadding="3">
+				<tr style="background-color: #99C;">
+					<th style="border: 1px solid #000">Level</th>
+					<th style="border: 1px solid #000">Type</th>
+					<th style="border: 1px solid #000">File</th>
+					<th style="border: 1px solid #000">Line</th>
+					<th style="border: 1px solid #000">Class</th>
+					<th style="border: 1px solid #000">Function</th>
+					<th style="border: 1px solid #000">Message</th>
+				</tr>
+				<?php foreach ($LOGS as $log) : ?>
+				<tr>
+					<td style="border: 1px solid #000"><?php echo $log->getLevelName() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getType() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getFile() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getLine() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getClass() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getFunction() ?></td>
+					<td style="border: 1px solid #000"><?php echo $log->getMessage() ?></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
 		</div>
+
 		<div id="sy_debug_timer_content" style="padding: 5px; height: 100%; overflow: auto;">
 			timers
 		</div>
@@ -117,8 +138,6 @@
 		var posy = 0;
 		if (!e) var e = window.event;
 		posy = e.clientY;
-//		if (e.pageY) posy = e.pageY;
-//		else if (e.clientY) posy = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 		if (posy <= 0) return;
 		
 		var h = 0;

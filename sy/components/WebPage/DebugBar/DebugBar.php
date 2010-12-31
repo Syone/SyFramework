@@ -23,6 +23,7 @@ class DebugBar extends WebComponent {
 		$vars_array['$_GET Variables'] = $_GET;
 		$vars_array['$_POST Variables'] = $_POST;
 		$vars_array['$_COOKIE Variables'] = $_COOKIE;
+		if (session_id ()) $vars_array['$_SESSION Variables'] = $_SESSION;
 		$vars_array['$_FILES Variables'] = $_FILES;
 		$vars_array['$_SERVER Variables'] = $_SERVER;
 		$vars_array['$_ENV Variables'] = $_ENV;
@@ -30,6 +31,10 @@ class DebugBar extends WebComponent {
 
 		// Files
 		$this->setVar('FILES', get_included_files());
+
+		// Logs
+		$this->log('log test ' . __FILE__ . ':' . __LINE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__);
+		$this->setVar('LOGS', Debugger::getLogs());
 	}
 
 }
