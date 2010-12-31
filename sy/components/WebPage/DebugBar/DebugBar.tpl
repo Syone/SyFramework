@@ -84,7 +84,7 @@
 
 			<h2 style="font-size: 16px">Included Files</h2>
 			<table style="border-collapse: collapse;" cellpadding="3">
-				<tr style="background-color: #99C;">
+				<tr style="background-color: #99C">
 					<th style="border: 1px solid #000">Filename</th>
 				</tr>
 				<?php foreach ($FILES as $file) : ?>
@@ -96,8 +96,8 @@
 			<br />
 		</div>
 
-		<div id="sy_debug_log_content" style="height: 100%; overflow: auto; font-size: 11px;">
-			<table style="border-collapse: collapse;" cellpadding="3">
+		<div id="sy_debug_log_content" style="height: 100%; overflow: auto;">
+			<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
 				<tr style="background-color: #99C;">
 					<th style="border: 1px solid #000">Level</th>
 					<th style="border: 1px solid #000">Type</th>
@@ -109,13 +109,13 @@
 				</tr>
 				<?php foreach ($LOGS as $log) : ?>
 				<tr>
-					<td style="border: 1px solid #000"><?php echo $log->getLevelName() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getType() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getFile() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getLine() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getClass() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getFunction() ?></td>
-					<td style="border: 1px solid #000"><?php echo $log->getMessage() ?></td>
+					<td style="border: 1px solid #000; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getLevelName() ?></td>
+					<td style="border: 1px solid #000; background-color: #EEF"><?php echo $log->getType() ?></td>
+					<td style="border: 1px solid #000; background-color: #EEF"><span title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
+					<td style="border: 1px solid #000; background-color: #EEF; text-align: right;"><?php echo $log->getLine() ?></td>
+					<td style="border: 1px solid #000; background-color: #EEF"><?php echo $log->getClass() ?></td>
+					<td style="border: 1px solid #000; background-color: #EEF"><?php echo $log->getFunction() ?></td>
+					<td style="border: 1px solid #000; background-color: #CCC"><?php echo $log->getMessage() ?></td>
 				</tr>
 				<?php endforeach ?>
 			</table>

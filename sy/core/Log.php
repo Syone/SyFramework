@@ -16,6 +16,7 @@ class Log {
 		self::EMERG  => 'Emergency',
 		self::ALERT  => 'Alert',
 		self::CRIT   => 'Critical',
+		self::ERR    => 'Error',
 		self::WARN   => 'Warning',
 		self::NOTICE => 'Notice',
 		self::INFO   => 'Informational',
@@ -39,15 +40,10 @@ class Log {
 		$callStack = debug_backtrace();
 		$idx = 2;
 
-		// Get max id of 'add' debug functions
-//		foreach ($callStack as $lkey => $lvalue) {
-//			$idx = $lkey;
-//		}
-
-		$this->file = !empty($callStack[$idx] ['file']) ? $callStack[$idx]['file'] : '';
-		$this->line = !empty($callStack[$idx] ['line']) ? $callStack[$idx]['line'] : '';
+		$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
+		$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
 		$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
-		$this->class = !empty($callStack[$idx + 1]['class']) ? $callStack[$idx + 1]['class'] : '';
+		$this->class    = !empty($callStack[$idx + 1]['class'])    ? $callStack[$idx + 1]['class']    : '';
 	}
 
 	public function getMessage() {
