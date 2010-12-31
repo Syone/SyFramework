@@ -10,7 +10,8 @@ class Object {
 	 * @param integer $level
 	 */
 	public function log($message, $level = Log::DEBUG) {
-		Debugger::log($message, $level, get_class($this));
+		if (defined('LOG') and LOG == 1)
+			Debugger::log($message, $level, get_class($this));
 	}
 
 	/**

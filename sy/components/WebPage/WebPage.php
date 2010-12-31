@@ -8,7 +8,7 @@ class WebPage extends WebComponent {
 	private $htmlAttributes;
 	private $bodyAttributes;
 
-	public function  __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/WebPage.tpl', 'php');
 		$this->debug = false;
@@ -181,7 +181,7 @@ class WebPage extends WebComponent {
 			$this->setVar('BODY', $content, true);
 	}
 
-	public function  __toString() {
+	public function __toString() {
 		$this->setVar('HTML_ATTR', $this->htmlAttributes);
 		$this->setVar('META', $this->meta);
 		$this->setVar('CSS_LINKS', $this->getCssLinks());
@@ -191,6 +191,7 @@ class WebPage extends WebComponent {
 		$js_code = $this->getJsCode();
 		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
 		if ($this->debug) {
+			$this->log('web page add a debug bar ' . __FILE__ . ':' . __LINE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__);
 			require __DIR__ . '/DebugBar/DebugBar.php';
 			$this->setComponent('DEBUG_BAR', new DebugBar);
 		}
