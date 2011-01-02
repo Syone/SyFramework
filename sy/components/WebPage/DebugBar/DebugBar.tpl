@@ -58,7 +58,7 @@
 	</div>
 	<div id="sy_debug_console_content" style="height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="height: 100%">
-			<iframe src="<?php echo $_SERVER['REQUEST_URI'] ?>?phpinfo=1" width="100%" height="100%" frameborder="0">
+			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo=1" width="100%" height="100%" frameborder="0">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
