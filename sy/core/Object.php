@@ -14,6 +14,16 @@ class Object {
 			Debugger::log($message, $level, get_class($this));
 	}
 
+	public function startTimer($title) {
+		if (defined('TIME_RECORD') and TIME_RECORD == 1)
+			Debugger::startTimer($title);
+	}
+
+	public function stopTimer($title) {
+		if (defined('TIME_RECORD') and TIME_RECORD == 1)
+			Debugger::stopTimer($title);
+	}
+
 	/**
 	 * Return the GET parameter named $param
 	 * If the parameter is not set, return the default value
