@@ -9,9 +9,12 @@ class Debugger {
 
 	private $times;
 
+	private $startTimes;
+
 	private function __construct() {
 		$this->logs = array();
 		$this->times = array();
+		$this->startTimes = array();
 	}
 
 	public static function getInstance() {
@@ -41,14 +44,14 @@ class Debugger {
 
 	public function timeStart($id) {
 		if (!defined('TIME_RECORD') and TIME_RECORD != 1) return;
-		$this->times[$id] = microtime(true);
+		$this->startTimes[$id] = microtime(true);
 	}
 	
 	public function timeStop($id) {
 		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
-		if (!isset($this->times[$id])) return;
+		if (!isset($this->startTimes[$id])) return;
 		$end = microtime(true);
-		$this->times[$id] = $end - $this->times[$id];
+		$this->times[$id] = $end - $this->startTimes[$id];
 	}
 
 }
