@@ -6,21 +6,34 @@ class Object {
 	/**
 	 * Log a message
 	 *
-	 * @param mixed $message
+	 * @param string $message
 	 * @param integer $level
 	 */
 	public function log($message, $level = Log::DEBUG, $type = NULL) {
+		if (!defined('LOG') or LOG != 1) return;
 		$debugger = Debugger::getInstance();
 		$type = is_null($type) ? get_class($this) : $type;
 		$debugger->log($message, $level, $type);
 	}
 
+	/**
+	 * Start time record
+	 *
+	 * @param string $id time record identifier
+	 */
 	public function timeStart($id) {
+		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
 		$debugger = Debugger::getInstance();
 		$debugger->timeStart($id);
 	}
 
+	/**
+	 * Stop time record
+	 *
+	 * @param string $id time record identifier
+	 */
 	public function timeStop($id) {
+		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
 		$debugger = Debugger::getInstance();
 		$debugger->timeStop($id);
 	}
