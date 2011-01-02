@@ -190,12 +190,11 @@ class WebPage extends WebComponent {
 		if (!empty($css_code)) $this->setVar('CSS_CODE', $css_code);
 		$js_code = $this->getJsCode();
 		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
+		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		if ($this->debug) {
-			$this->log('web page add a debug bar ' . __FILE__ . ':' . __LINE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__);
 			require __DIR__ . '/DebugBar/DebugBar.php';
 			$this->setComponent('DEBUG_BAR', new DebugBar);
 		}
-		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		return parent::__toString();
 	}
 	

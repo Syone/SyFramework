@@ -33,9 +33,6 @@ class DebugBar extends WebComponent {
 		$this->setVar('FILES', get_included_files());
 
 		// Logs
-		$this->log('log test ' . __FILE__ . ':' . __LINE__ . ' - ' . __CLASS__ . '::' . __FUNCTION__);
-		$this->setVar('LOGS', Debugger::getLogs());
-
 		$colors = array(
 			Log::EMERG  => '#F00',
 			Log::ALERT  => '#F00',

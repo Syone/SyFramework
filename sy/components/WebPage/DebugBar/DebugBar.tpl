@@ -20,11 +20,11 @@
 		document.getElementById('sy_debug_php_content_title').style.color = '#777';
 		document.getElementById('sy_debug_var_content_title').style.color = '#777';
 		document.getElementById('sy_debug_log_content_title').style.color = '#777';
-		document.getElementById('sy_debug_timer_content_title').style.color = '#777';
+		document.getElementById('sy_debug_time_content_title').style.color = '#777';
 		document.getElementById('sy_debug_php_content').style.display = 'none';
 		document.getElementById('sy_debug_var_content').style.display = 'none';
 		document.getElementById('sy_debug_log_content').style.display = 'none';
-		document.getElementById('sy_debug_timer_content').style.display = 'none';
+		document.getElementById('sy_debug_time_content').style.display = 'none';
 	}
 
 	function sy_debug_show_content(type) {
@@ -51,12 +51,12 @@
 		<img style="float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABKElEQVR42sSTPa6CQBSFv3lRrCRYACvQxMLCBhsTK5fAGtiAPaGfDbgGNmBCS0PFAqhsoSGSWE1yrTDvxd+E4t1qkrnn3HPPnFEiwpD6YWCNPjUcj0fquhYAz/MUQBRFzwniOH6cMBrJfD4HoKoq6UleKkiS5H7WWstut+N0OmHbNrZt92rURw+01rJerzmfzyyXSy6XC77vf2ei1lpWqxVN02CMwRhDEARUVcXHFfrJbdsyHo8BcByHsiwxxqjfBj4omE6nstlsuF6vWJaFZVl4nkdZlhwOB/U2B1mWSRiGFEWB67pMJhNc16Uoipfgpx6EYUie58xmM/I8fwsGUH2UsywTgMViAUCapnRdp9498x+COI5lu93eL/b7vfomyurfP9NggtsAfaVzbTWryOIAAAAASUVORK5CYII=" />
 		<a id="sy_debug_log_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #777;" onclick="sy_debug_show_content('log'); return false;">Logs</a>
 
-		<img style="float: none; margin-left: 10px; vertical-align: middle" alt="Timers" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABSElEQVR42pyTwZHCMAxFXxxKUAXuIA3gFnJxERxohAt9QAM5EhpwB6rAJdjJXmKThIWdWc1oJvbo/y8p383tdmMfMcYEtKurLCKHfZ33nsMOmAFjraXrunofQmhVdQYmEVkTvwhijPMaOI5jLXLO0XUdIQSjqrOINBuCGGMu4AL03leC+/1eiQBUNZdOzFJjCth7X8GXy6WSee8Zx7F0WHCYGGOy1la1aZpqrs/zPNcaa21ZNAZoi3rf9+ScawL1O6VE3/frLtrNEgFSSm+/9Hq9AnA+n/ktvhKcTqev5GWEHELAOccwDKSUPuYwDDjnCCEAZAAjIgdV3Sh9yhKqSnFmGWEKIRjnHI/HA4Dj8VgBz+ez+mBRnzY7EJFi1WqWvRMXSxf19m2JItKoalZVY62toDXw61sonSwzJlX98zUCNGuH/Sd+BgBGROvHb4RJ6gAAAABJRU5ErkJggg==" />
-		<a id="sy_debug_timer_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #777;" onclick="sy_debug_show_content('timer'); return false;">Timers</a>
+		<img style="float: none; margin-left: 10px; vertical-align: middle" alt="Times" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABSElEQVR42pyTwZHCMAxFXxxKUAXuIA3gFnJxERxohAt9QAM5EhpwB6rAJdjJXmKThIWdWc1oJvbo/y8p383tdmMfMcYEtKurLCKHfZ33nsMOmAFjraXrunofQmhVdQYmEVkTvwhijPMaOI5jLXLO0XUdIQSjqrOINBuCGGMu4AL03leC+/1eiQBUNZdOzFJjCth7X8GXy6WSee8Zx7F0WHCYGGOy1la1aZpqrs/zPNcaa21ZNAZoi3rf9+ScawL1O6VE3/frLtrNEgFSSm+/9Hq9AnA+n/ktvhKcTqev5GWEHELAOccwDKSUPuYwDDjnCCEAZAAjIgdV3Sh9yhKqSnFmGWEKIRjnHI/HA4Dj8VgBz+ez+mBRnzY7EJFi1WqWvRMXSxf19m2JItKoalZVY62toDXw61sonSwzJlX98zUCNGuH/Sd+BgBGROvHb4RJ6gAAAABJRU5ErkJggg==" />
+		<a id="sy_debug_time_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #777;" onclick="sy_debug_show_content('time'); return false;">Times</a>
 
 		<img id="sy_debug_close_button" style="float: right; padding-top: 7px; padding-right: 5px; cursor: pointer; display: none;" onclick="sy_debug_hide_console()" style="margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN3dKxDYNADIXh36c07MESDEBHJDawR7vb4KSkuwFuCfag41JESCQhJAoFUty5eJ9l2VJKYU+5Xen/AE7LJoRwAboPmauqnlcBoOv7fjMdY3wYIMszigje+9K2LQDTNAHg3H3TlBKqKpsAgPe+NE3DOI4AVFVFzhkzk+e/WQVmpK5rAIZhwMwE4GtgRoC34Rfglzr+kY4HbthSQqXTR/5kAAAAAElFTkSuQmCC" />
 	</div>
-	<div id="sy_debug_console_content" style="height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none; font-size: 12px;">
+	<div id="sy_debug_console_content" style="height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="height: 100%">
 			<iframe src="<?php echo $_SERVER['REQUEST_URI'] ?>?phpinfo=1" width="100%" height="100%" frameborder="0">
 			<p>Your browser does not support iframes.</p>
@@ -67,15 +67,15 @@
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
 				<?php if (!empty($vars)) : ?>
 					<h2 style="font-size: 16px"><?php echo $title ?></h2>
-					<table style="border-collapse: collapse;" cellpadding="3">
+					<table style="border-collapse: collapse; font-size: 12px;" cellpadding="3">
 						<tr style="background-color: #99C;">
-							<th style="border: 1px solid #000">Name</th>
-							<th style="border: 1px solid #000">Value</th>
+							<th style="border: 1px solid #000; min-width: 150px;">Name</th>
+							<th style="border: 1px solid #000; min-width: 200px;">Value</th>
 						</tr>
 						<?php foreach ($vars as $k => $v) : ?>
 						<tr>
 							<td style="border: 1px solid #000; background-color: #CCF; font-weight: bold;"><?php echo $k ?></td>
-							<td style="border: 1px solid #000; background-color: #CCC"><?php echo $v ?></td>
+							<td style="border: 1px solid #000; background-color: #CCC"><pre style="margin: 0"><?php print_r($v) ?></pre></td>
 						</tr>
 						<?php endforeach ?>
 					</table>
@@ -83,9 +83,9 @@
 			<?php endforeach ?>
 
 			<h2 style="font-size: 16px">Included Files</h2>
-			<table style="border-collapse: collapse;" cellpadding="3">
+			<table style="border-collapse: collapse; font-size: 12px;" cellpadding="3">
 				<tr style="background-color: #99C">
-					<th style="border: 1px solid #000">Filename</th>
+					<th style="border: 1px solid #000; min-width: 300px;">Filename</th>
 				</tr>
 				<?php foreach ($FILES as $file) : ?>
 				<tr>
@@ -93,21 +93,22 @@
 				</tr>
 				<?php endforeach ?>
 			</table>
-			<br />
+
+			<h2 style="font-size: 16px">Peak of memory allocated by PHP: <?php echo memory_get_peak_usage(true) / 1024 ?> KB</h2>
 		</div>
 
 		<div id="sy_debug_log_content" style="height: 100%; overflow: auto;">
-			<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
+			<table style="border-collapse: collapse; width: 100%; font-size: 12px;" cellpadding="3">
 				<tr style="background-color: #99C;">
-					<th style="border: 1px solid #000">Level</th>
+					<th style="border: 1px solid #000; width: 80px;">Level</th>
 					<th style="border: 1px solid #000">Type</th>
 					<th style="border: 1px solid #000">File</th>
-					<th style="border: 1px solid #000">Line</th>
+					<th style="border: 1px solid #000; width: 40px;">Line</th>
 					<th style="border: 1px solid #000">Class</th>
 					<th style="border: 1px solid #000">Function</th>
-					<th style="border: 1px solid #000">Message</th>
+					<th style="border: 1px solid #000; min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach ($LOGS as $log) : ?>
+				<?php foreach (Sy\Debugger::getLogs() as $log) : ?>
 				<tr>
 					<td style="border: 1px solid #000; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getLevelName() ?></td>
 					<td style="border: 1px solid #000; background-color: #EEF"><?php echo $log->getType() ?></td>
@@ -121,8 +122,19 @@
 			</table>
 		</div>
 
-		<div id="sy_debug_timer_content" style="padding: 5px; height: 100%; overflow: auto;">
-			timers
+		<div id="sy_debug_time_content" style="height: 100%; overflow: auto;">
+			<table style="border-collapse: collapse; width: 100%; font-size: 12px;" cellpadding="3">
+				<tr style="background-color: #99C">
+					<th style="border: 1px solid #000">Title</th>
+					<th style="border: 1px solid #000; width: 100px;">Time (ms)</th>
+				</tr>
+				<?php foreach (Sy\Debugger::getTimes() as $title => $time) : ?>
+				<tr>
+					<td style="border: 1px solid #000; background-color: #CCC"><?php echo $title ?></td>
+					<td style="border: 1px solid #000; background-color: #CCC"><?php echo round($time * 1000, 2) ?></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
 		</div>
 	</div>
 </div>
@@ -139,7 +151,7 @@
 		if (!e) var e = window.event;
 		posy = e.clientY;
 		if (posy <= 0) return;
-		
+
 		var h = 0;
 		if (typeof( window.innerHeight ) == 'number') h = window.innerHeight;
 		else if (document.documentElement && document.documentElement.clientHeight) h = document.documentElement.clientHeight;
