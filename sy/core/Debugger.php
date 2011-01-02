@@ -70,7 +70,7 @@ class Debugger {
 	 * @param string $id time record identifier
 	 */
 	public function timeStart($id) {
-		if (!defined('TIME_RECORD') and TIME_RECORD != 1) return;
+		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
 		$this->startTimes[$id] = microtime(true);
 	}
 
