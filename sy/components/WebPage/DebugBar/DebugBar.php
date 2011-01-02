@@ -40,10 +40,13 @@ class DebugBar extends WebComponent {
 			Log::ERR    => '#F00',
 			Log::WARN   => '#F80',
 			Log::NOTICE => '#FF0',
-			Log::INFO   => '#0F0',
-			Log::DEBUG  => '#0F0',
+			Log::INFO   => '#FF0',
+			Log::DEBUG  => '#FF0',
 		);
 		$this->setVar('COLORS', $colors);
+
+		// Debugger
+		$this->setVar('DEBUGGER', Debugger::getInstance());
 	}
 
 }
