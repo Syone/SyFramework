@@ -38,7 +38,8 @@ class Log {
 		$this->type    = $type;
 
 		$callStack = debug_backtrace();
-		$idx = 2;
+		$idx = 1;
+		if (isset($callStack[$idx + 1]['function']) and $callStack[$idx + 1]['function'] == 'log') $idx++;
 
 		$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
 		$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';

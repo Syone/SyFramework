@@ -9,19 +9,20 @@ class Object {
 	 * @param mixed $message
 	 * @param integer $level
 	 */
-	public function log($message, $level = Log::DEBUG) {
-		if (defined('LOG') and LOG == 1)
-			Debugger::log($message, $level, get_class($this));
+	public function log($message, $level = Log::DEBUG, $type = NULL) {
+		$debugger = Debugger::getInstance();
+		$type = is_null($type) ? get_class($this) : $type;
+		$debugger->log($message, $level, $type);
 	}
 
-	public function startTimer($title) {
-		if (defined('TIME_RECORD') and TIME_RECORD == 1)
-			Debugger::startTimer($title);
+	public function timeStart($id) {
+		$debugger = Debugger::getInstance();
+		$debugger->timeStart($id);
 	}
 
-	public function stopTimer($title) {
-		if (defined('TIME_RECORD') and TIME_RECORD == 1)
-			Debugger::stopTimer($title);
+	public function timeStop($id) {
+		$debugger = Debugger::getInstance();
+		$debugger->timeStop($id);
 	}
 
 	/**

@@ -108,7 +108,7 @@
 					<th style="border: 1px solid #000">Function</th>
 					<th style="border: 1px solid #000; min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach (Sy\Debugger::getLogs() as $log) : ?>
+				<?php foreach ($DEBUGGER->getLogs() as $log) : ?>
 				<tr>
 					<td style="border: 1px solid #000; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getLevelName() ?></td>
 					<td style="border: 1px solid #000; background-color: #EEF"><?php echo $log->getType() ?></td>
@@ -125,10 +125,10 @@
 		<div id="sy_debug_time_content" style="height: 100%; overflow: auto;">
 			<table style="border-collapse: collapse; width: 100%; font-size: 12px;" cellpadding="3">
 				<tr style="background-color: #99C">
-					<th style="border: 1px solid #000">Title</th>
+					<th style="border: 1px solid #000">Time id</th>
 					<th style="border: 1px solid #000; width: 100px;">Time (ms)</th>
 				</tr>
-				<?php foreach (Sy\Debugger::getTimes() as $title => $time) : ?>
+				<?php foreach ($DEBUGGER->getTimes() as $title => $time) : ?>
 				<tr>
 					<td style="border: 1px solid #000; background-color: #CCC"><?php echo $title ?></td>
 					<td style="border: 1px solid #000; background-color: #CCC"><?php echo round($time * 1000, 2) ?></td>
