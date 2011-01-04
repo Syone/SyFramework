@@ -9,7 +9,7 @@ class Object {
 	 * @param string $message
 	 * @param integer $level
 	 */
-	public function log($message, $level = Log::DEBUG, $type = NULL) {
+	public function log($message, $level = Log::NOTICE, $type = NULL) {
 		if (!defined('LOG') or LOG != 1) return;
 		$debugger = Debugger::getInstance();
 		$type = is_null($type) ? get_class($this) : $type;

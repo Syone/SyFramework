@@ -32,6 +32,23 @@ class DebugBar extends WebComponent {
 		// Files
 		$this->setVar('FILES', get_included_files());
 
+		// Debugger
+		$debugger = Debugger::getInstance();
+		$this->setVar('DEBUGGER', $debugger);
+		$nb = $debugger->getNbError();
+		switch ($nb) {
+			case 0:
+				$nbError = '';
+				break;
+			case 1:
+				$nbError = $nb . ' error';
+				break;
+			default:
+				$nbError = $nb . ' errors';
+				break;
+		}
+		$this->setVar('NB_ERROR',  $nbError);
+
 		// Logs
 		$colors = array(
 			Log::EMERG  => '#F00',
@@ -44,9 +61,6 @@ class DebugBar extends WebComponent {
 			Log::DEBUG  => '#FF0',
 		);
 		$this->setVar('COLORS', $colors);
-
-		// Debugger
-		$this->setVar('DEBUGGER', Debugger::getInstance());
 	}
 
 }
