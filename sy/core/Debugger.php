@@ -46,6 +46,13 @@ class Debugger {
 		$this->logs[] = new Log($message, $level, $type);
 	}
 
+	public function getNbError() {
+		$i = 0;
+		foreach ($this->logs as $log)
+			if ($log->getLevel() <= Log::ERR) $i++;
+		return $i;
+	}
+
 	/**
 	 * Return logs array
 	 *

@@ -48,6 +48,17 @@ class Component extends Object {
 	 * @param string $file
 	 */
 	public function setTemplateFile($file, $type = '') {
+		if (!file_exists($file)) {
+			$trace = debug_backtrace();
+			$i = 0;
+			while ($trace[$i + 1]['class'] != get_class($this)) $i++;
+			$message = 'No such template file: ' . $file;
+			$message .= ' in class ' . $trace[$i + 1]['class'];
+			$message .= ' in method ' . $trace[$i + 1]['function'];
+			$message .= ' in file ' . $trace[$i]['file'];
+			$message .= ' on line ' . $trace[$i]['line'];
+			$this->log($message , Log::ERR);
+		}
 		$this->setTemplateType($type);
 		$this->template->setMainFile($file);
 	}
