@@ -18,16 +18,15 @@ class DebugBar extends WebComponent {
 
 		// PHP Variables
 		$constants = get_defined_constants(true);
-		$vars_array['User Constants']      = $constants['user'];
-		$vars_array['$_REQUEST Variables'] = $_REQUEST;
-		$vars_array['$_GET Variables']     = $_GET;
-		$vars_array['$_POST Variables']    = $_POST;
-		$vars_array['$_COOKIE Variables']  = $_COOKIE;
-		if (session_id ()) $vars_array['$_SESSION Variables'] = $_SESSION;
-		$vars_array['$_FILES Variables']   = $_FILES;
-		$vars_array['$_SERVER Variables']  = $_SERVER;
-		$vars_array['$_ENV Variables']     = $_ENV;
-		$this->setVar('VARS_ARRAY', $vars_array);
+		$varsArray['User Constants']      = $constants['user'];
+		$varsArray['$_REQUEST Variables'] = $_REQUEST;
+		$varsArray['$_GET Variables']     = $_GET;
+		$varsArray['$_POST Variables']    = $_POST;
+		$varsArray['$_COOKIE Variables']  = $_COOKIE;
+		if (session_id ()) $varsArray['$_SESSION Variables'] = $_SESSION;
+		$varsArray['$_FILES Variables']   = $_FILES;
+		$varsArray['$_SERVER Variables']  = $_SERVER;
+		$this->setVar('VARS_ARRAY', $varsArray);
 
 		// Files
 		$this->setVar('FILES', get_included_files());
