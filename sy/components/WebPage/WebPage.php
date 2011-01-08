@@ -19,7 +19,7 @@ class WebPage extends WebComponent {
 		$this->setBody('');
 	}
 
-	public function setDebug($debug) {
+	public function enableDebugBar() {
 		$this->debug = true;
 	}
 
