@@ -9,6 +9,7 @@ class WebPage extends WebComponent {
 	private $bodyAttributes;
 
 	public function __construct() {
+		$this->timeStart('Web page');
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/WebPage.tpl', 'php');
 		$this->debug = false;
@@ -19,6 +20,9 @@ class WebPage extends WebComponent {
 		$this->setBody('');
 	}
 
+	/**
+	 * Activate the web debug toolbar
+	 */
 	public function enableDebugBar() {
 		$this->debug = true;
 	}
@@ -191,6 +195,7 @@ class WebPage extends WebComponent {
 		$js_code = $this->getJsCode();
 		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
+		$this->timeStop('Web page');
 		if ($this->debug) {
 			require __DIR__ . '/DebugBar/DebugBar.php';
 			$this->setComponent('DEBUG_BAR', new DebugBar);

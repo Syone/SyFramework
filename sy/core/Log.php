@@ -19,7 +19,7 @@ class Log {
 		self::ERR    => 'Error',
 		self::WARN   => 'Warning',
 		self::NOTICE => 'Notice',
-		self::INFO   => 'Informational',
+		self::INFO   => 'Information',
 		self::DEBUG  => 'Debug',
 	);
 
