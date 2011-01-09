@@ -66,27 +66,33 @@
 			</iframe>
 		</div>
 
-		<div id="sy_debug_var_content" style="padding: 0px 10px; height: 100%; overflow: auto;">
+		<div id="sy_debug_var_content" style="height: 100%; overflow: auto;">
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
 				<?php if (!empty($vars)) : ?>
-					<h2 style="font-size: 16px; color: #333;"><?php echo $title ?></h2>
-					<table style="border-collapse: collapse;" cellpadding="3">
+					<h2 style="font-size: 14px; color: black; margin: 10px;"><?php echo $title ?></h2>
+					<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
 						<tr style="background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));">
-							<th style="border: 1px solid #B4B4B4; min-width: 150px;">Name</th>
-							<th style="border: 1px solid #B4B4B4; min-width: 200px;">Value</th>
+							<th style="border: 1px solid #B4B4B4; width: 200px;">Name</th>
+							<th style="border: 1px solid #B4B4B4;">Value</th>
 						</tr>
 						<?php foreach ($vars as $k => $v) : ?>
 						<tr>
 							<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB; font-weight: bold;"><?php echo $k ?></td>
-							<td style="border: 1px solid #B4B4B4; background-color: #EDF3FE"><pre style="margin: 0"><?php print_r($v) ?></pre></td>
+							<td style="border: 1px solid #B4B4B4; background-color: #EDF3FE">
+								<?php if (is_array($v) or is_object($v)) : ?>
+								<pre style="margin: 0"><?php print_r($v) ?></pre>
+								<?php else : ?>
+								<?php echo $v ?>
+								<?php endif ?>
+							</td>
 						</tr>
 						<?php endforeach ?>
 					</table>
 				<?php endif ?>
 			<?php endforeach ?>
 
-			<h2 style="font-size: 16px; color: #333;">Included Files</h2>
-			<table style="border-collapse: collapse;" cellpadding="3">
+			<h2 style="font-size: 14px; color: black; margin: 10px;">Included Files</h2>
+			<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
 				<tr style="background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));">
 					<th style="border: 1px solid #B4B4B4; min-width: 300px;">Filename</th>
 				</tr>
@@ -100,9 +106,14 @@
 		</div>
 
 		<div id="sy_debug_log_content" style="height: 100%; overflow: auto;">
+<!--			<div style="height: 30px; background-color: #e8e8e8;">
+				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::NOTICE] ?>" />
+				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::WARN] ?>" />
+				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::ERR] ?>" />
+			</div>-->
 			<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
 				<tr style="background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));">
-					<th style="border: 1px solid #B4B4B4; width: 80px;">Level</th>
+					<th style="border: 1px solid #B4B4B4; width: 90px;">Level</th>
 					<th style="border: 1px solid #B4B4B4">Type</th>
 					<th style="border: 1px solid #B4B4B4">File</th>
 					<th style="border: 1px solid #B4B4B4; width: 40px;">Line</th>
@@ -111,8 +122,11 @@
 					<th style="border: 1px solid #B4B4B4; min-width: 300px;">Message</th>
 				</tr>
 				<?php foreach ($DEBUGGER->getLogs() as $log) : ?>
-				<tr>
-					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getLevelName() ?></td>
+				<tr style="background-color: red">
+					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB">
+						<img alt="" src="data:image/png;base64,<?php echo $FLAGS[$log->getLevel()] ?>" />
+						<?php echo $log->getLevelName() ?>
+					</td>
 					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><?php echo $log->getType() ?></td>
 					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><span title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
 					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB; text-align: right;"><?php echo $log->getLine() ?></td>
