@@ -103,6 +103,25 @@ class DebugBar extends WebComponent {
 		$times = $debugger->getTimes();
 		$maxTime = empty($times) ? 'No time' : round(max($times) * 1000) . ' ms';
 		$this->setVar('MAX_TIME', $maxTime);
+
+		// Reset css
+		$this->resetCss();
+	}
+
+	private function resetCss() {
+		$resetCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; float: none;';
+		$tableResetCss = $resetCss . ' border-collapse: collapse; border-spacing: 0;';
+		$this->setVar('RESET_CSS', $resetCss);
+		$this->setVar('TABLE_RESET_CSS', $tableResetCss);
+
+		$trHeadCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: middle; background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));';
+		$this->setVar('TR_HEAD_CSS', $trHeadCss);
+
+		$thCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white; background: transparent;';
+		$this->setVar('TH_CSS', $thCss);
+
+		$tdCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; vertical-align: middle; color: black; background: transparent;';
+		$this->setVar('TD_CSS', $tdCss);
 	}
 
 }
