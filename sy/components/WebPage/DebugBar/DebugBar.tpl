@@ -1,40 +1,3 @@
-<script type="text/javascript">
-	function sy_debug_show_console() {
-		document.getElementById('sy_debug_resize_bar').style.display = 'block';
-		document.getElementById('sy_debug_resize_bar_wrapper').style.display = 'block';
-		document.getElementById('sy_debug_console_content').style.display = 'block';
-		document.getElementById('sy_debug_console').style.display = 'block';
-		document.getElementById('sy_debug_close_button').style.display = 'block';
-	}
-
-	function sy_debug_hide_console() {
-		sy_debug_hide_all_content();
-		document.getElementById('sy_debug_resize_bar').style.display = 'none';
-		document.getElementById('sy_debug_resize_bar_wrapper').style.display = 'none';
-		document.getElementById('sy_debug_console_content').style.display = 'none';
-		document.getElementById('sy_debug_console').style.display = 'none';
-		document.getElementById('sy_debug_close_button').style.display = 'none';
-	}
-
-	function sy_debug_hide_all_content() {
-		document.getElementById('sy_debug_php_content_title').style.color = '#555';
-		document.getElementById('sy_debug_var_content_title').style.color = '#555';
-		document.getElementById('sy_debug_log_content_title').style.color = '#555';
-		document.getElementById('sy_debug_time_content_title').style.color = '#555';
-		document.getElementById('sy_debug_php_content').style.display = 'none';
-		document.getElementById('sy_debug_var_content').style.display = 'none';
-		document.getElementById('sy_debug_log_content').style.display = 'none';
-		document.getElementById('sy_debug_time_content').style.display = 'none';
-	}
-
-	function sy_debug_show_content(type) {
-		sy_debug_hide_all_content();
-		document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
-		document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
-		sy_debug_show_console();
-	}
-</script>
-
 <div style="height: 30px"></div>
 <div id="sy_debug_resize_bar_wrapper" style="height: 4px; display: none;"></div>
 <div id="sy_debug_console" style="height: 270px; display: none;"></div>
@@ -52,12 +15,12 @@
 		<a id="sy_debug_log_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug_show_content('log'); return false;">Logs <span style="color:red"><?php echo $NB_ERROR ?></span></a>
 
 		<img style="float: none; margin-left: 10px; vertical-align: middle" alt="Times" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABSElEQVR42pyTwZHCMAxFXxxKUAXuIA3gFnJxERxohAt9QAM5EhpwB6rAJdjJXmKThIWdWc1oJvbo/y8p383tdmMfMcYEtKurLCKHfZ33nsMOmAFjraXrunofQmhVdQYmEVkTvwhijPMaOI5jLXLO0XUdIQSjqrOINBuCGGMu4AL03leC+/1eiQBUNZdOzFJjCth7X8GXy6WSee8Zx7F0WHCYGGOy1la1aZpqrs/zPNcaa21ZNAZoi3rf9+ScawL1O6VE3/frLtrNEgFSSm+/9Hq9AnA+n/ktvhKcTqev5GWEHELAOccwDKSUPuYwDDjnCCEAZAAjIgdV3Sh9yhKqSnFmGWEKIRjnHI/HA4Dj8VgBz+ez+mBRnzY7EJFi1WqWvRMXSxf19m2JItKoalZVY62toDXw61sonSwzJlX98zUCNGuH/Sd+BgBGROvHb4RJ6gAAAABJRU5ErkJggg==" />
-		<a id="sy_debug_time_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug_show_content('time'); return false;">Times</a>
+		<a id="sy_debug_time_content_title" href="#" style="text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug_show_content('time'); return false;"><?php echo $MAX_TIME ?></a>
 
 		<img style="float: none; margin-left: 10px; vertical-align: middle" alt="Memory" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAmElEQVR42sSTuwoEIQxFr7JtOgf0n+z9Rhsr/0nB0jKiW00xs7Myj4VNFQj3cAKJGGPgSUk8rNfaeO8vqTjnxAYAAMuynAqXUj4NAKDWen8FKSWstadCIYRjg9YaUkrTsDHm2GAFtNamgP18A2BmKKWmAGaeG+ScpwCt9XdA7x299ylgP//dJQIAEYGI7gNijJcNxN+/8T0A1+E5NmcLfJkAAAAASUVORK5CYII=" />
 		<span style="line-height: 30px; color: #555;" title="Peak of memory allocated by PHP"><?php echo memory_get_peak_usage(true) / 1024 ?> KB</span>
 
-		<img id="sy_debug_close_button" style="float: right; padding-top: 7px; padding-right: 5px; cursor: pointer; display: none;" onclick="sy_debug_hide_console()" style="margin-left: 10px; vertical-align: middle" title="Minimize" alt="minimize" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN3dKxDYNADIXh36c07MESDEBHJDawR7vb4KSkuwFuCfag41JESCQhJAoFUty5eJ9l2VJKYU+5Xen/AE7LJoRwAboPmauqnlcBoOv7fjMdY3wYIMszigje+9K2LQDTNAHg3H3TlBKqKpsAgPe+NE3DOI4AVFVFzhkzk+e/WQVmpK5rAIZhwMwE4GtgRoC34Rfglzr+kY4HbthSQqXTR/5kAAAAAElFTkSuQmCC" />
+		<img id="sy_debug_close_button" style="float: right; padding-top: 7px; padding-right: 5px; cursor: pointer; display: none; margin-left: 10px; vertical-align: middle" onclick="sy_debug_hide_console()" title="Minimize" alt="minimize" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN3dKxDYNADIXh36c07MESDEBHJDawR7vb4KSkuwFuCfag41JESCQhJAoFUty5eJ9l2VJKYU+5Xen/AE7LJoRwAboPmauqnlcBoOv7fjMdY3wYIMszigje+9K2LQDTNAHg3H3TlBKqKpsAgPe+NE3DOI4AVFVFzhkzk+e/WQVmpK5rAIZhwMwE4GtgRoC34Rfglzr+kY4HbthSQqXTR/5kAAAAAElFTkSuQmCC" />
 	</div>
 	<div id="sy_debug_console_content" style="height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="height: 100%">
@@ -105,12 +68,14 @@
 			<br />
 		</div>
 
-		<div id="sy_debug_log_content" style="height: 100%; overflow: auto;">
-<!--			<div style="height: 30px; background-color: #e8e8e8;">
-				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::NOTICE] ?>" />
-				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::WARN] ?>" />
-				<img style="float: none; margin-left: 10px; vertical-align: middle" alt="" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::ERR] ?>" />
-			</div>-->
+		<div id="sy_debug_log_content" style="height: 100%; overflow: auto; position: relative;">
+			<img onclick="document.getElementById('sy_debug_log_filter_div').style.display = 'block';" style="position: absolute; top: 2px; left: 3px; cursor: pointer;" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdQTFRFJUOELE+cK02YK06ZLE+bIz97JkSFLVGeIz99Iz98JkWHLVGfJUODKkyWKUqRK02XKUuTKkyVJUKBKUqQKEiNJkWIKEiOJEF/J0eLJ0aKJkSG////AAAAHPtAaAAAAB10Uk5T/////////////////////////////////////wBZhudqAAAAeUlEQVR42lzO4RKCQAgE4LXyrNOyrEtj7/2fMyBxJvm33+wAqO/n7f64jofjqWm6vsfy+hd8doLiwpAO4kJyFYgLfUyAlFU8ewcDknY0rpsxDZBcyLiFSSVlbtcxzyYsIQYqlBBcztahhKD9CULQ7gR1E/tnqV8BBgBIlxB0vx1OiAAAAABJRU5ErkJggg==" />
+			<div id="sy_debug_log_filter_div" style="display: none; position: absolute; padding: 3px; background-color: #CCC; border-bottom: 1px solid #AAA; border-right: 1px solid #AAA;">
+				<img class="sy_debug_filter_checked" onclick="sy_debug_log_filter(this, 'green')" style="cursor: pointer; float: none; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;" alt="Green" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::NOTICE] ?>" />
+				<img class="sy_debug_filter_checked" onclick="sy_debug_log_filter(this, 'orange')" style="cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;" alt="Orange" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::WARN] ?>" />
+				<img class="sy_debug_filter_checked" onclick="sy_debug_log_filter(this, 'red')" style="cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;" alt="Red" src="data:image/png;base64,<?php echo $FLAGS[Sy\Log::ERR] ?>" />
+				<img onclick="document.getElementById('sy_debug_log_filter_div').style.display = 'none';" style="cursor: pointer;" alt="Close" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAAB9SURBVDiN1VNBDoAgDCuGB+GL9hT2lb1IfzQvSgCZYPBiEw5raLM24FQVM1im1F8Y+Hxg5gBg62hWZt7TpKrpxBi1h/NO0jQjiMgQBxgdEFEhEBEQUdPAN9nKxBKbG7yBaXCtXccZMqgzP5mYJY5wwL3EUDySNkI+uP9/pgNQQGCwjv058wAAAABJRU5ErkJggg==" />
+			</div>
 			<table style="border-collapse: collapse; width: 100%;" cellpadding="3">
 				<tr style="background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));">
 					<th style="border: 1px solid #B4B4B4; width: 90px;">Level</th>
@@ -122,17 +87,17 @@
 					<th style="border: 1px solid #B4B4B4; min-width: 300px;">Message</th>
 				</tr>
 				<?php foreach ($DEBUGGER->getLogs() as $log) : ?>
-				<tr style="background-color: red">
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB">
+				<tr class="sy_debug_log_row_<?php echo $COLOR_NAMES[$log->getLevel()] ?>">
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>">
 						<img alt="" src="data:image/png;base64,<?php echo $FLAGS[$log->getLevel()] ?>" />
 						<?php echo $log->getLevelName() ?>
 					</td>
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><?php echo $log->getType() ?></td>
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><span title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB; text-align: right;"><?php echo $log->getLine() ?></td>
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><?php echo $log->getClass() ?></td>
-					<td style="border: 1px solid #B4B4B4; background-color: #DDE4EB"><?php echo $log->getFunction() ?></td>
-					<td style="border: 1px solid #B4B4B4; background-color: #EDF3FE"><?php echo $log->getMessage() ?></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getType() ?></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
+					<td style="border: 1px solid #B4B4B4; background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><?php echo $log->getMessage() ?></td>
 				</tr>
 				<?php endforeach ?>
 			</table>
@@ -181,5 +146,60 @@
 	function sy_debug_end_resize(e) {
 		document.onmousemove = null;
 		document.onmouseup = null;
+	}
+
+	function sy_debug_log_filter(element, color) {
+		var checked = (element.className == 'sy_debug_filter_checked');
+		var div = document.getElementById('sy_debug_log_content');
+		var rows = div.getElementsByTagName('tr');
+		var display = checked ? 'none' : 'table-row';
+		if (checked) {
+			element.style.backgroundColor = '#CCC';
+			element.style.borderColor = '#DDD';
+			element.className = 'sy_debug_filter_unchecked';
+		} else {
+			element.style.backgroundColor = '#ABC8E2';
+			element.style.borderColor = '#375D81';
+			element.className = 'sy_debug_filter_checked';
+		}
+		for (var i = 0; i < rows.length; i++) {
+			if (rows[i].className == 'sy_debug_log_row_' + color)
+				rows[i].style.display = display;
+		}
+	}
+
+	function sy_debug_show_console() {
+		document.getElementById('sy_debug_resize_bar').style.display = 'block';
+		document.getElementById('sy_debug_resize_bar_wrapper').style.display = 'block';
+		document.getElementById('sy_debug_console_content').style.display = 'block';
+		document.getElementById('sy_debug_console').style.display = 'block';
+		document.getElementById('sy_debug_close_button').style.display = 'block';
+	}
+
+	function sy_debug_hide_console() {
+		sy_debug_hide_all_content();
+		document.getElementById('sy_debug_resize_bar').style.display = 'none';
+		document.getElementById('sy_debug_resize_bar_wrapper').style.display = 'none';
+		document.getElementById('sy_debug_console_content').style.display = 'none';
+		document.getElementById('sy_debug_console').style.display = 'none';
+		document.getElementById('sy_debug_close_button').style.display = 'none';
+	}
+
+	function sy_debug_hide_all_content() {
+		document.getElementById('sy_debug_php_content_title').style.color = '#555';
+		document.getElementById('sy_debug_var_content_title').style.color = '#555';
+		document.getElementById('sy_debug_log_content_title').style.color = '#555';
+		document.getElementById('sy_debug_time_content_title').style.color = '#555';
+		document.getElementById('sy_debug_php_content').style.display = 'none';
+		document.getElementById('sy_debug_var_content').style.display = 'none';
+		document.getElementById('sy_debug_log_content').style.display = 'none';
+		document.getElementById('sy_debug_time_content').style.display = 'none';
+	}
+
+	function sy_debug_show_content(type) {
+		sy_debug_hide_all_content();
+		document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
+		document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
+		sy_debug_show_console();
 	}
 </script>
