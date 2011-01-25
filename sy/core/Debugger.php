@@ -29,7 +29,7 @@ class Debugger {
 		}
 		return self::$instance;
 	}
-	
+
 	public function __clone() {
 		trigger_error('Clone is not allowed.', E_USER_ERROR);
 	}
@@ -46,6 +46,11 @@ class Debugger {
 		$this->logs[] = new Log($message, $level, $type);
 	}
 
+	/**
+	 * Return the number of error log
+	 *
+	 * @return int
+	 */
 	public function getNbError() {
 		$i = 0;
 		foreach ($this->logs as $log)
