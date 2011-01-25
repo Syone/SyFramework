@@ -136,12 +136,7 @@
 		if (!e) var e = window.event;
 		posy = e.clientY;
 		if (posy <= 0) return;
-
-		var h = 0;
-		if (typeof( window.innerHeight ) == 'number') h = window.innerHeight;
-		else if (document.documentElement && document.documentElement.clientHeight) h = document.documentElement.clientHeight;
-		else if (document.body && document.body.clientHeight) h = document.body.clientHeight;
-
+		var  h = document.documentElement.clientHeight;
 		var new_height = h - posy - 34;
 		document.getElementById('sy_debug_console_content').style.height = new_height + 'px';
 		document.getElementById('sy_debug_console').style.height = new_height + 'px';
