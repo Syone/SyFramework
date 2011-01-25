@@ -7,13 +7,34 @@ class Object {
 	 * Log a message
 	 *
 	 * @param string $message
-	 * @param integer $level
+	 * @param int $level
+	 * @param string $type
 	 */
 	public function log($message, $level = Log::NOTICE, $type = NULL) {
 		if (!defined('LOG') or LOG != 1) return;
 		$debugger = Debugger::getInstance();
 		$type = is_null($type) ? get_class($this) : $type;
 		$debugger->log($message, $level, $type);
+	}
+
+	/**
+	 * Log a warning message
+	 *
+	 * @param string $message
+	 * @param string $type optionnal log type
+	 */
+	public function logWarning($message, $type = NULL) {
+		$this->log($message, Log::WARN, $type);
+	}
+
+	/**
+	 * Log an error message
+	 *
+	 * @param string $message
+	 * @param string $type optionnal log type
+	 */
+	public function logError($message, $type = NULL) {
+		$this->log($message, Log::ERR, $type);
 	}
 
 	/**
