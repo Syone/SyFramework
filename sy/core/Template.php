@@ -11,7 +11,7 @@ class Template extends Object implements ITemplate {
 
 	private $blockCached;
 
-	public function  __construct() {
+	public function __construct() {
 		$this->content = '';
 		$this->vars = array();
 		$this->blockCached = array();
@@ -19,7 +19,7 @@ class Template extends Object implements ITemplate {
 	}
 
 	public function setMainFile($file) {
-		$this->content = file_get_contents($file);
+		if (file_exists($file)) $this->content = file_get_contents($file);
 	}
 
 	public function setVar($var, $value, $append = false) {
