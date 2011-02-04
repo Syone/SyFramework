@@ -66,7 +66,7 @@ class Debugger {
 	 */
 	public function log($message, $info = array()) {
 		if (!defined('LOG') or LOG != 1) return;
-		if (!isset($info['level'])) $info['level'] = SyLog::NOTICE;
+		if (!isset($info['level'])) $info['level'] = Log::NOTICE;
 		$log = new Log($message, $info);
 		$this->logs[] = $log;
 		$this->logToFile($log);
