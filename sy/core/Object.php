@@ -7,34 +7,52 @@ class Object {
 	 * Log a message
 	 *
 	 * @param string $message
-	 * @param int $level
-	 * @param string $type
+	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
-	public function log($message, $level = Log::NOTICE, $type = NULL) {
+	public function log($message, $info = array()) {
 		if (!defined('LOG') or LOG != 1) return;
 		$debugger = Debugger::getInstance();
-		$type = is_null($type) ? get_class($this) : $type;
-		$debugger->log($message, $level, $type);
+		if (!isset($info['type'])) $info['type'] = get_class($this);
+		$debugger->log($message, $info);
 	}
 
 	/**
 	 * Log a warning message
 	 *
 	 * @param string $message
-	 * @param string $type optionnal log type
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
-	public function logWarning($message, $type = NULL) {
-		$this->log($message, Log::WARN, $type);
+	public function logWarning($message, $info = array()) {
+		$info['level'] = Log::WARN;
+		$this->log($message, $info);
 	}
 
 	/**
 	 * Log an error message
 	 *
 	 * @param string $message
-	 * @param string $type optionnal log type
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
-	public function logError($message, $type = NULL) {
-		$this->log($message, Log::ERR, $type);
+	public function logError($message, $info = array()) {
+		$info['level'] = Log::ERR;
+		$this->log($message, $info);
+	}
+
+	/**
+	 * Return debug backtrace informations
+	 *
+	 * @return array
+	 */
+	public function getDebugTrace() {
+		$trace = debug_backtrace();
+		$i = 0;
+		while (isset($trace[$i + 1]['class']) and ($trace[$i + 1]['class'] != get_class($this))) $i++;
+		if (isset($trace[$i + 1]['class'])) $i++;
+		$res['class'] = $trace[$i]['class'];
+		$res['function'] = $trace[$i]['function'];
+		$res['file'] = $trace[$i - 1]['file'];
+		$res['line'] = $trace[$i - 1]['line'];
+		return $res;
 	}
 
 	/**

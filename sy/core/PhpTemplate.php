@@ -7,14 +7,14 @@ class PhpTemplate extends Object implements ITemplate {
 
 	private $vars;
 
-	public function  __construct() {
+	public function __construct() {
 		$this->mainFile = '';
 		$this->vars = array();
 		$this->files = array();
 	}
 
 	public function setMainFile($file) {
-		$this->mainFile = $file;
+		if (file_exists($file)) $this->mainFile = $file;
 	}
 
 	public function setVar($var, $value, $append = false) {

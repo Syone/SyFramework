@@ -19,32 +19,42 @@ class Log {
 		self::ERR    => 'Error',
 		self::WARN   => 'Warning',
 		self::NOTICE => 'Notice',
-		self::INFO   => 'Information',
+		self::INFO   => 'Info',
 		self::DEBUG  => 'Debug',
 	);
 
 	private $message;
 	private $level;
 	private $type;
-
 	private $file;
 	private $line;
 	private $class;
 	private $function;
 
-	public function __construct($message, $level, $type) {
-		$this->message = $message;
-		$this->level   = $level;
-		$this->type    = $type;
+	/**
+	 * Log constructor
+	 *
+	 * @param string $message
+	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
+	 */
+	public function __construct($message, $info) {
+		$this->message  = $message;
+		$this->level    = isset($info['level'])    ? $info['level']    : self::NOTICE;
+		$this->type     = isset($info['type'])     ? $info['type']     : '';
+		$this->file     = isset($info['file'])     ? $info['file']     : '';
+		$this->line     = isset($info['line'])     ? $info['line']     : '';
+		$this->function = isset($info['function']) ? $info['function'] : '';
+		$this->class    = isset($info['class'])    ? $info['class']    : '';
 
-		$callStack = debug_backtrace();
-		$idx = 1;
-		if (isset($callStack[$idx + 1]['function']) and $callStack[$idx + 1]['function'] == 'log') $idx++;
-
-		$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
-		$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
-		$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
-		$this->class    = !empty($callStack[$idx + 1]['class'])    ? $callStack[$idx + 1]['class']    : '';
+		if (empty($this->file) and empty($this->line) and empty($this->function) and empty($this->class)) {
+			$callStack = debug_backtrace();
+			$idx = 1;
+			if (isset($callStack[$idx + 1]['function']) and $callStack[$idx + 1]['function'] == 'log') $idx++;
+			$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
+			$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
+			$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
+			$this->class    = !empty($callStack[$idx + 1]['class'])    ? $callStack[$idx + 1]['class']    : '';
+		}
 	}
 
 	public function getMessage() {

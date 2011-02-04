@@ -49,15 +49,10 @@ class Component extends Object {
 	 */
 	public function setTemplateFile($file, $type = '') {
 		if (!file_exists($file)) {
-			$trace = debug_backtrace();
-			$i = 0;
-			while ($trace[$i + 1]['class'] != get_class($this)) $i++;
+			$info = $this->getDebugTrace();
+			$info['type'] = 'Template';
 			$message = 'No such template file: ' . $file;
-			$message .= ' in class ' . $trace[$i + 1]['class'];
-			$message .= ' in method ' . $trace[$i + 1]['function'];
-			$message .= ' in file ' . $trace[$i]['file'];
-			$message .= ' on line ' . $trace[$i]['line'];
-			$this->log($message , Log::ERR);
+			$this->logError($message , $info);
 		}
 		$this->setTemplateType($type);
 		$this->template->setMainFile($file);
@@ -110,7 +105,7 @@ class Component extends Object {
 	 *
 	 * @return string
 	 */
-	public function  __toString() {
+	public function __toString() {
 		return $this->template->getRender();
 	}
 
@@ -131,7 +126,13 @@ class Component extends Object {
 		$method = $this->request($actionName, $defaultMethod) . 'Action';
 		if (is_null($method)) return;
 		if (!method_exists($this, $method)) $method = $defaultMethod . 'Action';
-		if (method_exists($this, $method)) $this->$method();
+		if (method_exists($this, $method)) {
+			$info = $this->getDebugTrace();
+			$info['type'] = 'Action call';
+			$message = 'Call method ' . $method;
+			$this->log($message, $info);
+			$this->$method();
+		}
 	}
 	
 }

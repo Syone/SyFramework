@@ -2,7 +2,7 @@
 <div id="sy_debug_resize_bar_wrapper" style="<?php echo $RESET_CSS ?> height: 4px; display: none;"></div>
 <div id="sy_debug_console" style="<?php echo $RESET_CSS ?> height: 270px; display: none;"></div>
 
-<div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font: 11px Verdana, Arial, sans-serif;">
+<div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font: 11px Verdana, Arial, sans-serif; z-index: 10000;">
 	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #e8e8e8;"></div>
 	<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #e8e8e8; background-image: -moz-linear-gradient(-90deg, #e8e8e8, #cbcbcb);background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cbcbcb));">
 		<a id="sy_debug_php_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555; line-height: 30px;" onclick="sy_debug_show_content('php'); return false;">
@@ -28,7 +28,7 @@
 	</div>
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
-			<iframe src="<?php echo $_SERVER['REQUEST_URI'] ?><?php echo empty($_SERVER['QUERY_STRING']) ? '?' : '&' ?>phpinfo" width="100%" height="100%" frameborder="0">
+			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo $_SERVER['QUERY_STRING'] ?>&phpinfo&sy_debug_log=off" width="100%" height="100%" frameborder="0">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>

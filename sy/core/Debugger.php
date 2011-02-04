@@ -18,6 +18,30 @@ class Debugger {
 	}
 
 	/**
+	 * Return formatted log message
+	 *
+	 * @param SyLog $log
+	 */
+	private function formatLog($log) {
+		$msg = "--------------------------------------------------------------------------------\r\n";
+		$msg .= '[' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
+		$msg .= $log->getMessage() . "\r\n";
+		return $msg;
+	}
+
+	/**
+	 * Put the log message in a file
+	 *
+	 * @param SyLog $log
+	 */
+	private function logToFile($log) {
+		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] == 'off') return;
+		if (!defined('LOG_FILE') or LOG_FILE == '') return;
+		if (file_exists(LOG_FILE) and ((time() - filemtime(LOG_FILE)) > 30)) file_put_contents(LOG_FILE, '', LOCK_EX);
+		file_put_contents(LOG_FILE, $this->formatLog($log), FILE_APPEND | LOCK_EX);
+	}
+
+	/**
 	 * Singleton method
 	 *
 	 * @return Debugger
@@ -38,12 +62,14 @@ class Debugger {
 	 * Log a message
 	 *
 	 * @param string $message
-	 * @param integer $level
-	 * @param string $type
+	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
-	public function log($message, $level = Log::NOTICE, $type = NULL) {
+	public function log($message, $info = array()) {
 		if (!defined('LOG') or LOG != 1) return;
-		$this->logs[] = new Log($message, $level, $type);
+		if (!isset($info['level'])) $info['level'] = SyLog::NOTICE;
+		$log = new Log($message, $info);
+		$this->logs[] = $log;
+		$this->logToFile($log);
 	}
 
 	/**
