@@ -1,7 +1,7 @@
 <?php
 namespace Sy;
 
-class Template extends Object implements ITemplate {
+class Template implements ITemplate {
 
 	private $content;
 

@@ -21,7 +21,12 @@ class Form extends FieldContainer {
 		));
 		$this->success = false;
 		$this->init();
-		$this->actionDispatch('formAction' . $this->formId);
+		if ($this->request('formAction' . $this->formId) == 'submit') {
+			$info['type'] = 'Form submit';
+			$message = 'Call method ' . get_class($this) . ':submitAction';
+			$this->log($message, $info);
+			$this->submitAction();
+		}
 	}
 
 	/**
