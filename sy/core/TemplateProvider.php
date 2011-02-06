@@ -1,7 +1,7 @@
 <?php
 namespace Sy;
 
-class TemplateProvider extends Object {
+class TemplateProvider {
 
 	/**
 	 * Return a new ITemplate object
