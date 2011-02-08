@@ -10,7 +10,6 @@ class Object {
 	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
 	public function log($message, $info = array()) {
-		if (!defined('LOG') or LOG != 1) return;
 		$debugger = Debugger::getInstance();
 		if (!isset($info['type'])) $info['type'] = get_class($this);
 		$debugger->log($message, $info);
@@ -61,7 +60,6 @@ class Object {
 	 * @param string $id time record identifier
 	 */
 	public function timeStart($id) {
-		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
 		$debugger = Debugger::getInstance();
 		$debugger->timeStart($id);
 	}
@@ -72,7 +70,6 @@ class Object {
 	 * @param string $id time record identifier
 	 */
 	public function timeStop($id) {
-		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
 		$debugger = Debugger::getInstance();
 		$debugger->timeStop($id);
 	}
