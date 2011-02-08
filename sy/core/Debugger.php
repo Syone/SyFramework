@@ -5,40 +5,60 @@ class Debugger {
 
 	private static $instance;
 
-	private $logs;
+	private $log;
+
+	private $timeRecord;
+
+	private $loggers;
 
 	private $times;
 
 	private $startTimes;
 
 	private function __construct() {
-		$this->logs = array();
+		$this->log = false;
+		$this->timeRecord = false;
+		$this->loggers = array();
 		$this->times = array();
 		$this->startTimes = array();
+		$this->loggers[] = new Logger();
+	}
+
+	private function logActive() {
+		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] == 'off') return false;
+		return $this->log;
 	}
 
 	/**
-	 * Return formatted log message
-	 *
-	 * @param SyLog $log
+	 * Activate logging
 	 */
-	private function formatLog($log) {
-		$msg = "--------------------------------------------------------------------------------\r\n";
-		$msg .= '[' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
-		$msg .= $log->getMessage() . "\r\n";
-		return $msg;
+	public function activateLog() {
+		$this->log = true;
 	}
 
 	/**
-	 * Put the log message in a file
-	 *
-	 * @param SyLog $log
+	 * Activate time recording
 	 */
-	private function logToFile($log) {
-		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] == 'off') return;
-		if (!defined('LOG_FILE') or LOG_FILE == '') return;
-		if (file_exists(LOG_FILE) and ((time() - filemtime(LOG_FILE)) > 30)) file_put_contents(LOG_FILE, '', LOCK_EX);
-		file_put_contents(LOG_FILE, $this->formatLog($log), FILE_APPEND | LOCK_EX);
+	public function activateTimeRecord() {
+		$this->timeRecord = true;
+	}
+
+	/**
+	 * Activate file logging
+	 *
+	 * @param string $file log file
+	 */
+	public function activateFileLogger($file) {
+		$this->loggers[] = new FileLogger($file);
+	}
+
+	/**
+	 * Add a logger
+	 *
+	 * @param ILogger $logger
+	 */
+	public function addLogger($logger) {
+		$this->loggers[] = $logger;
 	}
 
 	/**
@@ -65,11 +85,12 @@ class Debugger {
 	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
 	public function log($message, $info = array()) {
-		if (!defined('LOG') or LOG != 1) return;
+		if (!$this->logActive()) return;
 		if (!isset($info['level'])) $info['level'] = Log::NOTICE;
 		$log = new Log($message, $info);
-		$this->logs[] = $log;
-		$this->logToFile($log);
+		foreach ($this->loggers as $logger) {
+			$logger->write($log);
+		}
 	}
 
 	/**
@@ -78,10 +99,7 @@ class Debugger {
 	 * @return int
 	 */
 	public function getNbError() {
-		$i = 0;
-		foreach ($this->logs as $log)
-			if ($log->getLevel() <= Log::ERR) $i++;
-		return $i;
+		return $this->loggers[0]->getNbError();
 	}
 
 	/**
@@ -90,7 +108,7 @@ class Debugger {
 	 * @return array
 	 */
 	public function getLogs() {
-		return $this->logs;
+		return $this->loggers[0]->getLogs();
 	}
 
 	/**
@@ -108,7 +126,7 @@ class Debugger {
 	 * @param string $id time record identifier
 	 */
 	public function timeStart($id) {
-		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
+		if (!$this->timeRecord) return;
 		$this->startTimes[$id] = microtime(true);
 	}
 
@@ -118,7 +136,7 @@ class Debugger {
 	 * @param string $id time record identifier
 	 */
 	public function timeStop($id) {
-		if (!defined('TIME_RECORD') or TIME_RECORD != 1) return;
+		if (!$this->timeRecord) return;
 		if (!isset($this->startTimes[$id])) return;
 		$end = microtime(true);
 		$this->times[$id] = $end - $this->startTimes[$id];
