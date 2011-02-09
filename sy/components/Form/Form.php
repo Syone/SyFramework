@@ -22,8 +22,9 @@ class Form extends FieldContainer {
 		$this->success = false;
 		$this->init();
 		if ($this->request('formAction' . $this->formId) == 'submit') {
+			$info = $this->getDebugTrace();
 			$info['type'] = 'Form submit';
-			$message = 'Call method ' . get_class($this) . ':submitAction';
+			$message = 'Call method ' . get_class($this) . '::submitAction';
 			$this->log($message, $info);
 			$this->submitAction();
 		}

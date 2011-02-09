@@ -44,13 +44,11 @@ class Object {
 	 */
 	public function getDebugTrace() {
 		$trace = debug_backtrace();
-		$i = 0;
-		while (isset($trace[$i + 1]['class']) and ($trace[$i + 1]['class'] != get_class($this))) $i++;
-		if (isset($trace[$i + 1]['class'])) $i++;
-		$res['class'] = $trace[$i]['class'];
-		$res['function'] = $trace[$i]['function'];
-		$res['file'] = $trace[$i - 1]['file'];
-		$res['line'] = $trace[$i - 1]['line'];
+		$i = 1;
+		$res['class'] = $trace[$i + 1]['class'];
+		$res['function'] = $trace[$i + 1]['function'];
+		$res['file'] = $trace[$i]['file'];
+		$res['line'] = $trace[$i]['line'];
 		return $res;
 	}
 
