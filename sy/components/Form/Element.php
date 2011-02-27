@@ -1,7 +1,9 @@
 <?php
 namespace Sy\Form;
 
-class Element extends Sy\Html\Element {
+use Sy\Html\Element as HtmlElement;
+
+class Element extends HtmlElement {
 
 	private $options;
 	private $error;
