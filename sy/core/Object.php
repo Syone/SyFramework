@@ -162,6 +162,7 @@ class Object {
 		else {
 			header('location:' . $location);
 		}
+		exit();
 	}
 
 }

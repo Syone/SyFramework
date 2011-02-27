@@ -202,5 +202,5 @@ class WebPage extends WebComponent {
 		}
 		return parent::__toString();
 	}
-	
+
 }
