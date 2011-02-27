@@ -1,73 +1,18 @@
 <?php
 namespace Sy\Form;
 
-use Sy\WebComponent;
+class Element extends Sy\Html\Element {
 
-class Element extends WebComponent {
-
-	private $tagName;
-	private $content;
-	private $attributes;
 	private $options;
 	private $error;
 
 	public function __construct($tagName = '') {
-		parent::__construct();
-		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->tagName = $tagName;
-		$this->content = NULL;
-		$this->attributes = array();
+		parent::__construct($tagName);
+		$this->setTemplateFile(dirname(__FILE__) . '/templates/Element.tpl', 'php');
 		$this->options = array();
 		$this->error = false;
 	}
 	
-	/**
-	 * Set error
-	 *
-	 * @param boolean $error 
-	 */
-	public function setError($error) {
-		$this->error = $error;
-	}
-
-	/**
-	 * Set the element tag name
-	 *
-	 * @param string $tagName
-	 */
-	public function setTagName($tagName) {
-		$this->tagName = $tagName;
-	}
-
-	/**
-	 * Set the element content
-	 *
-	 * @param string $content
-	 */
-	public function setContent($content) {
-		$this->content = $content;
-	}
-
-	/**
-	 * Get the element content
-	 *
-	 * @return string
-	 */
-	public function getContent() {
-		return $this->content;
-	}
-
-	/**
-	 * Set the element attributes
-	 *
-	 * @param array $attributes
-	 */
-	public function setAttributes($attributes) {
-		foreach ($attributes as $name => $value) {
-			$this->setAttribute($name, $value);
-		}
-	}
-
 	/**
 	 * Set the element attribute
 	 *
@@ -78,26 +23,16 @@ class Element extends WebComponent {
 		if ($name == 'name') 
 			$this->setName($value);
 		else
-			$this->attributes[$name] = $value;
+			parent::setAttribute($name, $value);
 	}
 
 	/**
-	 * Get the element attributes
+	 * Set error
 	 *
-	 * @return array
+	 * @param boolean $error
 	 */
-	public function getAttributes() {
-		return $this->attributes;
-	}
-
-	/**
-	 * Get the element attribute
-	 *
-	 * @param string $name
-	 * @return string
-	 */
-	public function getAttribute($name) {
-		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
+	public function setError($error) {
+		$this->error = $error;
 	}
 
 	/**
@@ -139,16 +74,16 @@ class Element extends WebComponent {
 	public function setName($name) {
 		$begin = strstr($name, '[', true);
 		if (!$begin) {
-			$this->attributes['name'] = str_replace(array('.', ' '), '_', $name);
+			parent::setAttribute('name', str_replace(array('.', ' '), '_', $name));
 			return;
 		}
 		$new_begin = str_replace(array('.', ' '), '_', $begin);
 		$end = strstr($name, '[');
 		$new_end = str_replace('[]', '', $end);
-		if (substr_compare($end, '[]', -2) == 0) {
+		if ($end and substr_compare($end, '[]', -2) == 0) {
 			$new_end .= '[]';
 		}
-		$this->attributes['name'] = $new_begin.$new_end;
+		parent::setAttribute('name', $new_begin.$new_end);
 	}
 
 	/**
@@ -157,7 +92,7 @@ class Element extends WebComponent {
 	 * @return boolean
 	 */
 	public function isRequired() {
-		if (isset($this->attributes['required'])) return true;
+		if (!is_null($this->getAttribute('required'))) return true;
 		if (isset($this->options['required']))
 			return $this->options['required'];
 		else
@@ -174,11 +109,8 @@ class Element extends WebComponent {
 	}
 
 	public function __toString() {
-		$this->setVar('TAG_NAME', $this->tagName);
-		$this->setVar('CONTENT', $this->content);
 		$this->setVar('ERROR', $this->error);
 		if ($this->getTemplateType() == 'php') {
-			$this->setVar('ATTRIBUTES', $this->attributes);
 			$this->setVar('OPTIONS', $this->options);
 		}
 		return parent::__toString();
