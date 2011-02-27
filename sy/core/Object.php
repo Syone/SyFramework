@@ -9,7 +9,7 @@ class Object {
 	 * @param string $message
 	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
-	public function log($message, $info = array()) {
+	public function log($message, array $info = array()) {
 		$debugger = Debugger::getInstance();
 		if (!isset($info['type'])) $info['type'] = get_class($this);
 		$debugger->log($message, $info);
@@ -21,7 +21,7 @@ class Object {
 	 * @param string $message
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
-	public function logWarning($message, $info = array()) {
+	public function logWarning($message, array $info = array()) {
 		$info['level'] = Log::WARN;
 		$this->log($message, $info);
 	}
@@ -32,7 +32,7 @@ class Object {
 	 * @param string $message
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
-	public function logError($message, $info = array()) {
+	public function logError($message, array $info = array()) {
 		$info['level'] = Log::ERR;
 		$this->log($message, $info);
 	}

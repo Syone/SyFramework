@@ -42,7 +42,7 @@ class Element extends HtmlElement {
 	 *
 	 * @param array $options
 	 */
-	public function setOptions($options) {
+	public function setOptions(array $options) {
 		foreach ($options as $name => $value) {
 			$this->setOption($name, $value);
 		}
