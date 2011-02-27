@@ -48,7 +48,7 @@ class Element extends WebComponent {
 	 *
 	 * @param array $attributes
 	 */
-	public function setAttributes($attributes) {
+	public function setAttributes(array $attributes) {
 		foreach ($attributes as $name => $value) {
 			$this->setAttribute($name, $value);
 		}

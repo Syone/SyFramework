@@ -37,7 +37,7 @@ class OptionContainer extends Container {
 	/**
 	 * Add multiple options
 	 *
-	 * @param array $options
+	 * @param mixed $options
 	 */
 	public function addOptions($options) {
 		if (is_array($options)) {
@@ -55,7 +55,7 @@ class OptionContainer extends Container {
 	/**
 	 * Fill the select
 	 *
-	 * @param array $values
+	 * @param mixed $values
 	 */
 	public function fill($values) {
 		foreach ($this->getElements() as $e) {
@@ -74,7 +74,7 @@ class OptionContainer extends Container {
 	/**
 	 * Return if the element is valid
 	 *
-	 * @param array $values
+	 * @param mixed $values
 	 * @return bool
 	 */
 	public function isValid($values) {

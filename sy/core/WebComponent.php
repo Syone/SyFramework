@@ -24,7 +24,7 @@ class WebComponent extends Component {
 	 * @param Component $component
 	 * @param boolean $append
 	 */
-	public function setComponent($where, $component, $append = false) {
+	public function setComponent($where, Component $component, $append = false) {
 		parent::setComponent($where, $component, $append);
 		if (!$component instanceof WebComponent) return; 
 		$this->cssLinks = array_merge_recursive($this->cssLinks, $component->getCssLinks());

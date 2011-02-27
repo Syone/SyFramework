@@ -74,7 +74,7 @@ class Component extends Object {
 	 *
 	 * @param array $values associative array var => value
 	 */
-	public function setVars($values) {
+	public function setVars(array $values) {
 		foreach ($values as $var => $value) {
 			$this->setVar($var, $value);
 		}
@@ -96,7 +96,7 @@ class Component extends Object {
 	 * @param Component $component
 	 * @param boolean $append
 	 */
-	public function setComponent($where, $component, $append = false) {
+	public function setComponent($where, Component $component, $append = false) {
 		$this->template->setVar($where, $component->__toString(), $append);
 	}
 

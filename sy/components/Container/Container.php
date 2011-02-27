@@ -17,7 +17,7 @@ class Container extends Element {
 	 * @param Element $element
 	 * @return Element
 	 */
-	public function addElement($element) {
+	public function addElement(Element $element) {
 		$this->elements[] = $element;
 		return $element;
 	}
@@ -36,7 +36,7 @@ class Container extends Element {
 	 *
 	 * @param array $elements An array of Element
 	 */
-	public function setElements($elements) {
+	public function setElements(array $elements) {
 		$this->elements = $elements;
 	}
 

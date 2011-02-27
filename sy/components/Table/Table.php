@@ -51,7 +51,7 @@ class Table extends TrContainer {
 	 * @param array $attributes caption attributes
 	 * @return Element
 	 */
-	public function addCaption($caption, $attributes = array()) {
+	public function addCaption($caption, array $attributes = array()) {
 		$element = new Element('caption');
 		$element->setContent($caption);
 		$this->caption = $element;
@@ -64,7 +64,7 @@ class Table extends TrContainer {
 	 * @param array $attributes colgroup element attributes
 	 * @return Container
 	 */
-	public function addColGroup($attributes = array()) {
+	public function addColGroup(array $attributes = array()) {
 		$element = new Container('colgroup');
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
@@ -76,7 +76,7 @@ class Table extends TrContainer {
 	 * @param array $attributes col element attributes
 	 * @return Element
 	 */
-	public function addCol($attributes = array()) {
+	public function addCol(array $attributes = array()) {
 		$element = new Element('col');
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
@@ -88,7 +88,7 @@ class Table extends TrContainer {
 	 * @param array $attributes thead element attributes
 	 * @return TrContainer
 	 */
-	public function addTHead($attributes = array()) {
+	public function addTHead(array $attributes = array()) {
 		$element = new TrContainer('thead');
 		$element->setAttributes($attributes);
 		$this->tHead = $element;
@@ -101,7 +101,7 @@ class Table extends TrContainer {
 	 * @param array $attributes tbody element attributes
 	 * @return TrContainer
 	 */
-	public function addTBody($attributes = array()) {
+	public function addTBody(array $attributes = array()) {
 		$element = new TrContainer('tbody');
 		$element->setAttributes($attributes);
 		$this->tBody = $element;
@@ -114,7 +114,7 @@ class Table extends TrContainer {
 	 * @param array $attributes tfoot element attributes
 	 * @return TrContainer
 	 */
-	public function addTFoot($attributes = array()) {
+	public function addTFoot(array $attributes = array()) {
 		$element = new TrContainer('tfoot');
 		$element->setAttributes($attributes);
 		$this->tFoot = $element;
