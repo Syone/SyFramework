@@ -61,6 +61,7 @@ class Element extends WebComponent {
 	 * @param string $value attribute value
 	 */
 	public function setAttribute($name, $value) {
+		$name = strtolower($name);
 		$this->attributes[$name] = $value;
 	}
 
@@ -80,6 +81,7 @@ class Element extends WebComponent {
 	 * @return string
 	 */
 	public function getAttribute($name) {
+		$name = strtolower($name);
 		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
 	}
 
