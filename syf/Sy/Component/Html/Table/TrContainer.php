@@ -13,7 +13,7 @@ class TrContainer extends Container {
 	 * @param array $attributes tr element attributes
 	 * @return Tr
 	 */
-	public function addTr($attributes = array()) {
+	public function addTr(array $attributes = array()) {
 		$element = new Tr();
 		$element->setAttributes($attributes);
 		return $this->addElement($element);

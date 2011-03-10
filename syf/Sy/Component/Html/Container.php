@@ -5,8 +5,8 @@ class Container extends Element {
 
 	private $elements;
 
-	public function __construct($name = '') {
-		parent::__construct($name);
+	public function __construct($tagName) {
+		parent::__construct($tagName);
 		$this->setTemplateFile(__DIR__ . '/templates/Container.tpl', 'php');
 		$this->elements = array();
 	}
@@ -38,6 +38,15 @@ class Container extends Element {
 	 */
 	public function setElements(array $elements) {
 		$this->elements = $elements;
+	}
+
+	/**
+	 * Return if the container is empty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return empty($this->elements);
 	}
 
 	public function __toString() {
