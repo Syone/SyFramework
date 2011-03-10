@@ -40,7 +40,7 @@ class Element extends WebComponent {
 	 * @return string
 	 */
 	public function getContent() {
-		return tim($this->content);
+		return trim($this->content);
 	}
 
 	/**
