@@ -1,5 +1,6 @@
 <?php
 namespace Sy\Component\Html;
+use Sy\Component\Html\Table\TrContainer;
 
 /**
  * The <table> tag defines an HTML table.
@@ -7,7 +8,7 @@ namespace Sy\Component\Html;
  * The tr element defines a table row, the th element defines a table header, and the td element defines a table cell.
  * A more complex HTML table may also include caption, col, colgroup, thead, tfoot, and tbody elements.
  */
-class Table extends Table\TrContainer {
+class Table extends TrContainer {
 
 	private $caption;
 
