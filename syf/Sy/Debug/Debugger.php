@@ -57,7 +57,7 @@ class Debugger {
 	 *
 	 * @param ILogger $logger
 	 */
-	public function addLogger($logger) {
+	public function addLogger(ILogger $logger) {
 		$this->loggers[] = $logger;
 	}
 
@@ -84,7 +84,7 @@ class Debugger {
 	 * @param string $message
 	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
-	public function log($message, $info = array()) {
+	public function log($message, array $info = array()) {
 		if (!$this->logActive()) return;
 		if (!isset($info['level'])) $info['level'] = Log::NOTICE;
 		$log = new Log($message, $info);

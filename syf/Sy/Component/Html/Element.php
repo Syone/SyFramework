@@ -8,11 +8,11 @@ class Element extends WebComponent {
 	private $content;
 	private $attributes;
 
-	public function __construct($tagName = '') {
+	public function __construct($tagName) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->tagName = $tagName;
-		$this->content = NULL;
+		$this->content = '';
 		$this->attributes = array();
 	}
 
@@ -40,7 +40,7 @@ class Element extends WebComponent {
 	 * @return string
 	 */
 	public function getContent() {
-		return $this->content;
+		return tim($this->content);
 	}
 
 	/**
@@ -83,6 +83,15 @@ class Element extends WebComponent {
 	public function getAttribute($name) {
 		$name = strtolower($name);
 		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
+	}
+
+	/**
+	 * Return if the element has a content or not
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return $this->getContent() === '';
 	}
 
 	public function __toString() {

@@ -19,7 +19,7 @@ class FileLogger implements ILogger {
 	 *
 	 * @param Log $log
 	 */
-	private function formatLog($log) {
+	private function formatLog(Log $log) {
 		$msg = "--------------------------------------------------------------------------------\r\n";
 		$msg .= '[' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
 		$msg .= $log->getMessage() . "\r\n";

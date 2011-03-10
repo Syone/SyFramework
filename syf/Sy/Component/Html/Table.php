@@ -19,24 +19,84 @@ class Table extends Table\TrContainer {
 
 	public function __construct() {
 		parent::__construct('table');
-		$this->caption = NULL;
-		$this->tHead = NULL;
-		$this->tBody = NULL;
-		$this->tFoot = NULL;
+		$this->caption = new Element('caption');
+		$this->tHead = new TrContainer('thead');
+		$this->tBody = new TrContainer('tbody');
+		$this->tFoot = new TrContainer('tfoot');
 	}
 
 	/**
-	 * Add a caption element
+	 * Return the caption element
+	 *
+	 * @return Element
+	 */
+	public function getCaption() {
+		return $this->caption;
+	}
+
+	/**
+	 * Return the thead element
+	 *
+	 * @return TrContainer
+	 */
+	public function getTHead() {
+		return $this->tHead;
+	}
+
+	/**
+	 * Return the tbody element
+	 *
+	 * @return TrContainer
+	 */
+	public function getTBody() {
+		return $this->tBody;
+	}
+
+	/**
+	 * Return the tfoot element
+	 *
+	 * @return TrContainer
+	 */
+	public function getTFoot() {
+		return $this->tFoot;
+	}
+
+	/**
+	 * Set a caption element
 	 *
 	 * @param string $caption caption element text
 	 * @param array $attributes caption attributes
-	 * @return Element
 	 */
-	public function addCaption($caption, array $attributes = array()) {
-		$element = new Element('caption');
-		$element->setContent($caption);
-		$this->caption = $element;
-		return $this->caption;
+	public function setCaption($caption, array $attributes = array()) {
+		$this->getCaption()->setContent($caption);
+		$this->getCaption()->setAttributes($attributes);
+	}
+
+	/**
+	 * Set the thead element
+	 *
+	 * @param array $attributes thead element attributes
+	 */
+	public function setTHead(array $attributes = array()) {
+		$this->getTHead()->setAttributes($attributes);
+	}
+
+	/**
+	 * Set the tbody element
+	 *
+	 * @param array $attributes tbody element attributes
+	 */
+	public function addTBody(array $attributes = array()) {
+		$this->getTBody()->setAttributes($attributes);
+	}
+
+	/**
+	 * Set the tfoot element
+	 *
+	 * @param array $attributes tfoot element attributes
+	 */
+	public function addTFoot(array $attributes = array()) {
+		$this->getTFoot()->setAttributes($attributes);
 	}
 
 	/**
@@ -64,50 +124,20 @@ class Table extends Table\TrContainer {
 	}
 
 	/**
-	 * Add a thead element
+	 * Return if the table is empty
 	 *
-	 * @param array $attributes thead element attributes
-	 * @return TrContainer
+	 * @return bool
 	 */
-	public function addTHead(array $attributes = array()) {
-		$element = new TrContainer('thead');
-		$element->setAttributes($attributes);
-		$this->tHead = $element;
-		return $this->tHead;
-	}
-
-	/**
-	 * Add a tbody element
-	 *
-	 * @param array $attributes tbody element attributes
-	 * @return TrContainer
-	 */
-	public function addTBody(array $attributes = array()) {
-		$element = new TrContainer('tbody');
-		$element->setAttributes($attributes);
-		$this->tBody = $element;
-		return $this->tBody;
-	}
-
-	/**
-	 * Add a tfoot element
-	 *
-	 * @param array $attributes tfoot element attributes
-	 * @return TrContainer
-	 */
-	public function addTFoot(array $attributes = array()) {
-		$element = new TrContainer('tfoot');
-		$element->setAttributes($attributes);
-		$this->tFoot = $element;
-		return $this->tFoot;
+	public function isEmpty() {
+		return parent::isEmpty() and $this->tBody->isEmpty();
 	}
 
 	public function __toString() {
 		$elements = $this->getElements();
-		if (!is_null($this->caption)) $elements = array_unshift($elements, $this->caption);
-		if (!is_null($this->tHead)) $elements[] = $this->tHead;
-		if (!is_null($this->tFoot)) $elements[] = $this->tFoot;
-		if (!is_null($this->tBody)) $elements[] = $this->tBody;
+		if (!$this->getCaption()->isEmpty()) $elements = array_unshift($elements, $this->caption);
+		if (!$this->getTHead()->isEmpty()) $elements[] = $this->tHead;
+		if (!$this->getTFoot()->isEmpty()) $elements[] = $this->tFoot;
+		if (!$this->getTBody()->isEmpty()) $elements[] = $this->tBody;
 		$this->setElements($elements);
 		return parent::__toString();
 	}

@@ -19,7 +19,7 @@ class Tr extends Container {
 	 * @param array $attributes th element attributes
 	 * @return Element
 	 */
-	public function addTh($data, $attributes = array()) {
+	public function addTh($data, array $attributes = array()) {
 		$element = new Element('th');
 		$element->setContent($data);
 		$element->setAttributes($attributes);
@@ -33,7 +33,7 @@ class Tr extends Container {
 	 * @param array $attributes td element attributes
 	 * @return Element
 	 */
-	public function addTd($data, $attributes = array()) {
+	public function addTd($data, array $attributes = array()) {
 		$element = new Element('td');
 		$element->setContent($data);
 		$element->setAttributes($attributes);
