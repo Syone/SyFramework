@@ -10,8 +10,8 @@ class TemplateProvider {
 	 */
 	public static function createTemplate($type = '') {
 		$type = ucfirst(strtolower($type));
-		$class = 'Sy\\Template\\' . $type . 'Template';
-		if (!class_exists($class)) $class = 'Sy\\Template\\Template';
+		$class = __NAMESPACE__ . '\\' . $type . 'Template';
+		if (!class_exists($class)) $class = __NAMESPACE__ . '\\Template';
 		return new $class();
 	}
 
