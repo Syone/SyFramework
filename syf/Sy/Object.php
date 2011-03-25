@@ -82,10 +82,7 @@ class Object {
 	 * @return mixed
 	 */
 	protected function get($param, $default = NULL) {
-		if (is_null($default))
-			return isset($_GET[$param]) ? $_GET[$param] : $default;
-		else
-			return (isset($_GET[$param]) and !empty($_GET[$param])) ? $_GET[$param] : $default;
+		return isset($_GET[$param]) ? $_GET[$param] : $default;
 	}
 
 	/**
@@ -97,10 +94,7 @@ class Object {
 	 * @return mixed
 	 */
 	protected function post($param, $default = NULL) {
-		if (is_null($default))
-			return isset($_POST[$param]) ? $_POST[$param] : $default;
-		else
-			return (isset($_POST[$param]) and !empty($_POST[$param])) ? $_POST[$param] : $default;
+		return isset($_POST[$param]) ? $_POST[$param] : $default;
 	}
 
 	/**
@@ -112,10 +106,7 @@ class Object {
 	 * @return mixed
 	 */
 	protected function cookie($param, $default = NULL) {
-		if (is_null($default))
-			return isset($_COOKIE[$param]) ? $_COOKIE[$param] : $default;
-		else
-			return (isset($_COOKIE[$param]) and !empty($_COOKIE[$param])) ? $_COOKIE[$param] : $default;
+		return isset($_COOKIE[$param]) ? $_COOKIE[$param] : $default;
 	}
 
 	/**
@@ -127,10 +118,7 @@ class Object {
 	 * @return mixed
 	 */
 	protected function request($param, $default = NULL) {
-		if (is_null($default))
-			return isset($_REQUEST[$param]) ? $_REQUEST[$param] : $default;
-		else
-			return (isset($_REQUEST[$param]) and !empty($_REQUEST[$param])) ? $_REQUEST[$param] : $default;
+		return isset($_REQUEST[$param]) ? $_REQUEST[$param] : $default;
 	}
 
 	/**
@@ -142,10 +130,7 @@ class Object {
 	 * @return mixed
 	 */
 	protected function session($param, $default = NULL) {
-		if (is_null($default))
-			return isset($_SESSION[$param]) ? $_SESSION[$param] : $default;
-		else
-			return (isset($_SESSION[$param]) and !empty($_SESSION[$param])) ? $_SESSION[$param] : $default;
+		return isset($_SESSION[$param]) ? $_SESSION[$param] : $default;
 	}
 
 	/**
