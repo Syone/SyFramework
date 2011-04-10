@@ -11,13 +11,6 @@ class Db extends SyObject {
 	 */
 	private $connection;
 
-	/**
-	 * The last PDO statement prepared
-	 *
-	 * @var PDOStatement
-	 */
-	private $statement;
-
 	public function __construct($dsn, $username = '', $passwd = '', $options = array()) {
 		try {
 			$this->connection = Connection::instance($dsn, $username, $passwd, $options);
@@ -33,15 +26,6 @@ class Db extends SyObject {
 	 */
 	public function getConnection() {
 		return $this->connection;
-	}
-
-	/**
-	 * Return the last PDO statement prepared
-	 *
-	 * @return PDOStatement
-	 */
-	public function getStatement() {
-		return $this->statement;
 	}
 
 	/**
