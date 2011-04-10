@@ -82,7 +82,7 @@
 			</div>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;" cellpadding="3">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
-					<th style="<?php echo $TH_CSS ?> width: 90px;">Level</th>
+					<th style="<?php echo $TH_CSS ?> min-width: 90px;">Level</th>
 					<th style="<?php echo $TH_CSS ?>">Type</th>
 					<th style="<?php echo $TH_CSS ?>">File</th>
 					<th style="<?php echo $TH_CSS ?> width: 40px;">Line</th>
