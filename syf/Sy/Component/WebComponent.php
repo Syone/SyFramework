@@ -28,9 +28,27 @@ class WebComponent extends Component {
 	public function setComponent($where, Component $component, $append = false) {
 		parent::setComponent($where, $component, $append);
 		if (!$component instanceof WebComponent) return; 
+		$this->mergeCss($component);
+		$this->mergeJs($component);
+	}
+
+	/**
+	 * Merge css code and links from a WebComponent
+	 *
+	 * @param WebComponent $component
+	 */
+	public function mergeCss(WebComponent $component) {
 		$this->cssLinks = array_merge_recursive($this->cssLinks, $component->getCssLinks());
-		$this->jsLinks  = array_merge($this->jsLinks, $component->getJsLinks());
 		$this->cssCode  = array_merge($this->cssCode, $component->getCssCodeArray());
+	}
+
+	/**
+	 * Merge js code and links from a WebComponent
+	 *
+	 * @param WebComponent $component
+	 */
+	public function mergeJs(WebComponent $component) {
+		$this->jsLinks  = array_merge($this->jsLinks, $component->getJsLinks());
 		$this->jsCode   = array_merge($this->jsCode, $component->getJsCodeArray());
 	}
 
