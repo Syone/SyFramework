@@ -5,6 +5,8 @@ use Sy\Component, Sy\Component\WebComponent;
 class Page extends WebComponent {
 
 	private $debug;
+	private $doctype;
+	private $charset;
 	private $meta;
 	private $htmlAttributes;
 	private $bodyAttributes;
@@ -13,11 +15,12 @@ class Page extends WebComponent {
 		$this->timeStart('Web page');
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Page/templates/Page.tpl', 'php');
-		$this->debug = false;
-		$this->meta = array();
+		$this->debug   = false;
+		$this->doctype = 'html5';
+		$this->charset = 'utf-8';
+		$this->meta    = array();
 		$this->htmlAttributes = array();
 		$this->bodyAttributes = array();
-		$this->setCharset();
 		$this->setBody('');
 	}
 
@@ -55,6 +58,8 @@ class Page extends WebComponent {
 	 * @param string $type [html4.01|xhtml1.0|xhtml1.1]-[strict|transitional|frameset]
 	 */
 	public function setDoctype($type = 'html5') {
+		$this->doctype = $type;
+
 		$doctype = Array(
 			'html4.01-strict'       => 'PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"',
 			'html4.01-transitional' => 'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"',
@@ -82,8 +87,8 @@ class Page extends WebComponent {
 	 * @param array $meta
 	 */
 	private function addMeta($meta) {
-		$key = isset($meta['http-equiv']) ? $meta['http-equiv'] : $meta['name'];
-		$key = strtolower($key);
+		$values = array_values($meta);
+		$key = strtolower($values[0]);
 		$this->meta[$key] = $meta;
 	}
 
@@ -106,8 +111,8 @@ class Page extends WebComponent {
 	 *
 	 * @param string $charset Charset encoding string
 	 */
-	public function setCharset($charset = 'utf-8') {
-		$this->setMeta('Content-Type', 'text/html; charset=' . $charset, true);
+	public function setCharset($charset) {
+		$this->charset = $charset;
 	}
 
 	/**
@@ -188,6 +193,10 @@ class Page extends WebComponent {
 
 	public function __toString() {
 		$this->setVar('HTML_ATTR', $this->htmlAttributes);
+		if ($this->doctype === 'html5')
+			$this->addMeta(array('charset' => $this->charset));
+		else
+			$this->setMeta('Content-Type', 'text/html; charset=' . $this->charset, true);
 		$this->setVar('META', $this->meta);
 		$this->setVar('CSS_LINKS', $this->getCssLinks());
 		$this->setVar('JS_LINKS', $this->getJsLinks());
@@ -198,7 +207,6 @@ class Page extends WebComponent {
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		$this->timeStop('Web page');
 		if ($this->debug) {
-//			require __DIR__ . '/DebugBar/DebugBar.php';
 			$this->setComponent('DEBUG_BAR', new Page\DebugBar);
 		}
 		return parent::__toString();
