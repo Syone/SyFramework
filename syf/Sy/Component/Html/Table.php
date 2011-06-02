@@ -18,8 +18,14 @@ class Table extends TrContainer {
 
 	private $tFoot;
 
-	public function __construct() {
+	/**
+	 * Table constructor
+	 *
+	 * @param array $attributes table attributes
+	 */
+	public function __construct(array $attributes = array()) {
 		parent::__construct('table');
+		$this->setAttributes($attributes);
 		$this->caption = new Element('caption');
 		$this->tHead = new TrContainer('thead');
 		$this->tBody = new TrContainer('tbody');
