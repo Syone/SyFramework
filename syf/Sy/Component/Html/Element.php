@@ -17,15 +17,6 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Set the element tag name
-	 *
-	 * @param string $tagName
-	 */
-	public function setTagName($tagName) {
-		$this->tagName = $tagName;
-	}
-
-	/**
 	 * Set the element content
 	 *
 	 * @param string $content
