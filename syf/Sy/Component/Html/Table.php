@@ -108,7 +108,7 @@ class Table extends TrContainer {
 
 	public function __toString() {
 		$elements = $this->getElements();
-		if (!$this->getCaption()->isEmpty()) $elements = array_unshift($elements, $this->caption);
+		if (!$this->getCaption()->isEmpty()) array_unshift($elements, $this->caption);
 		if (!$this->getTHead()->isEmpty()) $elements[] = $this->tHead;
 		if (!$this->getTFoot()->isEmpty()) $elements[] = $this->tFoot;
 		if (!$this->getTBody()->isEmpty()) $elements[] = $this->tBody;
