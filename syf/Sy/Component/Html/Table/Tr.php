@@ -40,4 +40,17 @@ class Tr extends Container {
 		return $this->addElement($element);
 	}
 
+	/**
+	 * Return if all Td contained is empty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		$tds = $this->getElements();
+		foreach ($tds as $td) {
+			if (!$td->isEmpty()) return false;
+		}
+		return true;
+	}
+
 }
