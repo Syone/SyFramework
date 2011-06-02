@@ -74,33 +74,6 @@ class Table extends TrContainer {
 	}
 
 	/**
-	 * Set the thead element
-	 *
-	 * @param array $attributes thead element attributes
-	 */
-	public function setTHead(array $attributes = array()) {
-		$this->getTHead()->setAttributes($attributes);
-	}
-
-	/**
-	 * Set the tbody element
-	 *
-	 * @param array $attributes tbody element attributes
-	 */
-	public function addTBody(array $attributes = array()) {
-		$this->getTBody()->setAttributes($attributes);
-	}
-
-	/**
-	 * Set the tfoot element
-	 *
-	 * @param array $attributes tfoot element attributes
-	 */
-	public function addTFoot(array $attributes = array()) {
-		$this->getTFoot()->setAttributes($attributes);
-	}
-
-	/**
 	 * Add a colgroup element
 	 *
 	 * @param array $attributes colgroup element attributes
