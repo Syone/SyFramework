@@ -19,4 +19,17 @@ class TrContainer extends Container {
 		return $this->addElement($element);
 	}
 
+	/**
+	 * Return if all Tr contained is empty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		$trs = $this->getElements();
+		foreach ($trs as $tr) {
+			if (!$tr->isEmpty()) return false;
+		}
+		return true;
+	}
+
 }
