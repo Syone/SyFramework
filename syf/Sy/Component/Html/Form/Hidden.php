@@ -15,5 +15,5 @@ class Hidden extends TextElement {
 		$this->setAttribute('type', 'hidden');
 		return parent::__toString();
 	}
-	
+
 }

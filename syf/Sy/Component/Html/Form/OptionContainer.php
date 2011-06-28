@@ -12,7 +12,7 @@ class OptionContainer extends Container {
 	 * Add an optgroup element
 	 *
 	 * @param string $label optgroup label attribute
-	 * @return Element
+	 * @return OptionContainer
 	 */
 	public function addOptGroup($label) {
 		$optgroup = new OptionContainer('optgroup');
@@ -25,7 +25,7 @@ class OptionContainer extends Container {
 	 *
 	 * @param string $label option content
 	 * @param string $value option value
-	 * @return Element
+	 * @return Option
 	 */
 	public function addOption($label, $value = NULL) {
 		$option = new Option();
@@ -60,7 +60,7 @@ class OptionContainer extends Container {
 	public function fill($values) {
 		foreach ($this->getElements() as $e) {
 			$name = $this->getAttribute('name');
-			
+
 			// if optgroup
 			if (is_null($name)) {
 				$e->fill($values);
@@ -100,11 +100,11 @@ class OptionContainer extends Container {
 		// Add option elements
 		if (!is_null($this->getOption('options')))
 			$this->addOptions($this->getOption('options'));
-		
+
 		// Check selected option elements
 		if (!is_null($this->getOption('selected')))
 			$this->checkSelectedOption();
-		
+
 		return parent::__toString();
 	}
 

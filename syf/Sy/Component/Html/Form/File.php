@@ -2,7 +2,7 @@
 namespace Sy\Component\Html\Form;
 
 class File extends Input implements ValidableElement {
-	
+
 	public function __construct() {
 		parent::__construct('file');
 	}

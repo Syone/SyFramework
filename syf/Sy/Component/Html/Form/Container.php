@@ -2,7 +2,7 @@
 namespace Sy\Component\Html\Form;
 
 class Container extends Element implements FillableElement, ValidableElement {
-	
+
 	private $elements;
 
 	public function __construct($name = '') {
@@ -99,7 +99,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 		$func = function($val) {
 			return rtrim($val, ']');
 		};
-		
+
 		$keys = array_map($func, $keys);
 		$keys = array_filter($keys);
 
