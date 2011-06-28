@@ -2,7 +2,7 @@
 namespace Sy;
 use Db\Connection;
 
-class Db extends SyObject {
+class Db extends Object {
 
 	/**
 	 * Database connection (PDO)
