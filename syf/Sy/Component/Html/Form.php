@@ -9,14 +9,11 @@ class Form extends Form\FieldContainer {
 
 	private $success;
 
-	public function __construct() {
+	public function __construct(array $attributes = array('action' => '', 'method' => 'post')) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
-		$this->setAttributes(array(
-			'action'  => '',
-			'method'  => 'post',
-		));
+		$this->setAttributes($attributes);
 		$this->success = false;
 		$this->init();
 		if ($this->request('formAction' . $this->formId) == 'submit') {
