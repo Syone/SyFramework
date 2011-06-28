@@ -25,5 +25,5 @@ class Radio extends Input implements FillableElement, ValidableElement {
 		}
 		return true;
 	}
-	
+
 }

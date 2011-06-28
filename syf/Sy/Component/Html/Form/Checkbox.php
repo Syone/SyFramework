@@ -2,7 +2,7 @@
 namespace Sy\Component\Html\Form;
 
 class Checkbox extends Input implements FillableElement, ValidableElement {
-	
+
 	public function __construct() {
 		parent::__construct('checkbox');
 	}
@@ -10,7 +10,7 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 	public function fill($value) {
 		if (is_null($value)) return;
 		if (is_array($value)) {
-			if (in_array($this->getAttribute('value'), $value))
+			if (in_array($this->getAttribute('value'), $value, true))
 				$this->setAttribute('checked', 'checked');
 		}
 		if ($this->getAttribute('value') == $value)
@@ -26,5 +26,5 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 		}
 		return true;
 	}
-	
+
 }
