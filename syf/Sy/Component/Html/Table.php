@@ -115,9 +115,9 @@ class Table extends TrContainer {
 	public function __toString() {
 		$elements = $this->getElements();
 		if (!$this->getCaption()->isEmpty()) array_unshift($elements, $this->caption);
-		if (!$this->getTHead()->isEmpty()) $elements[] = $this->tHead;
-		if (!$this->getTFoot()->isEmpty()) $elements[] = $this->tFoot;
-		if (!$this->getTBody()->isEmpty()) $elements[] = $this->tBody;
+		if (!$this->getTHead()->isEmpty()) $elements['head'] = $this->tHead;
+		if (!$this->getTFoot()->isEmpty()) $elements['foot'] = $this->tFoot;
+		if (!$this->getTBody()->isEmpty()) $elements['body'] = $this->tBody;
 		$this->setElements($elements);
 		return parent::__toString();
 	}
