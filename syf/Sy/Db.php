@@ -1,6 +1,7 @@
 <?php
 namespace Sy;
-use Db\Connection;
+
+use Sy\Db\Connection;
 
 class Db extends Object {
 
@@ -95,6 +96,7 @@ class Db extends Object {
 	public function queryAll($sql, array $params = array()) {
 		$statement = $this->query($sql, $params);
 		if ($statement === false) return array();
+		//TODO fetchAll parameters
 		return $statement->fetchAll();
 	}
 

@@ -1,5 +1,6 @@
 <?php
 namespace Sy;
+
 use Sy\Template\TemplateProvider;
 
 class Component extends Object {
@@ -135,5 +136,5 @@ class Component extends Object {
 			$this->$method();
 		}
 	}
-	
+
 }

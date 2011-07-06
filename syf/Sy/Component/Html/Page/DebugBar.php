@@ -1,5 +1,6 @@
 <?php
 namespace Sy\Component\Html\Page;
+
 use Sy\Component\WebComponent,
 	Sy\Debug\Debugger,
 	Sy\Debug\Log;

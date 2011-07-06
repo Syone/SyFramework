@@ -1,5 +1,6 @@
 <?php
 namespace Sy\Component\Html;
+
 use Sy\Component\WebComponent;
 
 class Panel extends WebComponent {

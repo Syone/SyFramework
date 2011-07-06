@@ -1,6 +1,8 @@
 <?php
 namespace Sy\Component\Html;
-use Sy\Component, Sy\Component\WebComponent;
+
+use Sy\Component,
+	Sy\Component\WebComponent;
 
 class Page extends WebComponent {
 

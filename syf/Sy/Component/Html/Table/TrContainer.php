@@ -1,5 +1,6 @@
 <?php
 namespace Sy\Component\Html\Table;
+
 use Sy\Component\Html\Container;
 
 /**
