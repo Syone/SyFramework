@@ -1,6 +1,8 @@
 <?php
 namespace Sy;
-use Sy\Debug\Debugger, Sy\Debug\Log;
+
+use Sy\Debug\Debugger,
+	Sy\Debug\Log;
 
 class Object {
 

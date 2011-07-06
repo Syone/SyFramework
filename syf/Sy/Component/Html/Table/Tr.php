@@ -1,6 +1,8 @@
 <?php
 namespace Sy\Component\Html\Table;
-use Sy\Component\Html\Container, Sy\Component\Html\Element;
+
+use Sy\Component\Html\Container,
+	Sy\Component\Html\Element;
 
 /**
  * The <tr> tag defines a row in an HTML table.

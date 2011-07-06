@@ -1,5 +1,6 @@
 <?php
 namespace Sy\Component;
+
 use Sy\Component;
 
 class WebComponent extends Component {
@@ -27,7 +28,7 @@ class WebComponent extends Component {
 	 */
 	public function setComponent($where, Component $component, $append = false) {
 		parent::setComponent($where, $component, $append);
-		if (!$component instanceof WebComponent) return; 
+		if (!$component instanceof WebComponent) return;
 		$this->mergeCss($component);
 		$this->mergeJs($component);
 	}
