@@ -83,7 +83,7 @@ class Db extends Object {
 			$parameters = empty($params) ? '' : 'Parameters:<pre>' . print_r($params, true)  . '</pre>';
 			$this->logError('Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>' . 'Query:<pre>' . $query . '</pre>' . $params);
 		}
-		return $res;
+		return $statement;
 	}
 
 	/**
