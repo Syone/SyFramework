@@ -35,10 +35,10 @@ class Log {
 	 * Log constructor
 	 *
 	 * @param string $message
-	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
+	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class, message
 	 */
-	public function __construct($message, $info) {
-		$this->message  = $message;
+	public function __construct($info) {
+		$this->message  = isset($info['message'])  ? $info['message']  : '';
 		$this->level    = isset($info['level'])    ? $info['level']    : self::NOTICE;
 		$this->type     = isset($info['type'])     ? $info['type']     : '';
 		$this->file     = isset($info['file'])     ? $info['file']     : '';

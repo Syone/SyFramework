@@ -1,7 +1,8 @@
 <?php
 namespace Sy;
 
-use Sy\Db\Connection;
+use Sy\Db\Connection,
+	Sy\Debug\Log;
 
 class Db extends Object {
 
@@ -15,7 +16,7 @@ class Db extends Object {
 	public function __construct($dsn, $username = '', $passwd = '', $options = array()) {
 		try {
 			$this->connection = Connection::instance($dsn, $username, $passwd, $options);
-		} catch (PDOException $e) {
+		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 		}
 	}
@@ -58,10 +59,11 @@ class Db extends Object {
 	 */
 	public function execute($sql, array $params = array()) {
 		$statement = $this->prepare($sql);
+		if (!$statement) return 0;
 		$res = $statement->execute($params);
 		if ($res === false) {
-			$parameters = empty($params) ? '' : 'Parameters:<pre>' . print_r($params, true)  . '</pre>';
-			$this->logError('Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>' . 'Query:<pre>' . $query . '</pre>' . $params);
+			$message = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
+			$this->logQuery($query, $params, array('message' => $message, 'level' => Log::ERR));
 			return 0;
 		}
 		return $statement->rowCount();
@@ -78,10 +80,11 @@ class Db extends Object {
 	 */
 	public function query($sql, array $params = array()) {
 		$statement = $this->prepare($sql);
+		if (!$statement) return false;
 		$res = $statement->execute($params);
 		if ($res === false) {
-			$parameters = empty($params) ? '' : 'Parameters:<pre>' . print_r($params, true)  . '</pre>';
-			$this->logError('Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>' . 'Query:<pre>' . $query . '</pre>' . $params);
+			$message = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
+			$this->logQuery($query, $params, array('message' => $message, 'level' => Log::ERR));
 		}
 		return $statement;
 	}

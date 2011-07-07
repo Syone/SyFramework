@@ -41,6 +41,20 @@ class Object {
 	}
 
 	/**
+	 * Log a sql query and its parameters
+	 *
+	 * @param string $query
+	 * @param array $params
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message
+	 */
+	public function logQuery($query, $params = array(), $info = array()) {
+		array_walk($params, 'htmlspecialchars');
+		$parameters = empty($params) ? '' : 'Parameters:<pre>' . print_r($params, true)  . '</pre>';
+		$message = isset($info['message']) ? $info['message'] : '';
+		$this->log('Query:<pre>' . htmlspecialchars($query) . '</pre>' . $parameters . $message, $info);
+	}
+
+	/**
 	 * Return debug backtrace informations
 	 *
 	 * @return array
