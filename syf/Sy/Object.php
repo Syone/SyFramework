@@ -151,19 +151,11 @@ class Object {
 
 	/**
 	 * Redirect to location
-	 * if location is null, redirect to http referer
-	 * if http referer is not set, do nothing
 	 *
 	 * @param string $location
 	 */
-	protected function redirect($location = NULL) {
-		if (empty($location)) {
-			if (isset($_SERVER['HTTP_REFERER']))
-				header('location:' . $_SERVER['HTTP_REFERER']);
-		}
-		else {
-			header('location:' . $location);
-		}
+	protected function redirect($location) {
+		header('location:' . $location);
 		exit();
 	}
 
