@@ -23,9 +23,11 @@ class FieldContainer extends Container {
 	 */
 	public function addFieldset($label = NULL) {
 		$fieldset = new FieldContainer('fieldset');
-		$legend = new Element('legend');
-		$legend->setContent($label);
-		$fieldset->addElement($legend);
+		if (!is_null($label)) {
+			$legend = new Element('legend');
+			$legend->setContent($label);
+			$fieldset->addElement($legend);
+		}
 		return $this->addElement($fieldset);
 	}
 
@@ -102,6 +104,17 @@ class FieldContainer extends Container {
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
 		return $this->addElement($element);
+	}
+
+	/**
+	 * Add a number element
+	 *
+	 * @param array $attributes text attributes
+	 * @param array $options text options
+	 * @return Number
+	 */
+	public function addNumber($attributes = array(), $options = array()) {
+		return $this->addInput('Number', $attributes, $options);
 	}
 
 	/**
