@@ -30,6 +30,7 @@ class Log {
 	private $line;
 	private $class;
 	private $function;
+	private $time;
 
 	/**
 	 * Log constructor
@@ -45,6 +46,7 @@ class Log {
 		$this->line     = isset($info['line'])     ? $info['line']     : '';
 		$this->function = isset($info['function']) ? $info['function'] : '';
 		$this->class    = isset($info['class'])    ? $info['class']    : '';
+		$this->time     = time();
 
 		if (empty($this->file) and empty($this->line) and empty($this->function) and empty($this->class)) {
 			$callStack = debug_backtrace();
@@ -87,6 +89,10 @@ class Log {
 
 	public function getFunction() {
 		return $this->function;
+	}
+
+	public function getTime() {
+		return $this->time;
 	}
 
 }
