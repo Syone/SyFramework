@@ -5,6 +5,7 @@ class Number extends TextElement implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('input');
+		$this->addValidator('Sy\\Component\\Html\\Form\\int');
 	}
 
 	public function fill($value) {
