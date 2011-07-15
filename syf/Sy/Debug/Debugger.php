@@ -48,8 +48,8 @@ class Debugger {
 	 *
 	 * @param string $file log file
 	 */
-	public function activateFileLogger($file, $ttl = 90) {
-		$this->loggers[] = new FileLogger($file, $ttl);
+	public function activateFileLogger($file, $ttl = 90, $dateFormat = 'Y-m-d H:i:s') {
+		$this->loggers[] = new FileLogger($file, $ttl, $dateFormat);
 	}
 
 	/**

@@ -5,10 +5,12 @@ class FileLogger implements ILogger {
 
 	private $file;
 	private $ttl;
+	private $dateFormat;
 
-	public function __construct($file, $ttl) {
+	public function __construct($file, $ttl, $dateFormat) {
 		$this->file = $file;
 		$this->ttl = $ttl;
+		$this->dateFormat = $dateFormat;
 	}
 
 	public function write(Log $log) {
@@ -28,7 +30,7 @@ class FileLogger implements ILogger {
 	 */
 	private function formatLog(Log $log) {
 		$msg = "--------------------------------------------------------------------------------\r\n";
-		$msg .= '[' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
+		$msg .= date($this->dateFormat, $log->getTime()) . ' [' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
 		$msg .= $log->getMessage() . "\r\n";
 		return $msg;
 	}
