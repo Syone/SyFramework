@@ -19,7 +19,7 @@ class FieldContainer extends Container {
 	 * Add a fieldset element
 	 *
 	 * @param string $label the fieldset legend
-	 * @return Fieldset
+	 * @return FieldContainer
 	 */
 	public function addFieldset($label = NULL) {
 		$fieldset = new FieldContainer('fieldset');
