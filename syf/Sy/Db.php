@@ -84,7 +84,7 @@ class Db extends Object {
 		$res = $statement->execute($params);
 		if ($res === false) {
 			$message = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
-			$this->logQuery($query, $params, array('message' => $message, 'level' => Log::ERR));
+			$this->logQuery($sql, $params, array('message' => $message, 'level' => Log::ERR));
 			return 0;
 		}
 		return $statement->rowCount();
@@ -105,7 +105,7 @@ class Db extends Object {
 		$res = $statement->execute($params);
 		if ($res === false) {
 			$message = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
-			$this->logQuery($query, $params, array('message' => $message, 'level' => Log::ERR));
+			$this->logQuery($sql, $params, array('message' => $message, 'level' => Log::ERR));
 		}
 		return $statement;
 	}
