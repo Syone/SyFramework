@@ -13,12 +13,21 @@ class Db extends Object {
 	 */
 	private $connection;
 
+	private $fetchStyle;
+
+	private $fetchArgs;
+
+	private $ctorArgs;
+
 	public function __construct($dsn, $username = '', $passwd = '', $options = array()) {
 		try {
 			$this->connection = Connection::instance($dsn, $username, $passwd, $options);
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 		}
+		$this->fetchStyle = \PDO::FETCH_BOTH;
+		$this->fetchArgs = array();
+		$this->ctorArgs = array();
 	}
 
 	/**
@@ -28,6 +37,18 @@ class Db extends Object {
 	 */
 	public function getConnection() {
 		return $this->connection;
+	}
+
+	public function setFetchStyle($style) {
+		$this->fetchStyle = $style;
+	}
+
+	public function setFetchArgs($args) {
+		$this->fetchArgs = $args;
+	}
+
+	public function setCtorArgs($args) {
+		$this->ctorArgs = $args;
 	}
 
 	/**
@@ -99,8 +120,7 @@ class Db extends Object {
 	public function queryAll($sql, array $params = array()) {
 		$statement = $this->query($sql, $params);
 		if ($statement === false) return array();
-		//TODO fetchAll parameters
-		return $statement->fetchAll();
+		return $statement->fetchAll($this->fetchStyle, $this->fetchArgs, $this->ctorArgs);
 	}
 
 }
