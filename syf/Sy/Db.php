@@ -57,6 +57,7 @@ class Db extends Object {
 	 * @return int The number of rows affected by the execution.
 	 */
 	public function execute($sql) {
+		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
 			$sql = $sql->getSql();
@@ -83,6 +84,7 @@ class Db extends Object {
 	 * @return PDOStatement
 	 */
 	public function query($sql) {
+		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
 			$sql = $sql->getSql();
