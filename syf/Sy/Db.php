@@ -13,21 +13,12 @@ class Db extends Object {
 	 */
 	private $connection;
 
-	private $fetchStyle;
-
-	private $fetchArgs;
-
-	private $ctorArgs;
-
 	public function __construct($dsn, $username = '', $passwd = '', $options = array()) {
 		try {
 			$this->connection = Connection::instance($dsn, $username, $passwd, $options);
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 		}
-		$this->fetchStyle = \PDO::FETCH_BOTH;
-		$this->fetchArgs = array();
-		$this->ctorArgs = array();
 	}
 
 	/**
@@ -37,18 +28,6 @@ class Db extends Object {
 	 */
 	public function getConnection() {
 		return $this->connection;
-	}
-
-	public function setFetchStyle($style) {
-		$this->fetchStyle = $style;
-	}
-
-	public function setFetchArgs($args) {
-		$this->fetchArgs = $args;
-	}
-
-	public function setCtorArgs($args) {
-		$this->ctorArgs = $args;
 	}
 
 	/**
@@ -74,11 +53,14 @@ class Db extends Object {
 	 * Performs a non-query SQL statement, such as INSERT, UPDATE and DELETE.
 	 * It returns the number of rows that are affected by the execution.
 	 *
-	 * @param string $sql The SQL query to execute.
-	 * @param array $params The parameters to bind to the query, if any.
+	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
 	 * @return int The number of rows affected by the execution.
 	 */
-	public function execute($sql, array $params = array()) {
+	public function execute($sql) {
+		if ($sql instanceof Db\Sql) {
+			$params = $sql->getParams();
+			$sql = $sql->getSql();
+		}
 		$statement = $this->prepare($sql);
 		if (!$statement) return 0;
 		$res = $statement->execute($params);
@@ -97,11 +79,14 @@ class Db extends Object {
 	 * If successful, it returns a PDOStatement instance from which one can traverse the resulting rows of data.
 	 * For convenience, a set of queryXXX() methods are also implemented which directly return the query results.
 	 *
-	 * @param string $sql The SQL query to execute.
-	 * @param array $params The parameters to bind to the query, if any.
+	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
 	 * @return PDOStatement
 	 */
-	public function query($sql, array $params = array()) {
+	public function query($sql) {
+		if ($sql instanceof Db\Sql) {
+			$params = $sql->getParams();
+			$sql = $sql->getSql();
+		}
 		$statement = $this->prepare($sql);
 		if (!$statement) return false;
 		$res = $statement->execute($params);
@@ -118,14 +103,13 @@ class Db extends Object {
 	/**
 	 * Executes the SQL statement and returns all rows.
 	 *
-	 * @param string $sql The SQL query to execute.
-	 * @param array $params The parameters to bind to the query, if any.
+	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
 	 * @return array
 	 */
-	public function queryAll($sql, array $params = array()) {
-		$statement = $this->query($sql, $params);
+	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = array(), $ctorArgs = array()) {
+		$statement = $this->query($sql);
 		if ($statement === false) return array();
-		return $statement->fetchAll($this->fetchStyle, $this->fetchArgs, $this->ctorArgs);
+		return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
 	}
 
 }
