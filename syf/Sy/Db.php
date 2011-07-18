@@ -53,7 +53,7 @@ class Db extends Object {
 	 * Performs a non-query SQL statement, such as INSERT, UPDATE and DELETE.
 	 * It returns the number of rows that are affected by the execution.
 	 *
-	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
+	 * @param string|Sy\Db\Sql $sql The SQL query to execute.
 	 * @return int The number of rows affected by the execution.
 	 */
 	public function execute($sql) {
@@ -80,7 +80,7 @@ class Db extends Object {
 	 * If successful, it returns a PDOStatement instance from which one can traverse the resulting rows of data.
 	 * For convenience, a set of queryXXX() methods are also implemented which directly return the query results.
 	 *
-	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
+	 * @param string|Sy\Db\Sql $sql The SQL query to execute.
 	 * @return PDOStatement
 	 */
 	public function query($sql) {
@@ -104,14 +104,35 @@ class Db extends Object {
 
 	/**
 	 * Executes the SQL statement and returns all rows.
+	 * See PDOStatement::fetchAll() method documentation for optionnal parameters.
 	 *
-	 * @param mixed $sql The SQL query to execute. It could be a string or a Sy\Db\Sql object.
+	 * @param string|Sy\Db\Sql $sql The SQL query to execute.
+	 * @param int $fetchStyle Controls the contents of the returned array as documented in PDOStatement::fetch().
+	 * @param mixed $fetchArgs This argument have a different meaning depending on the value of the fetchStyle parameter
+	 * @param array $ctorArgs Arguments of custom class constructor when the fetchStyle parameter is \PDO::FETCH_CLASS
 	 * @return array
 	 */
 	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = array(), $ctorArgs = array()) {
 		$statement = $this->query($sql);
 		if ($statement === false) return array();
 		return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
+	}
+
+	/**
+	 * Executes the SQL statement and returns the first row of the result.
+	 * This is a convenient method of query when only the first row of data is needed.
+	 * See PDOStatement::fetch() method documentation for optionnal parameters.
+	 *
+	 * @param string|Sy\Db\Sql $sql The SQL query to execute.
+	 * @param type $fetchStyle Controls how the row will be returned to the caller. This value must be one of the \PDO::FETCH_* constants, defaulting to \PDO::FETCH_BOTH.
+	 * @param type $cursorOrientation This value must be one of the \PDO::FETCH_ORI_* constants, defaulting to \PDO::FETCH_ORI_NEXT.
+	 * @param type $cursorOffset Depends on cursorOrientation value
+	 * @return mixed
+	 */
+	public function queryRow($sql, $fetchStyle = \PDO::FETCH_BOTH, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0) {
+		$statement = $this->query($sql);
+		if ($statement === false) return false;
+		return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
 	}
 
 }
