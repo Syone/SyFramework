@@ -119,6 +119,36 @@ class Db extends Object {
 	}
 
 	/**
+	 * Executes the SQL statement and returns the value of a column in the first row of the result.
+	 * This is a convenient method of query when only a single value is needed (e.g. obtaining the count of the records).
+	 * See PDOStatement::fetchColumn() method documentation for optionnal parameter
+	 *
+	 * @param string|Sy\Db\Sql $sql
+	 * @param int $columnNumber
+	 * @return string
+	 */
+	public function queryColumn($sql, $columnNumber = 0) {
+		$statement = $this->query($sql);
+		if ($statement === false) return false;
+		return $statement->fetchColumn($columnNumber);
+	}
+
+	/**
+	 * Executes the SQL statement and returns the first row of the result as an object.
+	 * See PDOStatement::fetchObject() method documentation for optionnal parameters.
+	 *
+	 * @param string|Sy\Db\Sql $sql
+	 * @param string $className Name of the created class.
+	 * @param array $ctorArgs Elements of this array are passed to the constructor.
+	 * @return mixed
+	 */
+	public function queryObject($sql, $className = 'stdClass', array $ctorArgs = array()) {
+		$statement = $this->query($sql);
+		if ($statement === false) return false;
+		return $statement->fetchObject($className, $ctorArgs);
+	}
+
+	/**
 	 * Executes the SQL statement and returns the first row of the result.
 	 * This is a convenient method of query when only the first row of data is needed.
 	 * See PDOStatement::fetch() method documentation for optionnal parameters.
@@ -129,7 +159,7 @@ class Db extends Object {
 	 * @param type $cursorOffset Depends on cursorOrientation value
 	 * @return mixed
 	 */
-	public function queryRow($sql, $fetchStyle = \PDO::FETCH_BOTH, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0) {
+	public function queryOne($sql, $fetchStyle = \PDO::FETCH_BOTH, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0) {
 		$statement = $this->query($sql);
 		if ($statement === false) return false;
 		return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
