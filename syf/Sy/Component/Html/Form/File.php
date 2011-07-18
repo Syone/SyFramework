@@ -9,7 +9,7 @@ class File extends Input implements ValidableElement {
 
 	public function isValid($value) {
 		if ($this->isRequired()) {
-			if (!isset($value) or $value === '') {
+			if (!isset($_FILES[$value])) {
 				$this->setError(true);
 				return false;
 			}

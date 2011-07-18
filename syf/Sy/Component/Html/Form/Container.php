@@ -69,6 +69,9 @@ class Container extends Element implements FillableElement, ValidableElement {
 			if (!$e instanceof ValidableElement) continue;
 			if ($e instanceof Container) {
 				if (!$e->isValid($values)) $valid = false;
+			} elseif ($e instanceof File) {
+				$name = $e->getAttribute('name');
+				$e->isValid($name);
 			} else {
 				$name = $e->getAttribute('name');
 				if (is_null($name)) continue;
