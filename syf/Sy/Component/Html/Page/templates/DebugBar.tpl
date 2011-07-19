@@ -128,6 +128,8 @@
 
 		_prefix: 'sy_debug_',
 
+		_suffix: '_<?php echo \crc32('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])) ?>',
+
 		get: function(id) {
 			return document.getElementById(this._prefix + id);
 		},
@@ -224,8 +226,8 @@
 
 		clear_state: function() {
 			if (this.check_local_storage()) {
-				localStorage.removeItem(this._prefix + 'last_content');
-				localStorage.removeItem(this._prefix + 'last_height');
+				localStorage.removeItem(this._prefix + 'last_content' + this._suffix);
+				localStorage.removeItem(this._prefix + 'last_height' + this._suffix);
 			}
 		},
 
@@ -237,31 +239,31 @@
 
 		set_last_content: function(type) {
 			if (this.check_local_storage()) {
-				localStorage.setItem(this._prefix + 'last_content', type);
+				localStorage.setItem(this._prefix + 'last_content' + this._suffix, type);
 			}
 		},
 
 		get_last_content: function() {
 			if (this.check_local_storage()) {
-				return localStorage.getItem(this._prefix + 'last_content');
+				return localStorage.getItem(this._prefix + 'last_content' + this._suffix);
 			}
 		},
 
 		set_last_height: function(height) {
 			if (this.check_local_storage()) {
-				localStorage.setItem(this._prefix + 'last_height', height);
+				localStorage.setItem(this._prefix + 'last_height' + this._suffix, height);
 			}
 		},
 
 		get_last_height: function() {
 			if (this.check_local_storage()) {
-				return localStorage.getItem(this._prefix + 'last_height');
+				return localStorage.getItem(this._prefix + 'last_height' + this._suffix);
 			}
 		}
 	};
 
 	(function(){
-		if (sy_debug.check_local_storage() && localStorage.getItem(sy_debug._prefix + 'last_height') === null) {
+		if (sy_debug.check_local_storage() && localStorage.getItem(sy_debug._prefix + 'last_height' + sy_debug._suffix) === null) {
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		}
 
