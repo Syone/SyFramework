@@ -9,7 +9,7 @@ class Object {
 	/**
 	 * Log a message
 	 *
-	 * @param string $message
+	 * @param string|array $message
 	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
 	public function log($message, array $info = array()) {
@@ -21,7 +21,7 @@ class Object {
 	/**
 	 * Log a warning message
 	 *
-	 * @param string $message
+	 * @param string|array $message
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
 	public function logWarning($message, array $info = array()) {
@@ -32,7 +32,7 @@ class Object {
 	/**
 	 * Log an error message
 	 *
-	 * @param string $message
+	 * @param string|array $message
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
 	 */
 	public function logError($message, array $info = array()) {
@@ -43,15 +43,19 @@ class Object {
 	/**
 	 * Log a sql query and its parameters
 	 *
-	 * @param string $query
-	 * @param array $params
+	 * @param string|Sy\Db\Sql $sql
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message
 	 */
-	public function logQuery($query, $params = array(), $info = array()) {
-		array_walk($params, 'htmlspecialchars');
-		$parameters = empty($params) ? '' : 'Parameters:<pre>' . print_r($params, true)  . '</pre>';
+	public function logQuery($sql, $info = array()) {
+		$params = array();
+		if ($sql instanceof Db\Sql) {
+			$params = $sql->getParams();
+			$query  = $sql->getSql();
+		}
+		$parameters = empty($params) ? '' : "Parameters:\n" . print_r($params, true);
 		$message = isset($info['message']) ? $info['message'] : '';
-		$this->log('Query:<pre>' . htmlspecialchars($query) . '</pre>' . $parameters . $message, $info);
+		$info['type'] = 'Query';
+		$this->log("Query:\n$query\n$parameters\n$message", $info);
 	}
 
 	/**

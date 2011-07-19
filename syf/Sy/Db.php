@@ -31,6 +31,22 @@ class Db extends Object {
 	}
 
 	/**
+	 * Return debug backtrace informations
+	 *
+	 * @return array
+	 */
+	public function getDebugTrace() {
+		$trace = debug_backtrace();
+		$i = 1;
+		while (isset($trace[$i]) and isset($trace[$i + 1]) and isset($trace[$i + 1]['class']) and ($trace[$i + 1]['class'] === 'Sy\Db')) $i++;
+		$res['class']    = $trace[$i + 1]['class'];
+		$res['function'] = $trace[$i + 1]['function'];
+		$res['file']     = $trace[$i]['file'];
+		$res['line']     = $trace[$i]['line'];
+		return $res;
+	}
+
+	/**
 	 * Prepares a statement for execution and returns a PDOStatement object.
 	 * Return false on failure.
 	 *
@@ -57,19 +73,20 @@ class Db extends Object {
 	 * @return int The number of rows affected by the execution.
 	 */
 	public function execute($sql) {
+		$query = $sql;
 		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
-			$sql = $sql->getSql();
+			$query = $sql->getSql();
 		}
-		$statement = $this->prepare($sql);
+		$statement = $this->prepare($query);
 		if (!$statement) return 0;
 		$res = $statement->execute($params);
 		if ($res === false) {
 			$info = $this->getDebugTrace();
-			$info['message'] = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
+			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
 			$info['level'] = Log::ERR;
-			$this->logQuery($sql, $params, $info);
+			$this->logQuery($sql, $info);
 			return 0;
 		}
 		return $statement->rowCount();
@@ -84,19 +101,20 @@ class Db extends Object {
 	 * @return PDOStatement
 	 */
 	public function query($sql) {
+		$query = $sql;
 		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
-			$sql = $sql->getSql();
+			$query = $sql->getSql();
 		}
-		$statement = $this->prepare($sql);
+		$statement = $this->prepare($query);
 		if (!$statement) return false;
 		$res = $statement->execute($params);
 		if ($res === false) {
 			$info = $this->getDebugTrace();
-			$info['message'] = 'Error info:<pre>' . print_r($statement->errorInfo(), true) . '</pre>';
+			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
 			$info['level'] = Log::ERR;
-			$this->logQuery($sql, $params, $info);
+			$this->logQuery($sql, $info);
 			return false;
 		}
 		return $statement;

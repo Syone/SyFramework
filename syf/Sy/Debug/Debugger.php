@@ -81,13 +81,13 @@ class Debugger {
 	/**
 	 * Log a message
 	 *
-	 * @param string $message
+	 * @param string|array $message
 	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
 	 */
 	public function log($message, array $info = array()) {
 		if (!$this->logActive()) return;
 		if (!isset($info['level'])) $info['level'] = Log::NOTICE;
-		$info['message'] = $message;
+		$info['message'] = is_array($message) ? print_r($message, true) : $message;
 		$log = new Log($info);
 		foreach ($this->loggers as $logger) {
 			$logger->write($log);
