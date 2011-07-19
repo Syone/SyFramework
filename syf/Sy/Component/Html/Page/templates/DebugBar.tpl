@@ -28,7 +28,7 @@
 	</div>
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
-			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo $_SERVER['QUERY_STRING'] ?>&phpinfo&sy_debug_log=off" width="100%" height="100%" frameborder="0">
+			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
@@ -37,7 +37,7 @@
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
 				<?php if (!empty($vars)) : ?>
 					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px;"><?php echo $title ?></h2>
-					<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;" cellpadding="3">
+					<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 						<tr style="<?php echo $TR_HEAD_CSS ?>">
 							<th style="<?php echo $TH_CSS ?> width: 200px;">Name</th>
 							<th style="<?php echo $TH_CSS ?>">Value</th>
@@ -47,9 +47,9 @@
 							<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB; font-weight: bold;"><?php echo $k ?></td>
 							<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE">
 								<?php if (is_array($v) or is_object($v)) : ?>
-								<pre style="margin: 0"><?php print_r($v) ?></pre>
+								<pre style="margin: 0"><?php echo htmlentities(print_r($v, true)) ?></pre>
 								<?php else : ?>
-								<?php echo $v ?>
+								<?php echo htmlentities($v) ?>
 								<?php endif ?>
 							</td>
 						</tr>
@@ -59,7 +59,7 @@
 			<?php endforeach ?>
 
 			<h2 style="font-size: 14px; color: black; margin: 10px;">Included Files</h2>
-			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;" cellpadding="3">
+			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Filename</th>
 				</tr>
@@ -80,7 +80,7 @@
 				<img class="sy_debug_filter_checked" onclick="sy_debug_log_filter(this, 'red')" style="<?php echo $RESET_CSS ?> cursor: pointer; float: none; margin-left: 10px; border: 1px solid #375D81; background-color: #ABC8E2; padding: 2px; vertical-align: middle;" alt="Red" src="data:image/png;base64,<?php echo $FLAGS[Sy\Debug\Log::ERR] ?>" />
 				<img onclick="document.getElementById('sy_debug_log_filter_div').style.display = 'none';" style="<?php echo $RESET_CSS ?> cursor: pointer;" alt="Close" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAAB9SURBVDiN1VNBDoAgDCuGB+GL9hT2lb1IfzQvSgCZYPBiEw5raLM24FQVM1im1F8Y+Hxg5gBg62hWZt7TpKrpxBi1h/NO0jQjiMgQBxgdEFEhEBEQUdPAN9nKxBKbG7yBaXCtXccZMqgzP5mYJY5wwL3EUDySNkI+uP9/pgNQQGCwjv058wAAAABJRU5ErkJggg==" />
 			</div>
-			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;" cellpadding="3">
+			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 90px;">Level</th>
 					<th style="<?php echo $TH_CSS ?>">Type</th>
@@ -108,7 +108,7 @@
 		</div>
 
 		<div id="sy_debug_time_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
-			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;" cellpadding="3">
+			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?>">Time id</th>
 					<th style="<?php echo $TH_CSS ?> width: 100px;">Time (ms)</th>
@@ -124,8 +124,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	document.getElementById('sy_debug_resize_bar').onmousedown = sy_debug_start_resize;
-
 	function sy_debug_start_resize(e) {
 		document.onmousemove = sy_debug_resize;
 		document.onmouseup = sy_debug_end_resize;
@@ -145,6 +143,7 @@
 	function sy_debug_end_resize(e) {
 		document.onmousemove = null;
 		document.onmouseup = null;
+		sy_debug_set_last_height(document.getElementById('sy_debug_console').style.height);
 	}
 
 	function sy_debug_log_filter(element, color) {
@@ -182,6 +181,7 @@
 		document.getElementById('sy_debug_console_content').style.display = 'none';
 		document.getElementById('sy_debug_console').style.display = 'none';
 		document.getElementById('sy_debug_close_button').style.display = 'none';
+		sy_debug_clear_state();
 	}
 
 	function sy_debug_hide_all_content() {
@@ -196,9 +196,68 @@
 	}
 
 	function sy_debug_show_content(type) {
-		sy_debug_hide_all_content();
-		document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
-		document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
-		sy_debug_show_console();
+		if (type !== null) {
+			sy_debug_hide_all_content();
+			document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
+			document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
+			sy_debug_show_console();
+			sy_debug_set_last_content(type);
+		}
 	}
+
+	function sy_debug_check_local_storage() {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		}
+		catch (e) {
+			return false;
+		}
+	}
+
+	function sy_debug_clear_state() {
+		if (sy_debug_check_local_storage()) {
+			localStorage.removeItem('sy_debug_last_content');
+			localStorage.removeItem('sy_debug_last_height');
+		}
+	}
+
+	function sy_debug_restore_last_state() {
+		sy_debug_show_content(sy_debug_get_last_content());
+		document.getElementById('sy_debug_console_content').style.height = sy_debug_get_last_height();
+		document.getElementById('sy_debug_console').style.height = sy_debug_get_last_height();
+	}
+
+	function sy_debug_set_last_content(type) {
+		if (sy_debug_check_local_storage()) {
+			localStorage.setItem('sy_debug_last_content', type);
+		}
+	}
+
+	function sy_debug_get_last_content() {
+		if (sy_debug_check_local_storage()) {
+			return localStorage.getItem('sy_debug_last_content');
+		}
+	}
+
+	function sy_debug_set_last_height(height) {
+		if (sy_debug_check_local_storage()) {
+			localStorage.setItem('sy_debug_last_height', height);
+		}
+	}
+
+	function sy_debug_get_last_height() {
+		if (sy_debug_check_local_storage()) {
+			return localStorage.getItem('sy_debug_last_height');
+		}
+	}
+
+	(function(){
+		if (sy_debug_check_local_storage() && localStorage.getItem('sy_debug_last_height') === null) {
+			sy_debug_set_last_height(document.getElementById('sy_debug_console').style.height);
+		}
+
+		sy_debug_restore_last_state();
+
+		document.getElementById('sy_debug_resize_bar').onmousedown = sy_debug_start_resize;
+	})();
 </script>
