@@ -201,11 +201,12 @@ class Page extends WebComponent {
 			$this->setMeta('Content-Type', 'text/html; charset=' . $this->charset, true);
 		$this->setVar('META', $this->meta);
 		$this->setVar('CSS_LINKS', $this->getCssLinks());
-		$this->setVar('JS_LINKS', $this->getJsLinks());
-		$css_code = $this->getCssCode();
-		if (!empty($css_code)) $this->setVar('CSS_CODE', $css_code);
-		$js_code = $this->getJsCode();
-		if (!empty($js_code)) $this->setVar('JS_CODE', $js_code);
+		$jsLinks = $this->getJsLinks();
+		$this->setVar('JS_LINKS', $jsLinks[WebComponent::JS_TOP]);
+		$this->setVar('JS_LINKS_BOTTOM', $jsLinks[WebComponent::JS_BOTTOM]);
+		$this->setVar('CSS_CODE', $this->getCssCode());
+		$this->setVar('JS_CODE', $this->getJsCode(WebComponent::JS_TOP));
+		$this->setVar('JS_CODE_BOTTOM', $this->getJsCode(WebComponent::JS_BOTTOM));
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		$this->timeStop('Web page');
 		if ($this->debug) {
