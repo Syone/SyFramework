@@ -6,9 +6,6 @@
 <?php if ($SUCCESS and isset($OPTIONS['success'])) : ?>
 <div class="success"><?php echo $OPTIONS['success'] ?></div>
 <?php endif ?>
-<?php if (empty($ATTRIBUTES['action'])) : ?>
-<input type="hidden" name="<?php echo $ACTION ?>" value="submit" />
-<?php endif ?>
 <?php foreach ($ELEMENTS as $element) : ?>
 <?php echo $element ?>
 <?php endforeach ?>

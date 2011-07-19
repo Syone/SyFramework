@@ -13,6 +13,9 @@ class Form extends Form\FieldContainer {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
+		if (empty($attributes['action'])) {
+			$attributes['action'] = '?' . $_SERVER['QUERY_STRING'] . '&formAction' . $this->formId . '=submit';
+		}
 		$this->setAttributes($attributes);
 		$this->success = false;
 		$this->init();
@@ -43,7 +46,6 @@ class Form extends Form\FieldContainer {
 
 	public function __toString() {
 		$this->setVar('SUCCESS', $this->success);
-		$this->setVar('ACTION', 'formAction' . $this->formId);
 		return parent::__toString();
 	}
 
