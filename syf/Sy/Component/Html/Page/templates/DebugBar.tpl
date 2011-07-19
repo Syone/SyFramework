@@ -227,7 +227,6 @@
 		clear_state: function() {
 			if (this.check_local_storage()) {
 				localStorage.removeItem(this._prefix + 'last_content' + this._suffix);
-				localStorage.removeItem(this._prefix + 'last_height' + this._suffix);
 			}
 		},
 
