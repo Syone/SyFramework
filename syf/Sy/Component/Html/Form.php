@@ -46,6 +46,7 @@ class Form extends Form\FieldContainer {
 
 	public function __toString() {
 		$this->setVar('SUCCESS', $this->success);
+		$this->setVar('ACTION', $this->getAttribute('action'));
 		return parent::__toString();
 	}
 
