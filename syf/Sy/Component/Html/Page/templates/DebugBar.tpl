@@ -124,8 +124,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	document.getElementById('sy_debug_resize_bar').onmousedown = sy_debug_start_resize;
-
 	function sy_debug_start_resize(e) {
 		document.onmousemove = sy_debug_resize;
 		document.onmouseup = sy_debug_end_resize;
@@ -145,6 +143,7 @@
 	function sy_debug_end_resize(e) {
 		document.onmousemove = null;
 		document.onmouseup = null;
+		sy_debug_set_last_height(document.getElementById('sy_debug_console').style.height);
 	}
 
 	function sy_debug_log_filter(element, color) {
@@ -182,6 +181,7 @@
 		document.getElementById('sy_debug_console_content').style.display = 'none';
 		document.getElementById('sy_debug_console').style.display = 'none';
 		document.getElementById('sy_debug_close_button').style.display = 'none';
+		sy_debug_clear_state();
 	}
 
 	function sy_debug_hide_all_content() {
@@ -196,9 +196,68 @@
 	}
 
 	function sy_debug_show_content(type) {
-		sy_debug_hide_all_content();
-		document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
-		document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
-		sy_debug_show_console();
+		if (type !== null) {
+			sy_debug_hide_all_content();
+			document.getElementById('sy_debug_' + type + '_content').style.display = 'block';
+			document.getElementById('sy_debug_' + type + '_content_title').style.color = 'black';
+			sy_debug_show_console();
+			sy_debug_set_last_content(type);
+		}
 	}
+
+	function sy_debug_check_local_storage() {
+		try {
+			return 'localStorage' in window && window['localStorage'] !== null;
+		}
+		catch (e) {
+			return false;
+		}
+	}
+
+	function sy_debug_clear_state() {
+		if (sy_debug_check_local_storage()) {
+			localStorage.removeItem('sy_debug_last_content');
+			localStorage.removeItem('sy_debug_last_height');
+		}
+	}
+
+	function sy_debug_restore_last_state() {
+		sy_debug_show_content(sy_debug_get_last_content());
+		document.getElementById('sy_debug_console_content').style.height = sy_debug_get_last_height();
+		document.getElementById('sy_debug_console').style.height = sy_debug_get_last_height();
+	}
+
+	function sy_debug_set_last_content(type) {
+		if (sy_debug_check_local_storage()) {
+			localStorage.setItem('sy_debug_last_content', type);
+		}
+	}
+
+	function sy_debug_get_last_content() {
+		if (sy_debug_check_local_storage()) {
+			return localStorage.getItem('sy_debug_last_content');
+		}
+	}
+
+	function sy_debug_set_last_height(height) {
+		if (sy_debug_check_local_storage()) {
+			localStorage.setItem('sy_debug_last_height', height);
+		}
+	}
+
+	function sy_debug_get_last_height() {
+		if (sy_debug_check_local_storage()) {
+			return localStorage.getItem('sy_debug_last_height');
+		}
+	}
+
+	(function(){
+		if (sy_debug_check_local_storage() && localStorage.getItem('sy_debug_last_height') === null) {
+			sy_debug_set_last_height(document.getElementById('sy_debug_console').style.height);
+		}
+
+		sy_debug_restore_last_state();
+
+		document.getElementById('sy_debug_resize_bar').onmousedown = sy_debug_start_resize;
+	})();
 </script>
