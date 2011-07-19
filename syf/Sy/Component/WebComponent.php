@@ -5,18 +5,25 @@ use Sy\Component;
 
 class WebComponent extends Component {
 
+	const JS_TOP    = 0;
+	const JS_BOTTOM = 1;
+
 	private $cssLinks;
 	private $jsLinks;
+	private $jsLinksBottom;
 
 	private $cssCode;
 	private $jsCode;
+	private $jsCodeBottom;
 
 	public function __construct() {
 		parent::__construct();
-		$this->cssLinks = array();
-		$this->jsLinks  = array();
-		$this->cssCode  = array();
-		$this->jsCode   = array();
+		$this->cssLinks      = array();
+		$this->jsLinks       = array();
+		$this->jsLinksBottom = array();
+		$this->cssCode       = array();
+		$this->jsCode        = array();
+		$this->jsCodeBottom  = array();
 	}
 
 	/**
@@ -49,8 +56,10 @@ class WebComponent extends Component {
 	 * @param WebComponent $component
 	 */
 	public function mergeJs(WebComponent $component) {
-		$this->jsLinks  = array_merge($this->jsLinks, $component->getJsLinks());
-		$this->jsCode   = array_merge($this->jsCode, $component->getJsCodeArray());
+		$this->jsLinks       = array_merge($this->jsLinks, $component->getJsLinks());
+		$this->jsLinksBottom = array_merge($this->jsLinksBottom, $component->getJsLinksBottom());
+		$this->jsCode        = array_merge($this->jsCode, $component->getJsCodeArray());
+		$this->jsCodeBottom  = array_merge($this->jsCodeBottom, $component->getJsCodeArrayBottom());
 	}
 
 	/**
@@ -69,6 +78,15 @@ class WebComponent extends Component {
 	 */
 	public function getJsCodeArray() {
 		return $this->jsCode;
+	}
+
+	/**
+	 * Return the js code array
+	 *
+	 * @return string
+	 */
+	public function getJsCodeArrayBottom() {
+		return $this->jsCodeBottom;
 	}
 
 	/**
@@ -92,6 +110,16 @@ class WebComponent extends Component {
 	}
 
 	/**
+	 * Return the js code
+	 *
+	 * @return string
+	 */
+	public function getJsCodeBottom() {
+		$res = array_unique($this->jsCodeBottom);
+		return implode("\n", $res);
+	}
+
+	/**
 	 * Add the css code
 	 *
 	 * @param string $code
@@ -104,9 +132,13 @@ class WebComponent extends Component {
 	 * Add the js code
 	 *
 	 * @param string $code
+	 * @param int $position Sy\Component\WebComponent::JS_TOP or Sy\Component\WebComponent::JS_BOTTOM
 	 */
-	public function addJsCode($code) {
-		$this->jsCode[] = $code;
+	public function addJsCode($code, $position = self::JS_TOP) {
+		if ($position === self::JS_BOTTOM)
+			$this->jsCode[self::JS_BOTTOM][] = $code;
+		else
+			$this->jsCode[self::JS_TOP][] = $code;
 	}
 
 	/**
@@ -123,9 +155,13 @@ class WebComponent extends Component {
 	 * Add a js link
 	 *
 	 * @param string $url
+	 * @param string $position 'top' or 'bottom'
 	 */
-	public function addJsLink($url) {
-		$this->jsLinks[] = $url;
+	public function addJsLink($url, $position = 'top') {
+		if ($position === 'bottom')
+			$this->jsLinksBottom[] = $url;
+		else
+			$this->jsLinks[] = $url;
 	}
 
 	/**
@@ -148,6 +184,16 @@ class WebComponent extends Component {
 	public function getJsLinks() {
 		$this->jsLinks = array_unique($this->jsLinks);
 		return $this->jsLinks;
+	}
+
+	/**
+	 * Get the js links (bottom)
+	 *
+	 * @return array
+	 */
+	public function getJsLinksBottom() {
+		$this->jsLinksBottom = array_unique($this->jsLinksBottom);
+		return $this->jsLinksBottom;
 	}
 
 }
