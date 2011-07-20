@@ -18,7 +18,7 @@ class FileLogger implements ILogger {
 			mkdir(dirname($this->file), 0777, true);
 		}
 		if (file_exists($this->file) and ((time() - filemtime($this->file)) > $this->ttl)) {
-			file_put_contents($this->file, '', LOCK_EX);
+			unlink($this->file);
 		}
 		file_put_contents($this->file, $this->formatLog($log), FILE_APPEND | LOCK_EX);
 	}
