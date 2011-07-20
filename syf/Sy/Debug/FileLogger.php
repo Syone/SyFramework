@@ -13,6 +13,10 @@ class FileLogger implements ILogger {
 		$this->dateFormat = $dateFormat;
 	}
 
+	public function getFile() {
+		return $this->file;
+	}
+
 	public function write(Log $log) {
 		if (!file_exists(dirname($this->file))) {
 			mkdir(dirname($this->file), 0777, true);

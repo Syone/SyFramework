@@ -17,6 +17,12 @@
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABKElEQVR42sSTPa6CQBSFv3lRrCRYACvQxMLCBhsTK5fAGtiAPaGfDbgGNmBCS0PFAqhsoSGSWE1yrTDvxd+E4t1qkrnn3HPPnFEiwpD6YWCNPjUcj0fquhYAz/MUQBRFzwniOH6cMBrJfD4HoKoq6UleKkiS5H7WWstut+N0OmHbNrZt92rURw+01rJerzmfzyyXSy6XC77vf2ei1lpWqxVN02CMwRhDEARUVcXHFfrJbdsyHo8BcByHsiwxxqjfBj4omE6nstlsuF6vWJaFZVl4nkdZlhwOB/U2B1mWSRiGFEWB67pMJhNc16Uoipfgpx6EYUie58xmM/I8fwsGUH2UsywTgMViAUCapnRdp9498x+COI5lu93eL/b7vfomyurfP9NggtsAfaVzbTWryOIAAAAASUVORK5CYII=" />
 			Logs <span style="color:red"><?php echo $NB_ERROR ?></span>
 		</a>
+		<?php if ($FILE_LOGGER): ?>
+		<a id="sy_debug_file_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('file'); return false;">
+			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAiElEQVR42szTOQ7DIBBA0Y9lKo5FTTmnpIOaK3ECllSJkINjOTQeCQk06LEMqN47K7GPA+/9laYARGQOHJMDjIi8F1BjbjtObq19NYCcM9ZagH56BIBa63TvKaXrOzgDnHOffozxN1BK+b8KzwDuPqx9VsYlQGu9Bhhj1oAQwi1Arf7GjcV4DQB6u0DjnBIGrgAAAABJRU5ErkJggg==" />
+			Log File
+		</a>
+		<?php endif ?>
 		<a id="sy_debug_time_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('time'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Times" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABSElEQVR42pyTwZHCMAxFXxxKUAXuIA3gFnJxERxohAt9QAM5EhpwB6rAJdjJXmKThIWdWc1oJvbo/y8p383tdmMfMcYEtKurLCKHfZ33nsMOmAFjraXrunofQmhVdQYmEVkTvwhijPMaOI5jLXLO0XUdIQSjqrOINBuCGGMu4AL03leC+/1eiQBUNZdOzFJjCth7X8GXy6WSee8Zx7F0WHCYGGOy1la1aZpqrs/zPNcaa21ZNAZoi3rf9+ScawL1O6VE3/frLtrNEgFSSm+/9Hq9AnA+n/ktvhKcTqev5GWEHELAOccwDKSUPuYwDDjnCCEAZAAjIgdV3Sh9yhKqSnFmGWEKIRjnHI/HA4Dj8VgBz+ez+mBRnzY7EJFi1WqWvRMXSxf19m2JItKoalZVY62toDXw61sonSwzJlX98zUCNGuH/Sd+BgBGROvHb4RJ6gAAAABJRU5ErkJggg==" />
 			<?php echo $MAX_TIME ?>
@@ -106,6 +112,15 @@
 				<?php endforeach ?>
 			</table>
 		</div>
+
+		<?php if ($FILE_LOGGER): ?>
+		<div id="sy_debug_file_content" style="<?php echo $RESET_CSS ?> height: 100%; position: relative;">
+			<img onclick="document.getElementById('file_frame').contentWindow.location.reload();" style="<?php echo $RESET_CSS ?> position: absolute; top: 2px; right: 3px; cursor: pointer;" title="Refresh" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAY5JREFUeNqMUz2LwkAQndV4wdyBWonYW69YaC1oFbCxsrC10lawEfFnxMrGWrAT/AvZ/yCCoKDBYM7cR25mSSR6d9EHj0l2Zt5m52WZ53kQYDqdmowxDiFgXrTb7SL8A8UwDNlEhRSr1apMaJom42Kx4BABxbZtXqvVYLlcyng+nyGVSsFsNpMF8XhcRAocj0c4nU5QqVRkzGazMJlMQFVVMRgMivAAyuFwAGIA2jmZTIrRaPSwmRDb7/ew2+2uLJVKsF6veafTMZ8RUEigUCjcLNL7cDjkUe4EDin0ud1u91cyn89fh+e6Ltd1XQ44jNVqxZX5fP7wrNgocDa82WyCZVnXdRp67Jlz9nq9ouM4gtyhpoDk4FMC/X7f3G63vFwuS8fS6TQE7kUKkBOtVssjV8gdcimXy8F4PJaRDGDhu3CPer3u4f9ws4buQCaTEbg7pxgp0Gg0zM1mw+/dCQ+eke3IV7o/yG9kAvn2h94X0iZX/ToHeWGhAtUXSfjC9Pzi5959fiI//GaK8CPAAO2HxvH6mUR+AAAAAElFTkSuQmCC" />
+			<iframe id="file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;logfile&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<p>Your browser does not support iframes.</p>
+			</iframe>
+		</div>
+		<?php endif ?>
 
 		<div id="sy_debug_time_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
@@ -203,6 +218,10 @@
 			this.get('var_content').style.display = 'none';
 			this.get('log_content').style.display = 'none';
 			this.get('time_content').style.display = 'none';
+			<?php if ($FILE_LOGGER): ?>
+			this.get('file_content_title').style.color = '#555';
+			this.get('file_content').style.display = 'none';
+			<?php endif ?>
 		},
 
 		show_content: function(type) {

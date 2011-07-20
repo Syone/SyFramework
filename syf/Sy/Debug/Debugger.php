@@ -49,7 +49,16 @@ class Debugger {
 	 * @param string $file log file
 	 */
 	public function activateFileLogger($file, $ttl = 90, $dateFormat = 'Y-m-d H:i:s') {
-		$this->loggers[] = new FileLogger($file, $ttl, $dateFormat);
+		$this->loggers['file'] = new FileLogger($file, $ttl, $dateFormat);
+	}
+
+	/**
+	 * Return if the File Logger is activated or not
+	 *
+	 * @return bool
+	 */
+	public function hasFileLogger() {
+		return isset($this->loggers['file']);
 	}
 
 	/**
@@ -59,6 +68,15 @@ class Debugger {
 	 */
 	public function addLogger(ILogger $logger) {
 		$this->loggers[] = $logger;
+	}
+
+	/**
+	 * Return loggers
+	 *
+	 * @return array
+	 */
+	public function getLoggers() {
+		return $this->loggers;
 	}
 
 	/**
