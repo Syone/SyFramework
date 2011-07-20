@@ -20,6 +20,18 @@ class DebugBar extends WebComponent {
 			exit();
 		}
 
+		// Log file
+		$debugger = Debugger::getInstance();
+		$this->setVar('FILE_LOGGER', $debugger->hasFileLogger());
+		if ($debugger->hasFileLogger()) {
+			if (!is_null($this->get('logfile'))) {
+				$loggers = $debugger->getLoggers();
+				$file = $loggers['file']->getFile();
+				echo '<pre>' . htmlentities(file_get_contents($file)) . '</pre>';
+				exit();
+			}
+		}
+
 		// PHP Variables
 		$constants = get_defined_constants(true);
 		$varsArray['User Constants']      = $constants['user'];
