@@ -129,10 +129,13 @@ class DebugBar extends WebComponent {
 		$debugger = Debugger::getInstance();
 		$this->setVar('FILE_LOGGER', $debugger->fileLogActive());
 		if (!$debugger->fileLogActive()) return;
-		if (is_null($this->get('logfile'))) return;
+		if (is_null($this->get('sy_debug_log_file'))) return;
 		$loggers = $debugger->getLoggers();
-		$file = $loggers['file']->getFile();
-		echo '<pre>' . htmlentities(file_get_contents($file)) . '</pre>';
+		if (!is_null($this->get('sy_debug_log_clear'))) {
+			$loggers['file']->clearLogs();
+			exit();
+		}
+		echo '<pre>' . htmlentities($loggers['file']->getLogs()) . '</pre>';
 		exit();
 	}
 
