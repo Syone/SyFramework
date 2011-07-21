@@ -34,7 +34,7 @@ class FileLogger implements ILogger {
 	 */
 	private function formatLog(Log $log) {
 		$msg = "--------------------------------------------------------------------------------\r\n";
-		$msg .= date($this->dateFormat, $log->getTime()) . ' [' . strtoupper($log->getLevelName()) . '] ' . $log->getFile() . ' line ' . $log->getLine() . ' ' . $log->getClass() . ' ' . $log->getFunction() . "\r\n";
+		$msg .= date($this->dateFormat, $log->getTime()) . ' [' . strtoupper($log->getLevelName()) . '][' . $log->getType() . '] ' . $log->getClass() . '::' . $log->getFunction() . '() in ' . $log->getFile() . ' line ' . $log->getLine() . "\r\n";
 		$msg .= $log->getMessage() . "\r\n";
 		return $msg;
 	}
