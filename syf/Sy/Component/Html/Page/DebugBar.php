@@ -14,43 +14,49 @@ class DebugBar extends WebComponent {
 	}
 
 	private function init() {
-		// PHP Info
-		if (!is_null($this->get('phpinfo'))) {
-			phpinfo(INFO_GENERAL | INFO_CREDITS | INFO_CONFIGURATION | INFO_MODULES | INFO_ENVIRONMENT | INFO_LICENSE);
-			exit();
-		}
+		$this->initPhpInfoDiv();
+		$this->initVarsDiv();
+		$this->initLogsDiv();
+		$this->initLogFileDiv();
+		$this->initTimeRecordDiv();
+		$this->resetCss();
+	}
 
-		// Log file
-		$debugger = Debugger::getInstance();
-		$this->setVar('FILE_LOGGER', $debugger->hasFileLogger());
-		if ($debugger->hasFileLogger()) {
-			if (!is_null($this->get('logfile'))) {
-				$loggers = $debugger->getLoggers();
-				$file = $loggers['file']->getFile();
-				echo '<pre>' . htmlentities(file_get_contents($file)) . '</pre>';
-				exit();
-			}
-		}
+	/**
+	 * PHP Info division
+	 */
+	private function initPhpInfoDiv() {
+		if (is_null($this->get('phpinfo'))) return;
+		phpinfo(INFO_GENERAL | INFO_CREDITS | INFO_CONFIGURATION | INFO_MODULES | INFO_ENVIRONMENT | INFO_LICENSE);
+		exit();
+	}
 
-		// PHP Variables
+	/**
+	 * Vars division
+	 */
+	private function initVarsDiv() {
 		$constants = get_defined_constants(true);
 		$varsArray['User Constants']      = $constants['user'];
 		$varsArray['$_REQUEST Variables'] = $_REQUEST;
 		$varsArray['$_GET Variables']     = $_GET;
 		$varsArray['$_POST Variables']    = $_POST;
 		$varsArray['$_COOKIE Variables']  = $_COOKIE;
-		if (session_id ()) $varsArray['$_SESSION Variables'] = $_SESSION;
+		if (session_id()) $varsArray['$_SESSION Variables'] = $_SESSION;
 		$varsArray['$_FILES Variables']   = $_FILES;
 		$varsArray['$_SERVER Variables']  = $_SERVER;
 		$this->setVar('VARS_ARRAY', $varsArray);
-
-		// Files
 		$this->setVar('FILES', get_included_files());
+	}
 
-		// Debugger
+	/**
+	 * Logs division
+	 */
+	private function initLogsDiv() {
 		$debugger = Debugger::getInstance();
-		$this->setVar('DEBUGGER', $debugger);
-		$nb = $debugger->getNbError();
+		$this->setVar('WEB_LOGGER', $debugger->webLogActive());
+		if (!$debugger->webLogActive()) return;
+		$loggers  = $debugger->getLoggers();
+		$nb = $loggers['web']->getNbError();
 		switch ($nb) {
 			case 0:
 				$nbError = '';
@@ -64,7 +70,6 @@ class DebugBar extends WebComponent {
 		}
 		$this->setVar('NB_ERROR',  $nbError);
 
-		// Logs
 		$colorNames = array(
 			Log::EMERG  => 'red',
 			Log::ALERT  => 'red',
@@ -114,14 +119,34 @@ class DebugBar extends WebComponent {
 			Log::DEBUG  => $flag['green'],
 		);
 		$this->setVar('FLAGS', $flags);
+		$this->setVar('LOGS', $loggers['web']->getLogs());
+	}
 
-		// Times
+	/**
+	 * Log file division
+	 */
+	private function initLogFileDiv() {
+		$debugger = Debugger::getInstance();
+		$this->setVar('FILE_LOGGER', $debugger->fileLogActive());
+		if (!$debugger->fileLogActive()) return;
+		if (is_null($this->get('logfile'))) return;
+		$loggers = $debugger->getLoggers();
+		$file = $loggers['file']->getFile();
+		echo '<pre>' . htmlentities(file_get_contents($file)) . '</pre>';
+		exit();
+	}
+
+	/**
+	 * Time record division
+	 */
+	private function initTimeRecordDiv() {
+		$debugger = Debugger::getInstance();
+		$this->setVar('TIME_RECORD', $debugger->timeRecordActive());
+		if (!$debugger->timeRecordActive()) return;
 		$times = $debugger->getTimes();
 		$maxTime = empty($times) ? 'No time' : round(max($times) * 1000) . ' ms';
 		$this->setVar('MAX_TIME', $maxTime);
-
-		// Reset css
-		$this->resetCss();
+		$this->setVar('TIMES', $times);
 	}
 
 	private function resetCss() {

@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Debug;
 
-class Logger implements ILogger {
+class WebLogger implements ILogger {
 
 	private $logs;
 

@@ -13,20 +13,24 @@
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Vars" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATtJREFUeNqcU0Gqg0AMjZ/eQbEH0IUewIV4BXEjeD9dCvYGUlB056IU3Rf0Ci6c/hc6g/rr7+cHwkySl8xLZkZL05QORKz22jtAkiR0OkigIAjofD7T4/GgsizFLlcV/JLJAKOi4zjsME1zs8KPOHDrw7RXCwLBv0qWZZyLHMmAuq4jIcRHBW4taga3241c1+U9+r5erwrk+76kzri1gIEAII5jdcorWZMKW8aAA17OgRkYhkHLsvza9zoO/OYWQHmeZwYdFZIxKPDrGWhVVTGdKIrY6Xke1XWtrgo26EPyPN+8BTVEy7LU6bquUxiGPxigCHB939P+IZFt2x+vUOL2t8DSNA2D7vc7FUWxSYQNP/bAvXsH2jiO4nK5qMC3za1M08T2MAys+79wOvpxbdt+/I0ckL39V54CDAChFuDJX64gowAAAABJRU5ErkJggg==" />
 			Vars
 		</a>
+		<?php if ($WEB_LOGGER): ?>
 		<a id="sy_debug_log_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('log'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABKElEQVR42sSTPa6CQBSFv3lRrCRYACvQxMLCBhsTK5fAGtiAPaGfDbgGNmBCS0PFAqhsoSGSWE1yrTDvxd+E4t1qkrnn3HPPnFEiwpD6YWCNPjUcj0fquhYAz/MUQBRFzwniOH6cMBrJfD4HoKoq6UleKkiS5H7WWstut+N0OmHbNrZt92rURw+01rJerzmfzyyXSy6XC77vf2ei1lpWqxVN02CMwRhDEARUVcXHFfrJbdsyHo8BcByHsiwxxqjfBj4omE6nstlsuF6vWJaFZVl4nkdZlhwOB/U2B1mWSRiGFEWB67pMJhNc16Uoipfgpx6EYUie58xmM/I8fwsGUH2UsywTgMViAUCapnRdp9498x+COI5lu93eL/b7vfomyurfP9NggtsAfaVzbTWryOIAAAAASUVORK5CYII=" />
 			Logs <span style="color:red"><?php echo $NB_ERROR ?></span>
 		</a>
+		<?php endif ?>
 		<?php if ($FILE_LOGGER): ?>
 		<a id="sy_debug_file_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('file'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAiElEQVR42szTOQ7DIBBA0Y9lKo5FTTmnpIOaK3ECllSJkINjOTQeCQk06LEMqN47K7GPA+/9laYARGQOHJMDjIi8F1BjbjtObq19NYCcM9ZagH56BIBa63TvKaXrOzgDnHOffozxN1BK+b8KzwDuPqx9VsYlQGu9Bhhj1oAQwi1Arf7GjcV4DQB6u0DjnBIGrgAAAABJRU5ErkJggg==" />
 			Log File
 		</a>
 		<?php endif ?>
+		<?php if ($TIME_RECORD): ?>
 		<a id="sy_debug_time_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('time'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Times" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABSElEQVR42pyTwZHCMAxFXxxKUAXuIA3gFnJxERxohAt9QAM5EhpwB6rAJdjJXmKThIWdWc1oJvbo/y8p383tdmMfMcYEtKurLCKHfZ33nsMOmAFjraXrunofQmhVdQYmEVkTvwhijPMaOI5jLXLO0XUdIQSjqrOINBuCGGMu4AL03leC+/1eiQBUNZdOzFJjCth7X8GXy6WSee8Zx7F0WHCYGGOy1la1aZpqrs/zPNcaa21ZNAZoi3rf9+ScawL1O6VE3/frLtrNEgFSSm+/9Hq9AnA+n/ktvhKcTqev5GWEHELAOccwDKSUPuYwDDjnCCEAZAAjIgdV3Sh9yhKqSnFmGWEKIRjnHI/HA4Dj8VgBz+ez+mBRnzY7EJFi1WqWvRMXSxf19m2JItKoalZVY62toDXw61sonSwzJlX98zUCNGuH/Sd+BgBGROvHb4RJ6gAAAABJRU5ErkJggg==" />
 			<?php echo $MAX_TIME ?>
 		</a>
+		<?php endif ?>
 		<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Memory" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAmElEQVR42sSTuwoEIQxFr7JtOgf0n+z9Rhsr/0nB0jKiW00xs7Myj4VNFQj3cAKJGGPgSUk8rNfaeO8vqTjnxAYAAMuynAqXUj4NAKDWen8FKSWstadCIYRjg9YaUkrTsDHm2GAFtNamgP18A2BmKKWmAGaeG+ScpwCt9XdA7x299ylgP//dJQIAEYGI7gNijJcNxN+/8T0A1+E5NmcLfJkAAAAASUVORK5CYII=" />
 		<span style="line-height: 30px; color: #555;" title="Peak of memory allocated by PHP"><?php echo memory_get_peak_usage(true) / 1024 ?> KB</span>
 
@@ -78,6 +82,7 @@
 			<br />
 		</div>
 
+		<?php if ($WEB_LOGGER): ?>
 		<div id="sy_debug_log_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto; position: relative;">
 			<img onclick="sy_debug.get('log_filter_div').style.display = 'block';" style="<?php echo $RESET_CSS ?> position: absolute; top: 2px; left: 3px; cursor: pointer;" alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdQTFRFJUOELE+cK02YK06ZLE+bIz97JkSFLVGeIz99Iz98JkWHLVGfJUODKkyWKUqRK02XKUuTKkyVJUKBKUqQKEiNJkWIKEiOJEF/J0eLJ0aKJkSG////AAAAHPtAaAAAAB10Uk5T/////////////////////////////////////wBZhudqAAAAeUlEQVR42lzO4RKCQAgE4LXyrNOyrEtj7/2fMyBxJvm33+wAqO/n7f64jofjqWm6vsfy+hd8doLiwpAO4kJyFYgLfUyAlFU8ewcDknY0rpsxDZBcyLiFSSVlbtcxzyYsIQYqlBBcztahhKD9CULQ7gR1E/tnqV8BBgBIlxB0vx1OiAAAAABJRU5ErkJggg==" />
 			<div id="sy_debug_log_filter_div" style="<?php echo $RESET_CSS ?> display: none; position: absolute; padding: 3px; background-color: #CCC; border-bottom: 1px solid #AAA; border-right: 1px solid #AAA;">
@@ -96,7 +101,7 @@
 					<th style="<?php echo $TH_CSS ?>">Function</th>
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach ($DEBUGGER->getLogs() as $log) : ?>
+				<?php foreach ($LOGS as $log) : ?>
 				<tr class="sy_debug_log_row_<?php echo $COLOR_NAMES[$log->getLevel()] ?>" style="<?php echo $RESET_CSS ?>">
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>">
 						<img style="<?php echo $RESET_CSS ?>" alt="<?php echo $log->getType() ?>" src="data:image/png;base64,<?php echo $FLAGS[$log->getLevel()] ?>" />
@@ -112,6 +117,7 @@
 				<?php endforeach ?>
 			</table>
 		</div>
+		<?php endif ?>
 
 		<?php if ($FILE_LOGGER): ?>
 		<div id="sy_debug_file_content" style="<?php echo $RESET_CSS ?> height: 100%; position: relative;">
@@ -122,13 +128,14 @@
 		</div>
 		<?php endif ?>
 
+		<?php if ($TIME_RECORD): ?>
 		<div id="sy_debug_time_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?>">Time id</th>
 					<th style="<?php echo $TH_CSS ?> width: 100px;">Time (ms)</th>
 				</tr>
-				<?php foreach ($DEBUGGER->getTimes() as $title => $time) : ?>
+				<?php foreach ($TIMES as $title => $time) : ?>
 				<tr style="<?php echo $RESET_CSS ?>">
 					<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB"><?php echo $title ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE; text-align: right; padding-right: 10px;"><?php echo round($time * 1000, 2) ?></td>
@@ -136,6 +143,7 @@
 				<?php endforeach ?>
 			</table>
 		</div>
+		<?php endif ?>
 	</div>
 </div>
 <script type="text/javascript">
@@ -210,18 +218,22 @@
 		},
 
 		hide_all_content: function() {
-			this.get('php_content_title').style.color = '#555';
-			this.get('var_content_title').style.color = '#555';
+			<?php if ($WEB_LOGGER): ?>
 			this.get('log_content_title').style.color = '#555';
-			this.get('time_content_title').style.color = '#555';
-			this.get('php_content').style.display = 'none';
-			this.get('var_content').style.display = 'none';
 			this.get('log_content').style.display = 'none';
-			this.get('time_content').style.display = 'none';
+			<?php endif ?>
 			<?php if ($FILE_LOGGER): ?>
 			this.get('file_content_title').style.color = '#555';
 			this.get('file_content').style.display = 'none';
 			<?php endif ?>
+			<?php if ($TIME_RECORD): ?>
+			this.get('time_content_title').style.color = '#555';
+			this.get('time_content').style.display = 'none';
+			<?php endif ?>
+			this.get('php_content_title').style.color = '#555';
+			this.get('var_content_title').style.color = '#555';
+			this.get('php_content').style.display = 'none';
+			this.get('var_content').style.display = 'none';
 		},
 
 		show_content: function(type) {
