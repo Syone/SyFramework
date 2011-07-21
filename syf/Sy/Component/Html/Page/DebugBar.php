@@ -7,14 +7,17 @@ use Sy\Component\WebComponent,
 
 class DebugBar extends WebComponent {
 
+	private $charset;
+
 	public function __construct($charset) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/DebugBar.tpl', 'php');
-		$this->setVar('CHARSET', $charset);
+		$this->charset = $charset;
 		$this->init();
 	}
 
 	private function init() {
+		$this->setVar('CHARSET', $this->charset);
 		$this->initPhpInfoDiv();
 		$this->initVarsDiv();
 		$this->initLogsDiv();
@@ -136,7 +139,7 @@ class DebugBar extends WebComponent {
 			$loggers['file']->clearLogs();
 			exit();
 		}
-		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $CHARSET) . '</pre>';
+		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $this->charset) . '</pre>';
 		exit();
 	}
 
