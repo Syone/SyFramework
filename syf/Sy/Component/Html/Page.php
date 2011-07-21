@@ -210,7 +210,7 @@ class Page extends WebComponent {
 		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		$this->timeStop('Web page');
 		if ($this->debug) {
-			$this->setComponent('DEBUG_BAR', new Page\DebugBar);
+			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
 		}
 		return parent::__toString();
 	}

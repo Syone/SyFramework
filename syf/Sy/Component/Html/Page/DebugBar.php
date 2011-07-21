@@ -7,9 +7,10 @@ use Sy\Component\WebComponent,
 
 class DebugBar extends WebComponent {
 
-	public function __construct() {
+	public function __construct($charset) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/DebugBar.tpl', 'php');
+		$this->setVar('CHARSET', $charset);
 		$this->init();
 	}
 
@@ -135,7 +136,7 @@ class DebugBar extends WebComponent {
 			$loggers['file']->clearLogs();
 			exit();
 		}
-		echo '<pre>' . htmlentities($loggers['file']->getLogs()) . '</pre>';
+		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $CHARSET) . '</pre>';
 		exit();
 	}
 

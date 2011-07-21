@@ -38,7 +38,7 @@
 	</div>
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
-			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
@@ -57,9 +57,9 @@
 							<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB; font-weight: bold;"><?php echo $k ?></td>
 							<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE">
 								<?php if (is_array($v) or is_object($v)) : ?>
-								<pre style="margin: 0"><?php echo htmlentities(print_r($v, true)) ?></pre>
+								<pre style="margin: 0"><?php echo htmlentities(print_r($v, true), ENT_QUOTES, $CHARSET) ?></pre>
 								<?php else : ?>
-								<?php echo htmlentities($v) ?>
+								<?php echo htmlentities($v, ENT_QUOTES, $CHARSET) ?>
 								<?php endif ?>
 							</td>
 						</tr>
@@ -112,7 +112,7 @@
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?> font: 11px Verdana, Arial, sans-serif;"><?php echo htmlentities($log->getMessage()) ?></pre></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?> font: 11px Verdana, Arial, sans-serif;"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
 				</tr>
 				<?php endforeach ?>
 			</table>
@@ -122,10 +122,10 @@
 		<?php if ($FILE_LOGGER): ?>
 		<div id="sy_debug_file_content" style="<?php echo $RESET_CSS ?> height: 100%; position: relative;">
 			<div style="<?php echo $RESET_CSS ?> position: absolute; top: 0; left: 0; background-color: #fff; padding-top: 2px; padding-left: 3px;">
-				<img onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off';" style="<?php echo $RESET_CSS ?> cursor: pointer;" title="Refresh" alt="Refresh" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAI/SURBVDjLjZPbS9NhHMYH+zNidtCSQrqwQtY5y2QtT2QGrTZf13TkoYFlzsWa/tzcoR3cSc2xYUlGJfzAaIRltY0N12H5I+jaOxG8De+evhtdOP1hu3hv3sPzPO/z4SsBIPnfuvG8cbBlWiEVO5OUItA0VS8oxi9EdhXo+6yV3V3UGHRvVXHNfNv6zRfNuBZVoiFcB/3LdnQ8U+Gk+bhPVKB3qUOuf6/muaQR/qwDkZ9BRFdCmMr5EPz6BN7lMYylLGgNNaKqt3K0SKDnQ7us690t3rNsxeyvaUz+8OJpzo/QNzd8WTtcaQ7WlBmPvxhx1V2Pg7oDziIBimwwf3qAGWESkVwQ7owNujk1ztvk+cg4NnAUTT4FrrjqUKHdF9jxBfXr1rgjaSk4OlMcLrnOrJ7latxbL1V2lgvlbG9MtMTrMw1r1PImtfyn1n5q47TlBLf90n5NmalMtUdKZoyQMkLKlIGLjMyYhFpmlz3nGEVmFJlRZNaf7pIaEndM24XIjCOzjX9mm2S2JsqdkMYIqbB1j5C6yWzVk7YRFTsGFu7l+4nveExIA9aMCcOJh6DIoMigyOh+o4UryRWQOtIjaJtoziM1FD0mpE4uZcTc72gBaUyYKEI6khgqINXO3saR7kM8IZUVCRDS0Ucf+xFbCReQhr97MZ51wpWxYnhpCD3zOrT4lTisr+AJqVx0Fiiyr4/vhP4VyyMFIUWNqRrV96vWKXKckBoIqWzXYcoPDrUslDJoopuEVEpIB0sR+AuErIiZ6OqMKAAAAABJRU5ErkJggg%3D%3D" />
-				<img onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;sy_debug_log_file&amp;sy_debug_log_clear&amp;sy_debug_log=off';" style="<?php echo $RESET_CSS ?> cursor: pointer;" title="Clear" alt="Clear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIhSURBVDjLlZPrThNRFIWJicmJz6BWiYbIkYDEG0JbBiitDQgm0PuFXqSAtKXtpE2hNuoPTXwSnwtExd6w0pl2OtPlrphKLSXhx07OZM769qy19wwAGLhM1ddC184+d18QMzoq3lfsD3LZ7Y3XbE5DL6Atzuyilc5Ciyd7IHVfgNcDYTQ2tvDr5crn6uLSvX+Av2Lk36FFpSVENDe3OxDZu8apO5rROJDLo30+Nlvj5RnTlVNAKs1aCVFr7b4BPn6Cls21AWgEQlz2+Dl1h7IdA+i97A/geP65WhbmrnZZ0GIJpr6OqZqYAd5/gJpKox4Mg7pD2YoC2b0/54rJQuJZdm6Izcgma4TW1WZ0h+y8BfbyJMwBmSxkjw+VObNanp5h/adwGhaTXF4NWbLj9gEONyCmUZmd10pGgf1/vwcgOT3tUQE0DdicwIod2EmSbwsKE1P8QoDkcHPJ5YESjgBJkYQpIEZ2KEB51Y6y3ojvY+P8XEDN7uKS0w0ltA7QGCWHCxSWWpwyaCeLy0BkA7UXyyg8fIzDoWHeBaDN4tQdSvAVdU1Aok+nsNTipIEVnkywo/FHatVkBoIhnFisOBoZxcGtQd4B0GYJNZsDSiAEadUBCkstPtN3Avs2Msa+Dt9XfxoFSNYF/Bh9gP0bOqHLAm2WUF1YQskwrVFYPWkf3h1iXwbvqGfFPSGW9Eah8HSS9fuZDnS32f71m8KFY7xs/QZyu6TH2+2+FAAAAABJRU5ErkJggg%3D%3D" />
+				<img onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off';" style="<?php echo $RESET_CSS ?> cursor: pointer;" title="Refresh" alt="Refresh" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAI/SURBVDjLjZPbS9NhHMYH+zNidtCSQrqwQtY5y2QtT2QGrTZf13TkoYFlzsWa/tzcoR3cSc2xYUlGJfzAaIRltY0N12H5I+jaOxG8De+evhtdOP1hu3hv3sPzPO/z4SsBIPnfuvG8cbBlWiEVO5OUItA0VS8oxi9EdhXo+6yV3V3UGHRvVXHNfNv6zRfNuBZVoiFcB/3LdnQ8U+Gk+bhPVKB3qUOuf6/muaQR/qwDkZ9BRFdCmMr5EPz6BN7lMYylLGgNNaKqt3K0SKDnQ7us690t3rNsxeyvaUz+8OJpzo/QNzd8WTtcaQ7WlBmPvxhx1V2Pg7oDziIBimwwf3qAGWESkVwQ7owNujk1ztvk+cg4NnAUTT4FrrjqUKHdF9jxBfXr1rgjaSk4OlMcLrnOrJ7latxbL1V2lgvlbG9MtMTrMw1r1PImtfyn1n5q47TlBLf90n5NmalMtUdKZoyQMkLKlIGLjMyYhFpmlz3nGEVmFJlRZNaf7pIaEndM24XIjCOzjX9mm2S2JsqdkMYIqbB1j5C6yWzVk7YRFTsGFu7l+4nveExIA9aMCcOJh6DIoMigyOh+o4UryRWQOtIjaJtoziM1FD0mpE4uZcTc72gBaUyYKEI6khgqINXO3saR7kM8IZUVCRDS0Ucf+xFbCReQhr97MZ51wpWxYnhpCD3zOrT4lTisr+AJqVx0Fiiyr4/vhP4VyyMFIUWNqRrV96vWKXKckBoIqWzXYcoPDrUslDJoopuEVEpIB0sR+AuErIiZ6OqMKAAAAABJRU5ErkJggg%3D%3D" />
+				<img onclick="document.getElementById('file_frame').src = '<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log_clear&amp;sy_debug_log=off';" style="<?php echo $RESET_CSS ?> cursor: pointer;" title="Clear" alt="Clear" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIhSURBVDjLlZPrThNRFIWJicmJz6BWiYbIkYDEG0JbBiitDQgm0PuFXqSAtKXtpE2hNuoPTXwSnwtExd6w0pl2OtPlrphKLSXhx07OZM769qy19wwAGLhM1ddC184+d18QMzoq3lfsD3LZ7Y3XbE5DL6Atzuyilc5Ciyd7IHVfgNcDYTQ2tvDr5crn6uLSvX+Av2Lk36FFpSVENDe3OxDZu8apO5rROJDLo30+Nlvj5RnTlVNAKs1aCVFr7b4BPn6Cls21AWgEQlz2+Dl1h7IdA+i97A/geP65WhbmrnZZ0GIJpr6OqZqYAd5/gJpKox4Mg7pD2YoC2b0/54rJQuJZdm6Izcgma4TW1WZ0h+y8BfbyJMwBmSxkjw+VObNanp5h/adwGhaTXF4NWbLj9gEONyCmUZmd10pGgf1/vwcgOT3tUQE0DdicwIod2EmSbwsKE1P8QoDkcHPJ5YESjgBJkYQpIEZ2KEB51Y6y3ojvY+P8XEDN7uKS0w0ltA7QGCWHCxSWWpwyaCeLy0BkA7UXyyg8fIzDoWHeBaDN4tQdSvAVdU1Aok+nsNTipIEVnkywo/FHatVkBoIhnFisOBoZxcGtQd4B0GYJNZsDSiAEadUBCkstPtN3Avs2Msa+Dt9XfxoFSNYF/Bh9gP0bOqHLAm2WUF1YQskwrVFYPWkf3h1iXwbvqGfFPSGW9Eah8HSS9fuZDnS32f71m8KFY7xs/QZyu6TH2+2+FAAAAABJRU5ErkJggg%3D%3D" />
 			</div>
-			<iframe id="file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING']) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
+			<iframe id="file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?<?php echo htmlentities($_SERVER['QUERY_STRING'], ENT_QUOTES, $CHARSET) ?>&amp;sy_debug_log_file&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
