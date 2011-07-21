@@ -10,7 +10,7 @@ class Object {
 	 * Log a message
 	 *
 	 * @param string|array $message
-	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class
+	 * @param array info Optionnal associative array. Key available: level, type, file, line, function, class, tag
 	 */
 	public function log($message, array $info = array()) {
 		$debugger = Debugger::getInstance();
@@ -22,7 +22,7 @@ class Object {
 	 * Log a warning message
 	 *
 	 * @param string|array $message
-	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, tag
 	 */
 	public function logWarning($message, array $info = array()) {
 		$info['level'] = Log::WARN;
@@ -33,7 +33,7 @@ class Object {
 	 * Log an error message
 	 *
 	 * @param string|array $message
-	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, tag
 	 */
 	public function logError($message, array $info = array()) {
 		$info['level'] = Log::ERR;
@@ -44,7 +44,7 @@ class Object {
 	 * Log a sql query and its parameters
 	 *
 	 * @param string|Sy\Db\Sql $sql
-	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message, tag
 	 */
 	public function logQuery($sql, $info = array()) {
 		$params = array();
