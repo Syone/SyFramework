@@ -45,6 +45,15 @@ class Debugger {
 	}
 
 	/**
+	 * Activate tag logging
+	 *
+	 * @param string $path directory where tagged logs are stored
+	 */
+	public function enableTagLog($path) {
+		$this->loggers['tag'] = new TagLogger($path);
+	}
+
+	/**
 	 * Activate time recording
 	 */
 	public function enableTimeRecord() {
