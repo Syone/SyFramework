@@ -17,6 +17,14 @@ class FileLogger implements ILogger {
 		return $this->file;
 	}
 
+	public function getLogs() {
+		return file_exists($this->file) ? file_get_contents($this->file) : '';
+	}
+
+	public function clearLogs() {
+		if (file_exists($this->file)) unlink($this->file);
+	}
+
 	public function write(Log $log) {
 		if (!file_exists(dirname($this->file))) {
 			mkdir(dirname($this->file), 0777, true);
