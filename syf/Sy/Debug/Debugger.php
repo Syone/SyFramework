@@ -5,8 +5,6 @@ class Debugger {
 
 	private static $instance;
 
-	private $log;
-
 	private $timeRecord;
 
 	private $loggers;
@@ -16,40 +14,50 @@ class Debugger {
 	private $startTimes;
 
 	private function __construct() {
-		$this->log = false;
 		$this->timeRecord = false;
-		$this->loggers = array();
-		$this->times = array();
+		$this->loggers    = array();
+		$this->times      = array();
 		$this->startTimes = array();
-		$this->loggers[] = new Logger();
+		$this->loggers    = array();
 	}
 
 	private function logActive() {
-		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] == 'off') return false;
-		return $this->log;
+		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] === 'off') return false;
+		return !empty($this->loggers);
 	}
 
 	/**
-	 * Activate logging
+	 * Activate web logging
 	 */
-	public function activateLog() {
-		$this->log = true;
-	}
-
-	/**
-	 * Activate time recording
-	 */
-	public function activateTimeRecord() {
-		$this->timeRecord = true;
+	public function enableWebLog() {
+		$this->loggers['web'] = new WebLogger();
 	}
 
 	/**
 	 * Activate file logging
 	 *
 	 * @param string $file log file
+	 * @param int $ttl
+	 * @param string $dateFormat
 	 */
-	public function activateFileLogger($file, $ttl = 90, $dateFormat = 'Y-m-d H:i:s') {
+	public function enableFileLog($file, $ttl = 90, $dateFormat = 'Y-m-d H:i:s') {
 		$this->loggers['file'] = new FileLogger($file, $ttl, $dateFormat);
+	}
+
+	/**
+	 * Activate time recording
+	 */
+	public function enableTimeRecord() {
+		$this->timeRecord = true;
+	}
+
+	/**
+	 * Return if the Web Logger is activated or not
+	 *
+	 * @return bool
+	 */
+	public function webLogActive() {
+		return isset($this->loggers['web']);
 	}
 
 	/**
@@ -57,8 +65,17 @@ class Debugger {
 	 *
 	 * @return bool
 	 */
-	public function hasFileLogger() {
+	public function fileLogActive() {
 		return isset($this->loggers['file']);
+	}
+
+	/**
+	 * Return if the Time Record is activated or not
+	 *
+	 * @return bool
+	 */
+	public function timeRecordActive() {
+		return $this->timeRecord;
 	}
 
 	/**
@@ -110,24 +127,6 @@ class Debugger {
 		foreach ($this->loggers as $logger) {
 			$logger->write($log);
 		}
-	}
-
-	/**
-	 * Return the number of error log
-	 *
-	 * @return int
-	 */
-	public function getNbError() {
-		return $this->loggers[0]->getNbError();
-	}
-
-	/**
-	 * Return logs array
-	 *
-	 * @return array
-	 */
-	public function getLogs() {
-		return $this->loggers[0]->getLogs();
 	}
 
 	/**
