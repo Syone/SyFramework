@@ -117,7 +117,7 @@ class Debugger {
 	 * Log a message
 	 *
 	 * @param string|array $message
-	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class
+	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class, tag
 	 */
 	public function log($message, array $info = array()) {
 		if (!$this->logActive()) return;

@@ -30,13 +30,14 @@ class Log {
 	private $line;
 	private $class;
 	private $function;
+	private $tag;
 	private $time;
 
 	/**
 	 * Log constructor
 	 *
 	 * @param string $message
-	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class, message
+	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class, message, tag
 	 */
 	public function __construct($info) {
 		$this->message  = isset($info['message'])  ? $info['message']  : '';
@@ -46,12 +47,13 @@ class Log {
 		$this->line     = isset($info['line'])     ? $info['line']     : '';
 		$this->function = isset($info['function']) ? $info['function'] : '';
 		$this->class    = isset($info['class'])    ? $info['class']    : '';
+		$this->tag      = isset($info['tag'])      ? $info['tag']      : '';
 		$this->time     = time();
 
 		if (empty($this->file) and empty($this->line) and empty($this->function) and empty($this->class)) {
 			$callStack = debug_backtrace();
 			$idx = 1;
-			while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] == 'Sy\Object') $idx++;
+			while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] === 'Sy\Object') $idx++;
 			$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
 			$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
 			$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
@@ -89,6 +91,10 @@ class Log {
 
 	public function getFunction() {
 		return $this->function;
+	}
+
+	public function getTag() {
+		return $this->tag;
 	}
 
 	public function getTime() {
