@@ -46,7 +46,7 @@ class Object {
 	 * @param string|Sy\Db\Sql $sql
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message, tag
 	 */
-	public function logQuery($sql, $info = array()) {
+	public function logQuery($sql, array $info = array()) {
 		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
@@ -56,6 +56,18 @@ class Object {
 		$message = isset($info['message']) ? $info['message'] : '';
 		$info['type'] = 'Query';
 		$this->log("Query:\n$query\n$parameters\n$message", $info);
+	}
+
+	/**
+	 * Log a tagged message. A tagged message will be stored in a tag named file.
+	 *
+	 * @param string|array $message
+	 * @param string $tag 
+	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message, tag
+	 */
+	public function logTag($message, $tag, array $info = array()) {
+		$info['tag'] = $tag;
+		$this->log($message, $info);
 	}
 
 	/**
