@@ -130,7 +130,7 @@ class Db extends Object {
 	 * @param array $ctorArgs Arguments of custom class constructor when the fetchStyle parameter is \PDO::FETCH_CLASS
 	 * @return array
 	 */
-	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = array(), $ctorArgs = array()) {
+	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = NULL, $ctorArgs = array()) {
 		$statement = $this->query($sql);
 		if ($statement === false) return array();
 		return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
