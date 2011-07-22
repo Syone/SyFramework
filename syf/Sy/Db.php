@@ -194,7 +194,7 @@ class Db extends Object {
 		$columns = array_keys($bind);
 		$columns = implode(',', $columns);
 		$values = array_values($bind);
-		$v = array_fill(0, count($columns), '?');
+		$v = array_fill(0, count($bind), '?');
 		$v = implode(',', $v);
 		$sql = new Db\Sql("INSERT INTO $table ($columns) VALUES ($v)", $values);
 		return $this->execute($sql);
