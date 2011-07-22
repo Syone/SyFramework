@@ -51,11 +51,11 @@ class FileLogger implements ILogger {
 		$message  = $log->getMessage();
 		$msg = "--------------------------------------------------------------------------------\r\n";
 		$msg .= "$time [$level]";
-		if (!empty($type)) $msg .= "[$type]";
-		if (!empty($class)) $msg .= "$class::";
-		if (!empty($function)) $msg .= "$function() ";
-		if (!empty($file)) $msg .= " in $file";
-		if (!empty($line)) $msg .= " line $line \r\n";
+		if (!empty($type))     $msg .= "[$type]";
+		if (!empty($class))    $msg .= " $class::";
+		if (!empty($function)) $msg .= "$function()";
+		if (!empty($file))     $msg .= " in $file";
+		if (!empty($line))     $msg .= " line $line \r\n";
 		$msg .= "$message\r\n";
 		return $msg;
 	}

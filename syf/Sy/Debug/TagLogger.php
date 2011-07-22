@@ -14,7 +14,6 @@ class TagLogger implements ILogger {
 		if (empty($tag)) return;
 		$file = $this->path . '/' . $tag;
 		if (!file_exists(dirname($file))) mkdir(dirname($file), 0777, true);
-		if (file_exists($file)) unlink($file);
 		file_put_contents($file, $this->formatLog($log), FILE_APPEND | LOCK_EX);
 	}
 
@@ -33,12 +32,12 @@ class TagLogger implements ILogger {
 		$line     = $log->getLine();
 		$message  = $log->getMessage();
 		$msg = "--------------------------------------------------------------------------------\r\n";
-		$msg .= "$time [$level]";
-		if (!empty($type)) $msg .= "[$type]";
-		if (!empty($class)) $msg .= "$class::";
-		if (!empty($function)) $msg .= "$function() ";
-		if (!empty($file)) $msg .= " in $file";
-		if (!empty($line)) $msg .= " line $line \r\n";
+		$msg .= "[$time][$level]";
+		if (!empty($type))     $msg .= "[$type]";
+		if (!empty($class))    $msg .= " $class::";
+		if (!empty($function)) $msg .= "$function()";
+		if (!empty($file))     $msg .= " in $file";
+		if (!empty($line))     $msg .= " line $line \r\n";
 		$msg .= "$message\r\n";
 		return $msg;
 	}
