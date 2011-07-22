@@ -192,7 +192,7 @@ class Db extends Object {
 	 */
 	public function insert($table, array $bind) {
 		$columns = array_keys($bind);
-		$columns = implode(',', $columns);
+		$columns = '`' . implode('`,`', $columns) . '`';
 		$values = array_values($bind);
 		$v = array_fill(0, count($bind), '?');
 		$v = implode(',', $v);
