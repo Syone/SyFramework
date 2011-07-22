@@ -183,4 +183,21 @@ class Db extends Object {
 		return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
 	}
 
+	/**
+	 * Insert a table row with specified data.
+	 *
+	 * @param string $table The table name.
+	 * @param array $bind Column-value pairs.
+	 * @return int The number of affected rows.
+	 */
+	public function insert($table, array $bind) {
+		$columns = array_keys($bind);
+		$columns = implode(',', $columns);
+		$values = array_values($bind);
+		$v = array_fill(0, count($columns), '?');
+		$v = implode(',', $v);
+		$sql = new Db\Sql("INSERT INTO $table ($columns) VALUES ($v)", $values);
+		return $this->execute($sql);
+	}
+
 }
