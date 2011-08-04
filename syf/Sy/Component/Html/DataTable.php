@@ -46,6 +46,22 @@ class DataTable extends Table {
 	}
 
 	/**
+	 * Transpose a 2D array
+	 *
+	 * @param array $rows
+	 * @return array
+	 */
+	private function transpose($rows) {
+		$res = array();
+		foreach ($rows as $row => $cols) {
+			foreach ($cols as $col => $value) {
+				$res[$col][$row] = $value;
+			}
+		}
+		return $res;
+	}
+
+	/**
 	 * Set value alignment
 	 *
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
@@ -132,11 +148,13 @@ class DataTable extends Table {
 	 * Add a row in the table
 	 *
 	 * @param array $datas Array of data
+	 * @param string $head Row head
 	 */
-	public function addRow(array $datas) {
+	public function addRow(array $datas, $head = '') {
 		$tr = $this->getTBody()->addTr();
 		if ($this->hasAlign())
 			$tr->setAttribute('align', $this->options['align']);
+		if (!empty($head)) $tr->addTh($head);
 		foreach ($datas as $data) {
 			$isNumeric = is_numeric($data);
 			if ($this->hasNumFormat())
@@ -155,12 +173,25 @@ class DataTable extends Table {
 	 * Add rows in the table
 	 *
 	 * @param array $rows 2D array
-	 * @param type $autoHead Generate head using row keys
+	 * @param bool $autoHead Generate head using row keys
+	 * @param bool $transpose Transpose table data
 	 */
-	public function addRows(array $rows, $autoHead = false) {
-		if ($autoHead) {
-			$heads = array_keys(current($rows));
-			if ($this->getTHead()->isEmpty()) $this->setHeads($heads);
+	public function addRows(array $rows, $autoHead = false, $transpose = false) {
+		if ($transpose) {
+			$rows = $this->transpose($rows);
+			if ($autoHead) {
+				$heads = array_keys($rows);
+				$i = 0;
+				foreach ($rows as $row) {
+					$this->addRow($row, $heads[$i++]);
+				}
+				return;
+			}
+		} else {
+			if ($autoHead) {
+				$heads = array_keys(current($rows));
+				if ($this->getTHead()->isEmpty()) $this->setHeads($heads);
+			}
 		}
 		foreach ($rows as $row) {
 			$this->addRow($row);
