@@ -7,6 +7,8 @@ class DataTable extends Table {
 
 	private $options;
 
+	private $replaces;
+
 	/**
 	 * Return if DataTable must align numeric value
 	 *
@@ -32,6 +34,15 @@ class DataTable extends Table {
 	 */
 	private function hasNumFormat() {
 		return isset($this->options['num_decimals']);
+	}
+
+	/**
+	 * Return if DataTable must perform a regular expression search and replace
+	 *
+	 * @return bool
+	 */
+	private function hasPregReplace() {
+		return isset($this->replaces);
 	}
 
 	/**
@@ -80,6 +91,16 @@ class DataTable extends Table {
 	}
 
 	/**
+	 * Perform a regular expression search and replace
+	 *
+	 * @param mixed $pattern
+	 * @param miced $replacement
+	 */
+	public function addPregReplace($pattern, $replacement) {
+		$this->replaces[] = array('pattern' => $pattern, 'replacement' => $replacement);
+	}
+
+	/**
 	 * Set head row
 	 *
 	 * @param array $heads Array of head data
@@ -120,6 +141,10 @@ class DataTable extends Table {
 			$isNumeric = is_numeric($data);
 			if ($this->hasNumFormat())
 				$data = $isNumeric ? number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']) : $data;
+			if ($this->hasPregReplace()) {
+				foreach ($this->replaces as $replace)
+					$data = preg_replace($replace['pattern'], $replace['replacement'], $data);
+			}
 			$td = $tr->addTd($data);
 			if ($this->hasNumAlign() and $isNumeric)
 				$td->setAttribute('align', $this->options['num_align']);
