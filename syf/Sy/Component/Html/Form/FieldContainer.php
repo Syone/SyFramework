@@ -233,6 +233,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a range element.
+	 * The range input type is used for input fields that should contain a value from a range of numbers.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Range
+	 */
+	public function addRange(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Range', $attributes, $options);
+	}
+
+	/**
 	 * Add a reset element
 	 *
 	 * @param array $attributes reset attributes
