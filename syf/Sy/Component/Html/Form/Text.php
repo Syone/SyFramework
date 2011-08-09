@@ -7,6 +7,18 @@ class Text extends TextElement implements FillableElement {
 		parent::__construct('input');
 	}
 
+	/**
+	 * Set the element attribute
+	 *
+	 * @param string $name attribute name
+	 * @param string $value attribute value
+	 */
+	public function setAttribute($name, $value) {
+		if (\strtolower($name) === 'value')
+			$value = str_replace ('"', '&quot;', $value);
+		parent::setAttribute($name, $value);
+	}
+
 	public function fill($value) {
 		if (is_array($value)) return;
 		$this->setAttribute('value', $value);
