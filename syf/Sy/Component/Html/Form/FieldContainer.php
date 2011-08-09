@@ -273,6 +273,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a search element.
+	 * The search input type is used for search fields, like a site search, or Google search.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Search
+	 */
+	public function addSearch(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Search', $attributes, $options);
+	}
+
+	/**
 	 * Add a submit element
 	 *
 	 * @param array $attributes submit attributes
