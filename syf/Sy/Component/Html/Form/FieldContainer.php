@@ -149,6 +149,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a email element.
+	 * The email input type is used for input fields that should contain an e-mail address.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Email
+	 */
+	public function addEmail(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Email', $attributes, $options);
+	}
+
+	/**
 	 * Add a file element
 	 *
 	 * @param array $attributes file attributes
