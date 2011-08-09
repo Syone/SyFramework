@@ -321,6 +321,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add an url element.
+	 * The url input type is used for input fields that should contain a URL address.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Url
+	 */
+	public function addUrl(array $attributes = array(), array $options= array()) {
+		return $this->addInput('Url', $attributes, $options);
+	}
+
+	/**
 	 * Add a input element
 	 *
 	 * @param array $attributes input attributes
