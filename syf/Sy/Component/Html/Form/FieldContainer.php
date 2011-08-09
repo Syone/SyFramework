@@ -71,7 +71,8 @@ class FieldContainer extends Container {
 	}
 
 	/**
-	 * Add a color element
+	 * Add a color element.
+	 * This input type will allow you to select a color from a color picker.
 	 *
 	 * @param array $attributes
 	 * @param array $options
@@ -79,6 +80,72 @@ class FieldContainer extends Container {
 	 */
 	public function addColor(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Color', $attributes, $options);
+	}
+
+	/**
+	 * Add a date element. Selects date, month and year.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Date
+	 */
+	public function addDate(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Date', $attributes, $options);
+	}
+
+	/**
+	 * Add a month element. Selects month and year.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Month
+	 */
+	public function addMonth(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Month', $attributes, $options);
+	}
+
+	/**
+	 * Add a week element. Selects week and year.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Week
+	 */
+	public function addWeek(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Week', $attributes, $options);
+	}
+
+	/**
+	 * Add a time element. Selects time (hour and minute).
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Time
+	 */
+	public function addTime(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Time', $attributes, $options);
+	}
+
+	/**
+	 * Add a datetime element. Selects time, date, month and year (UTC time).
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return DateTime
+	 */
+	public function addDateTime(array $attributes = array(), array $options = array()) {
+		return $this->addInput('DateTime', $attributes, $options);
+	}
+
+	/**
+	 * Add a datetime-local element. Selects time, date, month and year (local time).
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return DateTimeLocal
+	 */
+	public function addDateTimeLocal(array $attributes = array(), array $options = array()) {
+		return $this->addInput('DateTimeLocal', $attributes, $options);
 	}
 
 	/**
