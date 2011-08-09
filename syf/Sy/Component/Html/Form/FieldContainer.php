@@ -71,6 +71,17 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a color element
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Color
+	 */
+	public function addColor(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Color', $attributes, $options);
+	}
+
+	/**
 	 * Add a file element
 	 *
 	 * @param array $attributes file attributes
