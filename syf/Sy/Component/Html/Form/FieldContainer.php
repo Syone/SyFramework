@@ -9,7 +9,7 @@ class FieldContainer extends Container {
 	 * @param array $attributes div attributes
 	 * @return FieldContainer
 	 */
-	public function addDiv($attributes = array()) {
+	public function addDiv(array $attributes = array()) {
 		$div = $this->addElement(new FieldContainer('div'));
 		$div->setAttributes($attributes);
 		return $div;
@@ -38,7 +38,7 @@ class FieldContainer extends Container {
 	 * @param array $attributes label attributes
 	 * @return Element
 	 */
-	public function addLabel($label, $attributes = array()) {
+	public function addLabel($label, array $attributes = array()) {
 		$element = new Element('label');
 		$element->setContent($label);
 		$element->setAttributes($attributes);
@@ -52,7 +52,7 @@ class FieldContainer extends Container {
 	 * @param array $attributes button attributes
 	 * @return Element
 	 */
-	public function addButton($label, $attributes = array()) {
+	public function addButton($label, array $attributes = array()) {
 		$element = new Element('button');
 		$element->setContent($label);
 		$element->setAttributes($attributes);
@@ -66,7 +66,7 @@ class FieldContainer extends Container {
 	 * @param array $options checkbox options
 	 * @return Checkbox
 	 */
-	public function addCheckbox($attributes = array(), $options = array()) {
+	public function addCheckbox(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Checkbox', $attributes, $options);
 	}
 
@@ -77,7 +77,7 @@ class FieldContainer extends Container {
 	 * @param array $options file options
 	 * @return File
 	 */
-	public function addFile($attributes = array(), $options = array()) {
+	public function addFile(array $attributes = array(), array $options = array()) {
 		return $this->addInput('File', $attributes, $options);
 	}
 
@@ -88,7 +88,7 @@ class FieldContainer extends Container {
 	 * @param array $options hidden options
 	 * @return Hidden
 	 */
-	public function addHidden($attributes = array(), $options = array()) {
+	public function addHidden(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Hidden', $attributes, $options);
 	}
 
@@ -99,7 +99,7 @@ class FieldContainer extends Container {
 	 * @param array $options image options
 	 * @return Element
 	 */
-	public function addImage($attributes = array(), $options = array()) {
+	public function addImage(array $attributes = array(), array $options = array()) {
 		$element = new Input('image');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
@@ -113,7 +113,7 @@ class FieldContainer extends Container {
 	 * @param array $options text options
 	 * @return Number
 	 */
-	public function addNumber($attributes = array(), $options = array()) {
+	public function addNumber(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Number', $attributes, $options);
 	}
 
@@ -124,7 +124,7 @@ class FieldContainer extends Container {
 	 * @param array $options password options
 	 * @return Element
 	 */
-	public function addPassword($attributes = array(), $options = array()) {
+	public function addPassword(array $attributes = array(), array $options = array()) {
 		$element = new TextInput('password');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
@@ -138,7 +138,7 @@ class FieldContainer extends Container {
 	 * @param array $options radio options
 	 * @return Radio
 	 */
-	public function addRadio($attributes = array(), $options = array()) {
+	public function addRadio(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Radio', $attributes, $options);
 	}
 
@@ -149,7 +149,7 @@ class FieldContainer extends Container {
 	 * @param array $options reset options
 	 * @return Element
 	 */
-	public function addReset($attributes = array(), $options = array()) {
+	public function addReset(array $attributes = array(), array $options = array()) {
 		$element = new Input('reset');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
@@ -163,7 +163,7 @@ class FieldContainer extends Container {
 	 * @param array $options select options
 	 * @return OptionContainer
 	 */
-	public function addSelect($attributes = array(), $options= array()) {
+	public function addSelect(array $attributes = array(), array $options= array()) {
 		$select = new OptionContainer('select');
 		$select->setAttributes($attributes);
 		$select->setOptions($options);
@@ -177,7 +177,7 @@ class FieldContainer extends Container {
 	 * @param array $options submit options
 	 * @return Element
 	 */
-	public function addSubmit($attributes = array(), $options = array()) {
+	public function addSubmit(array $attributes = array(), array $options = array()) {
 		$element = new Input('submit');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
@@ -191,7 +191,7 @@ class FieldContainer extends Container {
 	 * @param array $options text options
 	 * @return Text
 	 */
-	public function addText($attributes = array(), $options = array()) {
+	public function addText(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Text', $attributes, $options);
 	}
 
@@ -202,7 +202,7 @@ class FieldContainer extends Container {
 	 * @param array $options textarea options
 	 * @return Textarea
 	 */
-	public function addTextarea($attributes = array(), $options= array()) {
+	public function addTextarea(array $attributes = array(), array $options= array()) {
 		return $this->addInput('Textarea', $attributes, $options);
 	}
 
@@ -213,7 +213,7 @@ class FieldContainer extends Container {
 	 * @param array $options input options
 	 * @return Element
 	 */
-	protected function addInput($class, $attributes = array(), $options = array()) {
+	protected function addInput($class, array $attributes = array(), array $options = array()) {
 		$class = __NAMESPACE__ . '\\' . $class;
 		$input = new $class();
 		$input->setAttributes($attributes);
