@@ -5,6 +5,18 @@ require_once __DIR__ . '/Validator.php';
 
 class TextElement extends Element implements ValidableElement {
 
+	/**
+	 * Set the element attribute
+	 *
+	 * @param string $name attribute name
+	 * @param string $value attribute value
+	 */
+	public function setAttribute($name, $value) {
+		if (\strtolower($name) === 'value')
+			$value = str_replace ('"', '&quot;', $value);
+		parent::setAttribute($name, $value);
+	}
+
 	public function isValid($value) {
 		$valid = $this->validate($value);
 		if (!$valid) $this->setError(true);
