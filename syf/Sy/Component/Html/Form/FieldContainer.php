@@ -287,6 +287,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a tel element.
+	 * The tel input type is used for input fields that should contain a telephone number.
+	 *
+	 * @param array $attributes
+	 * @param array $options
+	 * @return Tel
+	 */
+	public function addTel(array $attributes = array(), array $options = array()) {
+		return $this->addInput('Tel', $attributes, $options);
+	}
+
+	/**
 	 * Add a text element
 	 *
 	 * @param array $attributes text attributes
