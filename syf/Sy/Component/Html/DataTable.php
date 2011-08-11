@@ -2,6 +2,7 @@
 namespace Sy\Component\Html;
 
 use Sy\Component\Html\Table;
+use Sy\Db\ITable;
 
 class DataTable extends Table {
 
@@ -196,6 +197,16 @@ class DataTable extends Table {
 		foreach ($rows as $row) {
 			$this->addRow($row);
 		}
+	}
+
+	/**
+	 * Add rows from a database table
+	 *
+	 * @param ITable $table
+	 * @param bool $transpose
+	 */
+	public function addDbRows(ITable $table, $transpose = false) {
+		$this->addRows($table->getRows(), true, $transpose);
 	}
 
 }

@@ -133,7 +133,10 @@ class Db extends Object {
 	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = NULL, $ctorArgs = array()) {
 		$statement = $this->query($sql);
 		if ($statement === false) return array();
-		return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
+		if (is_null($fetchArgs))
+			return $statement->fetchAll($fetchStyle);
+		else
+			return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
 	}
 
 	/**
