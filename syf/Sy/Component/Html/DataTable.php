@@ -6,9 +6,28 @@ use Sy\Db\ITable;
 
 class DataTable extends Table {
 
+	private $heads;
+
+	private $foots;
+
+	private $rows;
+
+	private $autoHead;
+
+	private $transpose;
+
 	private $options;
 
 	private $replaces;
+
+	public function __construct(array $rows = array(), array $attributes = array()) {
+		parent::__construct($attributes);
+		$this->heads = array();
+		$this->foots = array();
+		$this->rows = $rows;
+		$this->autoHead = false;
+		$this->transpose = false;
+	}
 
 	/**
 	 * Return if DataTable must align numeric value
@@ -118,17 +137,30 @@ class DataTable extends Table {
 	}
 
 	/**
+	 * Set if the table header must be auto generated using data keys or not
+	 *
+	 * @param bool $auto
+	 */
+	public function setAutoHead($auto) {
+		$this->autoHead = $auto;
+	}
+
+	/**
+	 * Set if the table must be transpose or not
+	 *
+	 * @param bool $tranpose
+	 */
+	public function setTranspose($transpose) {
+		$this->transpose = $transpose;
+	}
+
+	/**
 	 * Set head row
 	 *
 	 * @param array $heads Array of head data
 	 */
 	public function setHeads(array $heads) {
-		$header = $this->getTHead();
-		$header->setElements(array());
-		$tr = $header->addTr();
-		foreach ($heads as $head) {
-			$tr->addTh($head);
-		}
+		$this->heads = $heads;
 	}
 
 	/**
@@ -137,10 +169,68 @@ class DataTable extends Table {
 	 * @param array $foots Array of foot data
 	 */
 	public function setFoots(array $foots) {
+		$this->foots = $foots;
+	}
+
+	/**
+	 * Set table rows
+	 *
+	 * @param array $rows
+	 */
+	public function setRows(array $rows) {
+		$this->rows = $rows;
+	}
+
+	/**
+	 * Add a row in the table
+	 *
+	 * @param array $datas Array of data
+	 */
+	public function addRow(array $datas) {
+		$this->rows[] = $datas;
+	}
+
+	/**
+	 * Add rows in the table
+	 *
+	 * @param array $rows 2D array
+	 * @param bool $autoHead Generate head using row keys
+	 * @param bool $transpose Transpose table data
+	 */
+	public function addRows(array $rows) {
+		$this->rows = array_merge($this->rows, $rows);
+	}
+
+	/**
+	 * Add rows from a database table
+	 *
+	 * @param ITable $table
+	 * @param bool $transpose
+	 */
+	public function addDbRows(ITable $table) {
+		$this->addRows($table->getRows());
+	}
+
+	/**
+	 * Render table heads
+	 */
+	private function renderHeads() {
+		$header = $this->getTHead();
+		$header->setElements(array());
+		$tr = $header->addTr();
+		foreach ($this->heads as $head) {
+			$tr->addTh($head);
+		}
+	}
+
+	/**
+	 * Render table foots
+	 */
+	private function renderFoots() {
 		$footer = $this->getTFoot();
 		$footer->setElements(array());
 		$tr = $footer->addTr();
-		foreach ($foots as $foot) {
+		foreach ($this->foots as $foot) {
 			$tr->addTd($foot);
 		}
 	}
@@ -151,7 +241,7 @@ class DataTable extends Table {
 	 * @param array $datas Array of data
 	 * @param string $head Row head
 	 */
-	public function addRow(array $datas, $head = '') {
+	private function renderRow(array $datas, $head = '') {
 		$tr = $this->getTBody()->addTr();
 		if ($this->hasAlign())
 			$tr->setAttribute('align', $this->options['align']);
@@ -171,42 +261,36 @@ class DataTable extends Table {
 	}
 
 	/**
-	 * Add rows in the table
-	 *
-	 * @param array $rows 2D array
-	 * @param bool $autoHead Generate head using row keys
-	 * @param bool $transpose Transpose table data
+	 * Render table rows
 	 */
-	public function addRows(array $rows, $autoHead = false, $transpose = false) {
-		if ($transpose) {
-			$rows = $this->transpose($rows);
-			if ($autoHead) {
-				$heads = array_keys($rows);
+	private function renderRows() {
+		if ($this->transpose) {
+			$this->rows = $this->transpose($this->rows);
+			if ($this->autoHead) {
+				$this->heads = array_keys($this->rows);
 				$i = 0;
-				foreach ($rows as $row) {
-					$this->addRow($row, $heads[$i++]);
+				foreach ($this->rows as $row) {
+					$this->renderRow($row, $this->heads[$i++]);
 				}
 				return;
 			}
 		} else {
-			if ($autoHead) {
-				$heads = array_keys(current($rows));
-				if ($this->getTHead()->isEmpty()) $this->setHeads($heads);
+			if ($this->autoHead) {
+				if (empty($this->heads)) {
+					$this->heads = array_keys(current($this->rows));
+				}
 			}
+			$this->renderHeads();
 		}
-		foreach ($rows as $row) {
-			$this->addRow($row);
+		foreach ($this->rows as $row) {
+			$this->renderRow($row);
 		}
 	}
 
-	/**
-	 * Add rows from a database table
-	 *
-	 * @param ITable $table
-	 * @param bool $transpose
-	 */
-	public function addDbRows(ITable $table, $transpose = false) {
-		$this->addRows($table->getRows(), true, $transpose);
+	public function __toString() {
+		$this->renderRows();
+		$this->renderFoots();
+		return parent::__toString();
 	}
 
 }
