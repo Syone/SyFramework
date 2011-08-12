@@ -40,7 +40,7 @@ class DebugBar extends WebComponent {
 	 */
 	private function initVarsDiv() {
 		$constants = get_defined_constants(true);
-		$varsArray['User Constants']      = $constants['user'];
+		$varsArray['User Constants']      = isset($constants['user']) ? $constants['user'] : array();
 		$varsArray['$_REQUEST Variables'] = $_REQUEST;
 		$varsArray['$_GET Variables']     = $_GET;
 		$varsArray['$_POST Variables']    = $_POST;
