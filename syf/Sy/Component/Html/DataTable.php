@@ -1,7 +1,6 @@
 <?php
 namespace Sy\Component\Html;
 
-use Sy\Component\Html\Table;
 use Sy\Db\ITable;
 
 class DataTable extends Table {
