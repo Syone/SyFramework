@@ -16,10 +16,10 @@ class WebComponent extends Component {
 
 	public function __construct() {
 		parent::__construct();
-		$this->cssLinks      = array();
-		$this->jsLinks       = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
-		$this->cssCode       = array();
-		$this->jsCode        = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
+		$this->cssLinks = array();
+		$this->jsLinks  = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
+		$this->cssCode  = array();
+		$this->jsCode   = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
 	}
 
 	/**
@@ -54,10 +54,10 @@ class WebComponent extends Component {
 	public function mergeJs(WebComponent $component) {
 		$jsLinks = $component->getJsLinks();
 		$jsCode  = $component->getJsCodeArray();
-		$this->jsLinks[self::JS_TOP]    = array_merge($this->jsLinks[self::JS_TOP], $jsLinks[self::JS_TOP]);
+		$this->jsLinks[self::JS_TOP]    = array_merge($this->jsLinks[self::JS_TOP]   , $jsLinks[self::JS_TOP]);
 		$this->jsLinks[self::JS_BOTTOM] = array_merge($this->jsLinks[self::JS_BOTTOM], $jsLinks[self::JS_BOTTOM]);
-		$this->jsCode[self::JS_TOP]     = array_merge($this->jsCode[self::JS_TOP], $jsCode[self::JS_TOP]);
-		$this->jsCode[self::JS_BOTTOM]  = array_merge($this->jsCode[self::JS_BOTTOM], $jsCode[self::JS_BOTTOM]);
+		$this->jsCode[self::JS_TOP]     = array_merge($this->jsCode[self::JS_TOP]    , $jsCode[self::JS_TOP]);
+		$this->jsCode[self::JS_BOTTOM]  = array_merge($this->jsCode[self::JS_BOTTOM] , $jsCode[self::JS_BOTTOM]);
 	}
 
 	/**
