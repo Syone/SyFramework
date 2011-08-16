@@ -14,7 +14,8 @@ class Form extends Form\FieldContainer {
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
 		if (empty($attributes['action'])) {
-			$attributes['action'] = '?' . $_SERVER['QUERY_STRING'] . '&amp;formAction' . $this->formId . '=submit';
+			$queryString = empty($_SERVER['QUERY_STRING']) ? '' : $_SERVER['QUERY_STRING'] . '&amp;';
+			$attributes['action'] = '?' . $queryString . 'formAction' . $this->formId . '=submit';
 		}
 		$this->setAttributes($attributes);
 		$this->success = false;
