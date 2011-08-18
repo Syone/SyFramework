@@ -5,6 +5,8 @@ class Radio extends Input implements FillableElement, ValidableElement {
 
 	public function __construct() {
 		parent::__construct('radio');
+		$this->setOption('label_position', 'after');
+		$this->setOption('error_position', 'after');
 	}
 
 	public function fill($value) {

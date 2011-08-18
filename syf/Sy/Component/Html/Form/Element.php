@@ -11,10 +11,10 @@ class Element extends HtmlElement {
 	public function __construct($tagName = '') {
 		parent::__construct($tagName);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->options = array();
+		$this->options = array('label_position' => 'before', 'error_position' => 'before');
 		$this->error = false;
 	}
-	
+
 	/**
 	 * Set the element attribute
 	 *
@@ -22,7 +22,7 @@ class Element extends HtmlElement {
 	 * @param string $value attribute value
 	 */
 	public function setAttribute($name, $value) {
-		if ($name == 'name') 
+		if ($name == 'name')
 			$this->setName($value);
 		else
 			parent::setAttribute($name, $value);
