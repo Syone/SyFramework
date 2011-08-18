@@ -233,6 +233,17 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a set of radio element
+	 *
+	 * @param array $radios radio set elements data
+	 * @param array $options radio set options
+	 * @return RadioSet
+	 */
+	public function addRadioSet(array $radios, array $options = array()) {
+		return $this->addElement(new RadioSet($radios, $options));
+	}
+
+	/**
 	 * Add a range element.
 	 * The range input type is used for input fields that should contain a value from a range of numbers.
 	 *
