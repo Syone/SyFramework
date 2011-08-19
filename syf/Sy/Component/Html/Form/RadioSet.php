@@ -21,24 +21,24 @@ class RadioSet extends FieldContainer {
 		$this->required  = isset($options['required'])  ? $options['required']  : '';
 		$this->checked   = isset($options['checked'])   ? $options['checked']   : '';
 		$this->setTemplateFile(__DIR__ . '/templates/ElementSet.tpl', 'php');
+		$this->init();
 	}
 
-	public function __toString() {
+	private function init() {
 		$id = empty($this->id) ? uniqid() : $this->id;
 		$i = 1;
 		$data = $this->transformArray($this->radios);
 		if ($this->isAssoc($data)) {
 			foreach ($data as $value => $label) {
 				$radio = $this->addRadioIn($id . '_' . $i++, $value, $label);
-				if ($i == 1) $this->addRadioOptions($radio);
+				if ($i == 2) $this->addRadioOptions($radio);
 			}
 		} else {
 			foreach ($data as $value) {
 				$radio = $this->addRadioIn($id . '_' . $i++, $value, $value);
-				if ($i == 1) $this->addRadioOptions($radio);
+				if ($i == 2) $this->addRadioOptions($radio);
 			}
 		}
-		return parent::__toString();
 	}
 
 	private function addRadioIn($id, $value, $label) {
@@ -54,7 +54,7 @@ class RadioSet extends FieldContainer {
 		return $radio;
 	}
 
-	private function addRadioOptions($radio) {
+	private function addRadioOptions(Radio $radio) {
 		if (!empty($this->validator)) $radio->setOption('validator', $this->validator);
 		if (!empty($this->error))     $radio->setOption('error'    , $this->error);
 		if (!empty($this->required))  $radio->setOption('required' , $this->required);
@@ -91,7 +91,7 @@ class RadioSet extends FieldContainer {
 	 * @return bool
 	 */
 	private function isAssoc($var) {
-		return is_array($var) and array_diff_key($var, array_keys(array_keys($var)));
+		return array_keys($var) !== range(0, count($var) - 1);
 	}
 
 }
