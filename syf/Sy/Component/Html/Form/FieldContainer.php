@@ -69,6 +69,17 @@ class FieldContainer extends Container {
 	public function addCheckbox(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Checkbox', $attributes, $options);
 	}
+	
+	/**
+	 * Add a set of checkbox element
+	 *
+	 * @param array $checkboxes checkbox set elements data
+	 * @param array $options checkbox set options
+	 * @return CheckboxSet
+	 */
+	public function addCheckboxSet(array $checkboxes, array $options = array()) {
+		return $this->addElement(new CheckboxSet($checkboxes, $options));
+	}
 
 	/**
 	 * Add a color element.
