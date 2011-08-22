@@ -128,8 +128,8 @@ class DataTable extends Table {
 	/**
 	 * Perform a regular expression search and replace
 	 *
-	 * @param mixed $pattern
-	 * @param miced $replacement
+	 * @param string $pattern
+	 * @param string $replacement
 	 */
 	public function addPregReplace($pattern, $replacement) {
 		$this->replaces[] = array('pattern' => $pattern, 'replacement' => $replacement);
