@@ -19,10 +19,12 @@ class FieldContainer extends Container {
 	 * Add a fieldset element
 	 *
 	 * @param string $label the fieldset legend
+	 * @param array $attributes fieldset attributes
 	 * @return FieldContainer
 	 */
-	public function addFieldset($label = NULL) {
+	public function addFieldset($label = NULL, array $attributes = array()) {
 		$fieldset = new FieldContainer('fieldset');
+		$fieldset->setAttributes($attributes);
 		if (!is_null($label)) {
 			$legend = new Element('legend');
 			$legend->setContent($label);
@@ -69,7 +71,7 @@ class FieldContainer extends Container {
 	public function addCheckbox(array $attributes = array(), array $options = array()) {
 		return $this->addInput('Checkbox', $attributes, $options);
 	}
-	
+
 	/**
 	 * Add a set of checkbox element
 	 *
