@@ -2,6 +2,7 @@
 namespace Sy\Component;
 
 use Sy\Component;
+use Sy\Template\TranslatorProvider;
 
 class WebComponent extends Component {
 
@@ -14,12 +15,15 @@ class WebComponent extends Component {
 	private $cssCode;
 	private $jsCode;
 
+	private $translators;
+
 	public function __construct() {
 		parent::__construct();
 		$this->cssLinks = array();
 		$this->jsLinks  = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
 		$this->cssCode  = array();
 		$this->jsCode   = array(self::JS_TOP => array(), self::JS_BOTTOM => array());
+		$this->translators = array();
 	}
 
 	/**
@@ -111,7 +115,7 @@ class WebComponent extends Component {
 	 * Add the js code
 	 *
 	 * @param string $code
-	 * @param int $position Sy\Component\WebComponent::JS_TOP or Sy\Component\WebComponent::JS_BOTTOM
+	 * @param int $position \Sy\Component\WebComponent::JS_TOP or \Sy\Component\WebComponent::JS_BOTTOM
 	 */
 	public function addJsCode($code, $position = self::JS_TOP) {
 		if ($position === self::JS_BOTTOM)
@@ -134,7 +138,7 @@ class WebComponent extends Component {
 	 * Add a js link
 	 *
 	 * @param string $url
-	 * @param int $position Sy\Component\WebComponent::JS_TOP or Sy\Component\WebComponent::JS_BOTTOM
+	 * @param int $position \Sy\Component\WebComponent::JS_TOP or \Sy\Component\WebComponent::JS_BOTTOM
 	 */
 	public function addJsLink($url, $position = self::JS_TOP) {
 		if ($position === self::JS_BOTTOM)
@@ -164,6 +168,21 @@ class WebComponent extends Component {
 		$this->jsLinks[self::JS_TOP] = array_unique($this->jsLinks[self::JS_TOP]);
 		$this->jsLinks[self::JS_BOTTOM] = array_unique($this->jsLinks[self::JS_BOTTOM]);
 		return $this->jsLinks;
+	}
+
+	/**
+	 * Add a Translator
+	 *
+	 * @param string $directory Translator directory
+	 * @param string $type Translator type
+	 */
+	public function addTranslator($directory, $type = 'php') {
+		$translator = TranslatorProvider::createTranslator($type);
+//		$translator->setTranslationLang();
+		$translator->setTranslationDir($directory);
+		$data = $translator->loadTranslationData();
+		$translator->setTranslationData($data);
+		$this->translators[] = $translator;
 	}
 
 }
