@@ -187,7 +187,7 @@ class WebComponent extends Component {
 	 * @return string
 	 */
 	public function _($message) {
-		$res = '';
+		$res = $message;
 		foreach ($this->translators as $translator) {
 			$res = $translator->translate($message);
 			if (!empty($res)) break;
