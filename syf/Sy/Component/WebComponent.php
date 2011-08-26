@@ -181,18 +181,25 @@ class WebComponent extends Component {
 	}
 
 	/**
-	 * Translate
+	 * Translate message
 	 *
-	 * @param string $key
+	 * @param string $message
 	 * @return string
 	 */
-	public function _($key) {
+	public function _($message) {
 		$res = '';
 		foreach ($this->translators as $translator) {
-			$res = $translator->translate($key);
+			$res = $translator->translate($message);
 			if (!empty($res)) break;
 		}
 		return $res;
+	}
+
+	public function __toString() {
+		foreach ($this->translators as $translator) {
+			$this->setVars($translator->getTranslationData());
+		}
+		return parent::__toString();
 	}
 
 }
