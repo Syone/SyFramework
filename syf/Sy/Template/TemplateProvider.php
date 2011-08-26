@@ -6,6 +6,7 @@ class TemplateProvider {
 	/**
 	 * Return a new ITemplate object
 	 *
+	 * @param string $type
 	 * @return ITemplate
 	 */
 	public static function createTemplate($type = '') {

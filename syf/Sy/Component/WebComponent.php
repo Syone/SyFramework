@@ -2,7 +2,7 @@
 namespace Sy\Component;
 
 use Sy\Component;
-use Sy\Template\TranslatorProvider;
+use Sy\Translate\TranslatorProvider;
 
 class WebComponent extends Component {
 
@@ -177,12 +177,22 @@ class WebComponent extends Component {
 	 * @param string $type Translator type
 	 */
 	public function addTranslator($directory, $type = 'php') {
-		$translator = TranslatorProvider::createTranslator($type);
-//		$translator->setTranslationLang();
-		$translator->setTranslationDir($directory);
-		$data = $translator->loadTranslationData();
-		$translator->setTranslationData($data);
-		$this->translators[] = $translator;
+		$this->translators[] = TranslatorProvider::createTranslator($directory, $type);
+	}
+
+	/**
+	 * Translate
+	 *
+	 * @param string $key
+	 * @return string
+	 */
+	public function _($key) {
+		$res = '';
+		foreach ($this->translators as $translator) {
+			$res = $translator->translate($key);
+			if (!empty($res)) break;
+		}
+		return $res;
 	}
 
 }
