@@ -3,18 +3,11 @@ namespace Sy\Translate;
 
 class GettextTranslator extends Translator implements ITranslator {
 
-	public function translate($message) {
-		return gettext($message);
-	}
-
 	public function loadTranslationData() {
 		$data = array();
 		$lang = $this->getTranslationLang();
 		$dir  = $this->getTranslationDir();
-		if (!file_exists("$dir/$lang.mo")) $lang = 'default';
 		if (file_exists("$dir/$lang.mo")) {
-			\bindtextdomain($lang, $this->getTranslationDir());
-			\textdomain($lang);
 			$data = $this->readData("$dir/$lang.mo");
 		}
 		$this->setTranslationData($data);
@@ -35,7 +28,7 @@ class GettextTranslator extends Translator implements ITranslator {
 				throw new \Exception($filename . ' is not a MO file');
 			}
 
-			// get Endian
+			// Get Endian
 			$input = $this->readMOData($file, 1);
 
 			if (strtolower(substr(dechex($input[1]), -8)) == "950412de") {
@@ -46,22 +39,22 @@ class GettextTranslator extends Translator implements ITranslator {
 				@fclose($file);
 			}
 
-			// read revision
+			// Read revision
 			$input = $this->readMOData($file, 1, $bigEndian);
 
-			// number of bytes
+			// Number of bytes
 			$input = $this->readMOData($file, 1, $bigEndian);
 			$total = $input[1];
 
-			// number of original strings
+			// Number of original strings
 			$input = $this->readMOData($file, 1, $bigEndian);
 			$OOffset = $input[1];
 
-			// number of translation strings
+			// Number of translation strings
 			$input = $this->readMOData($file, 1, $bigEndian);
 			$TOffset = $input[1];
 
-			// fill the original table
+			// Fill the original table
 			fseek($file, $OOffset);
 			$origtemp = $this->readMOData($file, 2 * $total, $bigEndian);
 			fseek($file, $TOffset);
@@ -91,22 +84,8 @@ class GettextTranslator extends Translator implements ITranslator {
 					}
 				}
 			}
-
 			@fclose($file);
 		}
-
-
-//		putenv('LANG='        . $language . '_FR.utf8');
-//		putenv('LANGUAGE='    . $language . '_FR.utf8');
-//		putenv('LC_ALL='      . $language . '_FR.utf8');
-//		setlocale(LC_ALL      , $language . '_FR.utf8');
-//
-//		// Set the text domain as 'messages'
-//		$domain = $language;
-//		bind_textdomain_codeset($domain, 'UTF-8');
-//		bindtextdomain($domain, $this->getTranslationDir());
-//		textdomain($domain);
-
 		return $data;
 	}
 
@@ -114,7 +93,9 @@ class GettextTranslator extends Translator implements ITranslator {
 	/**
      * Read values from the MO file
      *
-     * @param  string  $bytes
+	 * @param string $file file handler
+     * @param string $bytes
+	 * @param bool   $bigEndian
      */
     private function readMOData($file, $bytes, $bigEndian = false) {
         if ($bigEndian === false) {
