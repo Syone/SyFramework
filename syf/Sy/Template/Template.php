@@ -59,7 +59,7 @@ class Template implements ITemplate {
 		$varvals = array_values($this->vars);
 		$res =  str_replace($varkeys, $varvals, $this->content);
 		$res = preg_replace('/{[^ \t\r\n}[":,]+}/', "", $res);
-		$res = preg_replace('/{:([^\t\r\n}[",]+)}/', '$1', $res);
+		$res = preg_replace('/{:([^\t\r\n}]+)}/', '$1', $res);
 		return $res;
 	}
 
