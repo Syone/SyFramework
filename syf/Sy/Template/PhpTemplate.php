@@ -28,6 +28,10 @@ class PhpTemplate implements ITemplate {
 
 	}
 
+	public function _($var) {
+		return isset($this->vars[$var]) ? $this->vars[$var] : $var;
+	}
+
 	public function getRender() {
 		if (empty($this->mainFile)) return '';
 
