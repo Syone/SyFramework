@@ -18,8 +18,7 @@ class TranslatorProvider {
 		$translator = new $class();
 		$translator->setTranslationLang($langDetector->getLang());
 		$translator->setTranslationDir($directory);
-		$data = $translator->loadTranslationData();
-		$translator->setTranslationData($data);
+		$translator->loadTranslationData();
 		return $translator;
 	}
 

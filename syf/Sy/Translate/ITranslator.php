@@ -15,7 +15,7 @@ interface ITranslator {
 
 	public function setTranslationDir($directory);
 
-	public function translate($key);
+	public function translate($message);
 
 	public function loadTranslationData();
 

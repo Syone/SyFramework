@@ -191,7 +191,7 @@ class WebComponent extends Component {
 			$res = $translator->translate($message);
 			if (!empty($res)) break;
 		}
-		return !empty($res) ? sprintf(_($res)) : sprintf(_($message));
+		return !empty($res) ? $res : $message;
 	}
 
 	public function __toString() {

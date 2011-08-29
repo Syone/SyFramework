@@ -33,8 +33,8 @@ class Translator {
 		$this->translationDir = $directory;
 	}
 
-	public function translate($key) {
-		return isset($this->translationData[$key]) ? $this->translationData[$key] : '';
+	public function translate($message) {
+		return isset($this->translationData[$message]) ? $this->translationData[$message] : '';
 	}
 
 }

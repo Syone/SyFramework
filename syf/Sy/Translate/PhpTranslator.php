@@ -9,7 +9,7 @@ class PhpTranslator extends Translator implements ITranslator {
 		if (!file_exists($file)) $file = $this->getTranslationDir() . '/default.php';
 		if (file_exists($file)) $data = include($file);
 		if (!is_array($data)) $data = array();
-		return $data;
+		$this->setTranslationData($data);
 	}
 
 }

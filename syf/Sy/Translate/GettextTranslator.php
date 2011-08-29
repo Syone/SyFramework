@@ -3,10 +3,24 @@ namespace Sy\Translate;
 
 class GettextTranslator extends Translator implements ITranslator {
 
-	public function loadTranslationData() {
+	public function translate($message) {
+		return gettext($message);
+	}
 
-		$language = $this->getTranslationLang();
-		$filename = $this->getTranslationDir() . '/' . $language . '.mo';
+	public function loadTranslationData() {
+		$data = array();
+		$lang = $this->getTranslationLang();
+		$dir  = $this->getTranslationDir();
+		if (!file_exists("$dir/$lang.mo")) $lang = 'default';
+		if (file_exists("$dir/$lang.mo")) {
+			\bindtextdomain($lang, $this->getTranslationDir());
+			\textdomain($lang);
+			$data = $this->readData("$dir/$lang.mo");
+		}
+		$this->setTranslationData($data);
+	}
+
+	private function readData($filename) {
 		$data = array();
 
 		if (file_exists($filename)) {
