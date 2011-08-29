@@ -3,20 +3,11 @@ namespace Sy\Translate;
 
 class GettextTranslator extends Translator implements ITranslator {
 
-	public function translate($message) {
-		return gettext($message);
-	}
-
 	public function loadTranslationData() {
 		$data = array();
 		$lang = $this->getTranslationLang();
 		$dir  = $this->getTranslationDir();
-		if (!file_exists("$dir/$lang.mo")) $lang = 'default';
-		if (file_exists("$dir/$lang.mo")) {
-			\bindtextdomain($lang, $this->getTranslationDir());
-			\textdomain($lang);
-			$data = $this->readData("$dir/$lang.mo");
-		}
+		if (file_exists("$dir/$lang.mo")) $data = $this->readData("$dir/$lang.mo");
 		$this->setTranslationData($data);
 	}
 
@@ -94,22 +85,8 @@ class GettextTranslator extends Translator implements ITranslator {
 
 			@fclose($file);
 		}
-
-
-//		putenv('LANG='        . $language . '_FR.utf8');
-//		putenv('LANGUAGE='    . $language . '_FR.utf8');
-//		putenv('LC_ALL='      . $language . '_FR.utf8');
-//		setlocale(LC_ALL      , $language . '_FR.utf8');
-//
-//		// Set the text domain as 'messages'
-//		$domain = $language;
-//		bind_textdomain_codeset($domain, 'UTF-8');
-//		bindtextdomain($domain, $this->getTranslationDir());
-//		textdomain($domain);
-
 		return $data;
 	}
-
 
 	/**
      * Read values from the MO file
