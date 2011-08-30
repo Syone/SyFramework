@@ -25,11 +25,11 @@ class Template implements ITemplate {
 	public function setVar($var, $value, $append = false) {
 		if ($append and isset($this->vars['{' . $var . '}'])) {
 			$this->vars['{' . $var . '}'] .= $value;
-			$this->vars['_("' . $var . '")'] .= $value;
+			$this->vars["_('$var')"] .= $value;
 		}
 		else {
 			$this->vars['{' . $var . '}'] = $value;
-			$this->vars['_("' . $var . '")'] = $value;
+			$this->vars["_('$var')"] = $value;
 		}
 	}
 
@@ -59,7 +59,7 @@ class Template implements ITemplate {
 		$varvals = array_values($this->vars);
 		$res =  str_replace($varkeys, $varvals, $this->content);
 		$res = preg_replace('/{[^ \t\r\n}[":,]+}/', "", $res);
-		$res = preg_replace('/_\(\"([^\t\r\n]+)\"\)/', '$1', $res);
+		$res = preg_replace('/_\(\'([^\t\r\n]+)\'\)/', '$1', $res);
 		return $res;
 	}
 
