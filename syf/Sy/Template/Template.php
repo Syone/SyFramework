@@ -23,13 +23,11 @@ class Template implements ITemplate {
 	}
 
 	public function setVar($var, $value, $append = false) {
-		if ($append and isset($this->vars['{' . $var . '}'])) {
-			$this->vars['{' . $var . '}'] .= $value;
-			$this->vars["_('$var')"] .= $value;
+		if ($append and isset($this->vars['/{[\"\']?' . $var . '[\"\']?}/'])) {
+			$this->vars['/{[\"\']?' . $var . '[\"\']?}/'] .= $value;
 		}
 		else {
-			$this->vars['{' . $var . '}'] = $value;
-			$this->vars["_('$var')"] = $value;
+			$this->vars['/{[\"\']?' . $var . '[\"\']?}/'] = $value;
 		}
 	}
 
@@ -44,7 +42,8 @@ class Template implements ITemplate {
 
 		$varkeys = array_keys($this->vars);
 		$varvals = array_values($this->vars);
-		$res = str_replace($varkeys, $varvals, $data);
+//		$res = str_replace($varkeys, $varvals, $data);
+		$res = preg_replace($varkeys, $varvals, $data);
 
 		$this->blockParsed[$block] .= $res;
 	}
@@ -57,9 +56,10 @@ class Template implements ITemplate {
 
 		$varkeys = array_keys($this->vars);
 		$varvals = array_values($this->vars);
-		$res =  str_replace($varkeys, $varvals, $this->content);
+//		$res =  str_replace($varkeys, $varvals, $this->content);
+		$res =  preg_replace($varkeys, $varvals, $this->content);
 		$res = preg_replace('/{[^ \t\r\n}[":,]+}/', "", $res);
-		$res = preg_replace('/_\(\'([^\t\r\n]+)\'\)/', '$1', $res);
+		$res = preg_replace('/{[\"\']+([^\t\r\n]+)[\"\']+}/', '$1', $res);
 		return $res;
 	}
 
