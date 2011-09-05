@@ -24,7 +24,7 @@ class Template implements ITemplate {
 
 	public function setVar($var, $value, $append = false) {
 		$var = '/{[\"\']?' . $var . '[\"\']?}/';
-		if ($append and isset($this->vars[])) {
+		if ($append and isset($this->vars[$var])) {
 			$this->vars[$var] .= $value;
 		}
 		else {
