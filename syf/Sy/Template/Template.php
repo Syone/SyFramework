@@ -20,11 +20,11 @@ class Template implements ITemplate {
 
 	public function setMainFile($file) {
 		if (file_exists($file)) $this->content = file_get_contents($file);
-		$this->content = preg_replace('/{[\']+([^\t\r\n]+)[\']+}/', '{"$1"}', $this->content);
+		$this->content = preg_replace('/{\'([^\t\r\n]+)\'}/', '{"$1"}', $this->content);
 	}
 
 	public function setVar($var, $value, $append = false) {
-		$var = '/{[\"]?' . $var . '[\"]?}/';
+		$var = '/{\"?' . $var . '\"?}/';
 		if ($append and isset($this->vars[$var])) {
 			$this->vars[$var] .= $value;
 		}
@@ -59,7 +59,7 @@ class Template implements ITemplate {
 		$varvals = array_values($this->vars);
 		$res =  preg_replace($varkeys, $varvals, $this->content);
 		$res = preg_replace('/{[^ \t\r\n}[":,]+}/', "", $res);
-		$res = preg_replace('/{[\"\']+([^\t\r\n]+)[\"\']+}/', '$1', $res);
+		$res = preg_replace('/{\"([^\t\r\n]+)\"}/', '$1', $res);
 		return $res;
 	}
 
