@@ -13,10 +13,6 @@ class Form extends Form\FieldContainer {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
-		if (is_null($attributes['action'])) {
-			$attributes['action'] = $_SERVER['REQUEST_URI'];
-			$this->addHidden(array('name' => 'formAction' . $this->formId, 'value' => 'submit'));
-		}
 		$this->setAttributes($attributes);
 		$this->success = false;
 		$this->init();
@@ -47,7 +43,10 @@ class Form extends Form\FieldContainer {
 
 	public function __toString() {
 		$this->setVar('SUCCESS', $this->success);
-		$this->setVar('ACTION', $this->getAttribute('action'));
+		if (is_null($this->getAttribute('action'))) {
+			$this->setAttribute('action', $_SERVER['REQUEST_URI']);
+			$this->setVar('ACTION', 'formAction' . $this->formId);
+		}
 		return parent::__toString();
 	}
 
