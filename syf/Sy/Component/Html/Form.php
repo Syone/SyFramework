@@ -9,13 +9,13 @@ class Form extends Form\FieldContainer {
 
 	private $success;
 
-	public function __construct(array $attributes = array('action' => '', 'method' => 'post')) {
+	public function __construct(array $attributes = array('action' => NULL, 'method' => 'post')) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
-		if (empty($attributes['action'])) {
-			$queryString = empty($_SERVER['QUERY_STRING']) ? '' : $_SERVER['QUERY_STRING'] . '&amp;';
-			$attributes['action'] = '?' . $queryString . 'formAction' . $this->formId . '=submit';
+		if (is_null($attributes['action'])) {
+			$attributes['action'] = $_SERVER['REQUEST_URI'];
+			$this->addHidden(array('name' => 'formAction' . $this->formId, 'value' => 'submit'));
 		}
 		$this->setAttributes($attributes);
 		$this->success = false;
