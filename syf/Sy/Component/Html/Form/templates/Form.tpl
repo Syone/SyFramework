@@ -6,7 +6,7 @@
 <div class="success"><?php echo $OPTIONS['success'] ?></div>
 <?php endif ?>
 <?php if (isset($ACTION)) : ?>
-<input type="hidden" name="<?php echo $ACTION ?>" value="submit" />
+<input name="<?php echo $ACTION ?>" value="submit" type="hidden" />
 <?php endif ?>
 <?php foreach ($ELEMENTS as $element) : ?>
 <?php echo $element ?>
