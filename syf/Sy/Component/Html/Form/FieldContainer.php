@@ -200,7 +200,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes image attributes
 	 * @param array $options image options
-	 * @return Element
+	 * @return Input
 	 */
 	public function addImage(array $attributes = array(), array $options = array()) {
 		$element = new Input('image');
@@ -273,7 +273,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes reset attributes
 	 * @param array $options reset options
-	 * @return Element
+	 * @return Input
 	 */
 	public function addReset(array $attributes = array(), array $options = array()) {
 		$element = new Input('reset');
@@ -313,7 +313,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes submit attributes
 	 * @param array $options submit options
-	 * @return Element
+	 * @return Input
 	 */
 	public function addSubmit(array $attributes = array(), array $options = array()) {
 		$element = new Input('submit');
