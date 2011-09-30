@@ -1,20 +1,15 @@
 <?php
 namespace Sy\Component\Html\Form;
 
-class Date extends TextElement implements FillableElement {
+class Date extends TextInput implements FillableElement {
 
 	public function __construct() {
-		parent::__construct('input');
+		parent::__construct('date');
 	}
 
 	public function fill($value) {
 		if (is_array($value)) return;
 		$this->setAttribute('value', $value);
-	}
-
-	public function __toString() {
-		$this->setAttribute('type', 'date');
-		return parent::__toString();
 	}
 
 }
