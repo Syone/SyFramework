@@ -92,7 +92,10 @@ class FieldContainer extends Container {
 	 * @return Color
 	 */
 	public function addColor(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Color', $attributes, $options);
+		$element = new TextFillableInput('color');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -103,7 +106,10 @@ class FieldContainer extends Container {
 	 * @return Date
 	 */
 	public function addDate(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Date', $attributes, $options);
+		$element = new TextFillableInput('date');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -114,7 +120,10 @@ class FieldContainer extends Container {
 	 * @return Month
 	 */
 	public function addMonth(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Month', $attributes, $options);
+		$element = new TextFillableInput('month');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -125,7 +134,10 @@ class FieldContainer extends Container {
 	 * @return Week
 	 */
 	public function addWeek(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Week', $attributes, $options);
+		$element = new TextFillableInput('week');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -136,7 +148,10 @@ class FieldContainer extends Container {
 	 * @return Time
 	 */
 	public function addTime(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Time', $attributes, $options);
+		$element = new TextFillableInput('time');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -147,7 +162,10 @@ class FieldContainer extends Container {
 	 * @return DateTime
 	 */
 	public function addDateTime(array $attributes = array(), array $options = array()) {
-		return $this->addInput('DateTime', $attributes, $options);
+		$element = new TextFillableInput('datetime');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -158,7 +176,10 @@ class FieldContainer extends Container {
 	 * @return DateTimeLocal
 	 */
 	public function addDateTimeLocal(array $attributes = array(), array $options = array()) {
-		return $this->addInput('DateTimeLocal', $attributes, $options);
+		$element = new TextFillableInput('datetime-local');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -170,7 +191,11 @@ class FieldContainer extends Container {
 	 * @return Email
 	 */
 	public function addEmail(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Email', $attributes, $options);
+		$element = new TextFillableInput('email');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		$element->addValidator('Sy\\Component\\Html\\Form\\email');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -217,7 +242,11 @@ class FieldContainer extends Container {
 	 * @return Number
 	 */
 	public function addNumber(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Number', $attributes, $options);
+		$element = new TextFillableInput('number');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		$element->addValidator('Sy\\Component\\Html\\Form\\int');
+		return $this->addElement($element);
 	}
 
 	/**
@@ -265,7 +294,10 @@ class FieldContainer extends Container {
 	 * @return Range
 	 */
 	public function addRange(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Range', $attributes, $options);
+		$element = new TextFillableInput('range');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -305,7 +337,10 @@ class FieldContainer extends Container {
 	 * @return Search
 	 */
 	public function addSearch(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Search', $attributes, $options);
+		$element = new TextFillableInput('search');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -331,7 +366,10 @@ class FieldContainer extends Container {
 	 * @return Tel
 	 */
 	public function addTel(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Tel', $attributes, $options);
+		$element = new TextFillableInput('tel');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -342,7 +380,10 @@ class FieldContainer extends Container {
 	 * @return Text
 	 */
 	public function addText(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Text', $attributes, $options);
+		$element = new TextFillableInput('text');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
@@ -365,7 +406,10 @@ class FieldContainer extends Container {
 	 * @return Url
 	 */
 	public function addUrl(array $attributes = array(), array $options= array()) {
-		return $this->addInput('Url', $attributes, $options);
+		$element = new TextFillableInput('url');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**
