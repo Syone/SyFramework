@@ -12,7 +12,8 @@ class CheckboxSet extends InputSet {
 			),
 			array('label' => $label)
 		);
-		if ($this->checked === $value) $checkbox->setAttribute('checked', 'checked');
+		$array = is_array($this->checked) ? $this->checked : array($this->checked);
+		if (in_array($value, $array, true)) $checkbox->setAttribute('checked', 'checked');
 		return $checkbox;
 	}
 
