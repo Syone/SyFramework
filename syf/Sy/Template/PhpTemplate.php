@@ -13,7 +13,7 @@ class PhpTemplate implements ITemplate {
 		$this->files = array();
 	}
 
-	public function setMainFile($file) {
+	public function setFile($file) {
 		if (file_exists($file)) $this->mainFile = $file;
 	}
 

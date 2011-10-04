@@ -18,7 +18,7 @@ class Template implements ITemplate {
 		$this->blockParsed = array();
 	}
 
-	public function setMainFile($file) {
+	public function setFile($file) {
 		if (file_exists($file)) $this->content = file_get_contents($file);
 		$this->content = preg_replace('/{\'([^\t\r\n]+)\'}/', '{"$1"}', $this->content);
 	}
