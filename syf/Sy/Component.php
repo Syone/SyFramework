@@ -57,7 +57,7 @@ class Component extends Object {
 			$this->logError($message , $info);
 		}
 		$this->setTemplateType($type);
-		$this->template->setMainFile($file);
+		$this->template->setFile($file);
 	}
 
 	/**
