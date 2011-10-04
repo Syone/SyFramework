@@ -3,18 +3,18 @@ namespace Sy\Template;
 
 class PhpTemplate implements ITemplate {
 
-	private $mainFile;
+	private $file;
 
 	private $vars;
 
 	public function __construct() {
-		$this->mainFile = '';
+		$this->file = '';
 		$this->vars = array();
 		$this->files = array();
 	}
 
 	public function setFile($file) {
-		if (file_exists($file)) $this->mainFile = $file;
+		if (file_exists($file)) $this->file = $file;
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -33,14 +33,14 @@ class PhpTemplate implements ITemplate {
 	}
 
 	public function getRender() {
-		if (empty($this->mainFile)) return '';
+		if (empty($this->file)) return '';
 
 		foreach ($this->vars as $name => $value) {
 			$$name = $value;
 		}
 
 		ob_start();
-		include $this->mainFile;
+		include $this->file;
 		$content = ob_get_contents();
 		ob_end_clean();
 		return $content;
