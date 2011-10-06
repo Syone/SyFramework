@@ -215,7 +215,7 @@ class DataTable extends Table {
 	 */
 	private function renderHeads() {
 		$header = $this->getTHead();
-		$header->setElements(array());
+		if (!$header->isEmpty()) return;
 		$tr = $header->addTr();
 		foreach ($this->heads as $head) {
 			$tr->addTh($head);
@@ -227,7 +227,7 @@ class DataTable extends Table {
 	 */
 	private function renderFoots() {
 		$footer = $this->getTFoot();
-		$footer->setElements(array());
+		if (!$footer->isEmpty()) return;
 		$tr = $footer->addTr();
 		foreach ($this->foots as $foot) {
 			$tr->addTd($foot);
