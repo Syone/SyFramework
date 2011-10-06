@@ -9,7 +9,7 @@ class Form extends Form\FieldContainer {
 
 	private $success;
 
-	public function __construct(array $attributes = array('action' => NULL, 'method' => 'post')) {
+	public function __construct(array $attributes = array()) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
@@ -46,6 +46,9 @@ class Form extends Form\FieldContainer {
 		if (is_null($this->getAttribute('action'))) {
 			$this->setAttribute('action', $_SERVER['REQUEST_URI']);
 			$this->setVar('ACTION', 'formAction' . $this->formId);
+		}
+		if (is_null($this->getAttribute('method'))) {
+			$this->setAttribute('method', 'post');
 		}
 		return parent::__toString();
 	}
