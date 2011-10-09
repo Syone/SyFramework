@@ -7,10 +7,6 @@ class DataTable extends Table {
 
 	private $heads;
 
-	private $foots;
-
-	private $rows;
-
 	private $autoHead;
 
 	private $transpose;
@@ -22,14 +18,13 @@ class DataTable extends Table {
 	public function __construct(array $rows = array(), array $attributes = array()) {
 		parent::__construct($attributes);
 		$this->heads = array();
-		$this->foots = array();
-		$this->rows = $rows;
+		$this->addRows($rows);
 		$this->autoHead = false;
 		$this->transpose = false;
 	}
 
 	/**
-	 * Return if DataTable must align numeric value
+	 * Return if DataTable must align value
 	 *
 	 * @return bool
 	 */
@@ -154,12 +149,36 @@ class DataTable extends Table {
 	}
 
 	/**
-	 * Set head row
+	 * Set head rows
+	 *
+	 * @param array $heads Array of head row
+	 */
+	public function setHeads(array $heads) {
+		$this->getTHead()->setElements(array());
+		$this->addHeads($heads);
+	}
+
+	/**
+	 * Add head rows
+	 *
+	 * @param array $heads Array of head row
+	 */
+	public function addHeads(array $rows) {
+		foreach ($rows as $row) {
+			$this->addHead($rows);
+		}
+	}
+
+	/**
+	 * Add head row
 	 *
 	 * @param array $heads Array of head data
 	 */
-	public function setHeads(array $heads) {
-		$this->heads = $heads;
+	public function addHead(array $datas) {
+		$tr = $this->getTHead()->addTr();
+		foreach ($datas as $data) {
+			$tr->addTh($data);
+		}
 	}
 
 	/**
@@ -168,7 +187,31 @@ class DataTable extends Table {
 	 * @param array $foots Array of foot data
 	 */
 	public function setFoots(array $foots) {
-		$this->foots = $foots;
+		$this->getTHead()->setElements(array());
+		$this->addHeads($heads);
+	}
+
+	/**
+	 * Add foot rows
+	 *
+	 * @param array $heads Array of foot row
+	 */
+	public function addFoots(array $rows) {
+		foreach ($rows as $row) {
+			$this->addFoot($rows);
+		}
+	}
+
+	/**
+	 * Add foot row
+	 *
+	 * @param array $heads Array of foot data
+	 */
+	public function addFoot(array $datas) {
+		$tr = $this->getTFoot()->addTr();
+		foreach ($datas as $data) {
+			$tr->addTd($data);
+		}
 	}
 
 	/**
@@ -177,16 +220,8 @@ class DataTable extends Table {
 	 * @param array $rows
 	 */
 	public function setRows(array $rows) {
-		$this->rows = $rows;
-	}
-
-	/**
-	 * Add a row in the table
-	 *
-	 * @param array $datas Array of data
-	 */
-	public function addRow(array $datas) {
-		$this->rows[] = $datas;
+		$this->getTBody()->setElements(array());
+		$this->addRows($rows);
 	}
 
 	/**
@@ -197,7 +232,22 @@ class DataTable extends Table {
 	 * @param bool $transpose Transpose table data
 	 */
 	public function addRows(array $rows) {
-		$this->rows = array_merge($this->rows, $rows);
+		foreach ($rows as $row) {
+			$this->addRow($row);
+		}
+	}
+
+	/**
+	 * Add a row in the table
+	 *
+	 * @param array $datas Array of data
+	 */
+	public function addRow(array $datas) {
+		$tr = $this->getTBody()->addTr();
+		foreach ($datas as $data) {
+			$tr->addTd($data);
+		}
+		if (empty($this->heads)) $this->heads = array_keys($datas);
 	}
 
 	/**
@@ -234,61 +284,35 @@ class DataTable extends Table {
 		}
 	}
 
-	/**
-	 * Add a row in the table
-	 *
-	 * @param array $datas Array of data
-	 * @param string $head Row head
-	 */
-	private function renderRow(array $datas, $head = '') {
-		$tr = $this->getTBody()->addTr();
-		if ($this->hasAlign())
-			$tr->setAttribute('align', $this->options['align']);
-		if (!empty($head)) $tr->addTh($head);
-		foreach ($datas as $data) {
-			$isNumeric = is_numeric($data);
-			if ($this->hasNumFormat())
-				$data = $isNumeric ? number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']) : $data;
-			if ($this->hasPregReplace()) {
-				foreach ($this->replaces as $replace)
-					$data = preg_replace($replace['pattern'], $replace['replacement'], $data);
+	private function processAlign($element) {
+		if ($element instanceof Table\TrContainer) {
+			foreach ($element->getElements() as $e) {
+				$this->processAlign($e);
 			}
-			$td = $tr->addTd($data);
-			if ($this->hasNumAlign() and $isNumeric)
-				$td->setAttribute('align', $this->options['num_align']);
+		} else if ($element instanceof Table\Tr) {
+			$element->setAttribute('align', $this->options['align']);
 		}
 	}
 
-	/**
-	 * Render table rows
-	 */
-	private function renderRows() {
-		if ($this->transpose) {
-			$this->rows = $this->transpose($this->rows);
-			if ($this->autoHead) {
-				$this->heads = array_keys($this->rows);
-				$i = 0;
-				foreach ($this->rows as $row) {
-					$this->renderRow($row, $this->heads[$i++]);
-				}
-				return;
+	private function processNumFormat($element) {
+		if ($element instanceof Container) {
+			foreach ($element->getElements() as $e) {
+				$this->processNumFormat($e);
 			}
-		} else {
-			if ($this->autoHead) {
-				if (empty($this->heads)) {
-					$this->heads = array_keys(current($this->rows));
-				}
-			}
-			$this->renderHeads();
-		}
-		foreach ($this->rows as $row) {
-			$this->renderRow($row);
+		} else if ($element instanceof Table\Td) {
+			$data = $element->getContent();
+			$isNumeric = is_numeric($data);
+			$data = $isNumeric ? number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']) : $data;
+			$element->setContent($data);
 		}
 	}
 
 	public function __toString() {
-		$this->renderRows();
-		$this->renderFoots();
+		if ($this->hasAlign()) {
+			$this->processAlign($this->getTBody());
+			$this->processAlign($this);
+		}
+		if ($this->getTHead()->isEmpty() and $this->autoHead) $this->addHead($this->heads);
 		return parent::__toString();
 	}
 
