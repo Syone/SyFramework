@@ -29,6 +29,18 @@ class Tr extends Container {
 	}
 
 	/**
+	 * Add a set of th element
+	 *
+	 * @param array $datas th elements text
+	 * @param array $attributes th elements attributes
+	 */
+	public function addThs(array $datas, array $attributes = array()) {
+		foreach ($datas as $data) {
+			$this->addTh($data, $attributes);
+		}
+	}
+
+	/**
 	 * Add a td element
 	 *
 	 * @param string $data td element text
@@ -40,6 +52,18 @@ class Tr extends Container {
 		$element->setContent($data);
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
+	}
+
+	/**
+	 * Add a set of td element
+	 *
+	 * @param array $datas td elements text
+	 * @param array $attributes td elements attributes
+	 */
+	public function addTds(array $datas, array $attributes = array()) {
+		foreach ($datas as $data) {
+			$this->addTd($data, $attributes);
+		}
 	}
 
 	/**
