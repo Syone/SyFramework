@@ -311,29 +311,11 @@ class DataTable extends Table {
 	}
 
 	/**
-	 * Render table heads
+	 * Align the element
+	 *
+	 * @param Element $element
+	 * @param string $align
 	 */
-	private function renderHeads() {
-		$header = $this->getTHead();
-		if (!$header->isEmpty()) return;
-		$tr = $header->addTr();
-		foreach ($this->heads as $head) {
-			$tr->addTh($head);
-		}
-	}
-
-	/**
-	 * Render table foots
-	 */
-	private function renderFoots() {
-		$footer = $this->getTFoot();
-		if (!$footer->isEmpty()) return;
-		$tr = $footer->addTr();
-		foreach ($this->foots as $foot) {
-			$tr->addTd($foot);
-		}
-	}
-
 	private function processAlign($element, $align) {
 		if ($element instanceof Table\TrContainer) {
 			foreach ($element->getElements() as $e) {
@@ -344,16 +326,32 @@ class DataTable extends Table {
 		}
 	}
 
-	private function processNumFormat($element) {
+	/**
+	 * Format value
+	 *
+	 * @param Element $element
+	 */
+	private function processFormat($element) {
 		if ($element instanceof Container) {
 			foreach ($element->getElements() as $e) {
-				$this->processNumFormat($e);
+				$this->processFormat($e);
 			}
-		} else if ($element instanceof Table\Td) {
+		} else if ($element instanceof Element) {
 			$data = $element->getContent();
 			$isNumeric = is_numeric($data);
-			$data = $isNumeric ? number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']) : $data;
-			$element->setContent($data);
+			if ($isNumeric and $this->hasNumAlign()) {
+				$element->setAttribute('align', $this->options['num_align']);
+			}
+			if ($isNumeric and $this->hasNumFormat()) {
+				$data = number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']);
+				$element->setContent($data);
+			}
+			if ($this->hasPregReplace()) {
+				foreach ($this->replaces as $replace) {
+					$data = preg_replace($replace['pattern'], $replace['replacement'], $data);
+					$element->setContent($data);
+				}
+			}
 		}
 	}
 
@@ -365,6 +363,10 @@ class DataTable extends Table {
 		if ($this->getTHead()->isEmpty() and $this->autoHead) $this->addHead($this->heads);
 		if ($this->hasHeadAlign()) $this->processAlign($this->getTHead(), $this->options['head_align']);
 		if ($this->hasFootAlign()) $this->processAlign($this->getTFoot(), $this->options['foot_align']);
+		if ($this->hasNumFormat() or $this->hasNumAlign() or $this->hasPregReplace()) {
+			$this->processFormat($this->getTBody());
+			$this->processFormat($this);
+		}
 		return parent::__toString();
 	}
 
