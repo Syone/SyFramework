@@ -33,6 +33,24 @@ class DataTable extends Table {
 	}
 
 	/**
+	 * Return if DataTable must align header
+	 *
+	 * @return bool
+	 */
+	private function hasHeadAlign() {
+		return isset($this->options['head_align']);
+	}
+
+	/**
+	 * Return if DataTable must align footer
+	 *
+	 * @return bool
+	 */
+	private function hasFootAlign() {
+		return isset($this->options['foot_align']);
+	}
+
+	/**
 	 * Return if DataTable must align numeric value
 	 *
 	 * @return bool
@@ -88,6 +106,38 @@ class DataTable extends Table {
 			case 'justify':
 			case 'char':
 				$this->options['align'] = $align; break;
+		}
+	}
+
+	/**
+	 * Set head alignment
+	 *
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 */
+	public function setHeadAlign($align) {
+		switch ($align) {
+			case 'left':
+			case 'center':
+			case 'right':
+			case 'justify':
+			case 'char':
+				$this->options['head_align'] = $align; break;
+		}
+	}
+
+	/**
+	 * Set foot alignment
+	 *
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 */
+	public function setFootAlign($align) {
+		switch ($align) {
+			case 'left':
+			case 'center':
+			case 'right':
+			case 'justify':
+			case 'char':
+				$this->options['foot_align'] = $align; break;
 		}
 	}
 
@@ -284,13 +334,13 @@ class DataTable extends Table {
 		}
 	}
 
-	private function processAlign($element) {
+	private function processAlign($element, $align) {
 		if ($element instanceof Table\TrContainer) {
 			foreach ($element->getElements() as $e) {
-				$this->processAlign($e);
+				$this->processAlign($e, $align);
 			}
 		} else if ($element instanceof Table\Tr) {
-			$element->setAttribute('align', $this->options['align']);
+			$element->setAttribute('align', $align);
 		}
 	}
 
@@ -309,9 +359,11 @@ class DataTable extends Table {
 
 	public function __toString() {
 		if ($this->hasAlign()) {
-			$this->processAlign($this->getTBody());
-			$this->processAlign($this);
+			$this->processAlign($this->getTBody(), $this->options['align']);
+			$this->processAlign($this, $this->options['align']);
 		}
+		if ($this->hasHeadAlign()) $this->processAlign($this->getTHead(), $this->options['head_align']);
+		if ($this->hasFootAlign()) $this->processAlign($this->getTFoot(), $this->options['foot_align']);
 		if ($this->getTHead()->isEmpty() and $this->autoHead) $this->addHead($this->heads);
 		return parent::__toString();
 	}
