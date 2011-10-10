@@ -362,9 +362,9 @@ class DataTable extends Table {
 			$this->processAlign($this->getTBody(), $this->options['align']);
 			$this->processAlign($this, $this->options['align']);
 		}
+		if ($this->getTHead()->isEmpty() and $this->autoHead) $this->addHead($this->heads);
 		if ($this->hasHeadAlign()) $this->processAlign($this->getTHead(), $this->options['head_align']);
 		if ($this->hasFootAlign()) $this->processAlign($this->getTFoot(), $this->options['foot_align']);
-		if ($this->getTHead()->isEmpty() and $this->autoHead) $this->addHead($this->heads);
 		return parent::__toString();
 	}
 
