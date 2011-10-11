@@ -190,7 +190,7 @@ class DataTable extends Table {
 	 */
 	public function addHeads(array $rows) {
 		foreach ($rows as $row) {
-			$this->addHead($rows);
+			$this->addHead($row);
 		}
 	}
 
@@ -223,7 +223,7 @@ class DataTable extends Table {
 	 */
 	public function addFoots(array $rows) {
 		foreach ($rows as $row) {
-			$this->addFoot($rows);
+			$this->addFoot($row);
 		}
 	}
 
