@@ -78,22 +78,6 @@ class DataTable extends Table {
 	}
 
 	/**
-	 * Transpose a 2D array
-	 *
-	 * @param array $rows
-	 * @return array
-	 */
-	private function transpose($rows) {
-		$res = array();
-		foreach ($rows as $row => $cols) {
-			foreach ($cols as $col => $value) {
-				$res[$col][$row] = $value;
-			}
-		}
-		return $res;
-	}
-
-	/**
 	 * Set value alignment
 	 *
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
@@ -187,15 +171,6 @@ class DataTable extends Table {
 	 */
 	public function setAutoHead($auto) {
 		$this->autoHead = $auto;
-	}
-
-	/**
-	 * Set if the table must be transpose or not
-	 *
-	 * @param bool $tranpose
-	 */
-	public function setTranspose($transpose) {
-		$this->transpose = $transpose;
 	}
 
 	/**
