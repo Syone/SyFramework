@@ -16,7 +16,7 @@ class Navigation extends Container {
 	 * @param string $link Item link
 	 * @return Navigation\Item
 	 */
-	public function addItem($title, $link = '#') {
+	public function addItem($title, $link = NULL) {
 		$item = new Navigation\Item($title, $link);
 		return $this->addElement($item);
 	}
