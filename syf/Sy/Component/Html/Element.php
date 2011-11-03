@@ -104,7 +104,7 @@ class Element extends WebComponent {
 
 	public function __toString() {
 		$this->setVar('TAG_NAME', $this->tagName);
-		$this->setVar('CONTENT', $this->content);
+		$this->setVar('CONTENT', $this->content, true);
 		if ($this->getTemplateType() == 'php') {
 			$this->setVar('ATTRIBUTES', $this->attributes);
 		}
