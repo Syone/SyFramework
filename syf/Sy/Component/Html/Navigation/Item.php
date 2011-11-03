@@ -12,16 +12,20 @@ class Item extends \Sy\Component\Html\Container {
 	 * @var Container
 	 */
 	private $list;
-	
-	public function __construct($title, $link = '#') {
+
+	public function __construct($title, $link) {
 		parent::__construct('li');
-		$a = new Element('a');
-		$a->setAttribute('href', $link);
-		$a->setContent($title);
-		$this->addElement($a);
+		if (is_null($link)) {
+			$this->setContent($title);
+		} else {
+			$a = new Element('a');
+			$a->setAttribute('href', $link);
+			$a->setContent($title);
+			$this->addElement($a);
+		}
 		$this->list = new Container('ul');
 	}
-	
+
 	/**
 	 * Add a sub item
 	 *
@@ -29,14 +33,14 @@ class Item extends \Sy\Component\Html\Container {
 	 * @param string $link Item link
 	 * @return Item
 	 */
-	public function addItem($title, $link = '#') {
+	public function addItem($title, $link = NULL) {
 		$item = new Item($title, $link);
 		return $this->list->addElement($item);
 	}
-	
+
 	public function __toString() {
 		if (!$this->list->isEmpty()) $this->addElement($this->list);
 		return parent::__toString();
 	}
-	
+
 }
