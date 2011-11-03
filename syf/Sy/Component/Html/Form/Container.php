@@ -7,7 +7,6 @@ class Container extends Element implements FillableElement, ValidableElement {
 
 	public function __construct($name = '') {
 		parent::__construct($name);
-		$this->setTemplateFile(__DIR__ . '/templates/Container.tpl', 'php');
 		$this->elements = array();
 	}
 

@@ -7,7 +7,6 @@ class Container extends Element {
 
 	public function __construct($tagName) {
 		parent::__construct($tagName);
-		$this->setTemplateFile(__DIR__ . '/templates/Container.tpl', 'php');
 		$this->elements = array();
 	}
 
@@ -50,8 +49,10 @@ class Container extends Element {
 	}
 
 	public function __toString() {
-		if ($this->getTemplateType() == 'php')
-			$this->setVar('ELEMENTS', $this->elements);
+		if (!empty($this->elements)) $this->setVar('CONTENT', PHP_EOL, true);
+		foreach ($this->elements as $element) {
+			$this->setComponent('CONTENT', $element, true);
+		}
 		return parent::__toString();
 	}
 
