@@ -109,11 +109,9 @@ class Container extends Element implements FillableElement, ValidableElement {
 	}
 
 	public function __toString() {
-		if ($this->getTemplateType() == 'php')
-			$this->setVar('ELEMENTS', $this->elements);
+		if (!empty($this->elements)) $this->setVar('CONTENT', PHP_EOL, true);
 		foreach ($this->elements as $element) {
-			$this->mergeCss($element);
-			$this->mergeJs($element);
+			$this->setComponent('CONTENT', $element, true);
 		}
 		return parent::__toString();
 	}

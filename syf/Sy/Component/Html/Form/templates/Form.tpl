@@ -8,7 +8,5 @@
 <?php if (isset($ACTION)) : ?>
 <input name="<?php echo $ACTION ?>" value="submit" type="hidden" />
 <?php endif ?>
-<?php foreach ($ELEMENTS as $element) : ?>
-<?php echo $element ?>
-<?php endforeach ?>
+<?php echo $CONTENT ?>
 </form>
