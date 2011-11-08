@@ -18,8 +18,6 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 */
 	public function addElement(Element $element) {
 		$this->elements[] = $element;
-		$this->mergeCss($element);
-		$this->mergeJs($element);
 		return $element;
 	}
 
