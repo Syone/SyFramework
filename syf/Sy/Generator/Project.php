@@ -19,31 +19,28 @@ class Project {
 
 	public function generate() {
 		$this->generateClass($this->name . '/Component/Application');
-		$this->generateFile('index');
-		$this->generateFile('index_dev');
-		$this->generateFile('conf/conf');
-		$this->generateFile('conf/conf.default');
-		$this->generateFile('conf/inc');
+		$this->generateFile($this->name . '/Component/Application/templates/Application.html', 'Project/Component/Application/templates/Application.html');
+		$this->generateFile('index.php');
+		$this->generateFile('index_dev.php');
+		$this->generateFile('conf/conf.php');
+		$this->generateFile('conf/conf.default.php');
+		$this->generateFile('conf/inc.php');
 	}
 
 	private function generateClass($name) {
 		$namespace = str_replace('/', '\\', dirname($name));
 		$classname = basename($name);
-		$c = new Classe($namespace, $classname);
-		$this->createFile($this->path . '/' . $name . '.php', '<?php' . PHP_EOL . $c->__toString());
+		$class = new Classe($namespace, $classname);
+		$classFile = new ClassFile($this->path, $class);
+		$classFile->generate();
 	}
 
-	private function generateFile($name) {
+	private function generateFile($outputFile, $inputFile = NULL) {
 		$c = new Component();
-		$c->setTemplateFile(__DIR__ . "/Project/templates/$name.tpl");
+		$c->setTemplateFile(is_null($inputFile) ? __DIR__ . "/Project/templates/$outputFile" : __DIR__ . "/Project/templates/$inputFile");
 		$c->setVar('PROJECT_NAME', $this->name);
-		$this->createFile($this->path . '/' . $name . '.php', $c->__toString());
-	}
-
-	private function createFile($file, $content) {
-		$dir = dirname($file);
-		if (!file_exists($dir)) mkdir($dir, '0777', true);
-		file_put_contents($file, $content);
+		$file = new File($this->path . DIRECTORY_SEPARATOR . $outputFile, $c->__toString());
+		$file->generate();
 	}
 
 }

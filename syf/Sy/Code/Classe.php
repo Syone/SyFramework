@@ -25,6 +25,10 @@ class Classe extends Component {
 		$this->methods = array();
 	}
 
+	public function getName() {
+		return $this->namespace . '\\' . $this->name;
+	}
+
 	public function setAbstract($abtract) {
 		$this->abstract = $abtract;
 	}
