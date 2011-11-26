@@ -18,7 +18,7 @@ class Project {
 	}
 
 	public function generate() {
-		$this->generateClass($this->name . '/Component/Application');
+		$this->generateApplicationClass();
 		$this->generateFile($this->name . '/Component/Application/templates/Application.html', 'Project/Component/Application/templates/Application.html');
 		$this->generateFile('index.php');
 		$this->generateFile('index_dev.php');
@@ -27,10 +27,15 @@ class Project {
 		$this->generateFile('conf/inc.php');
 	}
 
-	private function generateClass($name) {
-		$namespace = str_replace('/', '\\', dirname($name));
-		$classname = basename($name);
-		$class = new Classe($namespace, $classname);
+	private function generateApplicationClass() {
+		$class = new Classe($this->name . '\Component', 'Application');
+		$construct = new Method('public', '__construct');
+		$construct->setBody("\t\tparent::__construct();");
+		$class->setMethods(array($construct));
+		$this->generateClass($class);
+	}
+
+	private function generateClass(Classe $class) {
 		$classFile = new ClassFile($this->path, $class);
 		$classFile->generate();
 	}
