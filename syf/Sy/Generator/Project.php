@@ -29,9 +29,28 @@ class Project {
 
 	private function generateApplicationClass() {
 		$class = new Classe($this->name . '\Component', 'Application');
-		$construct = new Method('public', '__construct');
-		$construct->setBody("\t\tparent::__construct();");
-		$class->setMethods(array($construct));
+		$class->setUsedClasses(array('Sy\Component\WebComponent', 'Sy\Component\Html\Page'));
+		$class->setExtendedClass('Page');
+		$propertyBody = new Property('private', 'body');
+		$class->setProperties(array($propertyBody));
+		$methodConstruct = new Method('public', '__construct');
+		$methodConstruct->setDescription('Application constructor');
+		$methodConstruct->setBody(<<<'EOC'
+		parent::__construct();
+		$this->body = new WebComponent();
+		$this->body->setTemplateFile(__DIR__ . '/Application/templates/Application.html');
+		$this->init();
+		$this->actionDispatch('p', 'home');
+EOC
+		);
+		$methodToString = new Method('public', '__toString');
+		$methodToString->setDescription('Return Application render');
+		$methodToString->setBody(<<<'EOC'
+		$this->setBody($this->body);
+		return parent::__toString();
+EOC
+		);
+		$class->setMethods(array($methodConstruct, $methodToString));
 		$this->generateClass($class);
 	}
 
