@@ -5,6 +5,7 @@ use Sy\Component;
 
 class Method extends Component {
 
+	private $description;
 	private $visibility;
 	private $static;
 	private $name;
@@ -14,11 +15,16 @@ class Method extends Component {
 	public function __construct($visibility, $name, $parameters = array()) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Method.tpl');
+		$this->description = '';
 		$this->visibility = $visibility;
 		$this->name = $name;
 		$this->parameters = $parameters;
 		$this->static = false;
 		$this->body = '';
+	}
+
+	public function setDescription($description) {
+		$this->description = $description;
 	}
 
 	public function setStatic($static) {
@@ -30,6 +36,10 @@ class Method extends Component {
 	}
 
 	public function __toString() {
+		if (!empty($this->description)) {
+			$this->setVar('DESCRIPTION', $this->description);
+			$this->setBlock('DESCRIPTION_BLOCK');
+		}
 		$this->setVar('VISIBILITY', $this->visibility);
 		$this->setVar('NAME', $this->name);
 		$this->setVar('BODY', $this->body);

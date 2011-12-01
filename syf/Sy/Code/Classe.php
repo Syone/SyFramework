@@ -6,6 +6,7 @@ use Sy\Component;
 class Classe extends Component {
 
 	private $namespace;
+	private $usedClasses;
 	private $abstract;
 	private $name;
 	private $extendedClass;
@@ -17,6 +18,7 @@ class Classe extends Component {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Classe.tpl');
 		$this->namespace = $namespace;
+		$this->usedClasses = array();
 		$this->abstract = false;
 		$this->name = $name;
 		$this->extendedClass = NULL;
@@ -27,6 +29,10 @@ class Classe extends Component {
 
 	public function getName() {
 		return $this->namespace . '\\' . $this->name;
+	}
+
+	public function setUsedClasses(array $classes) {
+		$this->usedClasses = $classes;
 	}
 
 	public function setAbstract($abtract) {
@@ -51,6 +57,11 @@ class Classe extends Component {
 
 	public function __toString() {
 		$this->setVar('NAMESPACE', $this->namespace);
+		foreach ($this->usedClasses as $className => $classAlias) {
+			if (!is_integer($className)) $this->setVar('USE_CLASS', $className . ' as ');
+			$this->setVar('AS_CLASS', $classAlias);
+			$this->setBlock('USED_CLASSES');
+		}
 		$this->setVar('NAME', $this->name);
 		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if (!is_null($this->extendedClass)) $this->setVar('EXTENDS', ' extends ' . $this->extendedClass);
