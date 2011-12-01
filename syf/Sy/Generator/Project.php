@@ -18,14 +18,20 @@ class Project {
 	}
 
 	public function generate() {
+		$this->copy('Project/Component/Application/templates/Application.html', $this->name . '/Component/Application/templates/Application.html');
+		$this->copy('Project/Component/Application/templates/Home.html', $this->name . '/Component/Application/templates/Home.html');
 		$this->generateFile($this->name . '/Component/Application.php', 'Project/Component/Application.php');
-		$this->generateFile($this->name . '/Component/Application/templates/Application.html', 'Project/Component/Application/templates/Application.html');
-		$this->generateFile($this->name . '/Component/Application/templates/Home.html', 'Project/Component/Application/templates/Home.html');
 		$this->generateFile('index.php');
 		$this->generateFile('index_dev.php');
 		$this->generateFile('conf/conf.php');
 		$this->generateFile('conf/conf.default.php');
 		$this->generateFile('conf/inc.php');
+	}
+
+	private function copy($src, $dest) {
+		$dir = dirname($this->path . DIRECTORY_SEPARATOR . $dest);
+		if (!file_exists($dir)) mkdir($dir, '0777', true);
+		copy(__DIR__ . "/Project/templates/$src", $this->path . DIRECTORY_SEPARATOR . $dest);
 	}
 
 	private function generateFile($outputFile, $inputFile = NULL) {
