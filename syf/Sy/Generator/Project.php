@@ -26,6 +26,7 @@ class Project {
 		$this->generateFile('conf/conf.php');
 		$this->generateFile('conf/conf.default.php');
 		$this->generateFile('conf/inc.php');
+		$this->generateFile('asset/css/application.css');
 	}
 
 	private function copy($src, $dest) {
