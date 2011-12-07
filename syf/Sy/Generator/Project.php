@@ -18,15 +18,14 @@ class Project {
 	}
 
 	public function generate() {
-		$this->copy('Project/Component/Application/templates/Application.html', $this->name . '/Component/Application/templates/Application.html');
-		$this->copy('Project/Component/Application/templates/Home.html', $this->name . '/Component/Application/templates/Home.html');
-		$this->generateFile($this->name . '/Component/Application.php', 'Project/Component/Application.php');
+		$this->copy('protected/Project/Component/Application/templates/Application.html', 'protected/' . $this->name . '/Component/Application/templates/Application.html');
+		$this->generateFile('protected/' . $this->name . '/Component/Application.php', 'protected/Project/Component/Application.php');
+		$this->generateFile('protected/conf/conf.php');
+		$this->generateFile('protected/conf/conf.default.php');
+		$this->generateFile('protected/conf/inc.php');
+		$this->generateFile('protected/.htaccess');
 		$this->generateFile('index.php');
 		$this->generateFile('index_dev.php');
-		$this->generateFile('conf/conf.php');
-		$this->generateFile('conf/conf.default.php');
-		$this->generateFile('conf/inc.php');
-		$this->generateFile('asset/css/application.css');
 	}
 
 	private function copy($src, $dest) {
