@@ -27,8 +27,8 @@ class Project {
 	}
 
 	private function generatePublic() {
-		$this->copy('protected/Project/Component/Application/templates/Application.html', $this->name . '/Component/Application/templates/Application.html');
-		$this->generateFile($this->name . '/Component/Application.php', 'protected/Project/Component/Application.php');
+		$this->copy('protected/Project/Application/templates/Application.html', $this->name . '/Application/templates/Application.html');
+		$this->generateFile($this->name . '/Application.php', 'protected/Project/Application.php');
 		$this->generateFile('conf/conf.php', 'protected/conf/conf.php');
 		$this->generateFile('conf/conf.default.php', 'protected/conf/conf.default.php');
 		$this->generateFile('conf/inc.php', 'protected/conf/inc.php');
@@ -37,8 +37,8 @@ class Project {
 	}
 
 	private function generateProtected() {
-		$this->copy('protected/Project/Component/Application/templates/Application.html', 'protected/' . $this->name . '/Component/Application/templates/Application.html');
-		$this->generateFile('protected/' . $this->name . '/Component/Application.php', 'protected/Project/Component/Application.php');
+		$this->copy('protected/Project/Application/templates/Application.html', 'protected/' . $this->name . '/Application/templates/Application.html');
+		$this->generateFile('protected/' . $this->name . '/Application.php', 'protected/Project/Application.php');
 		$this->generateFile('protected/conf/conf.php');
 		$this->generateFile('protected/conf/conf.default.php');
 		$this->generateFile('protected/conf/inc.php');
