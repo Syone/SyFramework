@@ -11,13 +11,32 @@ class Project {
 
 	private $path;
 	private $name;
+	private $type;
 
-	public function __construct($path, $name) {
+	public function __construct($path, $name, $type = 'public') {
 		$this->path = $path;
 		$this->name = $name;
+		$this->type = $type;
 	}
 
 	public function generate() {
+		if ($this->type === 'protected')
+			$this->generateProtected();
+		else
+			$this->generatePublic();
+	}
+
+	private function generatePublic() {
+		$this->copy('protected/Project/Component/Application/templates/Application.html', $this->name . '/Component/Application/templates/Application.html');
+		$this->generateFile($this->name . '/Component/Application.php', 'protected/Project/Component/Application.php');
+		$this->generateFile('conf/conf.php', 'protected/conf/conf.php');
+		$this->generateFile('conf/conf.default.php', 'protected/conf/conf.default.php');
+		$this->generateFile('conf/inc.php', 'protected/conf/inc.php');
+		$this->generateFile('public/index.php');
+		$this->generateFile('public/index_dev.php');
+	}
+
+	private function generateProtected() {
 		$this->copy('protected/Project/Component/Application/templates/Application.html', 'protected/' . $this->name . '/Component/Application/templates/Application.html');
 		$this->generateFile('protected/' . $this->name . '/Component/Application.php', 'protected/Project/Component/Application.php');
 		$this->generateFile('protected/conf/conf.php');

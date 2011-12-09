@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/protected/conf/inc.php';
+require __DIR__ . '/../conf/inc.php';
 
 // Accessible only for development environment
 $whitelist = array('localhost', '127.0.0.1');
