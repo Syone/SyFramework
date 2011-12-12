@@ -1,5 +1,5 @@
 <?php
-namespace {PROJECT_NAME}\Component;
+namespace {PROJECT_NAME};
 
 use Sy\Component\WebComponent,
 	Sy\Component\Html\Page;

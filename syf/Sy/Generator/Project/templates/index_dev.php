@@ -13,6 +13,6 @@ $debugger->enableFileLog(__DIR__ . '/protected/log/app.log');
 $debugger->enableTagLog(__DIR__ . '/protected/log');
 
 // Activate the web debug tool bar
-$app = new {PROJECT_NAME}\Component\Application();
+$app = new {PROJECT_NAME}\Application();
 $app->enableDebugBar();
 echo $app;
