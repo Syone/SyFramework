@@ -26,6 +26,35 @@ class Project {
 			$this->generatePublic();
 	}
 
+	public function generateComponent($name, $component = 'Sy\Component') {
+		$class = new Classe($name);
+		$class->setExtendedClass($component);
+		$constructMethod = new Method('public', '__construct');
+		$constructMethod->setDescription("{$class->getClassName()} constructor");
+		$constructMethod->addBody(array(
+			'parent::__construct();',
+			'$this->setTemplateFile(__DIR__ . \'/templates/' . $class->getClassName() . '.html\');'
+		));
+		$class->setMethods(array($constructMethod));
+		$classFile = new ClassFile($this->path, $class);
+		$classFile->generate();
+		$file = new File($this->path . '/' . str_replace('\\', '/', $name) . '/templates/' . $class->getClassName() . '.html');
+		$file->generate();
+	}
+
+	public function generateClass($className, $extendedClassName = NULL) {
+		$class = new Classe($className);
+		$constructMethod = new Method('public', '__construct');
+		$constructMethod->setDescription("{$class->getClassName()} constructor");
+		if (!is_null($extendedClassName)) {
+			$class->setExtendedClass($extendedClassName);
+			$constructMethod->setBody("\t\tparent::__construct();");
+		}
+		$class->setMethods(array($constructMethod));
+		$classFile = new ClassFile($this->path, $class);
+		$classFile->generate();
+	}
+
 	private function generatePublic() {
 		$this->copy('protected/Project/Application/templates/Application.html', $this->name . '/Application/templates/Application.html');
 		$this->generateFile($this->name . '/Application.php', 'protected/Project/Application.php');

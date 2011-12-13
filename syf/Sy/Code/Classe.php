@@ -28,6 +28,14 @@ class Classe extends Component {
 		$this->setNamespace();
 	}
 
+	public function getNamespace() {
+		return $this->namespace;
+	}
+
+	public function getClassName() {
+		return $this->className;
+	}
+
 	public function getName() {
 		return $this->name;
 	}
