@@ -41,6 +41,11 @@ class Method extends Component {
 		$this->body = $body;
 	}
 
+	public function addBody(array $lines) {
+		$glue = empty($this->body) ? "\t\t" : "\n\t\t";
+		$this->body .= $glue . implode("\n\t\t", $lines);
+	}
+
 	public function __toString() {
 		if (!empty($this->description)) {
 			$this->setVar('DESCRIPTION', $this->description);
