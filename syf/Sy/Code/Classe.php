@@ -6,6 +6,7 @@ use Sy\Component;
 class Classe extends Component {
 
 	private $namespace;
+	private $className;
 	private $usedClasses;
 	private $abstract;
 	private $name;
@@ -14,10 +15,9 @@ class Classe extends Component {
     private $properties;
     private $methods;
 
-	public function __construct($namespace, $name) {
+	public function __construct($name) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Classe.tpl');
-		$this->namespace = $namespace;
 		$this->usedClasses = array();
 		$this->abstract = false;
 		$this->name = $name;
@@ -25,10 +25,11 @@ class Classe extends Component {
 		$this->implementedInterfaces = array();
 		$this->properties = array();
 		$this->methods = array();
+		$this->setNamespace();
 	}
 
 	public function getName() {
-		return $this->namespace . '\\' . $this->name;
+		return $this->name;
 	}
 
 	public function setUsedClasses(array $classes) {
@@ -56,9 +57,12 @@ class Classe extends Component {
 	}
 
 	public function __toString() {
-		$this->setVar('NAMESPACE', $this->namespace);
+		if (!empty($this->namespace)) {
+			$this->setVar('NAMESPACE', $this->namespace);
+			$this->setBlock('NAMESPACE_BLOCK');
+		}
 		if (!empty($this->usedClasses)) $this->generateUsedClasses();
-		$this->setVar('NAME', $this->name);
+		$this->setVar('NAME', $this->className);
 		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if (!is_null($this->extendedClass)) $this->setVar('EXTENDS', ' extends ' . $this->extendedClass);
 		if (!empty($this->implementedInterfaces)) $this->setVar('IMPLEMENTS', ' implements ' . implode(', ', $this->implementedInterfaces));
@@ -68,6 +72,12 @@ class Classe extends Component {
 			$this->setBlock('METHODS');
 		}
 		return parent::__toString();
+	}
+
+	private function setNamespace() {
+		$name = str_replace('\\', '/', $this->name);
+		$this->namespace = (dirname($name) === '.') ? '' : str_replace('/', '\\', dirname($name));
+		$this->className = basename($name);
 	}
 
 	private function generateUsedClasses() {
