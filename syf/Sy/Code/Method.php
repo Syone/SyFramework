@@ -6,6 +6,7 @@ use Sy\Component;
 class Method extends Component {
 
 	private $description;
+	private $abstract;
 	private $visibility;
 	private $static;
 	private $name;
@@ -15,7 +16,8 @@ class Method extends Component {
 	public function __construct($visibility, $name, $parameters = array()) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Method.tpl');
-		$this->description = '';
+		$this->description = $name;
+		$this->abstract = false;
 		$this->visibility = $visibility;
 		$this->name = $name;
 		$this->parameters = $parameters;
@@ -25,6 +27,10 @@ class Method extends Component {
 
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+
+	public function setAbstract($abstract) {
+		$this->abstract = $abstract;
 	}
 
 	public function setStatic($static) {
@@ -43,6 +49,7 @@ class Method extends Component {
 		$this->setVar('VISIBILITY', $this->visibility);
 		$this->setVar('NAME', $this->name);
 		$this->setVar('BODY', $this->body);
+		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if ($this->static) $this->setVar('STATIC', ' static');
 		if (!empty($this->parameters)) {
 			$this->setVar('PARAMETERS', implode(', ', $this->parameters));
@@ -51,7 +58,13 @@ class Method extends Component {
 				$this->setVar('PARAM_NAME', '$' . $parameter->getName());
 				$this->setBlock('PARAMETERS_BLOCK');
 			}
+			$space = true;
 		}
+		if (strpos($this->body, 'return') !== false) {
+			$this->setBlock('RETURN_BLOCK');
+			$space = true;
+		}
+		if (isset($space)) $this->setBlock('SPACE');
 		return parent::__toString();
 	}
 

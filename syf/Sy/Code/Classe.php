@@ -57,24 +57,34 @@ class Classe extends Component {
 
 	public function __toString() {
 		$this->setVar('NAMESPACE', $this->namespace);
-		foreach ($this->usedClasses as $className => $classAlias) {
-			if (!is_integer($className)) $this->setVar('USE_CLASS', $className . ' as ');
-			$this->setVar('AS_CLASS', $classAlias);
-			$this->setBlock('USED_CLASSES');
-		}
+		if (!empty($this->usedClasses)) $this->generateUsedClasses();
 		$this->setVar('NAME', $this->name);
 		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if (!is_null($this->extendedClass)) $this->setVar('EXTENDS', ' extends ' . $this->extendedClass);
 		if (!empty($this->implementedInterfaces)) $this->setVar('IMPLEMENTS', ' implements ' . implode(', ', $this->implementedInterfaces));
-		foreach ($this->properties as $property) {
-			$this->setComponent('PROPERTY', $property);
-			$this->setBlock('PROPERTIES');
-		}
+		if (!empty($this->properties)) $this->generateProperties();
 		foreach ($this->methods as $method) {
 			$this->setComponent('METHOD', $method);
 			$this->setBlock('METHODS');
 		}
 		return parent::__toString();
+	}
+
+	private function generateUsedClasses() {
+		foreach ($this->usedClasses as $className => $classAlias) {
+			if (!is_integer($className)) $this->setVar('USE_CLASS', $className . ' as ');
+			$this->setVar('AS_CLASS', $classAlias);
+			$this->setBlock('USED_CLASSES');
+		}
+		$this->setVar('USED_CLASSES_EOL', PHP_EOL);
+	}
+
+	private function generateProperties() {
+		foreach ($this->properties as $property) {
+			$this->setComponent('PROPERTY', $property);
+			$this->setBlock('PROPERTIES');
+		}
+		$this->setVar('PROPERTIES_EOL', PHP_EOL);
 	}
 
 }
