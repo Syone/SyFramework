@@ -15,4 +15,16 @@ class Panel extends WebComponent {
 		$this->setVar('WIDTH', $width);
 	}
 
+	public function setHeight($height) {
+		$this->setVar('HEIGHT', $height);
+	}
+
+	public function setNorthHeight($height) {
+		$this->setVar('NORTH_HEIGHT', $height);
+	}
+
+	public function setSouthHeight($height) {
+		$this->setVar('SOUTH_HEIGHT', $height);
+	}
+
 }
