@@ -57,23 +57,23 @@ class Project {
 
 	private function generatePublic() {
 		$this->copy('protected/Project/Application/templates/Application.html', $this->name . '/Application/templates/Application.html');
-		$this->generateFile($this->name . '/Application.php', 'protected/Project/Application.php');
-		$this->generateFile('conf/conf.php', 'protected/conf/conf.php');
-		$this->generateFile('conf/conf.default.php', 'protected/conf/conf.default.php');
-		$this->generateFile('conf/inc.php', 'protected/conf/inc.php');
-		$this->generateFile('public/index.php');
-		$this->generateFile('public/index_dev.php');
+		$this->generateFile($this->name . '/Application.php', 'protected/Project/Application.thp');
+		$this->generateFile('conf/conf.php', 'protected/conf/conf.thp');
+		$this->generateFile('conf/conf.default.php', 'protected/conf/conf.default.thp');
+		$this->generateFile('conf/inc.php', 'protected/conf/inc.thp');
+		$this->generateFile('public/index.php', 'public/index.thp');
+		$this->generateFile('public/index_dev.php', 'public/index_dev.thp');
 	}
 
 	private function generateProtected() {
 		$this->copy('protected/Project/Application/templates/Application.html', 'protected/' . $this->name . '/Application/templates/Application.html');
-		$this->generateFile('protected/' . $this->name . '/Application.php', 'protected/Project/Application.php');
-		$this->generateFile('protected/conf/conf.php');
-		$this->generateFile('protected/conf/conf.default.php');
-		$this->generateFile('protected/conf/inc.php');
+		$this->generateFile('protected/' . $this->name . '/Application.php', 'protected/Project/Application.thp');
+		$this->generateFile('protected/conf/conf.php', 'protected/conf/conf.thp');
+		$this->generateFile('protected/conf/conf.default.php', 'protected/conf/conf.default.thp');
+		$this->generateFile('protected/conf/inc.php', 'protected/conf/inc.thp');
 		$this->generateFile('protected/.htaccess');
-		$this->generateFile('index.php');
-		$this->generateFile('index_dev.php');
+		$this->generateFile('index.php', 'index.thp');
+		$this->generateFile('index_dev.php', 'index_dev.thp');
 	}
 
 	private function copy($src, $dest) {
