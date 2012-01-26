@@ -41,6 +41,16 @@ class Form extends Form\FieldContainer {
 		return $valid;
 	}
 
+	/**
+	 * Set if the form has an error or not
+	 *
+	 * @param boolean $error
+	 */
+	public function setError($error) {
+		$this->success = !$error;
+		parent::setError($error);
+	}
+
 	public function __toString() {
 		$this->setVar('SUCCESS', $this->success);
 		if (is_null($this->getAttribute('action'))) {
