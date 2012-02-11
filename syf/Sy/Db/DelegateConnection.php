@@ -7,7 +7,7 @@ class DelegateConnection extends \Sy\Object implements IConnection {
 	/**
 	 * Constructor.
 	 */
-	public function _construct($connectionId) {
+	public function __construct($connectionId) {
 		$this->connection = ConnectionPool::get($connectionId);
 	}
 
