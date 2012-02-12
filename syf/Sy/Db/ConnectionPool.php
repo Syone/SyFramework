@@ -69,7 +69,7 @@ class ConnectionPool {
 	public static function register($connectionId, $connectionInfo) {
 		$connection = NULL;
 
-		if ($connectionInfo['basetype'] == "mysql")
+		if ($connectionInfo['basetype'] === "mysql")
 		  $connection = new PDOConnection('mysql:host=' . $connectionInfo['hostname'] . ';dbname=' . $connectionInfo['database'],
 										  $connectionInfo['username'],
 										  $connectionInfo['password']);
