@@ -3,6 +3,21 @@ namespace Sy\Db;
 
 interface IConnection {
 
+	/**
+	 * Initiates a transaction.
+	 */
+	public function beginTransaction();
+
+	/**
+	 * Commits a transaction.
+	 */
+	public function commit();
+
+	/**
+	 * Rolls back a transaction.
+	 */
+	public function rollBack();
+
     /**
      * Performs a non-query SQL statement, such as INSERT, UPDATE and DELETE.
      * It returns the number of rows that are affected by the execution.

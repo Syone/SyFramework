@@ -19,6 +19,18 @@ class PDOConnection extends \Sy\Object implements IConnection {
 		$this->pdo = NULL;
 	}
 
+	public function beginTransaction() {
+		return $this->pdo()->beginTransaction();
+	}
+
+	public function commit() {
+		return $this->pdo()->commit();
+	}
+
+	public function rollBack() {
+		return $this->pdo()->rollBack();
+	}
+
 	public function execute($sql) {
 		$query = $sql;
 		$params = array();

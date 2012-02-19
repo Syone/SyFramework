@@ -11,6 +11,22 @@ class DelegateConnection extends \Sy\Object implements IConnection {
 		$this->connection = ConnectionPool::get($connectionId);
 	}
 
+	public function delegate() {
+		return $this->connection;
+	}
+
+	public function beginTransaction() {
+		return $this->connection->beginTransaction();
+	}
+
+	public function commit() {
+		return $this->connection->commit();
+	}
+
+	public function rollBack() {
+		return $this->connection->rollBack();
+	}
+
 	public function execute($sql) {
 		return $this->connection->execute($sql);
 	}
