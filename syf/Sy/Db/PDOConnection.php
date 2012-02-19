@@ -44,7 +44,7 @@ class PDOConnection extends \Sy\Object implements IConnection {
 		if ($res === false) {
 			$info = $this->getDebugTrace();
 			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
-			$info['level'] = Log::ERR;
+			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
 			return 0;
 		}
@@ -121,7 +121,7 @@ class PDOConnection extends \Sy\Object implements IConnection {
 		if ($res === false) {
 			$info = $this->getDebugTrace();
 			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
-			$info['level'] = Log::ERR;
+			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
 			return false;
 		}

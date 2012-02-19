@@ -2,7 +2,9 @@
 namespace Sy\Db;
 
 class ConnectionPool {
+
 	private static $instance;
+
 	private $connections = array();
 
 	/**
@@ -13,8 +15,9 @@ class ConnectionPool {
 	 * @return bool
 	 */
 	private function addConnection($connectionId, $connection) {
-		if (isset($this->connections[$connectionId]))
+		if (isset($this->connections[$connectionId])) {
 			return false;
+		}
 
 		$this->connections[$connectionId] = $connection;
 
@@ -52,8 +55,9 @@ class ConnectionPool {
 	 * @return Sy\Db\Connection | NULL
 	 */
 	private function getConnection($connectionId) {
-		if ($connectionId === NULL || !isset($this->connections[$connectionId]))
+		if ($connectionId === NULL || !isset($this->connections[$connectionId])) {
 			return NULL;
+		}
 
 		return $this->connections[$connectionId];
 	}
@@ -69,13 +73,15 @@ class ConnectionPool {
 	public static function register($connectionId, $connectionInfo) {
 		$connection = NULL;
 
-		if ($connectionInfo['basetype'] === "mysql")
+		if ($connectionInfo['basetype'] === "mysql") {
 		  $connection = new PDOConnection('mysql:host=' . $connectionInfo['hostname'] . ';dbname=' . $connectionInfo['database'],
 										  $connectionInfo['username'],
 										  $connectionInfo['password']);
+		}
 
-		if ($connection !== NULL)
+		if ($connection !== NULL) {
 		  ConnectionPool::instance()->addConnection($connectionId, $connection);
+		}
 	}
 
 	/**
@@ -84,13 +90,15 @@ class ConnectionPool {
 	 * @return bool
 	 */
 	public static function registerFromIniFile($file) {
-		if (!file_exists($file))
+		if (!file_exists($file)) {
 			return false;
+		}
 
 		$iniArray = parse_ini_file($file, true);
 
-		if ($iniArray === false)
+		if ($iniArray === false) {
 			return false;
+		}
 
 		foreach ($iniArray as $connectionId => $connectionInfo) {
 			ConnectionPool::register($connectionId, $connectionInfo);
