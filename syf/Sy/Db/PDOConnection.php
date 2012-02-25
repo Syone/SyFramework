@@ -2,6 +2,7 @@
 namespace Sy\Db;
 
 class PDOConnection extends \Sy\Object implements IConnection {
+
 	private $dsn;
 	private $username;
 	private $password;
@@ -85,16 +86,11 @@ class PDOConnection extends \Sy\Object implements IConnection {
 	public function pdo() {
 		if ($this->pdo === NULL) {
 			try {
-				$this->pdo = new \PDO($this->dsn,
-									  $this->username,
-									  $this->password,
-									  $this->driverOptions);
+				$this->pdo = PDOManager::getPDOInstance($this->dsn, $this->username, $this->password, $this->driverOptions);
 			} catch (\PDOException $except) {
-				$this->pdo = NULL;
-				throw $except;
+				$this->logError($except->getMessage());
 			}
 		}
-
 		return $this->pdo;
 	}
 
