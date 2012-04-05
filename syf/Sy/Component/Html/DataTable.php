@@ -9,8 +9,6 @@ class DataTable extends Table {
 
 	private $autoHead;
 
-	private $transpose;
-
 	private $options;
 
 	private $replaces;
@@ -20,7 +18,6 @@ class DataTable extends Table {
 		$this->heads = array();
 		$this->addRows($rows);
 		$this->autoHead = false;
-		$this->transpose = false;
 	}
 
 	/**
@@ -80,7 +77,7 @@ class DataTable extends Table {
 	/**
 	 * Set value alignment
 	 *
-	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setAlign($align) {
 		switch ($align) {
@@ -88,7 +85,6 @@ class DataTable extends Table {
 			case 'center':
 			case 'right':
 			case 'justify':
-			case 'char':
 				$this->options['align'] = $align; break;
 		}
 	}
@@ -96,7 +92,7 @@ class DataTable extends Table {
 	/**
 	 * Set head alignment
 	 *
-	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setHeadAlign($align) {
 		switch ($align) {
@@ -104,7 +100,6 @@ class DataTable extends Table {
 			case 'center':
 			case 'right':
 			case 'justify':
-			case 'char':
 				$this->options['head_align'] = $align; break;
 		}
 	}
@@ -112,7 +107,7 @@ class DataTable extends Table {
 	/**
 	 * Set foot alignment
 	 *
-	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setFootAlign($align) {
 		switch ($align) {
@@ -120,7 +115,6 @@ class DataTable extends Table {
 			case 'center':
 			case 'right':
 			case 'justify':
-			case 'char':
 				$this->options['foot_align'] = $align; break;
 		}
 	}
@@ -128,7 +122,7 @@ class DataTable extends Table {
 	/**
 	 * Set numeric value alignment
 	 *
-	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify', 'char'
+	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setNumAlign($align) {
 		switch ($align) {
@@ -136,7 +130,6 @@ class DataTable extends Table {
 			case 'center':
 			case 'right':
 			case 'justify':
-			case 'char':
 				$this->options['num_align'] = $align; break;
 		}
 	}
@@ -253,8 +246,6 @@ class DataTable extends Table {
 	 * Add rows in the table
 	 *
 	 * @param array $rows 2D array
-	 * @param bool $autoHead Generate head using row keys
-	 * @param bool $transpose Transpose table data
 	 */
 	public function addRows(array $rows) {
 		foreach ($rows as $row) {
@@ -279,7 +270,6 @@ class DataTable extends Table {
 	 * Add rows from a database table
 	 *
 	 * @param ITable $table
-	 * @param bool $transpose
 	 */
 	public function addDbRows(ITable $table) {
 		$this->addRows($table->getRows());
@@ -292,12 +282,12 @@ class DataTable extends Table {
 	 * @param string $align
 	 */
 	private function processAlign($element, $align) {
-		if ($element instanceof Table\TrContainer) {
+		if ($element instanceof Table\TrContainer or $element instanceof Table\Tr) {
 			foreach ($element->getElements() as $e) {
 				$this->processAlign($e, $align);
 			}
-		} else if ($element instanceof Table\Tr) {
-			$element->setAttribute('align', $align);
+		} else {
+			$element->setAttribute('style', 'text-align: ' . $align);
 		}
 	}
 
@@ -315,7 +305,7 @@ class DataTable extends Table {
 			$data = $element->getContent();
 			$isNumeric = is_numeric($data);
 			if ($isNumeric and $this->hasNumAlign()) {
-				$element->setAttribute('align', $this->options['num_align']);
+				$element->setAttribute('style', 'text-align: ' . $this->options['num_align']);
 			}
 			if ($isNumeric and $this->hasNumFormat()) {
 				$data = number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']);
