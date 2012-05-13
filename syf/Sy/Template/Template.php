@@ -24,7 +24,6 @@ class Template implements ITemplate {
 	}
 
 	public function setVar($var, $value, $append = false) {
-		if (is_array($value)) return;
 		if ($append and isset($this->vars[$var])) {
 			$this->vars[$var] .= $value;
 		}
@@ -40,7 +39,7 @@ class Template implements ITemplate {
 		if (strpos($data, '<!-- BEGIN') !== false) {
 			$reg = "/[ \t]*<!-- BEGIN ([a-zA-Z0-9\._]*) -->(\s*?\n?\s*.*?\n?\s*)<!-- END \\1 -->\s*?\n?/sm";
 			$data = preg_replace_callback($reg, array($this, 'getBlockContent'), $data);
-        }
+		}
 
 		$varkeys = array_keys($this->vars);
 		$varvals = array_values($this->vars);
