@@ -2,7 +2,7 @@
 <div id="sy_debug_resize_bar_wrapper" style="<?php echo $RESET_CSS ?> height: 4px; display: none;"></div>
 <div id="sy_debug_console" style="<?php echo $RESET_CSS ?> height: 270px; display: none;"></div>
 
-<div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font: 11px Verdana, Arial, sans-serif; z-index: 10000;">
+<div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font-size: 11px; z-index: 10000;">
 	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #e8e8e8;"></div>
 	<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #e8e8e8; background-image: -moz-linear-gradient(-90deg, #e8e8e8, #cbcbcb);background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cbcbcb));">
 		<a id="sy_debug_php_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555; line-height: 30px;" onclick="sy_debug.show_content('php'); return false;">
@@ -68,7 +68,7 @@
 				<?php endif ?>
 			<?php endforeach ?>
 
-			<h2 style="font-size: 14px; color: black; margin: 10px;">Included Files</h2>
+			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px;">Included Files</h2>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Filename</th>
@@ -93,7 +93,7 @@
 			</div>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
-					<th style="<?php echo $TH_CSS ?> min-width: 90px;">Level</th>
+					<th style="<?php echo $TH_CSS ?> min-width: 90px; padding-left: 20px;">Level</th>
 					<th style="<?php echo $TH_CSS ?>">Type</th>
 					<th style="<?php echo $TH_CSS ?>">File</th>
 					<th style="<?php echo $TH_CSS ?> width: 40px;">Line</th>
@@ -112,7 +112,7 @@
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?> font: 11px Verdana, Arial, sans-serif;"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
 				</tr>
 				<?php endforeach ?>
 			</table>
