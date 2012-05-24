@@ -2,6 +2,7 @@
 namespace Sy;
 
 use Sy\Db\Connection,
+	Sy\Db\ConnectionPool,
 	Sy\Debug\Log;
 
 class Db extends Object {
@@ -13,12 +14,8 @@ class Db extends Object {
 	 */
 	private $connection;
 
-	public function __construct($dsn, $username = '', $passwd = '', $options = array()) {
-		try {
-			$this->connection = Connection::instance($dsn, $username, $passwd, $options);
-		} catch (\PDOException $e) {
-			$this->logError($e->getMessage());
-		}
+	public function __construct($connectionId) {
+		$this->connection = ConnectionPool::get($connectionId);
 	}
 
 	/**
@@ -27,7 +24,7 @@ class Db extends Object {
 	 * @return PDO
 	 */
 	public function getConnection() {
-		return $this->connection;
+		return $this->connection->pdo();
 	}
 
 	/**
@@ -55,9 +52,8 @@ class Db extends Object {
 	 * @return PDOStatement
 	 */
 	public function prepare($sql, array $driverOptions = array()) {
-		if (is_null($this->getConnection())) return false;
 		try {
-			$statement = $this->getConnection()->prepare($sql, $driverOptions);
+			$statement = $this->connection->pdo()->prepare($sql, $driverOptions);
 		} catch (PDOException $e) {
 			$this->logError($e->getMessage());
 			$statement = false;
