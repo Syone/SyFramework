@@ -94,7 +94,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Color
+	 * @return TextFillableInput
 	 */
 	public function addColor(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('color');
@@ -108,7 +108,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Date
+	 * @return TextFillableInput
 	 */
 	public function addDate(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('date');
@@ -122,7 +122,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Month
+	 * @return TextFillableInput
 	 */
 	public function addMonth(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('month');
@@ -136,7 +136,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Week
+	 * @return TextFillableInput
 	 */
 	public function addWeek(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('week');
@@ -150,7 +150,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Time
+	 * @return TextFillableInput
 	 */
 	public function addTime(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('time');
@@ -164,7 +164,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return DateTime
+	 * @return TextFillableInput
 	 */
 	public function addDateTime(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('datetime');
@@ -178,7 +178,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return DateTimeLocal
+	 * @return TextFillableInput
 	 */
 	public function addDateTimeLocal(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('datetime-local');
@@ -193,7 +193,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Email
+	 * @return TextFillableInput
 	 */
 	public function addEmail(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('email');
@@ -244,7 +244,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes text attributes
 	 * @param array $options text options
-	 * @return Number
+	 * @return TextFillableInput
 	 */
 	public function addNumber(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('number');
@@ -259,7 +259,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes password attributes
 	 * @param array $options password options
-	 * @return Element
+	 * @return TextInput
 	 */
 	public function addPassword(array $attributes = array(), array $options = array()) {
 		$element = new TextInput('password');
