@@ -20,7 +20,7 @@ class Template implements ITemplate {
 
 	public function setFile($file) {
 		if (file_exists($file)) $this->content = file_get_contents($file);
-		$this->content = preg_replace('/{\'([^\t\r\n]+)\'}/', '{"$1"}', $this->content);
+		$this->content = preg_replace('/{\'([^\t\r\n\'\({}[":,]+)\'}/', '{"$1"}', $this->content);
 	}
 
 	public function setVar($var, $value, $append = false) {
@@ -63,8 +63,8 @@ class Template implements ITemplate {
 		$res = str_replace($search, $varvals, $this->content);
 		$search = array_map(function($v) {return '{"' . $v . '"}';}, $varkeys);
 		$res = str_replace($search, $varvals, $res);
-		$res = preg_replace('/{[^ \t\r\n}[":,]+}/', "", $res);
-		$res = preg_replace('/{\"([^\t\r\n]+)\"}/', '$1', $res);
+		$res = preg_replace('/{[^ \t\r\n\'\({}[":,]+}/', "", $res);
+		$res = preg_replace('/{\"([^\t\r\n\'\({}[":,]+)\"}/', '$1', $res);
 		return $res;
 	}
 
@@ -76,7 +76,7 @@ class Template implements ITemplate {
 		if (!isset($m[1][0])) return false;
 		$blockContent = $m[1][0];
 		$t = explode('<!-- ELSE ' . $block . ' -->', $blockContent);
-		$blockContent = $t[0];
+		$blockContent = rtrim($t[0], " \t");
 
 		$this->blockCached[$block] = $blockContent;
 		$this->blockParsed[$block] = '';
@@ -90,7 +90,7 @@ class Template implements ITemplate {
 			$this->blockParsed[$block] = '';
 		} else {
 			$t = explode('<!-- ELSE ' . $block . ' -->', $match[2]);
-			$out = isset($t[1]) ? $t[1] : '';
+			$out = isset($t[1]) ? ltrim(rtrim($t[1], " \t"), "\r\n") : '';
 		}
 		return $out;
 	}
