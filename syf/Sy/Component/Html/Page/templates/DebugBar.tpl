@@ -46,7 +46,7 @@
 		<div id="sy_debug_var_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
 				<?php if (!empty($vars)) : ?>
-					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px;"><?php echo $title ?></h2>
+					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px; line-height: 20px;"><?php echo $title ?></h2>
 					<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 						<tr style="<?php echo $TR_HEAD_CSS ?>">
 							<th style="<?php echo $TH_CSS ?> width: 200px;">Name</th>
@@ -68,7 +68,7 @@
 				<?php endif ?>
 			<?php endforeach ?>
 
-			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px;">Included Files</h2>
+			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px; line-height: 20px;">Included Files</h2>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Filename</th>
