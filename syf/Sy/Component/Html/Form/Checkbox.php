@@ -5,8 +5,8 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 
 	public function __construct() {
 		parent::__construct('checkbox');
-		$this->setOption('label_position', 'after');
-		$this->setOption('error_position', 'after');
+		$this->setOption('label-position', 'after');
+		$this->setOption('error-position', 'after');
 	}
 
 	public function fill($value) {
