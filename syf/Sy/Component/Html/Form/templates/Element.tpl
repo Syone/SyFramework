@@ -1,11 +1,11 @@
 <?php if (isset($OPTIONS['label'])): ?>
 <?php if ($OPTIONS['label-position'] === 'before'): ?>
-<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?>><?php echo $OPTIONS['label'] ?></label>
+<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?><?php if (isset($OPTIONS['label-class'])) : ?> class="<?php echo $OPTIONS['label-class'] ?>"<?php endif ?>><?php echo $OPTIONS['label'] ?></label>
 <?php elseif ($OPTIONS['label-position'] === 'wrap-before'): ?>
-<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?>>
+<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?><?php if (isset($OPTIONS['label-class'])) : ?> class="<?php echo $OPTIONS['label-class'] ?>"<?php endif ?>>
 <?php echo $OPTIONS['label'] ?>
 <?php elseif ($OPTIONS['label-position'] === 'wrap-after'): ?>
-<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?>>
+<label<?php if (isset($ATTRIBUTES['id'])) : ?> for="<?php echo $ATTRIBUTES['id'] ?>"<?php endif ?><?php if (isset($OPTIONS['label-class'])) : ?> class="<?php echo $OPTIONS['label-class'] ?>"<?php endif ?>>
 <?php endif ?>
 <?php endif ?>
 <?php if ($ERROR and isset($OPTIONS['error']) and $OPTIONS['error-position'] === 'before'): ?>
