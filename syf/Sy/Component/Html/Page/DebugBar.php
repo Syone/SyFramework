@@ -165,7 +165,7 @@ class DebugBar extends WebComponent {
 		$trHeadCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: middle; background-color: #0065BD; color: white; background-image: -moz-linear-gradient(-90deg, #5fa3e0, #0065bd); background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#5fa3e0), to(#0065bd));';
 		$this->setVar('TR_HEAD_CSS', $trHeadCss);
 
-		$thCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white;';
+		$thCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; font-weight: bold; vertical-align: middle; color: white; text-align: center;';
 		$this->setVar('TH_CSS', $thCss);
 
 		$tdCss = 'margin: 0; padding: 3px; border: 1px solid #B4B4B4; outline: 0; font-size: 100%; vertical-align: middle; color: black; background: transparent;';
