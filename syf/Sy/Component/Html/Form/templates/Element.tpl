@@ -9,7 +9,7 @@
 <?php endif ?>
 <?php endif ?>
 <?php if ($ERROR and isset($OPTIONS['error']) and $OPTIONS['error-position'] === 'before'): ?>
-<span class="error"><?php echo $OPTIONS['error'] ?></span>
+<span class="<?php echo $OPTIONS['error-class'] ?>"><?php echo $OPTIONS['error'] ?></span>
 <?php endif ?>
 <?php if (is_null($CONTENT)) : ?>
 <<?php echo $TAG_NAME ?><?php foreach ($ATTRIBUTES as $name => $value) : ?> <?php echo $name ?>="<?php echo $value ?>"<?php endforeach ?> />
@@ -27,5 +27,5 @@
 <?php endif ?>
 <?php endif ?>
 <?php if ($ERROR and isset($OPTIONS['error']) and $OPTIONS['error-position'] === 'after'): ?>
-<span class="error"><?php echo $OPTIONS['error'] ?></span>
+<span class="<?php echo $OPTIONS['error-class'] ?>"><?php echo $OPTIONS['error'] ?></span>
 <?php endif ?>

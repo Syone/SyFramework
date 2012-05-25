@@ -11,7 +11,7 @@ class Element extends HtmlElement {
 	public function __construct($tagName = '') {
 		parent::__construct($tagName);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->options = array('label-position' => 'before', 'error-position' => 'before');
+		$this->options = array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error');
 		$this->error = false;
 	}
 

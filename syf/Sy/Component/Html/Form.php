@@ -14,6 +14,8 @@ class Form extends Form\FieldContainer {
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
 		$this->formId = ++self::$instances;
 		$this->setAttributes($attributes);
+		$this->setOption('error-class', 'error');
+		$this->setOption('success-class', 'success');
 		$this->success = false;
 		$this->init();
 		if ($this->request('formAction' . $this->formId) == 'submit') {
