@@ -1,0 +1,76 @@
+<?php
+namespace Sy\Component\Html;
+
+class Form extends Form\FieldContainer {
+
+	private static $instances = 0;
+
+	private $formId = 0;
+
+	private $success;
+
+	public function __construct(array $attributes = array()) {
+		parent::__construct();
+		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
+		$this->formId = ++self::$instances;
+		$this->setAttributes($attributes);
+		$this->setOption('error-class', 'error');
+		$this->setOption('success-class', 'success');
+		$this->success = false;
+		$this->init();
+		if ($this->request('formAction' . $this->formId) == 'submit') {
+			$info = $this->getDebugTrace();
+			$info['type'] = 'Form submit';
+			$message = 'Call method ' . get_class($this) . '::submitAction';
+			$this->log($message, $info);
+			$this->submitAction();
+		}
+	}
+
+	/**
+	 * Validate the form
+	 *
+	 * @param array $values
+	 * @return boolean
+	 */
+	public function isValid($values) {
+		$valid = parent::isValid($values);
+		if ($valid) {
+			$this->success = true;
+		} else {
+			$this->setError(true);
+		}
+		return $valid;
+	}
+
+	/**
+	 * Set if the form has an error or not
+	 *
+	 * @param boolean $error
+	 */
+	public function setError($error) {
+		$this->success = !$error;
+		parent::setError($error);
+	}
+
+	public function __toString() {
+		$this->setVar('SUCCESS', $this->success);
+		if (is_null($this->getAttribute('action'))) {
+			$this->setAttribute('action', $_SERVER['REQUEST_URI']);
+			$this->setVar('ACTION', 'formAction' . $this->formId);
+		}
+		if (is_null($this->getAttribute('method'))) {
+			$this->setAttribute('method', 'post');
+		}
+		return parent::__toString();
+	}
+
+	public function init() {
+
+	}
+
+	public function submitAction() {
+
+	}
+
+}
