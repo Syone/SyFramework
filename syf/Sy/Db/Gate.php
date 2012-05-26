@@ -35,17 +35,21 @@ class Gate extends \Sy\Object {
 		return $res;
 	}
 
+
 	/**
 	 * Return the \PDO object.
 	 *
 	 * @return \PDO
+	 * @throws PDOException
 	 */
 	public function pdo() {
 		if (!isset($this->pdo)) {
 			try {
 				$this->pdo = PDOManager::getPDOInstance($this->dsn, $this->username, $this->password, $this->driverOptions);
-			} catch (\PDOException $except) {
-				$this->logError($except->getMessage());
+				$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+			} catch (\PDOException $e) {
+				$this->logError($e->getMessage());
+				throw new PDOException;
 			}
 		}
 		return $this->pdo;
@@ -53,41 +57,64 @@ class Gate extends \Sy\Object {
 
 	/**
 	 * Initiates a transaction.
+	 *
+	 * @return bool
+	 * @throws TransactionException
 	 */
 	public function beginTransaction() {
-		return $this->pdo()->beginTransaction();
+		try {
+			return $this->pdo()->beginTransaction();
+		} catch (\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new TransactionException;
+		}
 	}
 
 	/**
 	 * Commits a transaction.
+	 *
+	 * @return bool
+	 * @throws TransactionException
 	 */
 	public function commit() {
-		return $this->pdo()->commit();
+		try {
+			return $this->pdo()->commit();
+		} catch (\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new TransactionException;
+		}
 	}
 
 	/**
 	 * Rolls back a transaction.
+	 *
+	 * @return bool
+	 * @throws TransactionException
 	 */
 	public function rollBack() {
-		return $this->pdo()->rollBack();
+		try {
+			return $this->pdo()->rollBack();
+		} catch (\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new TransactionException;
+		}
 	}
 
 	/**
 	 * Prepares a statement for execution and returns a PDOStatement object.
-	 * Return false on failure.
 	 *
 	 * @param string $sql This must be a valid SQL statement for the target database server.
 	 * @param array $driverOptions This array holds one or more key=>value pairs to set attribute values for the PDOStatement object that this method returns.
 	 * @return PDOStatement
+	 * @throws PrepareException
 	 */
 	public function prepare($sql, array $driverOptions = array()) {
 		try {
-			$statement = $this->pdo()->prepare($sql, $driverOptions);
+			return $this->pdo()->prepare($sql, $driverOptions);
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
-			$statement = false;
+			throw new PrepareException;
 		}
-		return $statement;
 	}
 
 	/**
@@ -96,6 +123,7 @@ class Gate extends \Sy\Object {
 	 *
 	 * @param string | Sy\Db\Sql $sql The SQL query to execute.
 	 * @return int The number of rows affected by the execution.
+	 * @throws ExecuteException
 	 */
 	public function execute($sql) {
 		$query = $sql;
@@ -104,17 +132,17 @@ class Gate extends \Sy\Object {
 			$params = $sql->getParams();
 			$query = $sql->getSql();
 		}
-		$statement = $this->prepare($query);
-		if (!$statement) return 0;
-		$res = $statement->execute($params);
-		if ($res === false) {
+		try {
+			$statement = $this->prepare($query);
+			$statement->execute($params);
+			return $statement->rowCount();
+		} catch (\PDOException $e) {
 			$info = $this->getDebugTrace();
-			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
+			$info['message'] = $e->getMessage();
 			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
-			return 0;
+			throw new ExecuteException;
 		}
-		return $statement->rowCount();
 	}
 
 	/**
@@ -124,6 +152,7 @@ class Gate extends \Sy\Object {
 	 *
 	 * @param string | Sy\Db\Sql $sql The SQL query to execute.
 	 * @return PDOStatement
+	 * @throws QueryException
 	 */
 	public function query($sql) {
 		$query = $sql;
@@ -132,15 +161,15 @@ class Gate extends \Sy\Object {
 			$params = $sql->getParams();
 			$query = $sql->getSql();
 		}
-		$statement = $this->prepare($query);
-		if (!$statement) return false;
-		$res = $statement->execute($params);
-		if ($res === false) {
+		try {
+			$statement = $this->prepare($query);
+			$statement->execute($params);
+		} catch(\PDOException $e) {
 			$info = $this->getDebugTrace();
-			$info['message'] = "Error info:\n" . print_r($statement->errorInfo(), true);
+			$info['message'] = $e->getMessage();
 			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
-			return false;
+			throw new QueryException;
 		}
 		return $statement;
 	}
@@ -154,14 +183,19 @@ class Gate extends \Sy\Object {
 	 * @param mixed $fetchArgs This argument have a different meaning depending on the value of the fetchStyle parameter
 	 * @param array $ctorArgs Arguments of custom class constructor when the fetchStyle parameter is \PDO::FETCH_CLASS
 	 * @return array
+	 * @throws QueryAllException
 	 */
 	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = NULL, $ctorArgs = array()) {
-		$statement = $this->query($sql);
-		if ($statement === false) return array();
-		if (is_null($fetchArgs))
-			return $statement->fetchAll($fetchStyle);
-		else
-			return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
+		try {
+			$statement = $this->query($sql);
+			if (is_null($fetchArgs))
+				return $statement->fetchAll($fetchStyle);
+			else
+				return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
+		} catch(\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new QueryAllException;
+		}
 	}
 
 	/**
@@ -172,11 +206,16 @@ class Gate extends \Sy\Object {
 	 * @param string | Sy\Db\Sql $sql
 	 * @param int $columnNumber
 	 * @return string
+	 * @throws QueryColumnException
 	 */
 	public function queryColumn($sql, $columnNumber = 0) {
-		$statement = $this->query($sql);
-		if ($statement === false) return false;
-		return $statement->fetchColumn($columnNumber);
+		try {
+			$statement = $this->query($sql);
+			return $statement->fetchColumn($columnNumber);
+		} catch(\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new QueryColumnException;
+		}
 	}
 
 	/**
@@ -187,11 +226,16 @@ class Gate extends \Sy\Object {
 	 * @param string $className Name of the created class.
 	 * @param array $ctorArgs Elements of this array are passed to the constructor.
 	 * @return mixed
+	 * @throws QueryObjectException
 	 */
 	public function queryObject($sql, $className = 'stdClass', array $ctorArgs = array()) {
-		$statement = $this->query($sql);
-		if ($statement === false) return false;
-		return $statement->fetchObject($className, $ctorArgs);
+		try {
+			$statement = $this->query($sql);
+			return $statement->fetchObject($className, $ctorArgs);
+		} catch(\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new QueryObjectException;
+		}
 	}
 
 	/**
@@ -204,11 +248,16 @@ class Gate extends \Sy\Object {
 	 * @param type $cursorOrientation This value must be one of the \PDO::FETCH_ORI_* constants, defaulting to \PDO::FETCH_ORI_NEXT.
 	 * @param type $cursorOffset Depends on cursorOrientation value
 	 * @return mixed
+	 * @throws QueryOneException
 	 */
 	public function queryOne($sql, $fetchStyle = \PDO::FETCH_BOTH, $cursorOrientation = \PDO::FETCH_ORI_NEXT, $cursorOffset = 0) {
-		$statement = $this->query($sql);
-		if ($statement === false) return false;
-		return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
+		try {
+			$statement = $this->query($sql);
+			return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
+		} catch(\PDOException $e) {
+			$this->logError($e->getMessage());
+			throw new QueryOneException;
+		}
 	}
 
 	/**
@@ -229,3 +278,23 @@ class Gate extends \Sy\Object {
 	}
 
 }
+
+class Exception extends \Exception {}
+
+class PDOException extends Exception {}
+
+class TransactionException extends Exception {}
+
+class PrepareException extends Exception {}
+
+class ExecuteException extends Exception {}
+
+class QueryException extends Exception {}
+
+class QueryAllException extends Exception {}
+
+class QueryColumnException extends Exception {}
+
+class QueryObjectException extends Exception {}
+
+class QueryOneException extends Exception {}
