@@ -20,7 +20,7 @@ class Gate extends \Sy\Object {
 	}
 
 	/**
-	 * Return debug backtrace informations
+	 * Returns debug backtrace informations
 	 *
 	 * @return array
 	 */
@@ -37,7 +37,7 @@ class Gate extends \Sy\Object {
 
 
 	/**
-	 * Return the \PDO object.
+	 * Returns the \PDO object.
 	 *
 	 * @return \PDO
 	 * @throws PDOException
