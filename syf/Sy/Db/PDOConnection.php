@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Db;
 
-class PDOConnection extends \Sy\Object implements IConnection {
+class Gate extends \Sy\Object {
 
 	private $dsn;
 	private $username;
@@ -13,11 +13,10 @@ class PDOConnection extends \Sy\Object implements IConnection {
 	 * Constructor.
 	 */
 	public function __construct($dsn, $username = '', $password = '', array $driverOptions = array()) {
-		$this->dsn = $dsn;
-		$this->username = $username;
-		$this->password = $password;
+		$this->dsn           = $dsn;
+		$this->username      = $username;
+		$this->password      = $password;
 		$this->driverOptions = $driverOptions;
-		$this->pdo = NULL;
 	}
 
 	public function beginTransaction() {
@@ -79,12 +78,12 @@ class PDOConnection extends \Sy\Object implements IConnection {
 	}
 
 	/**
-	 * Return a reference to the \PDO object.
+	 * Return the \PDO object.
 	 *
 	 * @return \PDO
 	 */
 	public function pdo() {
-		if ($this->pdo === NULL) {
+		if (!isset($this->pdo)) {
 			try {
 				$this->pdo = PDOManager::getPDOInstance($this->dsn, $this->username, $this->password, $this->driverOptions);
 			} catch (\PDOException $except) {
