@@ -1,7 +1,7 @@
 <?php
 namespace Sy\Db;
 
-class Table extends \Sy\Db implements ITable {
+class Table extends \Sy\Db\Gate implements ITable {
 
 	private $name;
 
