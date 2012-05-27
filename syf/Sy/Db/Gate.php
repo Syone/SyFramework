@@ -7,10 +7,19 @@ class Gate extends \Sy\Object {
 	private $username;
 	private $password;
 	private $driverOptions;
+
+	/**
+	 * @var \PDO
+	 */
 	private $pdo;
 
 	/**
-	 * Constructor.
+	 * Gate constructor.
+	 *
+	 * @param string $dsn
+	 * @param string $username
+	 * @param string $password
+	 * @param array $driverOptions
 	 */
 	public function __construct($dsn, $username = '', $password = '', array $driverOptions = array()) {
 		$this->dsn           = $dsn;
@@ -42,7 +51,7 @@ class Gate extends \Sy\Object {
 	 * @return \PDO
 	 * @throws PDOException
 	 */
-	public function pdo() {
+	public function getPdo() {
 		if (!isset($this->pdo)) {
 			try {
 				$this->pdo = PDOManager::getPDOInstance($this->dsn, $this->username, $this->password, $this->driverOptions);
@@ -56,6 +65,15 @@ class Gate extends \Sy\Object {
 	}
 
 	/**
+	 * Set the \PDO object.
+	 *
+	 * @param \PDO $pdo
+	 */
+	public function setPdo(\PDO $pdo) {
+		$this->pdo = $pdo;
+	}
+
+	/**
 	 * Initiates a transaction.
 	 *
 	 * @return bool
@@ -63,7 +81,7 @@ class Gate extends \Sy\Object {
 	 */
 	public function beginTransaction() {
 		try {
-			return $this->pdo()->beginTransaction();
+			return $this->getPdo()->beginTransaction();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 			throw new TransactionException;
@@ -78,7 +96,7 @@ class Gate extends \Sy\Object {
 	 */
 	public function commit() {
 		try {
-			return $this->pdo()->commit();
+			return $this->getPdo()->commit();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 			throw new TransactionException;
@@ -93,7 +111,7 @@ class Gate extends \Sy\Object {
 	 */
 	public function rollBack() {
 		try {
-			return $this->pdo()->rollBack();
+			return $this->getPdo()->rollBack();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 			throw new TransactionException;
@@ -110,7 +128,7 @@ class Gate extends \Sy\Object {
 	 */
 	public function prepare($sql, array $driverOptions = array()) {
 		try {
-			return $this->pdo()->prepare($sql, $driverOptions);
+			return $this->getPdo()->prepare($sql, $driverOptions);
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
 			throw new PrepareException;
