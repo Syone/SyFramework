@@ -1,12 +1,12 @@
 <?php
 namespace Sy\Component\Html\Table;
 
-use Sy\Component\Html\Container;
+use Sy\Component\Html\Element;
 
 /**
  * The tr element container
  */
-class TrContainer extends Container {
+class TrContainer extends Element {
 
 	/**
 	 * Add a tr element

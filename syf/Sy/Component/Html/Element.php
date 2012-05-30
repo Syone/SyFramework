@@ -6,8 +6,8 @@ use Sy\Component\WebComponent;
 class Element extends WebComponent {
 
 	private $tagName;
-	private $content;
 	private $attributes;
+	private $content;
 
 	/**
 	 * Element constructor
@@ -18,26 +18,8 @@ class Element extends WebComponent {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->tagName = $tagName;
-		$this->content = NULL;
 		$this->attributes = array();
-	}
-
-	/**
-	 * Set the element content
-	 *
-	 * @param string $content Element content
-	 */
-	public function setContent($content) {
-		$this->content = $content;
-	}
-
-	/**
-	 * Get the element content
-	 *
-	 * @return string
-	 */
-	public function getContent() {
-		return trim($this->content);
+		$this->content = array();
 	}
 
 	/**
@@ -94,21 +76,75 @@ class Element extends WebComponent {
 	}
 
 	/**
+	 * Set the element content
+	 *
+	 * @param string $content Element content
+	 */
+	public function setContent($content) {
+		$this->content[0] = trim($content);
+	}
+
+	/**
+	 * Get the element content
+	 *
+	 * @return string
+	 */
+	public function getContent() {
+		return $this->content[0];
+	}
+
+	/**
+	 * Add an element
+	 *
+	 * @param Element $element
+	 * @return Element
+	 */
+	public function addElement(Element $element) {
+		$this->content[] = $element;
+		return $element;
+	}
+
+	/**
+	 * Get contained elements
+	 *
+	 * @return array Element array
+	 */
+	public function getElements() {
+		return $this->content;
+	}
+
+	/**
+	 * Set contained elements
+	 *
+	 * @param array $elements An array of Element
+	 */
+	public function setElements(array $elements) {
+		$this->content = $elements;
+	}
+
+	/**
 	 * Return if the element has a content or not
 	 *
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return ($this->getContent() === '' or is_null($this->getContent()));
+		$content = array_filter($this->content);
+		return empty($content);
 	}
 
 	public function __toString() {
 		$this->setVar('TAG_NAME', $this->tagName);
-		$this->setVar('CONTENT', $this->content, true);
 		foreach ($this->attributes as $name => $value) {
 			$this->setVar('NAME', $name);
 			$this->setVar('VALUE', $value);
 			$this->setBlock('BLOCK_ATTRIBUTES');
+		}
+		foreach (array_filter($this->content) as $element) {
+			if ($element instanceof Element)
+				$this->setComponent('ELEMENT', $element);
+			else
+				$this->setVar('ELEMENT', $element);
+			$this->setBlock('BLOCK_CONTENT');
 		}
 		return parent::__toString();
 	}

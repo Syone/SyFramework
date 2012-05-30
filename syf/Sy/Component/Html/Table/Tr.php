@@ -1,14 +1,13 @@
 <?php
 namespace Sy\Component\Html\Table;
 
-use Sy\Component\Html\Container,
-	Sy\Component\Html\Element;
+use Sy\Component\Html\Element;
 
 /**
  * The <tr> tag defines a row in an HTML table.
  * A tr element contains one or more th or td elements.
  */
-class Tr extends Container {
+class Tr extends Element {
 
 	public function __construct() {
 		parent::__construct('tr');
