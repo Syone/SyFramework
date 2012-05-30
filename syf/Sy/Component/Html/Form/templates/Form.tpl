@@ -1,4 +1,4 @@
-<form<?php foreach ($ATTRIBUTES as $name => $value) : ?> <?php echo $name ?>="<?php echo $value ?>"<?php endforeach ?>>
+<form<?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?>>
 <?php if ($ERROR and isset($OPTIONS['error'])) : ?>
 <div class="<?php echo $OPTIONS['error-class'] ?>"><?php echo $OPTIONS['error'] ?></div>
 <?php endif ?>
