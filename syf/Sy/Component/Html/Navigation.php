@@ -1,9 +1,9 @@
 <?php
 namespace Sy\Component\Html;
 
-use Sy\Component\Html\Container;
+use Sy\Component\Html\Element;
 
-class Navigation extends Container {
+class Navigation extends Element {
 
 	public function __construct() {
 		parent::__construct('ul');
