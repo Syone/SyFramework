@@ -104,11 +104,11 @@ class Element extends WebComponent {
 
 	public function __toString() {
 		$this->setVar('TAG_NAME', $this->tagName);
-		$this->setVar('CONTENT', $this->content);
+		$this->setVar('CONTENT', $this->content, true);
 		foreach ($this->attributes as $name => $value) {
 			$this->setVar('NAME', $name);
 			$this->setVar('VALUE', $value);
-			$this->setBlock('ATTRIBUTES');
+			$this->setBlock('BLOCK_ATTRIBUTES');
 		}
 		return parent::__toString();
 	}

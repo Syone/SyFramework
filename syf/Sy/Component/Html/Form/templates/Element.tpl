@@ -12,9 +12,9 @@
 <span class="<?php echo $OPTIONS['error-class'] ?>"><?php echo $OPTIONS['error'] ?></span>
 <?php endif ?>
 <?php if (is_null($CONTENT)) : ?>
-<<?php echo $TAG_NAME ?><?php foreach ($ATTRIBUTES as $name => $value) : ?> <?php echo $name ?>="<?php echo $value ?>"<?php endforeach ?> />
+<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?> />
 <?php else : ?>
-<<?php echo $TAG_NAME ?><?php foreach ($ATTRIBUTES as $name => $value) : ?> <?php echo $name ?>="<?php echo $value ?>"<?php endforeach ?>><?php echo $CONTENT ?></<?php echo $TAG_NAME ?>>
+<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?>><?php echo $CONTENT ?></<?php echo $TAG_NAME ?>>
 <?php endif ?>
 <?php if (isset($OPTIONS['label'])): ?>
 <?php if ($OPTIONS['label-position'] === 'after'): ?>

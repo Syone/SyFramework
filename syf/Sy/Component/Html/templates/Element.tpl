@@ -1,5 +1,5 @@
 <?php if (is_null($CONTENT)): ?>
-<<?php echo $TAG_NAME ?><?php if (isset($ATTRIBUTES)): ?><?php foreach ($ATTRIBUTES as $a) : ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach ?><?php endif ?> />
+<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?> />
 <?php else: ?>
-<<?php echo $TAG_NAME ?><?php if (isset($ATTRIBUTES)): ?><?php foreach ($ATTRIBUTES as $a) : ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach ?><?php endif ?>><?php echo $CONTENT ?></<?php echo $TAG_NAME ?>>
+<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?>><?php echo $CONTENT ?></<?php echo $TAG_NAME ?>>
 <?php endif ?>
