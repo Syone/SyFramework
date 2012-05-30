@@ -23,7 +23,7 @@ class Item extends \Sy\Component\Html\Container {
 			$a->setContent($title);
 			$this->addElement($a);
 		}
-		$this->list = new Container('ul');
+		$this->list = new Element('ul');
 	}
 
 	/**

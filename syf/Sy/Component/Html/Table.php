@@ -87,7 +87,7 @@ class Table extends TrContainer {
 	 * @return Container
 	 */
 	public function addColGroup(array $attributes = array()) {
-		$element = new Container('colgroup');
+		$element = new Element('colgroup');
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
 	}
