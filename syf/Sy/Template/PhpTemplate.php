@@ -7,10 +7,12 @@ class PhpTemplate implements ITemplate {
 
 	private $vars;
 
+	private $blocks;
+
 	public function __construct() {
 		$this->file = '';
 		$this->vars = array();
-		$this->files = array();
+		$this->blocks = array();
 	}
 
 	public function setFile($file) {
@@ -25,7 +27,7 @@ class PhpTemplate implements ITemplate {
 	}
 
 	public function setBlock($block) {
-
+		$this->blocks[$block][] = $this->vars;
 	}
 
 	public function _($var) {
@@ -35,9 +37,9 @@ class PhpTemplate implements ITemplate {
 	public function getRender() {
 		if (empty($this->file)) return '';
 
-		foreach ($this->vars as $name => $value) {
-			$$name = $value;
-		}
+		extract($this->blocks);
+
+		extract($this->vars);
 
 		ob_start();
 		include $this->file;
