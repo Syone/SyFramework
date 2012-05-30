@@ -38,8 +38,10 @@ class PhpTemplate implements ITemplate {
 		if (empty($this->file)) return '';
 
 		extract($this->blocks);
-
 		extract($this->vars);
+
+		$this->blocks = array();
+		$this->vars = array();
 
 		ob_start();
 		include $this->file;
