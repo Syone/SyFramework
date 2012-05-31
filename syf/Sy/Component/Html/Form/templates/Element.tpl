@@ -11,10 +11,10 @@
 <?php if ($ERROR and isset($OPTIONS['error']) and $OPTIONS['error-position'] === 'before'): ?>
 <span class="<?php echo $OPTIONS['error-class'] ?>"><?php echo $OPTIONS['error'] ?></span>
 <?php endif ?>
-<?php if (is_null($CONTENT)) : ?>
+<?php if (isset($BLOCK_CONTENT)): ?>
+<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?>><?php foreach ($BLOCK_CONTENT as $c): echo $c['ELEMENT']; endforeach ?></<?php echo $TAG_NAME ?>>
+<?php else: ?>
 <<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?> />
-<?php else : ?>
-<<?php echo $TAG_NAME ?><?php if (isset($BLOCK_ATTRIBUTES)): foreach ($BLOCK_ATTRIBUTES as $a): ?> <?php echo $a['NAME'] ?>="<?php echo $a['VALUE'] ?>"<?php endforeach; endif ?>><?php echo $CONTENT ?></<?php echo $TAG_NAME ?>>
 <?php endif ?>
 <?php if (isset($OPTIONS['label'])): ?>
 <?php if ($OPTIONS['label-position'] === 'after'): ?>
