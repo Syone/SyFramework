@@ -140,7 +140,8 @@ class Element extends WebComponent {
 			$this->setBlock('BLOCK_ATTRIBUTES');
 		}
 		$elements = array_filter($this->content);
-		if (!empty($elements) and $elements[0] instanceof Element) array_unshift($elements, "\n");
+		if ((count($elements) > 1) or (!empty($elements) and $elements[0] instanceof Element))
+			array_unshift($elements, "\n");
 		foreach ($elements as $element) {
 			if ($element instanceof Element)
 				$this->setComponent('ELEMENT', $element);
