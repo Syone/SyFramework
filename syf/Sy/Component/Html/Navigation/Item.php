@@ -1,10 +1,9 @@
 <?php
 namespace Sy\Component\Html\Navigation;
 
-use Sy\Component\Html\Container,
-	Sy\Component\Html\Element;
+use Sy\Component\Html\Element;
 
-class Item extends \Sy\Component\Html\Container {
+class Item extends \Sy\Component\Html\Element {
 
 	/**
 	 * Item container
