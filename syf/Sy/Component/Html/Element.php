@@ -30,7 +30,7 @@ class Element extends WebComponent {
 	 */
 	public function getAttribute($name) {
 		$name = strtolower($name);
-		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
+		return isset($this->attributes[$name]) ? $this->attributes[$name] : null;
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Element extends WebComponent {
 		$name = strtolower($name);
 		if ($append) {
 			$actual = $this->getAttribute($name);
-			$value = is_null($actual) ? $value : $actual . ' ' . $value;
+			$value = is_null($actual) ? $value : $actual . $value;
 		}
 		$this->attributes[$name] = $value;
 	}
