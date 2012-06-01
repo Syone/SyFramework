@@ -23,36 +23,14 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Set the element attributes
+	 * Get the element attribute
 	 *
-	 * @param array $attributes Array of element attributes
+	 * @param string $name Attribute name
+	 * @return string
 	 */
-	public function setAttributes(array $attributes) {
-		foreach ($attributes as $name => $value) {
-			$this->setAttribute($name, $value);
-		}
-	}
-
-	/**
-	 * Set the element attribute
-	 *
-	 * @param string $name  Attribute name
-	 * @param string $value Attribute value
-	 */
-	public function setAttribute($name, $value) {
+	public function getAttribute($name) {
 		$name = strtolower($name);
-		$this->attributes[$name] = $value;
-	}
-
-	/**
-	 * Add value in element attribute
-	 *
-	 * @param string $name  Attribute name
-	 * @param string $value Attribute value
-	 */
-	public function addAttribute($name, $value) {
-		$value = is_null($this->getAttribute($name)) ? $value : $this->getAttribute($name) . ' ' . $value;
-		$this->setAttribute($name, $value);
+		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
 	}
 
 	/**
@@ -65,14 +43,30 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Get the element attribute
+	 * Set the element attribute
 	 *
-	 * @param string $name Attribute name
-	 * @return string
+	 * @param string $name  Attribute name
+	 * @param string $value Attribute value
+	 * @param bool Append the value
 	 */
-	public function getAttribute($name) {
+	public function setAttribute($name, $value, $append = false) {
 		$name = strtolower($name);
-		return isset($this->attributes[$name]) ? $this->attributes[$name] : NULL;
+		if ($append) {
+			$actual = $this->getAttribute($name);
+			$value = is_null($actual) ? $value : $actual . ' ' . $value;
+		}
+		$this->attributes[$name] = $value;
+	}
+
+	/**
+	 * Set the element attributes
+	 *
+	 * @param array $attributes Array of element attributes
+	 */
+	public function setAttributes(array $attributes) {
+		foreach ($attributes as $name => $value) {
+			$this->setAttribute($name, $value);
+		}
 	}
 
 	/**
