@@ -5,8 +5,19 @@ use Sy\Component\WebComponent;
 
 class Element extends WebComponent {
 
+	/**
+	 * @var string
+	 */
 	private $tagName;
+
+	/**
+	 * @var array
+	 */
 	private $attributes;
+
+	/**
+	 * @var array
+	 */
 	private $content;
 
 	/**
@@ -70,21 +81,21 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Set the element content
-	 *
-	 * @param array $content Element content
-	 */
-	public function setContent(array $content) {
-		$this->content = $content;
-	}
-
-	/**
 	 * Get the element content
 	 *
 	 * @return array
 	 */
 	public function getContent() {
 		return array_filter($this->content);
+	}
+
+	/**
+	 * Set the element content
+	 *
+	 * @param array $content Element content
+	 */
+	public function setContent(array $content) {
+		$this->content = $content;
 	}
 
 	/**
@@ -124,19 +135,27 @@ class Element extends WebComponent {
 			$this->setVar('VALUE', $value);
 			$this->setBlock('BLOCK_ATTRIBUTES');
 		}
-		foreach ($this->getRealContent() as $element) {
-			if ($element instanceof Element) {
+		foreach ($this->getFormattedContent() as $element) {
+			if ($element instanceof Element)
 				$this->setComponent('ELEMENT', $element);
-			} else {
+			else
 				$this->setVar('ELEMENT', $element);
-			}
 			$this->setBlock('BLOCK_CONTENT');
 		}
 		return parent::__toString();
 	}
 
-	private function getRealContent() {
+	private function getFormattedContent() {
 		$content = $this->getContent();
+		if (empty($content)) return $content;
+		if (count($content) > 1) {
+			$content = array_map(function($value) {
+				return is_string($value) ? $value . "\n" : $value;
+			}, $content);
+			array_unshift($content, "\n");
+		}
+		if (count($content) == 1 and $content[0] instanceof Element)
+			array_unshift($content, "\n");
 		return $content;
 	}
 
