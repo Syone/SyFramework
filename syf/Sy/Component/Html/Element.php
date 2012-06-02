@@ -94,6 +94,8 @@ class Element extends WebComponent {
 	 * @return Element
 	 */
 	public function addElement(Element $element) {
+		$content = $this->getContent();
+		if (empty($content)) $this->content[] = "\n";
 		$this->content[] = $element;
 		return $element;
 	}
@@ -104,7 +106,9 @@ class Element extends WebComponent {
 	 * @param string $text
 	 */
 	public function addText($text) {
-		$this->content[] = trim($text);
+		$content = $this->getContent();
+		$return = empty($content) ? '' : "\n";
+		$this->content[] = trim($text) . $return;
 	}
 
 	/**
@@ -130,8 +134,8 @@ class Element extends WebComponent {
 			if ($elements[$i] instanceof Element) {
 				$this->setComponent('ELEMENT', $elements[$i]);
 			} else {
-				$r = ($i == 0) and ($nbElement == 1) ? '' : "\n";
-				$this->setVar('ELEMENT', $elements[$i]);
+				$return = (($i == 0) and ($nbElement > 1)) ? "\n" : '';
+				$this->setVar('ELEMENT', $return . $elements[$i] . $return);
 			}
 			$this->setBlock('BLOCK_CONTENT');
 		}
