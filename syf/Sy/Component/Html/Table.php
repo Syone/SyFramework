@@ -76,7 +76,7 @@ class Table extends TrContainer {
 	 * @param array $attributes caption attributes
 	 */
 	public function setCaption($caption, array $attributes = array()) {
-		$this->getCaption()->setContent($caption);
+		$this->getCaption()->addText($caption);
 		$this->getCaption()->setAttributes($attributes);
 	}
 
@@ -114,12 +114,12 @@ class Table extends TrContainer {
 	}
 
 	public function __toString() {
-		$elements = $this->getElements();
+		$elements = $this->getContent();
 		if (!$this->getCaption()->isEmpty()) array_unshift($elements, $this->caption);
 		if (!$this->getTHead()->isEmpty()) $elements['head'] = $this->tHead;
 		if (!$this->getTFoot()->isEmpty()) $elements['foot'] = $this->tFoot;
 		if (!$this->getTBody()->isEmpty()) $elements['body'] = $this->tBody;
-		$this->setElements($elements);
+		$this->setContent($elements);
 		return parent::__toString();
 	}
 
