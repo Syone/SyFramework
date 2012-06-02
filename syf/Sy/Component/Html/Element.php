@@ -94,8 +94,6 @@ class Element extends WebComponent {
 	 * @return Element
 	 */
 	public function addElement(Element $element) {
-		$content = $this->getContent();
-		if (empty($content)) $this->content[] = "\n";
 		$this->content[] = $element;
 		return $element;
 	}
@@ -106,9 +104,7 @@ class Element extends WebComponent {
 	 * @param string $text
 	 */
 	public function addText($text) {
-		$content = $this->getContent();
-		$return = empty($content) ? '' : "\n";
-		$this->content[] = trim($text) . $return;
+		$this->content[] = trim($text);
 	}
 
 	/**
@@ -128,18 +124,20 @@ class Element extends WebComponent {
 			$this->setVar('VALUE', $value);
 			$this->setBlock('BLOCK_ATTRIBUTES');
 		}
-		$elements = $this->getContent();
-		$nbElement = count($elements);
-		for ($i = 0; $i < $nbElement; $i++) {
-			if ($elements[$i] instanceof Element) {
-				$this->setComponent('ELEMENT', $elements[$i]);
+		foreach ($this->getRealContent() as $element) {
+			if ($element instanceof Element) {
+				$this->setComponent('ELEMENT', $element);
 			} else {
-				$return = (($i == 0) and ($nbElement > 1)) ? "\n" : '';
-				$this->setVar('ELEMENT', $return . $elements[$i] . $return);
+				$this->setVar('ELEMENT', $element);
 			}
 			$this->setBlock('BLOCK_CONTENT');
 		}
 		return parent::__toString();
+	}
+
+	private function getRealContent() {
+		$content = $this->getContent();
+		return $content;
 	}
 
 }
