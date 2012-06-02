@@ -15,11 +15,11 @@ class Item extends \Sy\Component\Html\Element {
 	public function __construct($title, $link) {
 		parent::__construct('li');
 		if (is_null($link)) {
-			$this->setContent($title);
+			$this->addText($title);
 		} else {
 			$a = new Element('a');
 			$a->setAttribute('href', $link);
-			$a->setContent($title);
+			$a->addText($title);
 			$this->addElement($a);
 		}
 		$this->list = new Element('ul');
