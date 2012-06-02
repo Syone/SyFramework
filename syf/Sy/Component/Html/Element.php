@@ -72,19 +72,19 @@ class Element extends WebComponent {
 	/**
 	 * Set the element content
 	 *
-	 * @param string $content Element content
+	 * @param array $content Element content
 	 */
-	public function setContent($content) {
-		$this->content[0] = trim($content);
+	public function setContent(array $content) {
+		$this->content = $content;
 	}
 
 	/**
 	 * Get the element content
 	 *
-	 * @return string
+	 * @return array
 	 */
 	public function getContent() {
-		return $this->content[0];
+		return array_filter($this->content);
 	}
 
 	/**
@@ -99,21 +99,12 @@ class Element extends WebComponent {
 	}
 
 	/**
-	 * Get contained elements
+	 * Add text in content
 	 *
-	 * @return array Element array
+	 * @param string $text
 	 */
-	public function getElements() {
-		return $this->content;
-	}
-
-	/**
-	 * Set contained elements
-	 *
-	 * @param array $elements An array of Element
-	 */
-	public function setElements(array $elements) {
-		$this->content = $elements;
+	public function addText($text) {
+		$this->content[] = trim($text);
 	}
 
 	/**
@@ -122,7 +113,7 @@ class Element extends WebComponent {
 	 * @return bool
 	 */
 	public function isEmpty() {
-		$content = array_filter($this->content);
+		$content = $this->getContent();
 		return empty($content);
 	}
 
@@ -133,14 +124,15 @@ class Element extends WebComponent {
 			$this->setVar('VALUE', $value);
 			$this->setBlock('BLOCK_ATTRIBUTES');
 		}
-		$elements = array_filter($this->content);
-		if ((count($elements) > 1) or (!empty($elements) and $elements[0] instanceof Element))
-			array_unshift($elements, "\n");
-		foreach ($elements as $element) {
-			if ($element instanceof Element)
-				$this->setComponent('ELEMENT', $element);
-			else
-				$this->setVar('ELEMENT', $element);
+		$elements = $this->getContent();
+		$nbElement = count($elements);
+		for ($i = 0; $i < $nbElement; $i++) {
+			if ($elements[$i] instanceof Element) {
+				$this->setComponent('ELEMENT', $elements[$i]);
+			} else {
+				$r = ($i == 0) and ($nbElement == 1) ? '' : "\n";
+				$this->setVar('ELEMENT', $elements[$i]);
+			}
 			$this->setBlock('BLOCK_CONTENT');
 		}
 		return parent::__toString();
