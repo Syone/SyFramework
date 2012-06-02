@@ -22,7 +22,7 @@ class Tr extends Element {
 	 */
 	public function addTh($data, array $attributes = array()) {
 		$element = new Element('th');
-		$element->setContent($data);
+		$element->addText($data);
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
 	}
@@ -48,7 +48,7 @@ class Tr extends Element {
 	 */
 	public function addTd($data, array $attributes = array()) {
 		$element = new Element('td');
-		$element->setContent($data);
+		$element->addText($data);
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
 	}
@@ -71,8 +71,9 @@ class Tr extends Element {
 	 * @return bool
 	 */
 	public function isEmpty() {
-		$tds = $this->getElements();
+		$tds = $this->getContent();
 		foreach ($tds as $td) {
+			if (!$td instanceof ELement) continue;
 			if (!$td->isEmpty()) return false;
 		}
 		return true;

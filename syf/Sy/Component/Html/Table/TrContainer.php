@@ -26,8 +26,9 @@ class TrContainer extends Element {
 	 * @return bool
 	 */
 	public function isEmpty() {
-		$trs = $this->getElements();
+		$trs = $this->getContent();
 		foreach ($trs as $tr) {
+			if (!$tr instanceof ELement) continue;
 			if (!$tr->isEmpty()) return false;
 		}
 		return true;
