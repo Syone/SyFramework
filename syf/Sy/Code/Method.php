@@ -56,7 +56,10 @@ class Method extends Component {
 		$this->setVar('BODY', $this->body);
 		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if ($this->static) $this->setVar('STATIC', ' static');
-		if (!empty($this->parameters)) $this->initParameters();
+		if (!empty($this->parameters)) {
+			$this->initParameters();
+			$space = true;
+		}
 		if (strpos($this->body, 'return') !== false) {
 			$this->setBlock('RETURN_BLOCK');
 			$space = true;
@@ -72,7 +75,6 @@ class Method extends Component {
 			$this->setVar('PARAM_NAME', '$' . $parameter->getName());
 			$this->setBlock('PARAMETERS_BLOCK');
 		}
-		$space = true;
 	}
 
 }
