@@ -75,18 +75,28 @@ class DataTable extends Table {
 	}
 
 	/**
+	 * Set align option
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	private function setAlignOption($key, $value) {
+		switch ($value) {
+			case 'left':
+			case 'center':
+			case 'right':
+			case 'justify':
+				$this->options[$key] = $value; break;
+		}
+	}
+
+	/**
 	 * Set value alignment
 	 *
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setAlign($align) {
-		switch ($align) {
-			case 'left':
-			case 'center':
-			case 'right':
-			case 'justify':
-				$this->options['align'] = $align; break;
-		}
+		$this->setAlignOption('align', $align);
 	}
 
 	/**
@@ -95,13 +105,7 @@ class DataTable extends Table {
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setHeadAlign($align) {
-		switch ($align) {
-			case 'left':
-			case 'center':
-			case 'right':
-			case 'justify':
-				$this->options['head_align'] = $align; break;
-		}
+		$this->setAlignOption('head_align', $align);
 	}
 
 	/**
@@ -110,13 +114,7 @@ class DataTable extends Table {
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setFootAlign($align) {
-		switch ($align) {
-			case 'left':
-			case 'center':
-			case 'right':
-			case 'justify':
-				$this->options['foot_align'] = $align; break;
-		}
+		$this->setAlignOption('foot_align', $align);
 	}
 
 	/**
@@ -125,13 +123,7 @@ class DataTable extends Table {
 	 * @param string $align Alignement available: 'left', 'center', 'right', 'justify'
 	 */
 	public function setNumAlign($align) {
-		switch ($align) {
-			case 'left':
-			case 'center':
-			case 'right':
-			case 'justify':
-				$this->options['num_align'] = $align; break;
-		}
+		$this->setAlignOption('num_align', $align);
 	}
 
 	/**
@@ -205,8 +197,8 @@ class DataTable extends Table {
 	 * @param array $foots Array of foot data
 	 */
 	public function setFoots(array $foots) {
-		$this->getTHead()->setElements(array());
-		$this->addHeads($heads);
+		$this->getTFoot()->setElements(array());
+		$this->addFoots($foots);
 	}
 
 	/**
@@ -283,7 +275,7 @@ class DataTable extends Table {
 	 */
 	private function processAlign($element, $align) {
 		if ($element instanceof Table\TrContainer or $element instanceof Table\Tr) {
-			foreach ($element->getElements() as $e) {
+			foreach ($element->getContent() as $e) {
 				$this->processAlign($e, $align);
 			}
 		} else {
@@ -297,24 +289,24 @@ class DataTable extends Table {
 	 * @param Element $element
 	 */
 	private function processFormat($element) {
-		if ($element instanceof Container) {
-			foreach ($element->getElements() as $e) {
+		if ($element instanceof Table\TrContainer or $element instanceof Table\Tr) {
+			foreach ($element->getContent() as $e) {
 				$this->processFormat($e);
 			}
-		} else if ($element instanceof Element) {
-			$data = $element->getContent();
+		} else {
+			$data = implode(' ', $element->getContent());
 			$isNumeric = is_numeric($data);
 			if ($isNumeric and $this->hasNumAlign()) {
 				$element->setAttribute('style', 'text-align: ' . $this->options['num_align']);
 			}
 			if ($isNumeric and $this->hasNumFormat()) {
 				$data = number_format($data, $this->options['num_decimals'], $this->options['num_dec_point'], $this->options['num_thousands_sep']);
-				$element->setContent($data);
+				$element->setContent(array($data));
 			}
 			if ($this->hasPregReplace()) {
 				foreach ($this->replaces as $replace) {
 					$data = preg_replace($replace['pattern'], $replace['replacement'], $data);
-					$element->setContent($data);
+					$element->setContent(array($data));
 				}
 			}
 		}
