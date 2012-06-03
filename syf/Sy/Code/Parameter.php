@@ -31,7 +31,7 @@ class Parameter extends Component {
 
 	public function __toString() {
 		$this->setVar('NAME', $this->name);
-		if (!is_null($this->type)) $this->setVar('TYPE', $type . ' ');
+		if (!is_null($this->type)) $this->setVar('TYPE', $this->type . ' ');
 		if (!is_null($this->defaultValue)) $this->setVar('DEFAULT_VALUE', ' = ' . $this->defaultValue);
 		return parent::__toString();
 	}
