@@ -14,14 +14,23 @@ abstract class InputSet extends FieldContainer {
 	public function __construct(array $inputs, array $options = array()) {
 		parent::__construct();
 		$this->inputs    = $inputs;
-		$this->name      = isset($options['name'])      ? $options['name']      : '';
-		$this->id        = isset($options['id'])        ? $options['id']        : '';
-		$this->validator = isset($options['validator']) ? $options['validator'] : '';
-		$this->error     = isset($options['error'])     ? $options['error']     : '';
-		$this->required  = isset($options['required'])  ? $options['required']  : '';
-		$this->checked   = isset($options['checked'])   ? $options['checked']   : '';
+		$options = $this->initOptions($options);
+		$this->name      = $options['name'];
+		$this->id        = $options['id'];
+		$this->validator = $options['validator'];
+		$this->error     = $options['error'];
+		$this->required  = $options['required'];
+		$this->checked   = $options['checked'];
 		$this->setTemplateFile(__DIR__ . '/templates/InputSet.tpl', 'php');
 		$this->init();
+	}
+
+	private function initOptions($array) {
+		$options = array('name', 'id', 'validator', 'error', 'required', 'checked');
+		foreach ($options as $option) {
+			$array[$option] = isset($array[$option]) ? $array[$option] : '';
+		}
+		return $array;
 	}
 
 	protected function init() {
