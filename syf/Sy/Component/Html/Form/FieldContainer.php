@@ -32,7 +32,7 @@ class FieldContainer extends Container {
 		$fieldset->setAttributes($attributes);
 		if (!is_null($label)) {
 			$legend = new Element('legend');
-			$legend->setContent($label);
+			$legend->addText($label);
 			$fieldset->addElement($legend);
 		}
 		return $this->addElement($fieldset);
@@ -47,7 +47,7 @@ class FieldContainer extends Container {
 	 */
 	public function addLabel($label, array $attributes = array()) {
 		$element = new Element('label');
-		$element->setContent($label);
+		$element->addText($label);
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
 	}
@@ -61,7 +61,7 @@ class FieldContainer extends Container {
 	 */
 	public function addButton($label, array $attributes = array()) {
 		$element = new Element('button');
-		$element->setContent($label);
+		$element->addText($label);
 		$element->setAttributes($attributes);
 		return $this->addElement($element);
 	}

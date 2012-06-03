@@ -29,7 +29,7 @@ class OptionContainer extends Container {
 	 */
 	public function addOption($label, $value = NULL) {
 		$option = new Option();
-		$option->setContent($label);
+		$option->addText($label);
 		if (!is_null($value)) $option->setAttribute('value', $value);
 		return $this->addElement($option);
 	}
