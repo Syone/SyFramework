@@ -164,7 +164,7 @@ class DataTable extends Table {
 	 * @param array $heads Array of head row
 	 */
 	public function setHeads(array $heads) {
-		$this->getTHead()->setElements(array());
+		$this->getTHead()->setContent(array());
 		$this->addHeads($heads);
 	}
 
@@ -230,7 +230,7 @@ class DataTable extends Table {
 	 * @param array $rows
 	 */
 	public function setRows(array $rows) {
-		$this->getTBody()->setElements(array());
+		$this->getTBody()->setContent(array());
 		$this->addRows($rows);
 	}
 

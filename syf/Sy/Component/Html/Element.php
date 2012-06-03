@@ -154,7 +154,7 @@ class Element extends WebComponent {
 			}, $content);
 			array_unshift($content, "\n");
 		}
-		if (count($content) == 1 and $content[0] instanceof Element)
+		if (count($content) == 1 and current($content) instanceof Element)
 			array_unshift($content, "\n");
 		return $content;
 	}
