@@ -56,21 +56,23 @@ class Method extends Component {
 		$this->setVar('BODY', $this->body);
 		if ($this->abstract) $this->setVar('ABSTRACT', 'abstract ');
 		if ($this->static) $this->setVar('STATIC', ' static');
-		if (!empty($this->parameters)) {
-			$this->setVar('PARAMETERS', implode(', ', $this->parameters));
-			foreach ($this->parameters as $parameter) {
-				$this->setVar('PARAM_TYPE', is_null($parameter->getType()) ? 'type' : $parameter->getType());
-				$this->setVar('PARAM_NAME', '$' . $parameter->getName());
-				$this->setBlock('PARAMETERS_BLOCK');
-			}
-			$space = true;
-		}
+		if (!empty($this->parameters)) $this->initParameters();
 		if (strpos($this->body, 'return') !== false) {
 			$this->setBlock('RETURN_BLOCK');
 			$space = true;
 		}
 		if (isset($space)) $this->setBlock('SPACE');
 		return parent::__toString();
+	}
+
+	private function initParameters() {
+		$this->setVar('PARAMETERS', implode(', ', $this->parameters));
+		foreach ($this->parameters as $parameter) {
+			$this->setVar('PARAM_TYPE', is_null($parameter->getType()) ? 'type' : $parameter->getType());
+			$this->setVar('PARAM_NAME', '$' . $parameter->getName());
+			$this->setBlock('PARAMETERS_BLOCK');
+		}
+		$space = true;
 	}
 
 }
