@@ -197,7 +197,7 @@ class DataTable extends Table {
 	 * @param array $foots Array of foot data
 	 */
 	public function setFoots(array $foots) {
-		$this->getTFoot()->setElements(array());
+		$this->getTFoot()->setContent(array());
 		$this->addFoots($foots);
 	}
 
