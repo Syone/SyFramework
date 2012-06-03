@@ -40,33 +40,25 @@ class Log {
 	 * @param array $info Optionnal associative array. Key available: level, type, file, line, function, class, message, tag
 	 */
 	public function __construct($info) {
-		$this->message  = $this->getValueFromArray($info, 'message');
-		$this->level    = $this->getValueFromArray($info, 'level', self::NOTICE);
-		$this->type     = $this->getValueFromArray($info, 'type');
-		$this->file     = $this->getValueFromArray($info, 'file');
-		$this->line     = $this->getValueFromArray($info, 'line');
-		$this->function = $this->getValueFromArray($info, 'function');
-		$this->class    = $this->getValueFromArray($info, 'class');
-		$this->tag      = $this->getValueFromArray($info, 'tag');
+		$this->message  = isset($info['message'])  ? $info['message']  : '';
+		$this->level    = isset($info['level'])    ? $info['level']    : self::NOTICE;
+		$this->type     = isset($info['type'])     ? $info['type']     : '';
+		$this->file     = isset($info['file'])     ? $info['file']     : '';
+		$this->line     = isset($info['line'])     ? $info['line']     : '';
+		$this->function = isset($info['function']) ? $info['function'] : '';
+		$this->class    = isset($info['class'])    ? $info['class']    : '';
+		$this->tag      = isset($info['tag'])      ? $info['tag']      : '';
 		$this->time     = time();
 
 		if (empty($this->file) and empty($this->line) and empty($this->function) and empty($this->class)) {
-			$this->initLogInfo();
+			$callStack = debug_backtrace();
+			$idx = 1;
+			while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] === 'Sy\Object') $idx++;
+			$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
+			$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
+			$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
+			$this->class    = !empty($callStack[$idx + 1]['class'])    ? $callStack[$idx + 1]['class']    : '';
 		}
-	}
-
-	private function getValueFromArray($array, $key, $default = '') {
-		return isset($array[$key]) ? $array[$key] : $default;
-	}
-
-	private function initLogInfo() {
-		$callStack = debug_backtrace();
-		$idx = 1;
-		while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] === 'Sy\Object') $idx++;
-		$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
-		$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
-		$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
-		$this->class    = !empty($callStack[$idx + 1]['class'])    ? $callStack[$idx + 1]['class']    : '';
 	}
 
 	public function getMessage() {
