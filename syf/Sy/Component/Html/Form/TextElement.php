@@ -37,6 +37,7 @@ class TextElement extends Element implements ValidableElement {
 		$validators = $this->getOption('validator');
 		if (is_null($validators)) return true;
 		if (!is_array($validators)) $validators = array($validators);
+		if (is_callable($validators)) $validators = array($validators);
 		foreach ($validators as $v) {
 			$options = array();
 			$filter = FILTER_CALLBACK;
