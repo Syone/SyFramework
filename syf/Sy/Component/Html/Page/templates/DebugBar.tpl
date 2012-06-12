@@ -155,83 +155,93 @@
 		_prefix: 'sy_debug_',
 
 		_suffix: '_<?php echo \crc32('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])) ?>',
+		
+		_localCache: {},
 
 		get: function(id) {
-			return document.getElementById(this._prefix + id);
+			if (this._localCache[this._prefix + id] === undefined) {
+				this._localCache[this._prefix + id] = document.getElementById(this._prefix + id);
+			}
+			return this._localCache[this._prefix + id];
 		},
 
 		start_resize: function(e) {
 			document.onmousemove = sy_debug.resize;
-			document.onmouseup = sy_debug.end_resize;
+			document.onmouseup   = sy_debug.end_resize;
 		},
 
 		resize: function(e) {
 			var posy = 0;
-			if (!e) var e = window.event;
+			if (!e) { 
+				var e = window.event;
+			}
 			posy = e.clientY;
-			if (posy <= 0) return;
+			if (posy <= 0) { 
+				return;
+			}
 			var  h = document.documentElement.clientHeight;
 			var new_height = h - posy - 34;
 			sy_debug.get('console_content').style.height = new_height + 'px';
-			sy_debug.get('console').style.height = new_height + 'px';
+			sy_debug.get('console').style.height         = new_height + 'px';
 		},
 
 		end_resize: function(e) {
 			document.onmousemove = null;
-			document.onmouseup = null;
+			document.onmouseup   = null;
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		},
 
 		log_filter: function(element, color) {
 			var checked = (element.className === 'sy_debug_filter_checked');
-			var div = this.get('log_content');
-			var rows = div.getElementsByTagName('tr');
+			var div     = this.get('log_content');
+			var rows    = div.getElementsByTagName('tr');
 			var display = checked ? 'none' : 'table-row';
 			if (checked) {
 				element.style.backgroundColor = '#CCC';
-				element.style.borderColor = '#DDD';
-				element.className = 'sy_debug_filter_unchecked';
+				element.style.borderColor     = '#DDD';
+				element.className             = 'sy_debug_filter_unchecked';
 			} else {
 				element.style.backgroundColor = '#ABC8E2';
-				element.style.borderColor = '#375D81';
-				element.className = 'sy_debug_filter_checked';
+				element.style.borderColor     = '#375D81';
+				element.className             = 'sy_debug_filter_checked';
 			}
-			for (var i = 0; i < rows.length; ++i) {
-				if (rows[i].className === 'sy_debug_log_row_' + color)
+			for (var i = 0, length = rows.length; i < length; ++i) {
+				if (rows[i].className === 'sy_debug_log_row_' + color) {
 					rows[i].style.display = display;
+				}
 			}
 		},
 
 		show_console: function() {
-			this.get('resize_bar').style.display = 'block';
+			this.get('resize_bar').style.display         = 'block';
 			this.get('resize_bar_wrapper').style.display = 'block';
-			this.get('console_content').style.display = 'block';
-			this.get('console').style.display = 'block';
-			this.get('close_button').style.display = 'block';
+			this.get('console_content').style.display    = 'block';
+			this.get('console').style.display            = 'block';
+			this.get('close_button').style.display       = 'block';
 		},
 
 		hide_console: function() {
 			this.hide_all_content();
-			this.get('resize_bar').style.display = 'none';
+			this.get('resize_bar').style.display         = 'none';
 			this.get('resize_bar_wrapper').style.display = 'none';
-			this.get('console_content').style.display = 'none';
-			this.get('console').style.display = 'none';
-			this.get('close_button').style.display = 'none';
+			this.get('console_content').style.display    = 'none';
+			this.get('console').style.display            = 'none';
+			this.get('close_button').style.display       = 'none';
 			this.clear_state();
 		},
 
 		hide_all_content: function() {
 			<?php if ($WEB_LOGGER): ?>
 			this.get('log_content_title').style.color = '#555';
-			this.get('log_content').style.display = 'none';
+			this.get('log_content').style.display     = 'none';
 			<?php endif ?>
 			<?php if ($FILE_LOGGER): ?>
 			this.get('file_content_title').style.color = '#555';
-			this.get('file_content').style.display = 'none';
+			this.get('file_content').style.display     = 'none';
 			<?php endif ?>
 			<?php if ($TIME_RECORD): ?>
 			this.get('time_content_title').style.color = '#555';
-			this.get('time_content').style.display = 'none';
+			this.get('time_content').style.display     = 'none';
 			<?php endif ?>
 			this.get('php_content_title').style.color = '#555';
 			this.get('var_content_title').style.color = '#555';
@@ -242,7 +252,7 @@
 		show_content: function(type) {
 			if (type !== null) {
 				this.hide_all_content();
-				this.get(type + '_content').style.display = 'block';
+				this.get(type + '_content').style.display     = 'block';
 				this.get(type + '_content_title').style.color = 'black';
 				this.show_console();
 				this.set_last_content(type);
@@ -267,7 +277,7 @@
 		restore_last_state: function() {
 			this.show_content(this.get_last_content());
 			this.get('console_content').style.height = this.get_last_height();
-			this.get('console').style.height = this.get_last_height();
+			this.get('console').style.height         = this.get_last_height();
 		},
 
 		set_last_content: function(type) {
@@ -295,7 +305,7 @@
 		}
 	};
 
-	(function(){
+	(function() {
 		if (sy_debug.check_local_storage() && localStorage.getItem(sy_debug._prefix + 'last_height' + sy_debug._suffix) === null) {
 			sy_debug.set_last_height(sy_debug.get('console').style.height);
 		}
