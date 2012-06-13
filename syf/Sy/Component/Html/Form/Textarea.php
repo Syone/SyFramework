@@ -5,6 +5,7 @@ class Textarea extends TextElement implements FillableElement {
 
 	public function __construct() {
 		parent::__construct('textarea');
+		$this->setTemplateFile(__DIR__ . '/templates/Textarea.tpl', 'php');
 	}
 
 	public function fill($value) {
