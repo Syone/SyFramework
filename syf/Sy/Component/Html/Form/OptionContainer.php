@@ -81,16 +81,13 @@ class OptionContainer extends Container {
 		if (!$this->isRequired()) return true;
 		$name = $this->getAttribute('name');
 		if (is_null($name)) {
-			$this->setError(true);
 			return false;
 		}
 		$value = $this->dissolveArrayValue($values, $name);
 		if (is_array($value) and empty($value)) {
-			$this->setError(true);
 			return false;
 		}
 		if ($value === '' or is_null($value)) {
-			$this->setError(true);
 			return false;
 		}
 		return true;
