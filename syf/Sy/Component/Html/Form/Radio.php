@@ -17,7 +17,6 @@ class Radio extends Input implements FillableElement, ValidableElement {
 
 	public function isValid($value) {
 		$valid = $this->validate($value);
-		if (!$valid) $this->setError(true);
 		return $valid;
 	}
 

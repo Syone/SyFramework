@@ -22,7 +22,6 @@ class Checkbox extends Input implements FillableElement, ValidableElement {
 	public function isValid($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') {
-				$this->setError(true);
 				return false;
 			}
 		}
