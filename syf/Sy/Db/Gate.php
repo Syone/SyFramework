@@ -203,7 +203,7 @@ class Gate extends \Sy\Object {
 	 * @return array
 	 * @throws QueryAllException
 	 */
-	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = NULL, $ctorArgs = array()) {
+	public function queryAll($sql, $fetchStyle = \PDO::FETCH_BOTH, $fetchArgs = null, $ctorArgs = array()) {
 		try {
 			$statement = $this->query($sql);
 			if (is_null($fetchArgs))

@@ -76,7 +76,7 @@ class Element extends HtmlElement {
 	 */
 	public function getOption($name) {
 		$name = strtoupper(str_replace('-', '_', $name));
-		return isset($this->options[$name]) ? $this->options[$name] : NULL;
+		return isset($this->options[$name]) ? $this->options[$name] : null;
 	}
 
 	/**

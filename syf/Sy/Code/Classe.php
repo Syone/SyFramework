@@ -21,7 +21,7 @@ class Classe extends Component {
 		$this->usedClasses = array();
 		$this->abstract = false;
 		$this->name = $name;
-		$this->extendedClass = NULL;
+		$this->extendedClass = null;
 		$this->implementedInterfaces = array();
 		$this->properties = array();
 		$this->methods = array();

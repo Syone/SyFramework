@@ -27,7 +27,7 @@ class FieldContainer extends Container {
 	 * @param array $attributes fieldset attributes
 	 * @return FieldContainer
 	 */
-	public function addFieldset($label = NULL, array $attributes = array()) {
+	public function addFieldset($label = null, array $attributes = array()) {
 		$fieldset = new FieldContainer('fieldset');
 		$fieldset->setAttributes($attributes);
 		if (!is_null($label)) {

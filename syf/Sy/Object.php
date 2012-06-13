@@ -114,7 +114,7 @@ class Object {
 	 * @param mixed $default The default value
 	 * @return mixed
 	 */
-	protected function get($param, $default = NULL) {
+	protected function get($param, $default = null) {
 		return isset($_GET[$param]) ? $_GET[$param] : $default;
 	}
 
@@ -126,7 +126,7 @@ class Object {
 	 * @param mixed $default The default value
 	 * @return mixed
 	 */
-	protected function post($param, $default = NULL) {
+	protected function post($param, $default = null) {
 		return isset($_POST[$param]) ? $_POST[$param] : $default;
 	}
 
@@ -138,7 +138,7 @@ class Object {
 	 * @param mixed $default The default value
 	 * @return mixed
 	 */
-	protected function cookie($param, $default = NULL) {
+	protected function cookie($param, $default = null) {
 		return isset($_COOKIE[$param]) ? $_COOKIE[$param] : $default;
 	}
 
@@ -150,7 +150,7 @@ class Object {
 	 * @param mixed $default The default value
 	 * @return mixed
 	 */
-	protected function request($param, $default = NULL) {
+	protected function request($param, $default = null) {
 		return isset($_REQUEST[$param]) ? $_REQUEST[$param] : $default;
 	}
 
@@ -162,7 +162,7 @@ class Object {
 	 * @param mixed $default The default value
 	 * @return mixed
 	 */
-	protected function session($param, $default = NULL) {
+	protected function session($param, $default = null) {
 		return isset($_SESSION[$param]) ? $_SESSION[$param] : $default;
 	}
 

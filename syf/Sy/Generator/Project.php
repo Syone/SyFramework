@@ -42,7 +42,7 @@ class Project {
 		$file->generate();
 	}
 
-	public function generateClass($className, $extendedClassName = NULL) {
+	public function generateClass($className, $extendedClassName = null) {
 		$class = new Classe($className);
 		$constructMethod = new Method('public', '__construct');
 		$constructMethod->setDescription("{$class->getClassName()} constructor");
@@ -82,7 +82,7 @@ class Project {
 		copy(__DIR__ . "/Project/templates/$src", $this->path . DIRECTORY_SEPARATOR . $dest);
 	}
 
-	private function generateFile($outputFile, $inputFile = NULL) {
+	private function generateFile($outputFile, $inputFile = null) {
 		$c = new Component();
 		$c->setTemplateFile(is_null($inputFile) ? __DIR__ . "/Project/templates/$outputFile" : __DIR__ . "/Project/templates/$inputFile");
 		$c->setVar('PROJECT_NAME', $this->name);
