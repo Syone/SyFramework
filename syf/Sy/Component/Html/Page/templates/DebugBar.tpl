@@ -16,7 +16,7 @@
 		<?php if ($WEB_LOGGER): ?>
 		<a id="sy_debug_log_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('log'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAABKElEQVR42sSTPa6CQBSFv3lRrCRYACvQxMLCBhsTK5fAGtiAPaGfDbgGNmBCS0PFAqhsoSGSWE1yrTDvxd+E4t1qkrnn3HPPnFEiwpD6YWCNPjUcj0fquhYAz/MUQBRFzwniOH6cMBrJfD4HoKoq6UleKkiS5H7WWstut+N0OmHbNrZt92rURw+01rJerzmfzyyXSy6XC77vf2ei1lpWqxVN02CMwRhDEARUVcXHFfrJbdsyHo8BcByHsiwxxqjfBj4omE6nstlsuF6vWJaFZVl4nkdZlhwOB/U2B1mWSRiGFEWB67pMJhNc16Uoipfgpx6EYUie58xmM/I8fwsGUH2UsywTgMViAUCapnRdp9498x+COI5lu93eL/b7vfomyurfP9NggtsAfaVzbTWryOIAAAAASUVORK5CYII=" />
-			Logs <span style="color:red"><?php echo $NB_ERROR ?></span>
+			Logs <span style="<?php echo $RESET_CSS ?> color:red"><?php echo $NB_ERROR ?></span>
 		</a>
 		<?php endif ?>
 		<?php if ($FILE_LOGGER): ?>
@@ -32,7 +32,7 @@
 		</a>
 		<?php endif ?>
 		<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Memory" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAmElEQVR42sSTuwoEIQxFr7JtOgf0n+z9Rhsr/0nB0jKiW00xs7Myj4VNFQj3cAKJGGPgSUk8rNfaeO8vqTjnxAYAAMuynAqXUj4NAKDWen8FKSWstadCIYRjg9YaUkrTsDHm2GAFtNamgP18A2BmKKWmAGaeG+ScpwCt9XdA7x299ylgP//dJQIAEYGI7gNijJcNxN+/8T0A1+E5NmcLfJkAAAAASUVORK5CYII=" />
-		<span style="line-height: 30px; color: #555;" title="Peak of memory allocated by PHP"><?php echo memory_get_peak_usage(true) / 1024 ?> KB</span>
+		<span style="<?php echo $RESET_CSS ?> line-height: 30px; color: #555;" title="Peak of memory allocated by PHP"><?php echo memory_get_peak_usage(true) / 1024 ?> KB</span>
 
 		<img id="sy_debug_close_button" style="<?php echo $RESET_CSS ?> float: right; padding-top: 7px; padding-right: 5px; cursor: pointer; display: none; margin-left: 10px; vertical-align: middle" onclick="sy_debug.hide_console()" title="Minimize" alt="minimize" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN3dKxDYNADIXh36c07MESDEBHJDawR7vb4KSkuwFuCfag41JESCQhJAoFUty5eJ9l2VJKYU+5Xen/AE7LJoRwAboPmauqnlcBoOv7fjMdY3wYIMszigje+9K2LQDTNAHg3H3TlBKqKpsAgPe+NE3DOI4AVFVFzhkzk+e/WQVmpK5rAIZhwMwE4GtgRoC34Rfglzr+kY4HbthSQqXTR/5kAAAAAElFTkSuQmCC" />
 	</div>
@@ -46,7 +46,7 @@
 		<div id="sy_debug_var_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
 				<?php if (!empty($vars)) : ?>
-					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px; line-height: 20px;"><?php echo $title ?></h2>
+					<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; margin: 10px; line-height: 20px;"><?php echo $title ?></h2>
 					<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 						<tr style="<?php echo $TR_HEAD_CSS ?>">
 							<th style="<?php echo $TH_CSS ?> width: 200px;">Name</th>
@@ -57,7 +57,7 @@
 							<td style="<?php echo $TD_CSS ?> background-color: #DDE4EB; font-weight: bold;"><?php echo $k ?></td>
 							<td style="<?php echo $TD_CSS ?> background-color: #EDF3FE">
 								<?php if (is_array($v) or is_object($v)) : ?>
-								<pre style="margin: 0"><?php echo htmlentities(print_r($v, true), ENT_QUOTES, $CHARSET) ?></pre>
+								<pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities(print_r($v, true), ENT_QUOTES, $CHARSET) ?></pre>
 								<?php else : ?>
 								<?php echo htmlentities($v, ENT_QUOTES, $CHARSET) ?>
 								<?php endif ?>
@@ -68,7 +68,7 @@
 				<?php endif ?>
 			<?php endforeach ?>
 
-			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; color: black; margin: 10px; line-height: 20px;">Included Files</h2>
+			<h2 style="<?php echo $RESET_CSS ?> font-size: 14px; margin: 10px; line-height: 20px;">Included Files</h2>
 			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
 				<tr style="<?php echo $TR_HEAD_CSS ?>">
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Filename</th>
@@ -108,7 +108,7 @@
 						<?php echo $log->getLevelName() ?>
 					</td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getType() ?></td>
-					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span style="<?php echo $RESET_CSS ?>" title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
@@ -155,7 +155,7 @@
 		_prefix: 'sy_debug_',
 
 		_suffix: '_<?php echo \crc32('http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF'])) ?>',
-		
+
 		_localCache: {},
 
 		get: function(id) {
@@ -172,11 +172,11 @@
 
 		resize: function(e) {
 			var posy = 0;
-			if (!e) { 
+			if (!e) {
 				var e = window.event;
 			}
 			posy = e.clientY;
-			if (posy <= 0) { 
+			if (posy <= 0) {
 				return;
 			}
 			var  h = document.documentElement.clientHeight;
