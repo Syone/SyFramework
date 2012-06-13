@@ -7,8 +7,6 @@ class Form extends Form\FieldContainer {
 
 	private $formId = 0;
 
-	private $success;
-
 	public function __construct(array $attributes = array()) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Form/templates/Form.tpl', 'php');
@@ -16,7 +14,6 @@ class Form extends Form\FieldContainer {
 		$this->setAttributes($attributes);
 		$this->setOption('error-class', 'error');
 		$this->setOption('success-class', 'success');
-		$this->success = false;
 		$this->init();
 		if ($this->request('formAction' . $this->formId) == 'submit') {
 			$info = $this->getDebugTrace();
@@ -27,34 +24,7 @@ class Form extends Form\FieldContainer {
 		}
 	}
 
-	/**
-	 * Validate the form
-	 *
-	 * @param array $values
-	 * @return boolean
-	 */
-	public function isValid($values) {
-		$valid = parent::isValid($values);
-		if ($valid) {
-			$this->success = true;
-		} else {
-			$this->setError(true);
-		}
-		return $valid;
-	}
-
-	/**
-	 * Set if the form has an error or not
-	 *
-	 * @param boolean $error
-	 */
-	public function setError($error) {
-		$this->success = !$error;
-		parent::setError($error);
-	}
-
 	public function __toString() {
-		$this->setVar('SUCCESS', $this->success);
 		if (is_null($this->getAttribute('action'))) {
 			$this->setAttribute('action', $_SERVER['REQUEST_URI']);
 			$this->setVar('ACTION', 'formAction' . $this->formId);
@@ -63,6 +33,15 @@ class Form extends Form\FieldContainer {
 			$this->setAttribute('method', 'post');
 		}
 		return parent::__toString();
+	}
+
+	/**
+	 * Set success message
+	 *
+	 * @param string $success
+	 */
+	public function setSuccess($success) {
+		$this->setOption('success', $success);
 	}
 
 	public function init() {
