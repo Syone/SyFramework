@@ -3,22 +3,8 @@ namespace Sy\Component\Html\Form;
 
 class Container extends Element implements FillableElement, ValidableElement {
 
-	private $elements;
-
 	public function __construct($name = '') {
 		parent::__construct($name);
-		$this->elements = array();
-	}
-
-	/**
-	 * Add an element
-	 *
-	 * @param Element $element
-	 * @return Element
-	 */
-	public function addElement(Element $element) {
-		$this->elements[] = $element;
-		return $element;
 	}
 
 	/**
@@ -27,7 +13,10 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 * @return array Element array
 	 */
 	public function getElements() {
-		return $this->elements;
+		$elements = $this->getContent();
+		return array_filter($elements, function ($e) {
+			return $e instanceof Element;
+		});
 	}
 
 	/**
@@ -36,7 +25,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 * @param array $values
 	 */
 	public function fill($values) {
-		foreach ($this->elements as $e) {
+		foreach ($this->getElements() as $e) {
 			if (!$e instanceof FillableElement) continue;
 			if ($e instanceof Container) {
 				$e->fill($values);
@@ -56,7 +45,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 */
 	public function isValid($values) {
 		$valid = true;
-		foreach ($this->elements as $e) {
+		foreach ($this->getElements() as $e) {
 			if (!$e instanceof ValidableElement) continue;
 			if ($e instanceof Container) {
 				if (!$e->isValid($values)) $valid = false;
@@ -104,13 +93,6 @@ class Container extends Element implements FillableElement, ValidableElement {
 		$res = '$value' . $path;
 		$ret = eval("if (isset($res)) return $res; else return NULL;");
 		return $ret;
-	}
-
-	public function __toString() {
-		foreach ($this->elements as $element) {
-			$this->setComponent('CONTENT', $element, true);
-		}
-		return parent::__toString();
 	}
 
 }
