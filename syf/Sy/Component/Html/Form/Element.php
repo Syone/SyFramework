@@ -11,7 +11,7 @@ class Element extends HtmlElement {
 	public function __construct($tagName = '') {
 		parent::__construct($tagName);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
-		$this->options = array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error');
+		$this->setOptions(array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error'));
 		$this->error = false;
 	}
 
@@ -66,6 +66,7 @@ class Element extends HtmlElement {
 	 * @param mixed $value option value
 	 */
 	public function setOption($name, $value) {
+		$name = strtoupper(str_replace('-', '_', $name));
 		$this->options[$name] = $value;
 	}
 
@@ -76,6 +77,7 @@ class Element extends HtmlElement {
 	 * @return mixed
 	 */
 	public function getOption($name) {
+		$name = strtoupper(str_replace('-', '_', $name));
 		return isset($this->options[$name]) ? $this->options[$name] : NULL;
 	}
 
@@ -123,9 +125,8 @@ class Element extends HtmlElement {
 
 	public function __toString() {
 		$this->setVar('ERROR', $this->error);
-		if ($this->getTemplateType() == 'php') {
-			$this->setVar('OPTIONS', $this->options);
-		}
+		$this->setVar('ID', $this->getAttribute('id'));
+		$this->setVars($this->options);
 		return parent::__toString();
 	}
 
