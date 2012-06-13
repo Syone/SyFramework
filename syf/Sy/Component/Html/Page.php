@@ -1,8 +1,8 @@
 <?php
 namespace Sy\Component\Html;
 
-use Sy\Component,
-	Sy\Component\WebComponent;
+use Sy\Component;
+use Sy\Component\WebComponent;
 
 class Page extends WebComponent {
 
@@ -48,7 +48,7 @@ class Page extends WebComponent {
 	 *
 	 * @param array $attributes
 	 */
-	public function setHtmlAttributes($attributes) {
+	public function setHtmlAttributes(array $attributes) {
 		foreach ($attributes as $name => $value) {
 			$this->setHtmlAttribute($name, $value);
 		}
@@ -88,9 +88,9 @@ class Page extends WebComponent {
 	 *
 	 * @param array $meta
 	 */
-	private function addMeta($meta) {
+	private function addMeta(array $meta) {
 		$values = array_values($meta);
-		$key = strtolower($values[0]);
+		$key    = strtolower($values[0]);
 		$this->meta[$key] = $meta;
 	}
 
@@ -163,7 +163,7 @@ class Page extends WebComponent {
 	 *
 	 * @param array $attributes
 	 */
-	public function setBodyAttributes($attributes) {
+	public function setBodyAttributes(array $attributes) {
 		foreach ($attributes as $name => $value) {
 			$this->setBodyAttribute($name, $value);
 		}
