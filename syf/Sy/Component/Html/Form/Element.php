@@ -106,8 +106,8 @@ class Element extends HtmlElement {
 	 */
 	public function isRequired() {
 		if (!is_null($this->getAttribute('required'))) return true;
-		if (isset($this->options['required']))
-			return $this->options['required'];
+		if (!is_null($this->getOption('required')))
+			return $this->getOption('required');
 		else
 			return false;
 	}
@@ -118,7 +118,9 @@ class Element extends HtmlElement {
 	 * @param callback $name
 	 */
 	public function addValidator($name) {
-		$this->options['validator'][] = $name;
+		$validators = $this->getOption('validator');
+		$validators[] = $name;
+		$this->setOption('validator', $validators);
 	}
 
 	public function __toString() {
