@@ -8,7 +8,7 @@
 <label<?php if (isset($ID)) : ?> for="<?php echo $ID ?>"<?php endif ?><?php if (isset($LABEL_CLASS)) : ?> class="<?php echo $LABEL_CLASS ?>"<?php endif ?>>
 <?php endif ?>
 <?php endif ?>
-<?php if ($ERROR and isset($ERROR) and $ERROR_POSITION === 'before'): ?>
+<?php if (isset($ERROR) and $ERROR_POSITION === 'before'): ?>
 <span class="<?php echo $ERROR_CLASS ?>"><?php echo $ERROR ?></span>
 <?php endif ?>
 <?php if (isset($BLOCK_CONTENT)): ?>
@@ -26,6 +26,6 @@
 </label>
 <?php endif ?>
 <?php endif ?>
-<?php if ($ERROR and isset($ERROR) and $ERROR_POSITION === 'after'): ?>
+<?php if (isset($ERROR) and $ERROR_POSITION === 'after'): ?>
 <span class="<?php echo $ERROR_CLASS ?>"><?php echo $ERROR ?></span>
 <?php endif ?>
