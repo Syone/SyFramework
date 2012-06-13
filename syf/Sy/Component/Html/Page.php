@@ -62,7 +62,7 @@ class Page extends WebComponent {
 	public function setDoctype($type = 'html5') {
 		$this->doctype = $type;
 
-		$doctype = Array(
+		$doctype = array(
 			'html4.01-strict'       => 'PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"',
 			'html4.01-transitional' => 'PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"',
 			'html4.01-frameset'     => 'PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd"',
@@ -79,8 +79,8 @@ class Page extends WebComponent {
 		$this->setVar('DOCTYPE', $doctype[$type]);
 
 		// xmlns attribute required for xhtml document
-		if (strpos($type, 'xhtml') === 0 )
-			$this->setHtmlAttribute ('xmlns', 'http://www.w3.org/1999/xhtml');
+		if (strpos($type, 'xhtml') === 0)
+			$this->setHtmlAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
 	}
 
 	/**
@@ -99,10 +99,10 @@ class Page extends WebComponent {
 	 *
 	 * @param string $name
 	 * @param string $content
-	 * @param bool $http_equiv
+	 * @param bool   $httpEquiv
 	 */
-	public function setMeta($name, $content, $http_equiv = false) {
-		if ($http_equiv)
+	public function setMeta($name, $content, $httpEquiv = false) {
+		if ($httpEquiv)
 			$this->addMeta(array('http-equiv' => $name, 'content' => $content));
 		else
 			$this->addMeta(array('name' => $name, 'content' => $content));
