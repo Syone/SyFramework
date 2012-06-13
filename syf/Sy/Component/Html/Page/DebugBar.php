@@ -157,7 +157,7 @@ class DebugBar extends WebComponent {
 	}
 
 	private function resetCss() {
-		$resetCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-family: sans-serif; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent; float: none;';
+		$resetCss = 'margin: 0; padding: 0; border: 0; outline: 0; font-family: sans-serif; font-size: 100%; font-style: normal; font-weight: normal; vertical-align: baseline; background: transparent; float: none; color: #000; line-height: 15px;';
 		$tableResetCss = $resetCss . ' border-collapse: collapse; border-spacing: 0;';
 		$this->setVar('RESET_CSS', $resetCss);
 		$this->setVar('TABLE_RESET_CSS', $tableResetCss);
