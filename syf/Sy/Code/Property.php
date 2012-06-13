@@ -10,7 +10,7 @@ class Property extends Component {
 	private $name;
 	private $defaultValue;
 
-	public function __construct($visibility, $name, $defaultValue = NULL) {
+	public function __construct($visibility, $name, $defaultValue = null) {
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/templates/Property.tpl');
 		$this->visibility = $visibility;

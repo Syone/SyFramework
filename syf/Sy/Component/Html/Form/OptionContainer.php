@@ -27,7 +27,7 @@ class OptionContainer extends Container {
 	 * @param string $value option value
 	 * @return Option
 	 */
-	public function addOption($label, $value = NULL) {
+	public function addOption($label, $value = null) {
 		$option = new Option();
 		$option->addText($label);
 		if (!is_null($value)) $option->setAttribute('value', $value);

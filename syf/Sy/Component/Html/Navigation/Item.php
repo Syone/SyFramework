@@ -32,7 +32,7 @@ class Item extends \Sy\Component\Html\Element {
 	 * @param string $link Item link
 	 * @return Item
 	 */
-	public function addItem($title, $link = NULL) {
+	public function addItem($title, $link = null) {
 		$item = new Item($title, $link);
 		return $this->list->addElement($item);
 	}

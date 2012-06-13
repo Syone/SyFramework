@@ -124,7 +124,7 @@ class Component extends Object {
 	 * @param string $actionName
 	 * @param string $defaultMethod
 	 */
-	protected function actionDispatch($actionName, $defaultMethod = NULL) {
+	protected function actionDispatch($actionName, $defaultMethod = null) {
 		$method = $this->request($actionName, $defaultMethod) . 'Action';
 		if (is_null($method)) return;
 		if (!method_exists($this, $method)) $method = $defaultMethod . 'Action';

@@ -73,11 +73,11 @@ class Container extends Element implements FillableElement, ValidableElement {
 	 */
 	protected function dissolveArrayValue($value, $arrayPath) {
 
-		if ($arrayPath === '') return NULL;
+		if ($arrayPath === '') return null;
 
 		$keys = explode('[', $arrayPath);
 
-		if (empty($keys)) return NULL;
+		if (empty($keys)) return null;
 
 		$func = function($val) {
 			return rtrim($val, ']');
@@ -91,7 +91,7 @@ class Container extends Element implements FillableElement, ValidableElement {
 			$path .= "['$key']";
 		}
 		$res = '$value' . $path;
-		$ret = eval("if (isset($res)) return $res; else return NULL;");
+		$ret = eval("if (isset($res)) return $res; else return null;");
 		return $ret;
 	}
 
