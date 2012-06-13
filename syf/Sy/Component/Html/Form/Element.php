@@ -6,13 +6,11 @@ use Sy\Component\Html\Element as HtmlElement;
 class Element extends HtmlElement {
 
 	private $options;
-	private $error;
 
 	public function __construct($tagName = '') {
 		parent::__construct($tagName);
 		$this->setTemplateFile(__DIR__ . '/templates/Element.tpl', 'php');
 		$this->setOptions(array('label-position' => 'before', 'error-position' => 'before', 'error-class' => 'error'));
-		$this->error = false;
 	}
 
 	/**
@@ -40,12 +38,12 @@ class Element extends HtmlElement {
 	}
 
 	/**
-	 * Set error
+	 * Set error message
 	 *
-	 * @param boolean $error
+	 * @param string $error
 	 */
 	public function setError($error) {
-		$this->error = $error;
+		$this->setOption('error', $error);
 	}
 
 	/**
@@ -124,7 +122,6 @@ class Element extends HtmlElement {
 	}
 
 	public function __toString() {
-		$this->setVar('ERROR', $this->error);
 		$this->setVar('ID', $this->getAttribute('id'));
 		$this->setVars($this->options);
 		return parent::__toString();
