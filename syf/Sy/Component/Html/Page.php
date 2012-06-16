@@ -91,7 +91,9 @@ class Page extends WebComponent {
 	private function addMeta(array $meta) {
 		$values = array_values($meta);
 		$key    = strtolower($values[0]);
-		$this->meta[$key] = $meta;
+		$element = new Element('meta');
+		$element->setAttributes($meta);
+		$this->meta[$key] = $element;
 	}
 
 	/**
@@ -194,25 +196,60 @@ class Page extends WebComponent {
 	}
 
 	public function __toString() {
-		$this->setVar('HTML_ATTR', $this->htmlAttributes);
-		if ($this->doctype === 'html5')
-			$this->addMeta(array('charset' => $this->charset));
-		else
-			$this->setMeta('Content-Type', 'text/html; charset=' . $this->charset, true);
-		$this->setVar('META', $this->meta);
-		$this->setVar('CSS_LINKS', $this->getCssLinks());
-		$jsLinks = $this->getJsLinks();
-		$this->setVar('JS_LINKS', $jsLinks[WebComponent::JS_TOP]);
-		$this->setVar('JS_LINKS_BOTTOM', $jsLinks[WebComponent::JS_BOTTOM]);
+		$this->renderAttributes($this->htmlAttributes, 'HTML_ATTR');
+		$this->renderAttributes($this->bodyAttributes, 'BODY_ATTR');
+		$this->renderMetas();
+		$this->renderCssLinks();
+		$this->renderJsLinks();
 		$this->setVar('CSS_CODE', $this->getCssCode());
 		$this->setVar('JS_CODE', $this->getJsCode(WebComponent::JS_TOP));
 		$this->setVar('JS_CODE_BOTTOM', $this->getJsCode(WebComponent::JS_BOTTOM));
-		$this->setVar('BODY_ATTR', $this->bodyAttributes);
 		$this->timeStop('Web page');
 		if ($this->debug) {
 			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
 		}
 		return parent::__toString();
+	}
+
+	private function renderAttributes(array $attributes, $block) {
+		foreach ($attributes as $name => $value) {
+			$this->setVar('NAME', $name);
+			$this->setVar('VALUE', $value);
+			$this->setBlock($block);
+		}
+	}
+
+	private function renderMetas() {
+		if ($this->doctype === 'html5')
+			$this->addMeta(array('charset' => $this->charset));
+		else
+			$this->setMeta('Content-Type', 'text/html; charset=' . $this->charset, true);
+		foreach ($this->meta as $meta) {
+			$this->setComponent('META_ELEMENT', $meta);
+			$this->setBlock('META');
+		}
+	}
+
+	private function renderJsLinks() {
+		$jsLinks = $this->getJsLinks();
+		foreach ($jsLinks[WebComponent::JS_TOP] as $jsLink) {
+			$this->setVar('JS_LINK', $jsLink);
+			$this->setBlock('JS_LINKS');
+		}
+		foreach ($jsLinks[WebComponent::JS_BOTTOM] as $jsLink) {
+			$this->setVar('JS_LINK', $jsLink);
+			$this->setBlock('JS_LINKS_BOTTOM');
+		}
+	}
+
+	private function renderCssLinks() {
+		foreach ($this->getCssLinks() as $media => $links) {
+			$this->setVar('MEDIA', $media);
+			foreach ($links as $link) {
+				$this->setVar('LINK', $link);
+				$this->setBlock('CSS_LINKS');
+			}
+		}
 	}
 
 }
