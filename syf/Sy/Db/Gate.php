@@ -208,6 +208,8 @@ class Gate extends \Sy\Object {
 			$statement = $this->query($sql);
 			if (is_null($fetchArgs))
 				return $statement->fetchAll($fetchStyle);
+			elseif (empty($ctorArgs))
+				return $statement->fetchAll($fetchStyle, $fetchArgs);
 			else
 				return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
 		} catch(\PDOException $e) {
