@@ -47,6 +47,7 @@ class Object {
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message, tag
 	 */
 	public function logQuery($sql, array $info = array()) {
+		$query  = $sql;
 		$params = array();
 		if ($sql instanceof Db\Sql) {
 			$params = $sql->getParams();
@@ -62,7 +63,7 @@ class Object {
 	 * Log a tagged message. A tagged message will be stored in a tag named file.
 	 *
 	 * @param string|array $message
-	 * @param string $tag 
+	 * @param string $tag
 	 * @param array $info Optionnal associative array. Key available: type, file, line, function, class, message, tag
 	 */
 	public function logTag($message, $tag, array $info = array()) {
