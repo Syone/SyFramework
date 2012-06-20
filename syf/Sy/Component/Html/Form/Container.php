@@ -3,10 +3,6 @@ namespace Sy\Component\Html\Form;
 
 class Container extends Element implements FillableElement, ValidableElement {
 
-	public function __construct($name = '') {
-		parent::__construct($name);
-	}
-
 	/**
 	 * Get contained elements
 	 *
