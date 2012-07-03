@@ -296,7 +296,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Range
+	 * @return TextFillableInput
 	 */
 	public function addRange(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('range');
@@ -339,7 +339,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Search
+	 * @return TextFillableInput
 	 */
 	public function addSearch(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('search');
@@ -368,7 +368,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Tel
+	 * @return TextFillableInput
 	 */
 	public function addTel(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('tel');
@@ -378,13 +378,13 @@ class FieldContainer extends Container {
 	}
 
 	/**
-	 * Add a text element
+	 * Add a text input type element
 	 *
 	 * @param array $attributes text attributes
 	 * @param array $options text options
 	 * @return TextFillableInput
 	 */
-	public function addInputText(array $attributes = array(), array $options = array()) {
+	public function addTextInput(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('text');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
@@ -408,7 +408,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes
 	 * @param array $options
-	 * @return Url
+	 * @return TextFillableInput
 	 */
 	public function addUrl(array $attributes = array(), array $options= array()) {
 		$element = new TextFillableInput('url');
