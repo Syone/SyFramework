@@ -58,14 +58,9 @@ class Element extends WebComponent {
 	 *
 	 * @param string $name  Attribute name
 	 * @param string $value Attribute value
-	 * @param bool Append the value
 	 */
-	public function setAttribute($name, $value, $append = false) {
+	public function setAttribute($name, $value) {
 		$name = strtolower($name);
-		if ($append) {
-			$actual = $this->getAttribute($name);
-			$value = is_null($actual) ? $value : $actual . $value;
-		}
 		$this->attributes[$name] = $value;
 	}
 
