@@ -382,9 +382,9 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes text attributes
 	 * @param array $options text options
-	 * @return Text
+	 * @return TextFillableInput
 	 */
-	public function addText(array $attributes = array(), array $options = array()) {
+	public function addInputText(array $attributes = array(), array $options = array()) {
 		$element = new TextFillableInput('text');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
