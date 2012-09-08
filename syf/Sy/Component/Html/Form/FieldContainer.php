@@ -222,7 +222,10 @@ class FieldContainer extends Container {
 	 * @return Hidden
 	 */
 	public function addHidden(array $attributes = array(), array $options = array()) {
-		return $this->addInput('Hidden', $attributes, $options);
+		$element = new TextInput('hidden');
+		$element->setAttributes($attributes);
+		$element->setOptions($options);
+		return $this->addElement($element);
 	}
 
 	/**

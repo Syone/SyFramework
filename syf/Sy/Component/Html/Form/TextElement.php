@@ -18,10 +18,6 @@ class TextElement extends Element implements ValidableElement {
 	}
 
 	public function isValid($value) {
-		return $this->validate($value);
-	}
-
-	protected function validate($value) {
 		if ($this->isRequired()) {
 			if (!isset($value) or $value === '') return false;
 			if (is_array($value)) {
