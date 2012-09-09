@@ -30,7 +30,9 @@ class OptionContainer extends Container {
 	public function addOption($label, $value = null) {
 		$option = new Option();
 		$option->addText($label);
-		if (!is_null($value)) $option->setAttribute('value', $value);
+		if (!is_null($value)) {
+			$option->setAttribute('value', $value);
+		}
 		return $this->addElement($option);
 	}
 
@@ -58,15 +60,15 @@ class OptionContainer extends Container {
 	 * @param mixed $values
 	 */
 	public function fill($values) {
-		foreach ($this->getElements() as $e) {
+		foreach ($this->getElements() as $element) {
 			$name = $this->getAttribute('name');
 
 			// if optgroup
 			if (is_null($name)) {
-				$e->fill($values);
+				$element->fill($values);
 			}
 			else {
-				$e->fill($this->dissolveArrayValue($values, $name));
+				$element->fill($this->dissolveArrayValue($values, $name));
 			}
 		}
 	}
@@ -107,8 +109,8 @@ class OptionContainer extends Container {
 
 	private function checkSelectedOption() {
 		$values = $this->getOption('selected');
-		foreach ($this->getElements() as $e) {
-			$e->fill($values);
+		foreach ($this->getElements() as $element) {
+			$element->fill($values);
 		}
 	}
 
