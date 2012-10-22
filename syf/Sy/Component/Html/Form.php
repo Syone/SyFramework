@@ -44,6 +44,18 @@ class Form extends Form\FieldContainer {
 		$this->setOption('success', $success);
 	}
 
+	/**
+	 * Process form validation
+	 *
+	 * @param array $values
+	 * @throws Form\Exception
+	 */
+	public function validate(array $values) {
+		if (!$this->isValid($values)) {
+			throw new Form\Exception;
+		}
+	}
+
 	public function init() {
 
 	}
@@ -53,3 +65,7 @@ class Form extends Form\FieldContainer {
 	}
 
 }
+
+namespace Sy\Component\Html\Form;
+
+class Exception extends \Exception {}
