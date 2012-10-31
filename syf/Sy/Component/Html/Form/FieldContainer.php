@@ -219,7 +219,7 @@ class FieldContainer extends Container {
 	 *
 	 * @param array $attributes hidden attributes
 	 * @param array $options hidden options
-	 * @return Hidden
+	 * @return TextInput
 	 */
 	public function addHidden(array $attributes = array(), array $options = array()) {
 		$element = new TextInput('hidden');
