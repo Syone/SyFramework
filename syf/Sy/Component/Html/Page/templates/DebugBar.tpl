@@ -148,7 +148,7 @@
 					<th style="<?php echo $TH_CSS ?>">Function</th>
 					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Message</th>
 				</tr>
-				<?php foreach ($LOGS as $i => $log) : ?>
+				<?php foreach ($QUERY_LOGS as $i => $log) : ?>
 				<tr style="<?php echo $RESET_CSS ?>">
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $i + 1 ?></td>
 					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span style="<?php echo $RESET_CSS ?>" title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>

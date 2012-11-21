@@ -172,7 +172,7 @@ class DebugBar extends WebComponent {
 				break;
 		}
 		$this->setVar('NB_QUERY',  $nbQuery);
-		$this->setVar('LOGS', $loggers['query']->getLogs());
+		$this->setVar('QUERY_LOGS', $loggers['query']->getLogs());
 	}
 
 	/**
