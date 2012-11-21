@@ -130,7 +130,6 @@ class Debugger {
 	 */
 	public function log($message, array $info = array()) {
 		if (!$this->logActive()) return;
-		if (!isset($info['level'])) $info['level'] = Log::NOTICE;
 		$info['message'] = is_array($message) ? print_r($message, true) : $message;
 		$log = new Log($info);
 		foreach ($this->loggers as $logger) {
