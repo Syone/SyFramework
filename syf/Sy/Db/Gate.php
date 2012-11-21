@@ -151,6 +151,9 @@ class Gate extends \Sy\Object {
 			$query = $sql->getSql();
 		}
 		try {
+			$info = $this->getDebugTrace();
+			$info['type'] = 'QueryLog';
+			$this->logQuery($sql, $info);
 			$statement = $this->prepare($query);
 			$statement->execute($params);
 			return $statement->rowCount();
@@ -180,6 +183,9 @@ class Gate extends \Sy\Object {
 			$query = $sql->getSql();
 		}
 		try {
+			$info = $this->getDebugTrace();
+			$info['type'] = 'QueryLog';
+			$this->logQuery($sql, $info);
 			$statement = $this->prepare($query);
 			$statement->execute($params);
 		} catch(\PDOException $e) {

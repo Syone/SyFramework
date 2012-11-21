@@ -55,7 +55,7 @@ class Object {
 		}
 		$parameters = empty($params) ? '' : "Parameters:\n" . print_r($params, true);
 		$message = isset($info['message']) ? $info['message'] : '';
-		$info['type'] = 'Query';
+		if (!isset($info['type'])) $info['type'] = 'Query';
 		$this->log("Query:\n$query\n$parameters\n$message", $info);
 	}
 

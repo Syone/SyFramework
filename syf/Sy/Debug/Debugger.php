@@ -54,6 +54,13 @@ class Debugger {
 	}
 
 	/**
+	 * Activate query logging
+	 */
+	public function enableQueryLog() {
+		$this->loggers['query'] = new QueryLogger();
+	}
+
+	/**
 	 * Activate time recording
 	 */
 	public function enableTimeRecord() {
@@ -76,6 +83,15 @@ class Debugger {
 	 */
 	public function fileLogActive() {
 		return isset($this->loggers['file']);
+	}
+
+	/**
+	 * Return if the Query Logger is activated or not
+	 *
+	 * @return bool
+	 */
+	public function queryLogActive() {
+		return isset($this->loggers['query']);
 	}
 
 	/**
@@ -133,6 +149,7 @@ class Debugger {
 		$info['message'] = is_array($message) ? print_r($message, true) : $message;
 		$log = new Log($info);
 		foreach ($this->loggers as $logger) {
+			if (isset($info['type']) and $info['type'] === 'QueryLog' and !($logger instanceof QueryLogger)) continue;
 			$logger->write($log);
 		}
 	}
