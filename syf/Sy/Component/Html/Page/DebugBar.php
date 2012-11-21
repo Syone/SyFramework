@@ -18,12 +18,53 @@ class DebugBar extends WebComponent {
 
 	private function init() {
 		$this->setVar('CHARSET', $this->charset);
+		$this->initColors();
 		$this->initPhpInfoDiv();
 		$this->initVarsDiv();
 		$this->initLogsDiv();
 		$this->initLogFileDiv();
+		$this->initQueryDiv();
 		$this->initTimeRecordDiv();
 		$this->resetCss();
+	}
+
+	/**
+	 * Tables colors
+	 */
+	private function initColors() {
+		$colorNames = array(
+			Log::EMERG  => 'red',
+			Log::ALERT  => 'red',
+			Log::CRIT   => 'red',
+			Log::ERR    => 'red',
+			Log::WARN   => 'orange',
+			Log::NOTICE => 'green',
+			Log::INFO   => 'green',
+			Log::DEBUG  => 'green',
+		);
+		$colors = array(
+			Log::EMERG  => '#FBB',
+			Log::ALERT  => '#FBB',
+			Log::CRIT   => '#FBB',
+			Log::ERR    => '#FBB',
+			Log::WARN   => '#FB5',
+			Log::NOTICE => '#DDE4EB',
+			Log::INFO   => '#DDE4EB',
+			Log::DEBUG  => '#DDE4EB',
+		);
+		$sColors = array(
+			Log::EMERG  => '#FDD',
+			Log::ALERT  => '#FDD',
+			Log::CRIT   => '#FDD',
+			Log::ERR    => '#FDD',
+			Log::WARN   => '#FD7',
+			Log::NOTICE => '#EDF3FE',
+			Log::INFO   => '#EDF3FE',
+			Log::DEBUG  => '#EDF3FE',
+		);
+		$this->setVar('COLOR_NAMES', $colorNames);
+		$this->setVar('COLORS', $colors);
+		$this->setVar('S_COLORS', $sColors);
 	}
 
 	/**
@@ -74,39 +115,6 @@ class DebugBar extends WebComponent {
 		}
 		$this->setVar('NB_ERROR',  $nbError);
 
-		$colorNames = array(
-			Log::EMERG  => 'red',
-			Log::ALERT  => 'red',
-			Log::CRIT   => 'red',
-			Log::ERR    => 'red',
-			Log::WARN   => 'orange',
-			Log::NOTICE => 'green',
-			Log::INFO   => 'green',
-			Log::DEBUG  => 'green',
-		);
-		$colors = array(
-			Log::EMERG  => '#FBB',
-			Log::ALERT  => '#FBB',
-			Log::CRIT   => '#FBB',
-			Log::ERR    => '#FBB',
-			Log::WARN   => '#FB5',
-			Log::NOTICE => '#DDE4EB',
-			Log::INFO   => '#DDE4EB',
-			Log::DEBUG  => '#DDE4EB',
-		);
-		$sColors = array(
-			Log::EMERG  => '#FDD',
-			Log::ALERT  => '#FDD',
-			Log::CRIT   => '#FDD',
-			Log::ERR    => '#FDD',
-			Log::WARN   => '#FD7',
-			Log::NOTICE => '#EDF3FE',
-			Log::INFO   => '#EDF3FE',
-			Log::DEBUG  => '#EDF3FE',
-		);
-		$this->setVar('COLOR_NAMES', $colorNames);
-		$this->setVar('COLORS', $colors);
-		$this->setVar('S_COLORS', $sColors);
 		$flag = array(
 			'green'  => 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAG2SURBVHjanJJPSwJRFMXPhGPNjP9B0UIFtXDhRtpJbSQX7WvVB+hjVIsgty6F1gW1kcA2LSLC3YDhohYtFARFUNCYERWb7ntTETaQeeEMw5s3v3fueVcwDAO5q9wOgC3SJilJSsCsV9ILSSU9ku4wUwIDZC+zRiAQgKZpkGUZLpcLiqzg3XjHaDRCv99Hp9NBJBIRPG4P3B4338fKxh52ux3pdBqqqkIUxW+6w+GA3+9HLBZDPp/HZDI5puVTUpyUIe0usY1OpxPzFB10NJ1Ox+TwOZVKnbdarT3uQJKkP3/2er0Ih8P42UIwGAR3QNS5ALPl8/lMQLfbXQjwHSL1gnq9jkajwW9iOBxCEAR+G8xmNBq1BPR6PdPB2gAIPvWx/aSxxXUCyLquy+12e71arZ6USiXL0+m7OQdq8dBY3djEzUURDwdJgYXK5kBWZB5woVAwQqEQmwMk4gkM3gbcca1WM1sYj8ew2Vc4tVwuWx2232w2d0mZSqWS/JzOCumWA1jPoqSYfZ31rADXn/pVPANN17EszTdMlgCdkhdXlMUBrIWvDBYCUIj3xZND9nr/X8CHAAMArOyfOoL0KqQAAAAASUVORK5CYII=',
 			'orange' => 'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAHXSURBVHjanJLdSyJRGMafCbVxJsnNlG31Yk1dorICL4JYgiKCWGIvtv6G/oXuyoui226DLncLrCAIghDqIuwDjIWIwtUmtgxKtwybmRpsp3dmiqSEygee4XDOe37vxxlGVVUcRpgeAF/JIXID2Q9DSfIBOU5eJ0fxTIwG+DPLqLy7B5wSBWtzgq1pBrgW3BRsuBHzkLJ7ENNRBFqDDKq7AXsXnQefAMnFetX/neBxH2BxA9YvOgB80FjTXmTYh6YmhOnOGJkC0UHuq9AoFnsQbxHLVY3c/TcprKNt/2P7+PTfM++ASTsw8d5XLzudQH0jxRW18MGzCb2Cwt3r2V2ul3u2Wq8ByGeEN1VQSnoLF8e7OE9E8W8fyF1lIIpnNN4YeHsd7J4QHL5euEoA8lnBqEDOKTiOLWF7249sRgnIUoGTxVsumz4KJLfmw1u/hkpmvzzZNSpwOL7h0+cQ4hun6P/hThY9o7YeXQh3juzsAB7fNVzVwLnwGyeJGUiXggFQFAUmC6tTIz/T9NW8WpxsMJVCXyoldGBlsuHh74yRl3WALMswW3kjckItVe3cg19In4EoSai02lCOdIAkijCzfPkArYXHGZQFoCGuTYX1p1p7L+BegAEAbQueCxYYEccAAAAASUVORK5CYII=',
@@ -141,6 +149,30 @@ class DebugBar extends WebComponent {
 		}
 		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $this->charset) . '</pre>';
 		exit();
+	}
+
+	/**
+	 * Query division
+	 */
+	private function initQueryDiv() {
+		$debugger = Debugger::getInstance();
+		$this->setVar('QUERY_LOGGER', $debugger->queryLogActive());
+		if (!$debugger->queryLogActive()) return;
+		$loggers = $debugger->getLoggers();
+		$nb = count($loggers['query']->getLogs());
+		switch ($nb) {
+			case 0:
+				$nbQuery = 'No Query';
+				break;
+			case 1:
+				$nbQuery = $nb . ' Query';
+				break;
+			default:
+				$nbQuery = $nb . ' Queries';
+				break;
+		}
+		$this->setVar('NB_QUERY',  $nbQuery);
+		$this->setVar('LOGS', $loggers['query']->getLogs());
 	}
 
 	/**

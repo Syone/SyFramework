@@ -21,8 +21,14 @@
 		<?php endif ?>
 		<?php if ($FILE_LOGGER): ?>
 		<a id="sy_debug_file_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('file'); return false;">
-			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Logs" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAiElEQVR42szTOQ7DIBBA0Y9lKo5FTTmnpIOaK3ECllSJkINjOTQeCQk06LEMqN47K7GPA+/9laYARGQOHJMDjIi8F1BjbjtObq19NYCcM9ZagH56BIBa63TvKaXrOzgDnHOffozxN1BK+b8KzwDuPqx9VsYlQGu9Bhhj1oAQwi1Arf7GjcV4DQB6u0DjnBIGrgAAAABJRU5ErkJggg==" />
+			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="LogFile" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAABGdBTUEAALGOfPtRkwAAACBjSFJNAAB6JQAAgIMAAPn/AACA6QAAdTAAAOpgAAA6mAAAF2+SX8VGAAAAiElEQVR42szTOQ7DIBBA0Y9lKo5FTTmnpIOaK3ECllSJkINjOTQeCQk06LEMqN47K7GPA+/9laYARGQOHJMDjIi8F1BjbjtObq19NYCcM9ZagH56BIBa63TvKaXrOzgDnHOffozxN1BK+b8KzwDuPqx9VsYlQGu9Bhhj1oAQwi1Arf7GjcV4DQB6u0DjnBIGrgAAAABJRU5ErkJggg==" />
 			Log File
+		</a>
+		<?php endif ?>
+		<?php if ($QUERY_LOGGER): ?>
+		<a id="sy_debug_query_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('query'); return false;">
+			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Query" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEYSURBVBgZBcHPio5hGAfg6/2+R980k6wmJgsJ5U/ZOAqbSc2GnXOwUg7BESgLUeIQ1GSjLFnMwsKGGg1qxJRmPM97/1zXFAAAAEADdlfZzr26miup2svnelq7d2aYgt3rebl585wN6+K3I1/9fJe7O/uIePP2SypJkiRJ0vMhr55FLCA3zgIAOK9uQ4MS361ZOSX+OrTvkgINSjS/HIvhjxNNFGgQsbSmabohKDNoUGLohsls6BaiQIMSs2FYmnXdUsygQYmumy3Nhi6igwalDEOJEjPKP7CA2aFNK8Bkyy3fdNCg7r9/fW3jgpVJbDmy5+PB2IYp4MXFelQ7izPrhkPHB+P5/PjhD5gCgCenx+VR/dODEwD+A3T7nqbxwf1HAAAAAElFTkSuQmCC" />
+			<?php echo $NB_QUERY ?>
 		</a>
 		<?php endif ?>
 		<?php if ($TIME_RECORD): ?>
@@ -128,6 +134,31 @@
 			<iframe id="file_frame" src="<?php echo $_SERVER['PHP_SELF'] ?>?sy_debug_log_file&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
+		</div>
+		<?php endif ?>
+
+		<?php if ($QUERY_LOGGER): ?>
+		<div id="sy_debug_query_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto; position: relative;">
+			<table style="<?php echo $TABLE_RESET_CSS ?> width: 100%;">
+				<tr style="<?php echo $TR_HEAD_CSS ?>">
+					<th style="<?php echo $TH_CSS ?>">#</th>
+					<th style="<?php echo $TH_CSS ?>">File</th>
+					<th style="<?php echo $TH_CSS ?> width: 40px;">Line</th>
+					<th style="<?php echo $TH_CSS ?>">Class</th>
+					<th style="<?php echo $TH_CSS ?>">Function</th>
+					<th style="<?php echo $TH_CSS ?> min-width: 300px;">Message</th>
+				</tr>
+				<?php foreach ($LOGS as $i => $log) : ?>
+				<tr style="<?php echo $RESET_CSS ?>">
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $i + 1 ?></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><span style="<?php echo $RESET_CSS ?>" title="<?php echo $log->getFile() ?>"><?php echo basename($log->getFile()) ?></span></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>; text-align: right;"><?php echo $log->getLine() ?></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getClass() ?></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $COLORS[$log->getLevel()] ?>"><?php echo $log->getFunction() ?></td>
+					<td style="<?php echo $TD_CSS ?> background-color: <?php echo $S_COLORS[$log->getLevel()] ?>"><pre style="<?php echo $RESET_CSS ?>"><?php echo htmlentities($log->getMessage(), ENT_QUOTES, $CHARSET) ?></pre></td>
+				</tr>
+				<?php endforeach ?>
+			</table>
 		</div>
 		<?php endif ?>
 
@@ -238,6 +269,10 @@
 			<?php if ($FILE_LOGGER): ?>
 			this.get('file_content_title').style.color = '#555';
 			this.get('file_content').style.display     = 'none';
+			<?php endif ?>
+			<?php if ($QUERY_LOGGER): ?>
+			this.get('query_content_title').style.color = '#555';
+			this.get('query_content').style.display     = 'none';
 			<?php endif ?>
 			<?php if ($TIME_RECORD): ?>
 			this.get('time_content_title').style.color = '#555';
