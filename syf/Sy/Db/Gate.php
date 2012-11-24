@@ -37,8 +37,8 @@ class Gate extends \Sy\Object {
 		$trace = debug_backtrace();
 		$i = 1;
 		while (isset($trace[$i]) and isset($trace[$i + 1]) and isset($trace[$i + 1]['class']) and ($trace[$i + 1]['class'] === 'Sy\Db\Gate')) $i++;
-		$res['class']    = $trace[$i + 1]['class'];
-		$res['function'] = $trace[$i + 1]['function'];
+		$res['class']    = isset($trace[$i + 1]['class'])    ? $trace[$i + 1]['class']    : '';
+		$res['function'] = isset($trace[$i + 1]['function']) ? $trace[$i + 1]['function'] : '';
 		$res['file']     = $trace[$i]['file'];
 		$res['line']     = $trace[$i]['line'];
 		return $res;
