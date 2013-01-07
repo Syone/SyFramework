@@ -149,7 +149,7 @@ class Debugger {
 		$info['message'] = is_array($message) ? print_r($message, true) : $message;
 		$log = new Log($info);
 		foreach ($this->loggers as $logger) {
-			if (isset($info['type']) and $info['type'] === 'QueryLog' and !($logger instanceof QueryLogger)) continue;
+			if (isset($info['type']) and $info['type'] === 'QueryLog' and !($logger instanceof QueryLogger) and !($logger instanceof FileLogger)) continue;
 			$logger->write($log);
 		}
 	}
