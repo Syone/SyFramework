@@ -5,10 +5,12 @@
 <div style="<?php echo $RESET_CSS ?> position: fixed; bottom: 0; left: 0; width: 100%; font-size: 11px; z-index: 10000;">
 	<div id="sy_debug_resize_bar" style="<?php echo $RESET_CSS ?> height: 4px; cursor: n-resize; display: none; background-color: #e8e8e8;"></div>
 	<div id="sy_debug_bar" style="<?php echo $RESET_CSS ?> border-top: 1px solid #999; height: 30px; background-color: #e8e8e8; background-image: -moz-linear-gradient(-90deg, #e8e8e8, #cbcbcb);background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e8e8e8), to(#cbcbcb));">
+		<?php if ($PHP_INFO): ?>
 		<a id="sy_debug_php_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555; line-height: 30px;" onclick="sy_debug.show_content('php'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle;" alt="PHP Info" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAQCAYAAAABOs/SAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkZBOUZFOEU5MTM1QzExRTBCODRDODdCMDc4MjdGNkQ1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkZBOUZFOEVBMTM1QzExRTBCODRDODdCMDc4MjdGNkQ1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RkE5RkU4RTcxMzVDMTFFMEI4NEM4N0IwNzgyN0Y2RDUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RkE5RkU4RTgxMzVDMTFFMEI4NEM4N0IwNzgyN0Y2RDUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4qKkNXAAAF20lEQVR42nxVa2wc1Rk9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" />
 			PHP <?php echo phpversion() ?>
 		</a>
+		<?php endif ?>
 		<a id="sy_debug_var_content_title" href="#" style="<?php echo $RESET_CSS ?> text-decoration: none; background-color: transparent; color: #555;" onclick="sy_debug.show_content('var'); return false;">
 			<img style="<?php echo $RESET_CSS ?> float: none; margin-left: 10px; vertical-align: middle" alt="Vars" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAATtJREFUeNqcU0Gqg0AMjZ/eQbEH0IUewIV4BXEjeD9dCvYGUlB056IU3Rf0Ci6c/hc6g/rr7+cHwkySl8xLZkZL05QORKz22jtAkiR0OkigIAjofD7T4/GgsizFLlcV/JLJAKOi4zjsME1zs8KPOHDrw7RXCwLBv0qWZZyLHMmAuq4jIcRHBW4taga3241c1+U9+r5erwrk+76kzri1gIEAII5jdcorWZMKW8aAA17OgRkYhkHLsvza9zoO/OYWQHmeZwYdFZIxKPDrGWhVVTGdKIrY6Xke1XWtrgo26EPyPN+8BTVEy7LU6bquUxiGPxigCHB939P+IZFt2x+vUOL2t8DSNA2D7vc7FUWxSYQNP/bAvXsH2jiO4nK5qMC3za1M08T2MAys+79wOvpxbdt+/I0ckL39V54CDAChFuDJX64gowAAAABJRU5ErkJggg==" />
 			Vars
@@ -43,11 +45,13 @@
 		<img id="sy_debug_close_button" style="<?php echo $RESET_CSS ?> float: right; padding-top: 7px; padding-right: 5px; cursor: pointer; display: none; margin-left: 10px; vertical-align: middle" onclick="sy_debug.hide_console()" title="Minimize" alt="minimize" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTM5jWRgMAAAAVdEVYdENyZWF0aW9uIFRpbWUAMi8xNy8wOCCcqlgAAAQRdEVYdFhNTDpjb20uYWRvYmUueG1wADw/eHBhY2tldCBiZWdpbj0iICAgIiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+Cjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDQuMS1jMDM0IDQ2LjI3Mjk3NiwgU2F0IEphbiAyNyAyMDA3IDIyOjExOjQxICAgICAgICAiPgogICA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPgogICAgICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgICAgICAgICB4bWxuczp4YXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgogICAgICAgICA8eGFwOkNyZWF0b3JUb29sPkFkb2JlIEZpcmV3b3JrcyBDUzM8L3hhcDpDcmVhdG9yVG9vbD4KICAgICAgICAgPHhhcDpDcmVhdGVEYXRlPjIwMDgtMDItMTdUMDI6MzY6NDVaPC94YXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhhcDpNb2RpZnlEYXRlPjIwMDgtMDMtMjRUMTk6MDA6NDJaPC94YXA6TW9kaWZ5RGF0ZT4KICAgICAgPC9yZGY6RGVzY3JpcHRpb24+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyI+CiAgICAgICAgIDxkYzpmb3JtYXQ+aW1hZ2UvcG5nPC9kYzpmb3JtYXQ+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDUdUmQAAACdSURBVDiN3dKxDYNADIXh36c07MESDEBHJDawR7vb4KSkuwFuCfag41JESCQhJAoFUty5eJ9l2VJKYU+5Xen/AE7LJoRwAboPmauqnlcBoOv7fjMdY3wYIMszigje+9K2LQDTNAHg3H3TlBKqKpsAgPe+NE3DOI4AVFVFzhkzk+e/WQVmpK5rAIZhwMwE4GtgRoC34Rfglzr+kY4HbthSQqXTR/5kAAAAAElFTkSuQmCC" />
 	</div>
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
+		<?php if ($PHP_INFO): ?>
 		<div id="sy_debug_php_content" style="<?php echo $RESET_CSS ?> height: 100%">
 			<iframe src="<?php echo $_SERVER['PHP_SELF'] ?>?phpinfo&amp;sy_debug_log=off" style="width: 100%; height: 100%; border: 0;">
 			<p>Your browser does not support iframes.</p>
 			</iframe>
 		</div>
+		<?php endif ?>
 
 		<div id="sy_debug_var_content" style="<?php echo $RESET_CSS ?> height: 100%; overflow: auto;">
 			<?php foreach ($VARS_ARRAY as $title => $vars) : ?>
@@ -262,6 +266,10 @@
 		},
 
 		hide_all_content: function() {
+			<?php if ($PHP_INFO): ?>
+			this.get('php_content_title').style.color = '#555';
+			this.get('php_content').style.display     = 'none';
+			<?php endif ?>
 			<?php if ($WEB_LOGGER): ?>
 			this.get('log_content_title').style.color = '#555';
 			this.get('log_content').style.display     = 'none';
@@ -278,10 +286,8 @@
 			this.get('time_content_title').style.color = '#555';
 			this.get('time_content').style.display     = 'none';
 			<?php endif ?>
-			this.get('php_content_title').style.color = '#555';
 			this.get('var_content_title').style.color = '#555';
-			this.get('php_content').style.display = 'none';
-			this.get('var_content').style.display = 'none';
+			this.get('var_content').style.display     = 'none';
 		},
 
 		show_content: function(type) {

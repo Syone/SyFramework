@@ -71,9 +71,8 @@ class DebugBar extends WebComponent {
 	 * PHP Info division
 	 */
 	private function initPhpInfoDiv() {
-		if (is_null($this->get('phpinfo'))) return;
-		phpinfo(INFO_GENERAL | INFO_CREDITS | INFO_CONFIGURATION | INFO_MODULES | INFO_ENVIRONMENT | INFO_LICENSE);
-		exit();
+		$debugger = Debugger::getInstance();
+		$this->setVar('PHP_INFO', $debugger->phpInfoActive());
 	}
 
 	/**
@@ -140,15 +139,6 @@ class DebugBar extends WebComponent {
 	private function initLogFileDiv() {
 		$debugger = Debugger::getInstance();
 		$this->setVar('FILE_LOGGER', $debugger->fileLogActive());
-		if (!$debugger->fileLogActive()) return;
-		if (is_null($this->get('sy_debug_log_file'))) return;
-		$loggers = $debugger->getLoggers();
-		if (!is_null($this->get('sy_debug_log_clear'))) {
-			$loggers['file']->clearLogs();
-			exit();
-		}
-		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $this->charset) . '</pre>';
-		exit();
 	}
 
 	/**
