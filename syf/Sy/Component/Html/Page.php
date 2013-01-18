@@ -14,6 +14,8 @@ class Page extends WebComponent {
 	private $bodyAttributes;
 
 	public function __construct() {
+		$this->phpInfo();
+		$this->logFile();
 		$this->timeStart('Web page');
 		parent::__construct();
 		$this->setTemplateFile(__DIR__ . '/Page/templates/Page.tpl', 'php');
@@ -209,6 +211,27 @@ class Page extends WebComponent {
 			$this->setComponent('DEBUG_BAR', new Page\DebugBar($this->charset));
 		}
 		return parent::__toString();
+	}
+
+	private function phpInfo() {
+		$debugger = \Sy\Debug\Debugger::getInstance();
+		if (!$debugger->phpInfoActive()) return;
+		if (is_null($this->get('phpinfo'))) return;
+		phpinfo(INFO_GENERAL | INFO_CREDITS | INFO_CONFIGURATION | INFO_MODULES | INFO_ENVIRONMENT | INFO_LICENSE);
+		exit();
+	}
+
+	private function logFile() {
+		$debugger = \Sy\Debug\Debugger::getInstance();
+		if (!$debugger->fileLogActive()) return;
+		if (is_null($this->get('sy_debug_log_file'))) return;
+		$loggers = $debugger->getLoggers();
+		if (!is_null($this->get('sy_debug_log_clear'))) {
+			$loggers['file']->clearLogs();
+			exit();
+		}
+		echo '<pre>' . htmlentities($loggers['file']->getLogs(), ENT_QUOTES, $this->charset) . '</pre>';
+		exit();
 	}
 
 	private function renderAttributes(array $attributes, $block) {

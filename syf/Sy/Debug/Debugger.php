@@ -5,6 +5,8 @@ class Debugger {
 
 	private static $instance;
 
+	private $phpInfo;
+
 	private $timeRecord;
 
 	private $loggers;
@@ -14,6 +16,7 @@ class Debugger {
 	private $startTimes;
 
 	private function __construct() {
+		$this->phpInfo    = false;
 		$this->timeRecord = false;
 		$this->loggers    = array();
 		$this->times      = array();
@@ -24,6 +27,13 @@ class Debugger {
 	private function logActive() {
 		if (isset($_GET['sy_debug_log']) and $_GET['sy_debug_log'] === 'off') return false;
 		return !empty($this->loggers);
+	}
+
+	/**
+	 * Activate PHP info
+	 */
+	public function enablePhpInfo() {
+		$this->phpInfo = true;
 	}
 
 	/**
@@ -65,6 +75,15 @@ class Debugger {
 	 */
 	public function enableTimeRecord() {
 		$this->timeRecord = true;
+	}
+
+	/**
+	 * Return if PHP info is activated or not
+	 *
+	 * @return bool
+	 */
+	public function phpInfoActive() {
+		return $this->phpInfo;
 	}
 
 	/**
