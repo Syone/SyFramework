@@ -10,6 +10,7 @@ abstract class InputSet extends FieldContainer {
 	protected $error;
 	protected $required;
 	protected $checked;
+	protected $options;
 
 	public function __construct(array $inputs, array $options = array()) {
 		parent::__construct();
@@ -20,6 +21,10 @@ abstract class InputSet extends FieldContainer {
 		$this->error     = isset($options['error'])     ? $options['error']     : '';
 		$this->required  = isset($options['required'])  ? $options['required']  : '';
 		$this->checked   = isset($options['checked'])   ? $options['checked']   : '';
+		$this->options = array();
+		if (isset($options['label-class']))    $this->options['label-class']    = $options['label-class'];
+		if (isset($options['label-position'])) $this->options['label-position'] = $options['label-position'];
+		if (isset($options['error-position'])) $this->options['error-position'] = $options['error-position'];
 		$this->setTemplateFile(__DIR__ . '/templates/InputSet.tpl', 'php');
 		$this->init();
 	}
@@ -30,18 +35,18 @@ abstract class InputSet extends FieldContainer {
 		$data = $this->transformArray($this->inputs);
 		if ($this->isAssoc($data)) {
 			foreach ($data as $value => $label) {
-				$input = $this->addInputIn($id . '_' . $i++, $value, $label);
+				$input = $this->addInputIn($id . '_' . $i++, $value, $label, $this->options);
 				if ($i == 2) $this->addInputOptions($input);
 			}
 		} else {
 			foreach ($data as $value) {
-				$input = $this->addInputIn($id . '_' . $i++, $value, $value);
+				$input = $this->addInputIn($id . '_' . $i++, $value, $value, $this->options);
 				if ($i == 2) $this->addInputOptions($input);
 			}
 		}
 	}
 
-	abstract protected function addInputIn($id, $value, $label);
+	abstract protected function addInputIn($id, $value, $label, $options = array());
 
 	protected function addInputOptions(Input $input) {
 		if (!empty($this->validator)) $input->setOption('validator', $this->validator);
