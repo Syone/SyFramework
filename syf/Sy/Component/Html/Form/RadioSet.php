@@ -3,7 +3,7 @@ namespace Sy\Component\Html\Form;
 
 class RadioSet extends InputSet {
 
-	protected function addInputIn($id, $value, $label) {
+	protected function addInputIn($id, $value, $label, $options = array()) {
 		$radio = $this->addRadio(
 			array(
 				'name'  => $this->name,
@@ -12,6 +12,7 @@ class RadioSet extends InputSet {
 			),
 			array('label' => $label)
 		);
+		if (!empty($options)) $radio->setOptions($options);
 		if ($this->checked === $value) $radio->setAttribute('checked', 'checked');
 		return $radio;
 	}
