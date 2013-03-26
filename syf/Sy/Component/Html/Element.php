@@ -76,6 +76,15 @@ class Element extends WebComponent {
 	}
 
 	/**
+	 * Delete an element attribute
+	 *
+	 * @param string $name
+	 */
+	public function unsetAttribute($name) {
+		unset($this->attributes[strtolower($name)]);
+	}
+
+	/**
 	 * Get the element content
 	 *
 	 * @return array
