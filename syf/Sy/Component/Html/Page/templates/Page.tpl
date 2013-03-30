@@ -12,6 +12,11 @@
 <?php if (isset($FAVICON_HREF)): ?>
 <link rel="<?php echo $FAVICON_REL ?>" type="<?php echo $FAVICON_TYPE ?>" href="<?php echo $FAVICON_HREF ?>" />
 <?php endif ?>
+<?php if (isset($LINKS)):?>
+<?php foreach ($LINKS as $link): ?>
+<?php echo $link['LINK'] ?>
+<?php endforeach ?>
+<?php endif ?>
 <?php if (isset($CSS_LINKS)): ?>
 <?php foreach ($CSS_LINKS as $css): ?>
 <link rel="stylesheet" type="text/css"<?php if (!empty($css['MEDIA'])) : ?> media="<?php echo $css['MEDIA'] ?>"<?php endif; ?> href="<?php echo $css['LINK'] ?>" />

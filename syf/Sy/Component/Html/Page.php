@@ -10,6 +10,7 @@ class Page extends WebComponent {
 	private $doctype;
 	private $charset;
 	private $meta;
+	private $links;
 	private $htmlAttributes;
 	private $bodyAttributes;
 
@@ -23,6 +24,7 @@ class Page extends WebComponent {
 		$this->doctype = 'html5';
 		$this->charset = 'utf-8';
 		$this->meta    = array();
+		$this->links   = array();
 		$this->htmlAttributes = array();
 		$this->bodyAttributes = array();
 		$this->setBody('');
@@ -110,6 +112,15 @@ class Page extends WebComponent {
 			$this->addMeta(array('http-equiv' => $name, 'content' => $content));
 		else
 			$this->addMeta(array('name' => $name, 'content' => $content));
+	}
+
+	/**
+	 * Add a link tag
+	 *
+	 * @param array $link
+	 */
+	public function addLink(array $link) {
+		$this->links[] = $link;
 	}
 
 	/**
@@ -201,6 +212,7 @@ class Page extends WebComponent {
 		$this->renderAttributes($this->htmlAttributes, 'HTML_ATTR');
 		$this->renderAttributes($this->bodyAttributes, 'BODY_ATTR');
 		$this->renderMetas();
+		$this->renderLinks();
 		$this->renderCssLinks();
 		$this->renderJsLinks();
 		$this->setVar('CSS_CODE', $this->getCssCode());
@@ -272,6 +284,17 @@ class Page extends WebComponent {
 				$this->setVar('LINK', $link);
 				$this->setBlock('CSS_LINKS');
 			}
+		}
+	}
+
+	private function renderLinks() {
+		foreach ($this->links as $link) {
+			$l = new Element('link');
+			foreach ($link as $name => $value) {
+				$l->setAttributes(array($name => $value));
+			}
+			$this->setComponent('LINK', $l);
+			$this->setBlock('LINKS');
 		}
 	}
 
