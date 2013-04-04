@@ -5,7 +5,7 @@ class Form extends Form\FieldContainer {
 
 	private static $instances = 0;
 
-	private $formId = 0;
+	private $formId;
 
 	public function __construct(array $attributes = array()) {
 		parent::__construct();
@@ -25,9 +25,9 @@ class Form extends Form\FieldContainer {
 	}
 
 	public function __toString() {
+		$this->setVar('ACTION', 'formAction' . $this->formId);
 		if (is_null($this->getAttribute('action'))) {
 			$this->setAttribute('action', $_SERVER['REQUEST_URI']);
-			$this->setVar('ACTION', 'formAction' . $this->formId);
 		}
 		if (is_null($this->getAttribute('method'))) {
 			$this->setAttribute('method', 'post');
