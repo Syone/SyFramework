@@ -21,6 +21,18 @@ class FieldContainer extends Container {
 	}
 
 	/**
+	 * Add a span container
+	 *
+	 * @param array $attributes span attributes
+	 * @return FieldContainer
+	 */
+	public function addSpan(array $attributes = array()) {
+		$span = $this->addElement(new FieldContainer('span'));
+		$span->setAttributes($attributes);
+		return $span;
+	}
+
+	/**
 	 * Add a fieldset element
 	 *
 	 * @param string $label the fieldset legend
