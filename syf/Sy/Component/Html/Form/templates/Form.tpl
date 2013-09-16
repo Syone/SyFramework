@@ -5,6 +5,6 @@
 <?php if (isset($SUCCESS)) : ?>
 <div class="<?php echo $SUCCESS_CLASS ?>"><?php echo $SUCCESS ?></div>
 <?php endif ?>
-<input name="<?php echo $ACTION ?>" value="submit" type="hidden" />
+<input name="sy-form-action-trigger" value="<?php echo $ACTION_TRIGGER ?>" type="hidden" />
 <?php if (isset($BLOCK_CONTENT)): foreach ($BLOCK_CONTENT as $c): echo $c['ELEMENT']; endforeach; endif; ?>
 </form>
