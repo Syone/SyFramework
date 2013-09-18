@@ -265,7 +265,7 @@ class FieldContainer extends Container {
 		$element = new TextFillableInput('number');
 		$element->setAttributes($attributes);
 		$element->setOptions($options);
-		$element->addValidator('Sy\\Component\\Html\\Form\\int');
+		$element->addValidator('Sy\\Component\\Html\\Form\\float');
 		return $this->addElement($element);
 	}
 
