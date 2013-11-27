@@ -3,14 +3,14 @@ namespace Sy\Translate;
 
 class LangDetector {
 
-	private static $instance;
+	private static $instances;
 
 	private $lang;
 
 	private $defaultLang;
 
-	private function __construct() {
-		$this->defaultLang = 'default';
+	private function __construct($defaultLang) {
+		$this->defaultLang = $defaultLang;
 	}
 
 	private function detect() {
@@ -36,21 +36,17 @@ class LangDetector {
 		return $this->lang;
 	}
 
-	public function setDefaultLang($lang) {
-		$this->defaultLang = $lang;
-	}
-
 	/**
 	 * Singleton method
 	 *
 	 * @return LangDetector
 	 */
-	public static function getInstance() {
-		if (!isset(self::$instance)) {
+	public static function getInstance($lang = 'default') {
+		if (!isset(self::$instances[$lang])) {
 			$c = __CLASS__;
-			self::$instance = new $c;
+			self::$instances[$lang] = new $c($lang);
 		}
-		return self::$instance;
+		return self::$instances[$lang];
 	}
 
 	public function __clone() {
