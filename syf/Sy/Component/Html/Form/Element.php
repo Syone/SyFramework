@@ -27,17 +27,6 @@ class Element extends HtmlElement {
 	}
 
 	/**
-	 * Add a class to the element
-	 *
-	 * @param string $class
-	 */
-	public function addClass($class) {
-		$actual = $this->getAttribute('class');
-		$class = is_null($actual) ? $class : $actual . ' ' . $class;
-		$this->setAttribute('class', $class);
-	}
-
-	/**
 	 * Set error message
 	 *
 	 * @param string $error
