@@ -37,16 +37,10 @@ class FieldContainer extends Container {
 	 *
 	 * @param string $label the fieldset legend
 	 * @param array $attributes fieldset attributes
-	 * @return FieldContainer
+	 * @return Fieldset
 	 */
 	public function addFieldset($label = null, array $attributes = array()) {
-		$fieldset = new FieldContainer('fieldset');
-		$fieldset->setAttributes($attributes);
-		if (!is_null($label)) {
-			$legend = new Element('legend');
-			$legend->addText($label);
-			$fieldset->addElement($legend);
-		}
+		$fieldset = new Fieldset($label, $attributes);
 		return $this->addElement($fieldset);
 	}
 
