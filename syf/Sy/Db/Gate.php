@@ -58,7 +58,7 @@ class Gate extends \Sy\Object {
 				$this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 			} catch (\PDOException $e) {
 				$this->logError($e->getMessage());
-				throw new PDOException($e->getMessage(), $e->getCode());
+				throw new PDOException($e->getMessage());
 			}
 		}
 		return $this->pdo;
@@ -84,7 +84,7 @@ class Gate extends \Sy\Object {
 			return $this->getPdo()->beginTransaction();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new TransactionException($e->getMessage(), $e->getCode());
+			throw new TransactionException($e->getMessage());
 		}
 	}
 
@@ -99,7 +99,7 @@ class Gate extends \Sy\Object {
 			return $this->getPdo()->commit();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new TransactionException($e->getMessage(), $e->getCode());
+			throw new TransactionException($e->getMessage());
 		}
 	}
 
@@ -114,7 +114,7 @@ class Gate extends \Sy\Object {
 			return $this->getPdo()->rollBack();
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new TransactionException($e->getMessage(), $e->getCode());
+			throw new TransactionException($e->getMessage());
 		}
 	}
 
@@ -131,7 +131,7 @@ class Gate extends \Sy\Object {
 			return $this->getPdo()->prepare($sql, $driverOptions);
 		} catch (\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new PrepareException($e->getMessage(), $e->getCode());
+			throw new PrepareException($e->getMessage());
 		}
 	}
 
@@ -163,9 +163,9 @@ class Gate extends \Sy\Object {
 			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
 			if ($e->getCode() === '23000') {
-				throw new IntegrityConstraintViolationException($e->getMessage(), $e->getCode());
+				throw new IntegrityConstraintViolationException($e->getMessage());
 			} else {
-				throw new ExecuteException($e->getMessage(), $e->getCode());
+				throw new ExecuteException($e->getMessage());
 			}
 		}
 	}
@@ -197,7 +197,7 @@ class Gate extends \Sy\Object {
 			$info['message'] = $e->getMessage();
 			$info['level'] = \Sy\Debug\Log::ERR;
 			$this->logQuery($sql, $info);
-			throw new QueryException($e->getMessage(), $e->getCode());
+			throw new QueryException($e->getMessage());
 		}
 		return $statement;
 	}
@@ -224,7 +224,7 @@ class Gate extends \Sy\Object {
 				return $statement->fetchAll($fetchStyle, $fetchArgs, $ctorArgs);
 		} catch(\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new QueryAllException($e->getMessage(), $e->getCode());
+			throw new QueryAllException($e->getMessage());
 		}
 	}
 
@@ -244,7 +244,7 @@ class Gate extends \Sy\Object {
 			return $statement->fetchColumn($columnNumber);
 		} catch(\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new QueryColumnException($e->getMessage(), $e->getCode());
+			throw new QueryColumnException($e->getMessage());
 		}
 	}
 
@@ -264,7 +264,7 @@ class Gate extends \Sy\Object {
 			return $statement->fetchObject($className, $ctorArgs);
 		} catch(\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new QueryObjectException($e->getMessage(), $e->getCode());
+			throw new QueryObjectException($e->getMessage());
 		}
 	}
 
@@ -286,7 +286,7 @@ class Gate extends \Sy\Object {
 			return $statement->fetch($fetchStyle, $cursorOrientation, $cursorOffset);
 		} catch(\PDOException $e) {
 			$this->logError($e->getMessage());
-			throw new QueryOneException($e->getMessage(), $e->getCode());
+			throw new QueryOneException($e->getMessage());
 		}
 	}
 
