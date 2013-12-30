@@ -21,10 +21,6 @@ class LangDetector {
 			$lang = $_SESSION['sy_language'];
 		} elseif (!empty($_COOKIE['sy_language'])) {
 			$lang = $_COOKIE['sy_language'];
-		} elseif (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-			$lang = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-			$lang = explode('-', $lang[0]);
-			$lang = $lang[0];
 		}
 		return $lang;
 	}
