@@ -15,7 +15,8 @@ class Fieldset extends FieldContainer {
 	public function __construct($label = null, array $attributes = array()) {
 		parent::__construct('fieldset');
 		$this->setAttributes($attributes);
-		if (!is_null($label)) {
+		$label = trim($label);
+		if (!empty($label)) {
 			$legend = new \Sy\Component\Html\Element('legend');
 			$legend->addText($label);
 			$this->legend = $this->addElement($legend);
