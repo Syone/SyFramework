@@ -92,7 +92,7 @@ class Page extends WebComponent {
 	 *
 	 * @param array $meta
 	 */
-	private function addMeta(array $meta) {
+	public function addMeta(array $meta) {
 		$values = array_values($meta);
 		$key    = strtolower($values[0]);
 		$element = new Element('meta');
