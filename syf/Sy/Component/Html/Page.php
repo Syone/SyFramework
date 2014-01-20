@@ -92,12 +92,14 @@ class Page extends WebComponent {
 	 *
 	 * @param array $meta
 	 */
-	public function addMeta(array $meta) {
-		$values = array_values($meta);
-		$key    = strtolower($values[0]);
+	public function addMeta(array $meta, $key = null) {
 		$element = new Element('meta');
 		$element->setAttributes($meta);
-		$this->meta[$key] = $element;
+		if (is_null($key)) {
+			$this->meta[] = $element;
+		} else {
+			$this->meta[$key] = $element;
+		}
 	}
 
 	/**
@@ -109,9 +111,9 @@ class Page extends WebComponent {
 	 */
 	public function setMeta($name, $content, $httpEquiv = false) {
 		if ($httpEquiv)
-			$this->addMeta(array('http-equiv' => $name, 'content' => $content));
+			$this->addMeta(array('http-equiv' => $name, 'content' => $content), 'http-equiv-' . strtolower ($name));
 		else
-			$this->addMeta(array('name' => $name, 'content' => $content));
+			$this->addMeta(array('name' => $name, 'content' => $content), 'name-' . strtolower ($name));
 	}
 
 	/**
