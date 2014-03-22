@@ -43,7 +43,7 @@
 		<span style="<?php echo $RESET_CSS ?> line-height: 30px; color: #555;" title="Peak of memory allocated by PHP"><?php echo memory_get_peak_usage(true) / 1024 ?> KB</span>
 
 		<button onclick="sy_debug.hide_bar()" title="Close" style="margin-right: 7px; float: right; font-size: 20px; font-weight: bold; color: #777; line-height: 29px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">&times;</button>
-		<button id="sy_debug_close_button" onclick="sy_debug.hide_console()" title="Minimize" style="display: none; margin-right: 7px; float: right; font-size: 20px; font-weight: bold; color: #777; line-height: 29px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">-</button>
+		<button id="sy_debug_close_button" onclick="sy_debug.hide_console()" title="Minimize" style="display: none; margin-right: 7px; float: right; font-size: 20px; font-weight: bold; color: #777; line-height: 29px; text-shadow: 0 1px 0 #FFFFFF; opacity: 1; background: none repeat scroll 0 0 rgba(0, 0, 0, 0); border: 0 none; cursor: pointer; padding: 0;">&minus;</button>
 	</div>
 	<div id="sy_debug_console_content" style="<?php echo $RESET_CSS ?> height: 270px; border-top: 1px solid #999; background-color: #FFF; display: none;">
 		<?php if ($PHP_INFO): ?>
