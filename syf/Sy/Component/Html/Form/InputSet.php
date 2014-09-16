@@ -85,7 +85,7 @@ abstract class InputSet extends FieldContainer {
 	 * @return bool
 	 */
 	protected function isAssoc($var) {
-		return array_keys($var) !== range(0, count($var) - 1);
+		return is_array($var) && array_diff_key($var,array_keys(array_keys($var)));
 	}
 
 }
