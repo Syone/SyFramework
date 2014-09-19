@@ -33,7 +33,7 @@ abstract class InputSet extends FieldContainer {
 		$id = empty($this->id) ? uniqid() : $this->id;
 		$i = 1;
 		$data = $this->transformArray($this->inputs);
-		if ($this->isAssoc($data)) {
+		if (array_values($data) !== $data) { // is assoc
 			foreach ($data as $value => $label) {
 				$input = $this->addInputIn($id . '_' . $i++, $value, $label, $this->options);
 				if ($i == 2) $this->addInputOptions($input);
@@ -76,16 +76,6 @@ abstract class InputSet extends FieldContainer {
 			$res = $array;
 		}
 		return $res;
-	}
-
-	/**
-	 * Check if $var is an associative array or not
-	 *
-	 * @param array $var
-	 * @return bool
-	 */
-	protected function isAssoc($var) {
-		return is_array($var) && array_diff_key($var,array_keys(array_keys($var)));
 	}
 
 }
