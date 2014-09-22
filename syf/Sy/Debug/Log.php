@@ -53,7 +53,7 @@ class Log {
 		if (empty($this->file) and empty($this->line) and empty($this->function) and empty($this->class)) {
 			$callStack = debug_backtrace();
 			$idx = 1;
-			while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] === 'Sy\Object') $idx++;
+			while (isset($callStack[$idx + 1]['class']) and $callStack[$idx + 1]['class'] === 'Sy\Object') ++$idx;
 			$this->file     = !empty($callStack[$idx]['file'])         ? $callStack[$idx]['file']         : '';
 			$this->line     = !empty($callStack[$idx]['line'])         ? $callStack[$idx]['line']         : '';
 			$this->function = !empty($callStack[$idx + 1]['function']) ? $callStack[$idx + 1]['function'] : '';
