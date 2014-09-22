@@ -19,8 +19,9 @@ class WebLogger implements ILogger {
 
 	public function getNbError() {
 		$i = 0;
-		foreach ($this->logs as $log)
-			if ($log->getLevel() <= Log::ERR) $i++;
+		foreach ($this->logs as $log) {
+			if ($log->getLevel() <= Log::ERR) ++$i;
+		}
 		return $i;
 	}
 
