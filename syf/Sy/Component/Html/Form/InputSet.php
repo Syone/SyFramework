@@ -31,17 +31,17 @@ abstract class InputSet extends FieldContainer {
 
 	protected function init() {
 		$id = empty($this->id) ? uniqid() : $this->id;
-		$i = 1;
+		$i = 0;
 		$data = $this->transformArray($this->inputs);
 		if (array_values($data) !== $data) { // is assoc
 			foreach ($data as $value => $label) {
-				$input = $this->addInputIn($id . '_' . $i++, $value, $label, $this->options);
-				if ($i == 2) $this->addInputOptions($input);
+				$input = $this->addInputIn($id . '_' . ++$i, $value, $label, $this->options);
+				if ($i == 1) $this->addInputOptions($input);
 			}
 		} else {
 			foreach ($data as $value) {
-				$input = $this->addInputIn($id . '_' . $i++, $value, $value, $this->options);
-				if ($i == 2) $this->addInputOptions($input);
+				$input = $this->addInputIn($id . '_' . ++$i, $value, $value, $this->options);
+				if ($i == 1) $this->addInputOptions($input);
 			}
 		}
 	}
