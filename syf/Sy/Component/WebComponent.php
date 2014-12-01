@@ -114,10 +114,11 @@ class WebComponent extends Component {
 	/**
 	 * Add the js code
 	 *
-	 * @param string $code
+	 * @param string $code js code or a js filename
 	 * @param int $position \Sy\Component\WebComponent::JS_TOP or \Sy\Component\WebComponent::JS_BOTTOM
 	 */
 	public function addJsCode($code, $position = self::JS_TOP) {
+		if (is_file($code)) $code = file_get_contents($code);
 		if ($position === self::JS_BOTTOM)
 			$this->jsCode[self::JS_BOTTOM][] = $code;
 		else
