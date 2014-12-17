@@ -298,7 +298,7 @@ class Gate extends \Sy\Object {
 	 * @return int The number of affected rows.
 	 */
 	public function insert($table, array $bind) {
-		$bind = array_filter($bind);
+		$bind = array_filter($bind, 'strlen');
 		$columns = array_keys($bind);
 		$columns = '`' . implode('`,`', $columns) . '`';
 		$values = array_values($bind);
