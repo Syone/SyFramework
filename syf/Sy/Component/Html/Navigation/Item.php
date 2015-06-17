@@ -12,13 +12,14 @@ class Item extends \Sy\Component\Html\Element {
 	 */
 	private $list;
 
-	public function __construct($title, $link) {
+	public function __construct($title, $link, array $attributes = array()) {
 		parent::__construct('li');
 		if (is_null($link)) {
 			$this->addText($title);
 		} else {
 			$a = new Element('a');
-			$a->setAttribute('href', $link);
+			$attributes['href'] = $link;
+			$a->setAttributes($attributes);
 			$a->addText($title);
 			$this->addElement($a);
 		}
