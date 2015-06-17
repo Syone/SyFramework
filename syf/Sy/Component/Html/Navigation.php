@@ -16,8 +16,8 @@ class Navigation extends Element {
 	 * @param string $link Item link
 	 * @return Navigation\Item
 	 */
-	public function addItem($title, $link = null) {
-		$item = new Navigation\Item($title, $link);
+	public function addItem($title, $link = null, array $attributes = []) {
+		$item = new Navigation\Item($title, $link, $attributes);
 		return $this->addElement($item);
 	}
 
