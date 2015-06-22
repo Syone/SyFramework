@@ -33,9 +33,13 @@ class Item extends \Sy\Component\Html\Element {
 	 * @param string $link Item link
 	 * @return Item
 	 */
-	public function addItem($title, $link = null) {
-		$item = new Item($title, $link);
+	public function addItem($title, $link = null, array $attributes = []) {
+		$item = new Item($title, $link, $attributes);
 		return $this->list->addElement($item);
+	}
+
+	public function getList() {
+		return $this->list;
 	}
 
 	public function __toString() {
