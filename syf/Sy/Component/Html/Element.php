@@ -21,6 +21,11 @@ class Element extends WebComponent {
 	private $content;
 
 	/**
+	 * @var Element
+	 */
+	private $parent;
+
+	/**
 	 * Element constructor
 	 *
 	 * @param string $tagName Element tag name
@@ -31,6 +36,7 @@ class Element extends WebComponent {
 		$this->tagName = $tagName;
 		$this->attributes = array();
 		$this->content = array();
+		$this->parent = null;
 	}
 
 	/**
@@ -54,6 +60,15 @@ class Element extends WebComponent {
 	}
 
 	/**
+	 * Return the parent element
+	 *
+	 * @return Element
+	 */
+	public function getParent() {
+		return $this->parent;
+	}
+
+	/**
 	 * Set the element attribute
 	 *
 	 * @param string $name  Attribute name
@@ -73,6 +88,15 @@ class Element extends WebComponent {
 		foreach ($attributes as $name => $value) {
 			$this->setAttribute($name, $value);
 		}
+	}
+
+	/**
+	 * Set the element parent element
+	 *
+	 * @param \Sy\Component\Html\Element $element
+	 */
+	public function setParent(Element $element) {
+		$this->parent = $element;
 	}
 
 	/**
@@ -120,6 +144,7 @@ class Element extends WebComponent {
 	 * @return Element
 	 */
 	public function addElement(Element $element) {
+		$element->setParent($this);
 		$this->content[] = $element;
 		return $element;
 	}
