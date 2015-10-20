@@ -110,10 +110,15 @@ class Page extends WebComponent {
 	 * @param bool   $httpEquiv
 	 */
 	public function setMeta($name, $content, $httpEquiv = false) {
-		if ($httpEquiv)
-			$this->addMeta(array('http-equiv' => $name, 'content' => $content), 'http-equiv-' . strtolower ($name));
-		else
-			$this->addMeta(array('name' => $name, 'content' => $content), 'name-' . strtolower ($name));
+		if ($httpEquiv) {
+			$this->addMeta(array('http-equiv' => $name, 'content' => $content), 'http-equiv-' . strtolower($name));
+		} else {
+			if (substr($name, 0, 3) === 'og:') {
+				$this->addMeta(array('property' => $name, 'content' => $content), strtolower($name));
+			} else {
+				$this->addMeta(array('name' => $name, 'content' => $content), 'name-' . strtolower($name));
+			}
+		}
 	}
 
 	/**
