@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>SyFramework by Syone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">SyFramework</h1>
+      <h2 class="project-tagline">PHP Framework</h2>
+      <a href="https://github.com/Syone/SyFramework" class="btn">View on GitHub</a>
+      <a href="https://github.com/Syone/SyFramework/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Syone/SyFramework/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p>SyFramework is a PHP framework for fast development of web applications.
+It allows you to build your application as a tree of simpler components and each of them can be considered as small web-micro application which can be embedded into another application or even into another component.</p>
+
+<h1>
+<a id="programmers-reference-guide" class="anchor" href="#programmers-reference-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Programmer's Reference Guide</h1>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting started</h2>
+
+<h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>A web server supporting PHP 5.3.0 or higher.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
+
+<ol>
+<li>Download SyFramework here.</li>
+<li>Unpack the downloaded package into a directory on your web server.</li>
+</ol>
+
+<h3>
+<a id="quick-start" class="anchor" href="#quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quick start</h3>
+
+<p>To use SyFramework classes you just need to include the sy.inc.php file.</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">require</span> <span class="pl-s"><span class="pl-pds">'</span>/path/to/your/syframework/directory/sy.inc.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Sy\Component\Html\Page</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$page</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">Page</span>();</span>
+<span class="pl-s1"><span class="pl-smi">$page</span><span class="pl-k">-&gt;</span>setTitle(<span class="pl-s"><span class="pl-pds">'</span>Page example<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-smi">$page</span><span class="pl-k">-&gt;</span>setBody(<span class="pl-s"><span class="pl-pds">'</span>Hello world!<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$page</span>;</span></pre></div>
+
+<p>This script will generate the following output:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">meta</span> <span class="pl-e">charset</span>=<span class="pl-s"><span class="pl-pds">"</span>utf-8<span class="pl-pds">"</span></span> /&gt;
+&lt;<span class="pl-ent">title</span>&gt;Page example&lt;/<span class="pl-ent">title</span>&gt;
+&lt;/<span class="pl-ent">head</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+Hello world!
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<p><a href="http://syframework.alwaysdata.net/sypage">Try it yourself!</a></p>
+
+<h3>
+<a id="install-with-composer" class="anchor" href="#install-with-composer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install with Composer</h3>
+
+<p>You can also install with Composer: <a href="https://packagist.org/packages/sy/framework">https://packagist.org/packages/sy/framework</a> And include the Composer autoload file instead of sy.inc.php</p>
+
+<h2>
+<a id="sy-package-content" class="anchor" href="#sy-package-content" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sy Package Content</h2>
+
+<ul>
+<li>Sy - SyFramework root package. See global class diagram.
+
+<ul>
+<li>Component - The concept of component in SyFramework is the most important to understand.
+
+<ul>
+<li>WebComponent - Component with some web properties like css/js management and translation feature.</li>
+</ul>
+</li>
+<li>Db - Simple database access layer based on PDO.</li>
+<li>Debug - Debug tools like logs and time recording.</li>
+<li>Template - SyFramework template engine system.</li>
+<li>Translate - SyFramework translation system.</li>
+<li>Object - SyFramework root class.</li>
+</ul>
+</li>
+</ul>
+
+<h3>
+<a id="basic-html-component" class="anchor" href="#basic-html-component" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Basic HTML Component</h3>
+
+<ul>
+<li>Page
+
+<ul>
+<li>Create a HTML page</li>
+<li>Set doctype</li>
+<li>Set headers</li>
+<li>CSS and JS</li>
+<li>Set body</li>
+<li>Web Debug Toolbar</li>
+</ul>
+</li>
+<li>Form
+
+<ul>
+<li>Create a form</li>
+<li>Set form attributes</li>
+<li>Set form options</li>
+<li>Add form elements</li>
+<li>Check if a form is valid</li>
+<li>Validator function</li>
+<li>Form design</li>
+<li>Render a form</li>
+</ul>
+</li>
+<li>Table
+
+<ul>
+<li>Add rows and cells</li>
+<li>Set attributes for the table tag</li>
+<li>Add caption tag</li>
+<li>Add thead, tbody or tfoot tags</li>
+<li>Add col or colgroup tags</li>
+<li>Utilities methods</li>
+</ul>
+</li>
+<li>DataTable
+
+<ul>
+<li>Add rows</li>
+<li>Auto heading</li>
+<li>Data formatting</li>
+</ul>
+</li>
+<li>Panel</li>
+<li>Element</li>
+<li>Navigation</li>
+</ul>
+
+<p><a href="https://bitbucket.org/syone/syframework/wiki/Home">See more here</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Syone/SyFramework">SyFramework</a> is maintained by <a href="https://github.com/Syone">Syone</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
