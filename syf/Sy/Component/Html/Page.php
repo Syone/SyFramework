@@ -262,10 +262,16 @@ class Page extends WebComponent {
 	}
 
 	private function renderMetas() {
-		if ($this->doctype === 'html5')
-			$this->addMeta(array('charset' => $this->charset));
-		else
+		$meta = new Element('meta');
+		if ($this->doctype === 'html5') {
+			$meta->setAttributes(array('charset' => $this->charset));
+		} else {
 			$this->setMeta('Content-Type', 'text/html; charset=' . $this->charset, true);
+			$meta = $this->meta['http-equiv-content-type'];
+			unset($this->meta['http-equiv-content-type']);
+		}
+		$this->setComponent('META_ELEMENT', $meta);
+		$this->setBlock('META');
 		foreach ($this->meta as $meta) {
 			$this->setComponent('META_ELEMENT', $meta);
 			$this->setBlock('META');
