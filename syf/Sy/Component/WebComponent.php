@@ -132,7 +132,8 @@ class WebComponent extends Component {
 	 * @param string $media
 	 */
 	public function addCssLink($url, $media = '') {
-		if (empty(trim($url))) return;
+		$url = trim($url);
+		if (empty($url)) return;
 		$this->cssLinks[$media][] = $url;
 	}
 
