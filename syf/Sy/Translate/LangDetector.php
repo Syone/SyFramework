@@ -17,7 +17,9 @@ class LangDetector {
 		$lang = $this->defaultLang;
 		$session = session_id();
 		if (empty($session)) session_start();
-		if (!empty($_SESSION['sy_language'])) {
+		if (!empty($_GET['sy_language'])) {
+			$lang = $_GET['sy_language'];
+		} elseif (!empty($_SESSION['sy_language'])) {
 			$lang = $_SESSION['sy_language'];
 		} elseif (!empty($_COOKIE['sy_language'])) {
 			$lang = $_COOKIE['sy_language'];
