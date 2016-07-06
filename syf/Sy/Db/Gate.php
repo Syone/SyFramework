@@ -319,6 +319,7 @@ class Gate extends \Sy\Object {
 	private function bind(\PDOStatement $statement, array $params) {
 		if (empty($params)) return;
 		foreach ($params as $key => $param) {
+			if (is_numeric($key)) $key++;
 			if (is_array($param)) {
 				$statement->bindValue($param['param'], $param['val'], $param['type']);
 			} elseif (is_int($param)) {
