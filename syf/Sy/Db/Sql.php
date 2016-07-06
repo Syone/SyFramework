@@ -32,7 +32,7 @@ class Sql {
 	}
 
 	private function analyseParam($value, $key) {
-		if (!is_array($value)) {
+		if (!is_array($value) or is_numeric($key)) {
 			$this->analysedParams[$key] = $value;
 			return;
 		}
