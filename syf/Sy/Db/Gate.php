@@ -155,7 +155,8 @@ class Gate extends \Sy\Object {
 			$info['type'] = 'QueryLog';
 			$this->logQuery($sql, $info);
 			$statement = $this->prepare($query);
-			$statement->execute($params);
+			$this->bind($statement, $params);
+			$statement->execute();
 			return $statement->rowCount();
 		} catch (\PDOException $e) {
 			$info = $this->getDebugTrace();
@@ -191,7 +192,8 @@ class Gate extends \Sy\Object {
 			$info['type'] = 'QueryLog';
 			$this->logQuery($sql, $info);
 			$statement = $this->prepare($query);
-			$statement->execute($params);
+			$this->bind($statement, $params);
+			$statement->execute();
 		} catch(\PDOException $e) {
 			$info = $this->getDebugTrace();
 			$info['message'] = $e->getMessage();
@@ -306,6 +308,25 @@ class Gate extends \Sy\Object {
 		$v = implode(',', $v);
 		$sql = new Sql("INSERT INTO $table ($columns) VALUES ($v)", $values);
 		return $this->execute($sql);
+	}
+
+	/**
+	 * Bind statement values
+	 *
+	 * @param \PDOStatement $statement
+	 * @param array $params
+	 */
+	private function bind(\PDOStatement $statement, array $params) {
+		if (empty($params)) return;
+		foreach ($params as $key => $param) {
+			if (is_array($param)) {
+				$statement->bindValue($param['param'], $param['val'], $param['type']);
+			} elseif (is_int($param)) {
+				$statement->bindValue($key, $param, \PDO::PARAM_INT);
+			} else {
+				$statement->bindValue($key, $param);
+			}
+		}
 	}
 
 }
