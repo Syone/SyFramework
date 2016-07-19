@@ -3,6 +3,8 @@ It allows you to build your application as a tree of simpler components and each
 
 # Programmer's Reference Guide
 
+[![Join the chat at https://gitter.im/Syone/SyFramework](https://badges.gitter.im/Syone/SyFramework.svg)](https://gitter.im/Syone/SyFramework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Getting started
 
 ### Requirements
